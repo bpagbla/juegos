@@ -11,7 +11,7 @@
     <h1>Inicia Sesión</h1>
     <form action="" method="POST">
 
-        Nick: <input type="text" name="nick">
+        Nick o Correo: <input type="text" name="nick">
         Password: <input type="password" name="password">
 
     </form>
