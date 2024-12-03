@@ -8,6 +8,14 @@
 </head>
 
 <body>
+
+<?php
+include "BD/baseDedatos.php";
+$ddbb = new BaseDeDatos;
+$ddbb->conectar();
+$ddbb->consulta("SELECT * FROM usuario");
+?>
+
     <h1>Inicia Sesión</h1>
     <form action="" method="POST">
 
