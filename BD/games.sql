@@ -73,7 +73,7 @@ CREATE TABLE compra (
 );
 
 CREATE TABLE genero (
-  `ID` int NOT NULL,
+  `ID` int NOT NULL AUTO_INCREMENT,
   `NOMBRE` varchar(32) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`ID`)
 );
@@ -88,14 +88,14 @@ CREATE TABLE juego_genero (
 );
 
 CREATE TABLE `genero_genero` (
-  `ID_G1` int(16) NOT NULL,
-  `ID_G2` int(16) NOT NULL,
+  `ID_G1` int NOT NULL,
+  `ID_G2` int NOT NULL,
   PRIMARY KEY (`ID_G1`,`ID_G2`),
   CONSTRAINT `FK_GREL_IDG1_GEN_ID` FOREIGN KEY (`ID_G1`) REFERENCES `genero` (`ID`)
 );
 
 CREATE TABLE sistema (
-  `ID` int NOT NULL,
+  `ID` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(64) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`ID`)
 );
