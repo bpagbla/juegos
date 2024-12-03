@@ -13,7 +13,6 @@ public function conectar(){
     
 }
 
-
 //ESTA NO ESTÁ BIEN ES COPYPASTE
 public function consulta($sql){
     try {
