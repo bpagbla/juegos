@@ -20,15 +20,17 @@ session_start();
 
         include "BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;
-        //$ddbb->conectar();
+        $ddbb->conectar();
         $id = $_POST["id"];
         $password = $_POST["passwd"];
 
-        //$consulta = $ddbb->consulta("SELECT * FROM `usuario` WHERE EMAIL='$id' || NICK='$id'");
+        $consulta = $ddbb->consulta("SELECT * FROM `usuario` WHERE EMAIL='$id' || NICK='$id'");
 
     }
 
-    verificarUsuario();
+    if (!empty($_POST["id"]) && !empty($_POST["passwd"])) {
+        verificarUsuario();
+    }
 
     ?>
 </head>
