@@ -18,15 +18,12 @@ public function consulta($sql){
     try {
         $consulta = $this->db->query($sql);
         echo "<br>";
-        foreach ($consulta as $row) {
-            for ($i = 0; $i < sizeof($row)/2; $i++) {
-                print $row[$i];
-            }
-        }
+        return $consulta;
     } catch (PDOException $e) {
         echo "Error (" . $e->getCode() . ") al abrir " .
             "la base de datos: " . $e->getMessage();
     }
+    return array();
 }
 
 }

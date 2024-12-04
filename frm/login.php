@@ -1,8 +1,6 @@
 <?php
 session_start();
 
-
-
 ?>
 
 <!DOCTYPE html>
@@ -20,29 +18,22 @@ session_start();
     function verificarUsuario()
     {
 
-        include "../BD/baseDeDatos.php";
+        include "BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;
-        $ddbb->conectar();
-
+        //$ddbb->conectar();
         $id = $_POST["id"];
         $password = $_POST["passwd"];
 
-        $ddbb->consulta("SELECT * FROM `usuario` WHERE EMAIL='$id' || NICK='$id' && PASSWORD='$password'");
+        //$consulta = $ddbb->consulta("SELECT * FROM `usuario` WHERE EMAIL='$id' || NICK='$id'");
 
     }
 
+    verificarUsuario();
 
     ?>
 </head>
 
 <body>
-
-    <?php
-    /* include "BD/baseDedatos.php";
-    $ddbb = new BaseDeDatos;
-    $ddbb->conectar();
-    $ddbb->consulta("SELECT * FROM usuario"); */
-    ?>
 
     <h1>Inicia Sesión</h1>
     <div class="consoleBg">
@@ -66,17 +57,6 @@ session_start();
             </div>
         </form>
     </div>
-
-
-    <?php
-    if (isset($_POST["id"]) && isset($_POST["passwd"])) {
-
-        verificarUsuario();
-
-    }
-
-
-    ?>
 
 
 

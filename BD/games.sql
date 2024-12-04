@@ -9,7 +9,7 @@ CREATE TABLE usuario (
   `NICK` varchar(32) COLLATE utf8mb4_general_ci NOT NULL,
   `NOMBRE` varchar(64) COLLATE utf8mb4_general_ci NOT NULL,
   `APELLIDOS` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
-  `PASSWORD` varchar(16) COLLATE utf8mb4_general_ci NOT NULL,
+  `PASSWORD` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `email` (`EMAIL`),
   UNIQUE KEY `nick` (`NICK`)
@@ -118,4 +118,4 @@ CREATE TABLE `juego_juego` (
   CONSTRAINT `FK_JREL_IDJ2_JUE_ID` FOREIGN KEY (`ID_J2`) REFERENCES `juego` (`ID`)
 );
 
-COMMIT;
+INSERT INTO usuario(email, nick, nombre, apellidos, password) VALUES('paco@gmail.com','paco','paco','paco','$2a$12$/.57XI5riojUPwXeoQXX9O/ru1XsQ5MRSsj8lZAo85sJb2b0tbEsi');
