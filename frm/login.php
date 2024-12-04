@@ -15,21 +15,10 @@ session_start();
     <link rel="stylesheet" href="css\login.css">
     <?php
 
-    function verificarUsuario()
-    {
 
-        include "BD/baseDeDatos.php";
-        $ddbb = new BaseDeDatos;
-        $ddbb->conectar();
-        $id = $_POST["id"];
-        $password = $_POST["passwd"];
-
-        $consulta = $ddbb->consulta("SELECT * FROM `usuario` WHERE EMAIL='$id' || NICK='$id'");
-
-    }
 
     if (!empty($_POST["id"]) && !empty($_POST["passwd"])) {
-        verificarUsuario();
+        
     }
 
     ?>
