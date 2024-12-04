@@ -12,26 +12,6 @@ session_start();
     <title>Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="css\login.css">
-    <?php
-
-    function verificarUsuario()
-    {
-
-        include "BD/baseDeDatos.php";
-        $ddbb = new BaseDeDatos;
-        $ddbb->conectar();
-        //$id = $_POST["id"];
-        //$password = $_POST["passwd"];
-
-        //$consulta = $ddbb->consulta("SELECT * FROM `usuario` WHERE EMAIL='$id' || NICK='$id'");
-
-    }
-
-    if (!empty($_POST["id"]) && !empty($_POST["passwd"])) {
-        verificarUsuario();
-    }
-
-    ?>
 </head>
 <body>
     <div class="container-lg">

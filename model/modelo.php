@@ -1,31 +1,8 @@
 <?php
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
-//require_once "modelo.php";
-require_once "vista.php";
-
-class Controlador
-{
-    public function __construct()
+    function verificarUsuario($id, $password)
     {
 
-    }
-
-    public function inicia()
-    {
-        Vista::MuestraLogin();
-    }
-
-    public function iniciaSesion()
-    {
-        Vista::MuestraPrincipal();
-    }
-
-    public function verificarUsuario($id, $password)
-    {
-
-        include "BD/baseDeDatos.php";
+        include "../BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
 
@@ -47,17 +24,8 @@ class Controlador
 
         }
 
+        return false;
+
     }
 
-}
-
-$programa = new Controlador();
-
-$programa->inicia();
-
-if (isset($_POST["user"]) && isset($_POST["passwd"])) {
-    $programa->verificarUsuario($_POST["user"], $_POST["passwd"]);
-}
-
-
-
+?>
