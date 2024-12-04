@@ -42,13 +42,13 @@ session_start();
                     <div class="row mb-2">
                         <div class="col-12">
                             <label for="user" class="form-label">Usuario</label>
-                            <input name="user" type="text" class="form-control" id="user" placeholder="Paco">
+                            <input name="user" type="text" class="form-control" id="user" placeholder="Paco" required>
                         </div>
                     </div>
                     <div class="row mb-2">
                         <div class="col-12">
                             <label for="passwd" class="form-label">Contraseña</label>
-                            <input name="passwd" type="text" class="form-control" id="passwd" placeholder="1234">
+                            <input name="passwd" type="text" class="form-control" id="passwd" placeholder="1234" required>
                         </div>
                     </div>
                     <div class="row mb-2">
