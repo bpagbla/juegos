@@ -5,4 +5,11 @@ class Vista{
 
         include "./frm/login.php";
     }
+
+
+    public static function MuestraPrincipal() {
+
+        include "./principal.php";
+    }
+
 }

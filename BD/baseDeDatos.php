@@ -23,7 +23,7 @@ public function consulta($sql){
         echo "Error (" . $e->getCode() . ") al abrir " .
             "la base de datos: " . $e->getMessage();
     }
-    return array();
+    return;
 }
 
 }
