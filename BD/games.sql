@@ -118,4 +118,4 @@ CREATE TABLE `juego_juego` (
   CONSTRAINT `FK_JREL_IDJ2_JUE_ID` FOREIGN KEY (`ID_J2`) REFERENCES `juego` (`ID`)
 );
 
-#INSERT INTO usuario(email, nick, nombre, apellidos, password) VALUES('paco@gmail.com','paco','paco','paco','$2a$12$/.57XI5riojUPwXeoQXX9O/ru1XsQ5MRSsj8lZAo85sJb2b0tbEsi');
+INSERT INTO usuario(email, nick, nombre, apellidos, password) VALUES('paco@gmail.com','paco','paco','paco','$2a$12$/.57XI5riojUPwXeoQXX9O/ru1XsQ5MRSsj8lZAo85sJb2b0tbEsi');

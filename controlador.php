@@ -55,8 +55,8 @@ $programa = new Controlador();
 
 $programa->inicia();
 
-if (isset($_POST["id"]) && isset($_POST["passwd"])) {
-    $programa->verificarUsuario($_POST["id"], $_POST["passwd"]);
+if (isset($_POST["user"]) && isset($_POST["passwd"])) {
+    $programa->verificarUsuario($_POST["user"], $_POST["passwd"]);
 }
 
 

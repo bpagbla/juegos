@@ -38,7 +38,7 @@ session_start();
         <div class="row justify-content-center align-content-center" style="height: 100vh;">
             <div class="" ></div>
             <div class="col-auto">
-                <div class="p-4 rounded-5 shadow-lg">
+                <form class="p-4 rounded-5 shadow-lg" action="#" method="post">
                     <div class="row mb-2">
                         <div class="col-12">
                             <label for="user" class="form-label">Usuario</label>
@@ -51,7 +51,12 @@ session_start();
                             <input name="passwd" type="text" class="form-control" id="passwd" placeholder="1234">
                         </div>
                     </div>
-                </div>
+                    <div class="row mb-2">
+                        <div class="col-12">
+                            <input type="submit" class="btn btn-primary">
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
