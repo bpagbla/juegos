@@ -20,10 +20,13 @@ class Controlador
 
             if (verificarUsuario($_POST["user"], $_POST["passwd"])) {
                 $this->iniciaSesion();
-            }else {
+            } else {
                 Vista::MuestraLogin();
             }
-        } 
+
+        } else {
+            Vista::MuestraLogin();
+        }
     }
 
     public function iniciaSesion()
