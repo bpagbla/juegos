@@ -196,16 +196,16 @@ session_start();
 </div>
 
 <main class="form-signin w-100 m-auto">
-    <form>
+    <form action="#" method="post">
         <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
         <div class="form-floating">
-            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-            <label for="floatingInput">Email address</label>
+            <input name="user" type="text" class="form-control" id="user" placeholder="name@example.com">
+            <label for="user">Email address</label>
         </div>
         <div class="form-floating">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-            <label for="floatingPassword">Password</label>
+            <input name="passwd" type="password" class="form-control" id="passwd" placeholder="Password">
+            <label for="passwd">Password</label>
         </div>
 
         <div class="form-check text-start my-3">
@@ -214,19 +214,16 @@ session_start();
                 Remember me
             </label>
         </div>
-        <button id="liveToastBtn" class="btn btn-primary w-100 py-2" type="button">Sign in</button>
+        <button id="liveToastBtn" class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
         <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2024</p>
     </form>
 </main>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script>
-    const toastTrigger = document.getElementById('liveToastBtn')
     const toastLiveExample = document.getElementById('liveToast')
 
-    if (toastTrigger) {
-        const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-            toastBootstrap.show()
-    }
+    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+    toastBootstrap.show()
 </script>
 </body>
 </html>
