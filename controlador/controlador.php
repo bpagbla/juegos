@@ -14,11 +14,16 @@ class Controlador
 
     public function inicia()
     {
-        include "../model/modelo.php";
+        include_once "../model/modelo.php";
+
         if (isset($_POST["user"]) && isset($_POST["passwd"])) {
-            verificarUsuario($_POST["user"], $_POST["passwd"]);
-        }
-        Vista::MuestraLogin();
+
+            if (verificarUsuario($_POST["user"], $_POST["passwd"])) {
+                $this->iniciaSesion();
+            }else {
+                Vista::MuestraLogin();
+            }
+        } 
     }
 
     public function iniciaSesion()
@@ -31,6 +36,4 @@ class Controlador
 $programa = new Controlador();
 
 $programa->inicia();
-
-
 

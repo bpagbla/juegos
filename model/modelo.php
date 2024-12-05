@@ -2,9 +2,12 @@
     function verificarUsuario($id, $password)
     {
 
-        include "../BD/baseDeDatos.php";
+        include_once "../BD/baseDeDatos.php";
+        echo "a";
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
+
+        echo "b";
 
         $consulta = $ddbb->consulta("SELECT * FROM `usuario` WHERE EMAIL='$id' || NICK='$id'");
         if (!empty($consulta)) {

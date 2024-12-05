@@ -9,7 +9,7 @@ class Vista{
 
     public static function MuestraPrincipal() {
 
-        include "../principal.php";
+        include "../frm/principal.php";
     }
 
 }
