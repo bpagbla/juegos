@@ -201,7 +201,7 @@ body {
 }
 
 .banner .bg:nth-child(3) {
-    top: 30%;
+    top: -10%;
     text-align: center;
 }
 
@@ -215,7 +215,9 @@ body {
 
 /* ANIMACION TEXTO */
 
-
+.title{
+    height: 100%;
+}
 svg path {
     fill: transparent;
     stroke: var(--color-bright-pink);
@@ -223,7 +225,11 @@ svg path {
     stroke-dasharray: 350;
     stroke-dashoffset: 350;
     animation: textAnimation 3s ease-in-out 1 forwards;
-
+    height: 100%;
+}
+svg{
+    width: 75vw;
+    height: 100%;
 }
 
 @keyframes textAnimation {
@@ -250,8 +256,8 @@ svg path {
     100% {
         fill: var(--color-hot-pink);
         stroke-dashoffset: 0;
-        -webkit-filter: drop-shadow(0 0 20px var(--color-bright-pink));
-        filter: drop-shadow(0 0 20px var(--color-bright-pink));
+        -webkit-filter: drop-shadow(0 0 10px var(--color-bright-pink));
+        filter: drop-shadow(0 0 10px var(--color-bright-pink));
     }
 }
 
