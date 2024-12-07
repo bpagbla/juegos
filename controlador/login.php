@@ -2,16 +2,8 @@
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
-//require_once "login.php";
-require_once "../vista/login.php";
-
-class Controlador
+class Controlador_Login
 {
-    public function __construct()
-    {
-
-    }
-
     public function inicia()
     {
         include_once "../model/login.php";
@@ -21,22 +13,22 @@ class Controlador
             if (verificarUsuario($_POST["user"], $_POST["passwd"])) {
                 $this->iniciaSesion();
             } else {
-                Vista::MuestraLogin();
+                include('../vista/login.php');
             }
 
         } else {
-            Vista::MuestraLogin();
+            include('../vista/login.php');
         }
     }
 
     public function iniciaSesion()
     {
-        Vista::MuestraPrincipal();
+        header("location: principal.php");
     }
 
 }
 
-$programa = new Controlador();
+$programa = new Controlador_Login();
 
 $programa->inicia();
 
