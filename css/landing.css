@@ -1,0 +1,310 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Tiny5&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sono:wght@200..800&family=Tiny5&display=swap');
+
+
+body {
+    background-color: var(--color-dark);
+    color: whitesmoke;
+    margin: 0;
+    overflow-x: hidden;
+    font-family: "Sono", monospace;
+}
+
+*::-webkit-scrollbar {
+    width: 0;
+}
+
+.header {
+    position: fixed;
+    z-index: 99;
+    top: 0;
+    left: 0;
+    width: 100%;
+    max-width: 100vw;
+    padding: 1rem 0;
+    background-color: #01010369;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    background: linear-gradient(27deg, rgba(1, 1, 3, 0.815) 0%, rgba(52, 1, 123, 0.692) 48%, rgba(255, 0, 187, 0.637) 100%);
+    box-shadow: 0px 7px 22px 0px rgba(0, 0, 0, 0.308);
+}
+
+.header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, #d11f8d86, transparent);
+    transition: .8s;
+}
+
+.navbar {
+    padding: 0 2rem;
+}
+
+.header:hover::before {
+    left: 100%;
+}
+
+.logo {
+    color: whitesmoke;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0 2rem;
+    cursor: default;
+    font-size: 1.5rem;
+}
+
+.navbar a {
+    color: whitesmoke;
+    text-decoration: none;
+    padding: 0 2rem;
+    height: 100%;
+}
+
+.navbar .btnLogin {
+    font-family: "Sono", monospace;
+    font-size: 1rem;
+
+    margin: 0 2rem;
+    height: 2rem;
+    padding: 0 1.5rem;
+    background: transparent;
+
+    color: #fff;
+    text-shadow:
+        0 0 7px #fff,
+        0 0 10px #fff,
+        0 0 21px #fff,
+        0 0 42px #bc13fe,
+        0 0 82px #bc13fe,
+        0 0 92px #bc13fe,
+        0 0 102px #bc13fe,
+        0 0 151px #bc13fe;
+
+    animation: pulsate 1.5s infinite alternate;
+    border: 0.2rem solid #fff;
+    border-radius: .5rem;
+    box-shadow: 0 0 .2rem #fff,
+        0 0 .2rem #fff,
+        0 0 2rem #bc13fe,
+        0 0 0.8rem #bc13fe,
+        0 0 2.8rem #bc13fe,
+        inset 0 0 1.3rem #bc13fe;
+}
+
+.navbar .btnLogin:hover {
+    text-shadow:
+        0 0 7px #fff,
+        0 0 10px #fff,
+        0 0 21px #fff,
+        0 0 42px var(--color-vivid-orange),
+        0 0 82px var(--color-vivid-orange),
+        0 0 92px var(--color-vivid-orange),
+        0 0 102px var(--color-vivid-orange),
+        0 0 151px var(--color-vivid-orange);
+
+
+    box-shadow: 0 0 .2rem var(--color-bright-pink),
+        0 0 .2rem var(--color-bright-pink),
+        0 0 2rem var(--color-vivid-orange),
+        0 0 0.8rem var(--color-vivid-orange),
+        0 0 2.8rem var(--color-vivid-orange),
+        inset 0 0 1.3rem var(--color-vivid-orange);
+
+    cursor: pointer;
+}
+
+
+@keyframes pulsate {
+
+    100% {
+
+        text-shadow:
+            0 0 4px #fff,
+            0 0 11px #fff,
+            0 0 19px #fff,
+            0 0 40px #bc13fe,
+            0 0 80px #bc13fe,
+            0 0 90px #bc13fe,
+            0 0 100px #bc13fe,
+            0 0 150px #bc13fe;
+
+    }
+
+    0% {
+
+        text-shadow:
+            0 0 2px #fff,
+            0 0 4px #fff,
+            0 0 6px #fff,
+            0 0 10px #bc13fe,
+            0 0 45px #bc13fe,
+            0 0 55px #bc13fe,
+            0 0 70px #bc13fe,
+            0 0 80px #bc13fe;
+
+    }
+}
+
+.navbar a:hover {
+    color: #fff;
+    text-shadow:
+        0 0 7px #fff,
+        0 0 10px #fff,
+        0 0 21px #fff,
+        0 0 42px #0fa,
+        0 0 82px #0fa,
+        0 0 92px #0fa,
+        0 0 102px #0fa,
+        0 0 151px #0fa;
+
+}
+
+.container {
+    height: max-content;
+    overflow: hidden;
+}
+
+.banner {
+    height: 50vw;
+    position: relative;
+    overflow: hidden;
+}
+
+.title {
+    margin: 0.5rem;
+}
+
+.banner .bg {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-size: 100%;
+    background-position: center bottom;
+    transition: .1s;
+}
+
+.banner .bg:nth-child(5) {
+    background-image: url(../img/fondo-3.png);
+
+}
+
+.banner .bg:nth-child(4) {
+    background-image: url(../img/fondo-2.png);
+}
+
+.banner .bg:nth-child(3) {
+    top: 30%;
+    text-align: center;
+}
+
+.banner .bg:nth-child(2) {
+    background-image: url(../img/fondo-1.png);
+}
+
+.banner .bg:nth-child(1) {
+    background-image: url(../img/fondo-0.jpg);
+}
+
+/* ANIMACION TEXTO */
+
+
+svg path {
+    fill: transparent;
+    stroke: var(--color-bright-pink);
+    stroke-width: 3;
+    stroke-dasharray: 350;
+    stroke-dashoffset: 350;
+    animation: textAnimation 3s ease-in-out 1 forwards;
+
+}
+
+@keyframes textAnimation {
+    0% {
+        stroke-dashoffset: 350;
+    }
+
+    80% {
+        fill: transparent;
+    }
+
+    85% {
+        -webkit-filter: drop-shadow(0 0 20px var(--color-bright-pink));
+        filter: drop-shadow(0 0 20px var(--color-bright-pink));
+    }
+
+    90% {
+        fill: var(--color-hot-pink);
+        stroke-dashoffset: 0;
+        -webkit-filter: drop-shadow(0 0 0px var(--color-bright-pink));
+        filter: drop-shadow(0 0 0px var(--color-bright-pink));
+    }
+
+    100% {
+        fill: var(--color-hot-pink);
+        stroke-dashoffset: 0;
+        -webkit-filter: drop-shadow(0 0 20px var(--color-bright-pink));
+        filter: drop-shadow(0 0 20px var(--color-bright-pink));
+    }
+}
+
+.tab {
+    min-height: 100vh;
+    background-color: var(--color-dark);
+    z-index: 1;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tab::before {
+    position: absolute;
+    height: 200px;
+    width: 100vw;
+    background: linear-gradient(to top, var(--color-dark), transparent);
+    content: '';
+    bottom: 100%;
+    left: 0;
+}
+
+.tab.tab1 {
+    background-image: linear-gradient(to top, var(--color-dark) 0%, transparent 20%, var(--color-dark) 80%),
+        url(../img/gcac.webp);
+}
+
+.tab.tab1 .content {
+    width: 70vw;
+    max-width: 90%;
+}
+
+.tab.tab2 {
+    background-image: linear-gradient(to top, var(--color-dark) 0%, transparent 20%, var(--color-dark) 80%),
+        url(../img/princeOfPersia.webp);
+}
+
+.tab.tab2 .content {
+    width: 70vw;
+    max-width: 90%;
+}
+
+.nombre {
+    font-family: "Tiny5", sans-serif;
+}
+
+:root {
+    --color-dark: #010103;
+    --color-hot-pink: #D11F8D;
+    --color-bright-pink: #FB0CBB;
+    --color-vivid-orange: #F75639;
+    --color-pastel-yellow: #FAE55B;
+}
