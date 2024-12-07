@@ -8,8 +8,8 @@ class Controlador_Principal
     public function inicia()
     {
         include_once "../model/principal.php";
+        $games = getGames();
         include('../vista/principal.php');
-
     }
 
 }

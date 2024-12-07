@@ -239,74 +239,13 @@
 
 
             <div class="col">
-                
                 <div class="row justify-left">
                     <h2 class="mt-3">Tus Juegos</h2>
-                    <div class="col-auto py-3">
-                        <div class="card" style="width: 18rem;">
-                            <img src="../img/princeOfPersia.webp" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk of
-                                    the
-                                    card's content.</p>
-                                <a href="#" class="btn btn-primary">Jugar</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-auto py-3">
-                        <div class="card" style="width: 18rem;">
-                            <img src="../img/princeOfPersia.webp" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk of
-                                    the
-                                    card's content.</p>
-                                <a href="#" class="btn btn-primary">Jugar</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-auto py-3">
-                        <div class="card" style="width: 18rem;">
-                            <img src="../img/princeOfPersia.webp" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk of
-                                    the
-                                    card's content.</p>
-                                <a href="#" class="btn btn-primary">Jugar</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-auto py-3">
-                        <div class="card" style="width: 18rem;">
-                            <img src="../img/princeOfPersia.webp" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk of
-                                    the
-                                    card's content.</p>
-                                <a href="#" class="btn btn-primary">Jugar</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-auto py-3">
-                        <div class="card" style="width: 18rem;">
-                            <img src="../img/princeOfPersia.webp" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk of
-                                    the
-                                    card's content.</p>
-                                <a href="#" class="btn btn-primary">Jugar</a>
-                            </div>
-                        </div>
-                    </div>
+                </div>
+                <div class="row align-content-between">
+                    <?php
+                        include('../vista/templates/card-template.php');
+                    ?>
                 </div>
             </div>
         </div>

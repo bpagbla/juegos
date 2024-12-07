@@ -18,6 +18,7 @@ function verificarUsuario($id, $password)
 
         if (password_verify($password, $passReal)) {
             $datos = $ddbb->consulta("SELECT nick,email,id FROM `usuario` WHERE EMAIL='$id' || NICK='$id'");
+            $ddbb->cerrar();
             foreach ($datos as $row) {
                 $_SESSION["nick"] = $row["nick"];
                 $_SESSION["email"] = $row["email"];
