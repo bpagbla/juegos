@@ -207,7 +207,17 @@
     </div>
 
     <main class="form-signin w-100 m-auto">
-        <form action="#" method="post">
+        <form action="#" method="post" class="text-center">
+            <svg class="iconoLogo" viewBox="0 0 79 80" height="57"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path
+                        d="M16.7071 24.2629V16.2629H40.7071V24.2629H16.7071ZM16.7071 56.2629V48.2629H8.7071V24.2629H16.7071V48.2629H32.7071V40.2629H24.7071V32.2629H40.7071V56.2629H16.7071Z"
+                        fill="black" />
+                <path d="M41 72.3H33V32.3H57V40.3H41V48.3H57V56.3H41V72.3ZM57 48.3V40.3H65V48.3H57Z" fill="black" />
+                <rect x="8.7071" y="56.2629" width="8.0912" height="7.97125" fill="black" />
+                <rect x="48.9781" y="16.3" width="8.0912" height="7.97125" fill="black" />
+                <rect x="0.615906" y="48.2917" width="8.0912" height="7.97125" fill="black" />
+            </svg>
             <h1 class="h3 mb-3 fw-normal">Inicia Sesión</h1>
 
             <div class="form-floating">
