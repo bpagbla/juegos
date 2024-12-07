@@ -1,13 +1,11 @@
 <!doctype html>
-<html lang="en" data-bs-theme="auto">
+<html lang="en" data-bs-theme="dark">
 
 <head>
     <script src="https://getbootstrap.com/docs/5.3/assets/js/color-modes.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Glitched Pixel | Inicia Sesión</title>
-
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sign-in/">
 
 
 
@@ -111,7 +109,7 @@
             z-index: 2;
         }
 
-        .form-signin input[type="email"] {
+        .form-signin input[type="text"] {
             margin-bottom: -1px;
             border-bottom-right-radius: 0;
             border-bottom-left-radius: 0;
@@ -236,9 +234,7 @@
 
 
     </main>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
     <script>
         const toastLiveExample = document.getElementById('liveToast')
 

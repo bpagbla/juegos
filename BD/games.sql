@@ -26,7 +26,7 @@ CREATE TABLE tarjeta_bancaria (
 );
 
 CREATE TABLE juego (
-  `ID` int NOT NULL AUTO_INCREMENT,
+  `ID` int NOT NULL,
   `TITULO` varchar(32) COLLATE utf8mb4_general_ci NOT NULL,
   `RUTA` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
   `DESARROLLADOR` varchar(64) COLLATE utf8mb4_general_ci NOT NULL,
@@ -118,4 +118,6 @@ CREATE TABLE `juego_juego` (
   CONSTRAINT `FK_JREL_IDJ2_JUE_ID` FOREIGN KEY (`ID_J2`) REFERENCES `juego` (`ID`)
 );
 
-INSERT INTO usuario(email, nick, nombre, apellidos, password) VALUES('paco@gmail.com','paco','paco','paco','$2a$12$/.57XI5riojUPwXeoQXX9O/ru1XsQ5MRSsj8lZAo85sJb2b0tbEsi');
+INSERT INTO usuario(EMAIL, NICK, NOMBRE, APELLIDOS, PASSWORD) VALUES('paco@gmail.com','paco','paco','paco','$2a$12$/.57XI5riojUPwXeoQXX9O/ru1XsQ5MRSsj8lZAo85sJb2b0tbEsi');
+INSERT INTO juego (ID, TITULO, RUTA, DESARROLLADOR, DISTRIBUIDOR, ANIO) VALUES (150886, 'Truck Racer', '', 'Kylotonn Entertainment', 'Plug In Digital SAS',2013);
+INSERT INTO posee(ID_USUARIO, ID_JUEGO, FECHA) VALUES (1,150886, date(now()));
