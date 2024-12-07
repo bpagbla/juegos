@@ -183,7 +183,7 @@
                         <svg class="bi me-2" width="32" height="32">
                             <use xlink:href="#people-circle" />
                         </svg>
-                        <strong><?php //echo $_SESSION["nick"] ?></strong>
+                        <strong><?php echo $_SESSION["nick"] ?></strong>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow bg-menu" aria-labelledby="dropdownUser1">
                         <li><a class="dropdown-item" href="#">Amigos</a></li>
