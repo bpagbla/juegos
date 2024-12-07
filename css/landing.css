@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Tiny5&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Sono:wght@200..800&family=Tiny5&display=swap');
 
-
 body {
     background-color: var(--color-dark);
     color: whitesmoke;
@@ -21,7 +20,7 @@ body {
     left: 0;
     width: 100%;
     max-width: 100vw;
-    padding: 1rem 1rem !important;
+    padding: 1rem !important;
     background-color: #01010369;
     display: flex;
     justify-content: space-between;
@@ -69,12 +68,10 @@ body {
 .navbar .btnLogin {
     font-family: "Sono", monospace;
     font-size: 1rem;
-
     margin: 0 2rem;
     height: 2rem;
     padding: 0 1.5rem;
     background: transparent;
-
     color: #fff;
     text-shadow:
         0 0 7px #fff,
@@ -85,7 +82,6 @@ body {
         0 0 92px #bc13fe,
         0 0 102px #bc13fe,
         0 0 151px #bc13fe;
-
     animation: pulsate 1.5s infinite alternate;
     border: 0.2rem solid #fff;
     border-radius: .5rem;
@@ -107,23 +103,17 @@ body {
         0 0 92px var(--color-vivid-orange),
         0 0 102px var(--color-vivid-orange),
         0 0 151px var(--color-vivid-orange);
-
-
     box-shadow: 0 0 .2rem var(--color-bright-pink),
         0 0 .2rem var(--color-bright-pink),
         0 0 2rem var(--color-vivid-orange),
         0 0 0.8rem var(--color-vivid-orange),
         0 0 2.8rem var(--color-vivid-orange),
         inset 0 0 1.3rem var(--color-vivid-orange);
-
     cursor: pointer;
 }
 
-
 @keyframes pulsate {
-
     100% {
-
         text-shadow:
             0 0 4px #fff,
             0 0 11px #fff,
@@ -133,11 +123,9 @@ body {
             0 0 90px #bc13fe,
             0 0 100px #bc13fe,
             0 0 150px #bc13fe;
-
     }
 
     0% {
-
         text-shadow:
             0 0 2px #fff,
             0 0 4px #fff,
@@ -147,7 +135,6 @@ body {
             0 0 55px #bc13fe,
             0 0 70px #bc13fe,
             0 0 80px #bc13fe;
-
     }
 }
 
@@ -162,7 +149,6 @@ body {
         0 0 92px #0fa,
         0 0 102px #0fa,
         0 0 151px #0fa;
-
 }
 
 .contenido {
@@ -173,7 +159,8 @@ body {
 }
 
 .banner {
-    height: 50vw;
+    height: 100vh;
+    /* Hacer que la imagen de fondo ocupe toda la altura de la ventana */
     position: relative;
     overflow: hidden;
 }
@@ -188,14 +175,13 @@ body {
     bottom: 0;
     width: 100%;
     height: 100%;
-    background-size: 100%;
+    background-size: cover;
     background-position: center bottom;
     transition: .1s;
 }
 
 .banner .bg:nth-child(5) {
     background-image: url(../img/fondo-3.png);
-
 }
 
 .banner .bg:nth-child(4) {
@@ -217,9 +203,10 @@ body {
 
 /* ANIMACION TEXTO */
 
-.title{
+.title {
     height: 100%;
 }
+
 .glitchedPixel {
     fill: transparent;
     stroke: var(--color-bright-pink);
@@ -229,6 +216,7 @@ body {
     animation: textAnimation 3s ease-in-out 1 forwards;
     height: 100%;
 }
+
 .svgLogo {
     width: 75vw;
     height: 100%;
@@ -273,11 +261,12 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 2rem 0;
 }
 
 .tab::before {
     position: absolute;
-    height: 200px;
+    height: 10vh;
     width: 100vw;
     background: linear-gradient(to top, var(--color-dark), transparent);
     content: '';
@@ -315,4 +304,25 @@ body {
     --color-bright-pink: #FB0CBB;
     --color-vivid-orange: #F75639;
     --color-pastel-yellow: #FAE55B;
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+
+
+    .banner {
+        height: 80vh;
+    }
+
+    .svgLogo {
+        width: 90vw;
+    }
+.tab{
+    min-height: 75vh;
+}
+   
+    .tab.tab1 .content,
+    .tab.tab2 .content {
+        width: 80vw;
+    }
 }
