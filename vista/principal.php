@@ -199,8 +199,13 @@
                     </div>
                 </div>
             </div>
+
+
+
             <div class="col">
-                <div class="row justify-content-around">
+                
+                <div class="row justify-left">
+                    <h2 class="mt-3">Tus Juegos</h2>
                     <div class="col-auto py-3">
                         <div class="card" style="width: 18rem;">
                             <img src="../img/princeOfPersia.webp" class="card-img-top" alt="...">
@@ -210,7 +215,7 @@
                                     bulk of
                                     the
                                     card's content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                                <a href="#" class="btn btn-primary">Jugar</a>
                             </div>
                         </div>
                     </div>
@@ -223,7 +228,7 @@
                                     bulk of
                                     the
                                     card's content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                                <a href="#" class="btn btn-primary">Jugar</a>
                             </div>
                         </div>
                     </div>
@@ -236,7 +241,7 @@
                                     bulk of
                                     the
                                     card's content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                                <a href="#" class="btn btn-primary">Jugar</a>
                             </div>
                         </div>
                     </div>
@@ -249,7 +254,7 @@
                                     bulk of
                                     the
                                     card's content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                                <a href="#" class="btn btn-primary">Jugar</a>
                             </div>
                         </div>
                     </div>
@@ -262,7 +267,7 @@
                                     bulk of
                                     the
                                     card's content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                                <a href="#" class="btn btn-primary">Jugar</a>
                             </div>
                         </div>
                     </div>
