@@ -11,7 +11,7 @@
 <body>
 
     <header class="header">
-        <a href="#" class="logo">logo</a>
+        <a href="" class="logo nombre">Glitched Pixel</a>
         <nav class="navbar">
             <a href="">Sobre Nosotros</a>
             <a href="">Juegos Retro</a>
