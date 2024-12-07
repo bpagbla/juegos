@@ -7,9 +7,23 @@ class Controlador_Principal
 {
     public function inicia()
     {
-        include_once "../model/principal.php";
-        $games = getGames();
-        include('../vista/principal.php');
+
+        if (isset($_SESSION["nick"])) {
+            if (isset($_POST["logout"])) {
+                session_unset();
+                session_destroy();
+                header("location: landing.php");
+            }
+            
+            include_once "../model/principal.php";
+            $games = getGames();
+            include('../vista/principal.php');
+
+            
+        } else {
+            header("location: landing.php");
+        }
+
     }
 
 }
@@ -17,4 +31,3 @@ class Controlador_Principal
 $programa = new Controlador_Principal();
 
 $programa->inicia();
-
