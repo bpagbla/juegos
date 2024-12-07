@@ -1,5 +1,8 @@
 
 DROP DATABASE IF EXISTS games;
+CREATE USER IF NOT EXISTS 'games'@'%' identified by '1234';
+GRANT ALL PRIVILEGES ON games.* to 'games'@'%';
+
 CREATE DATABASE games;
 USE games;
 
