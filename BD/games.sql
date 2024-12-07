@@ -124,6 +124,9 @@ CREATE TABLE `juego_juego` (
 
 INSERT INTO usuario(EMAIL, NICK, NOMBRE, APELLIDOS, PASSWORD, ROLE) VALUES('paco@gmail.com','paco','paco','paco','$2a$12$/.57XI5riojUPwXeoQXX9O/ru1XsQ5MRSsj8lZAo85sJb2b0tbEsi', 'user');
 INSERT INTO usuario(EMAIL, NICK, NOMBRE, APELLIDOS, PASSWORD, ROLE) VALUES('admin@gmail.com','admin','admin','admin','$2y$10$xiAIe5dxN/fi39Jq08f1nu3BLCnuU7OBhcHoDcuDnVNJqtrOZUJzK', 'admin');
-INSERT INTO juego (ID, TITULO, RUTA, DESARROLLADOR, DISTRIBUIDOR, ANIO) VALUES (150886, 'Truck Racer', '', 'Kylotonn Entertainment', 'Plug In Digital SAS',2013);
+INSERT INTO juego (ID, TITULO, RUTA, DESARROLLADOR, DISTRIBUIDOR, ANIO) VALUES (150886, 'Truck Racer', 'algo', 'Kylotonn Entertainment', 'Plug In Digital SAS',2013);
+INSERT INTO juego (ID, TITULO, RUTA, DESARROLLADOR, DISTRIBUIDOR, ANIO) VALUES (63690, 'Pako 2', 'algo2', 'Uranium Software', 'Uranium Software',1995);
 INSERT INTO posee(ID_USUARIO, ID_JUEGO, FECHA) VALUES (1,150886, date(now()));
 INSERT INTO posee(ID_USUARIO, ID_JUEGO, FECHA) VALUES (2,150886, date(now()));
+INSERT INTO posee(ID_USUARIO, ID_JUEGO, FECHA) VALUES (1,63690, date(now()));
+INSERT INTO posee(ID_USUARIO, ID_JUEGO, FECHA) VALUES (2,63690, date(now()));
