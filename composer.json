@@ -1,0 +1,10 @@
+{
+    "name": "juegos/html",
+    "version": "1",
+    "authors": [
+        {
+            "name": "Bea y Eduardo"
+        }
+    ],
+    "require": {}
+}
