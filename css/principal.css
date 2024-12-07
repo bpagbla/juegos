@@ -74,8 +74,15 @@ main {
     border: 1px solid rgba(177, 41, 255) !important;
     background: rgba(255, 255, 255, 0.911);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(4.5px);
-    -webkit-backdrop-filter: blur(4.5px);
+}
+
+.btn {
+    background-color: rgb(170, 65, 255) !important;
+    border: 1px solid rgba(177, 41, 255) !important;
+}
+
+.btn:hover{
+    background-color: rgba(137, 0, 250, 0.822) !important;
 }
 
 .btn-toggle {

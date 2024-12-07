@@ -8,6 +8,7 @@
                 the
                 card's content.</p>
             <a href="#" class="btn btn-primary">Jugar</a>
+            <a href="#" class="btn btn-primary">Prestar Juego</a>
         </div>
     </div>
 </div>
