@@ -7,6 +7,7 @@ CREATE TABLE usuario (
   `ID` int NOT NULL AUTO_INCREMENT,
   `EMAIL` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
   `NICK` varchar(32) COLLATE utf8mb4_general_ci NOT NULL,
+  `ROLE` varchar(32) COLLATE utf8mb4_general_ci NOT NULL,
   `NOMBRE` varchar(64) COLLATE utf8mb4_general_ci NOT NULL,
   `APELLIDOS` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
   `PASSWORD` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
@@ -118,6 +119,8 @@ CREATE TABLE `juego_juego` (
   CONSTRAINT `FK_JREL_IDJ2_JUE_ID` FOREIGN KEY (`ID_J2`) REFERENCES `juego` (`ID`)
 );
 
-INSERT INTO usuario(EMAIL, NICK, NOMBRE, APELLIDOS, PASSWORD) VALUES('paco@gmail.com','paco','paco','paco','$2a$12$/.57XI5riojUPwXeoQXX9O/ru1XsQ5MRSsj8lZAo85sJb2b0tbEsi');
+INSERT INTO usuario(EMAIL, NICK, NOMBRE, APELLIDOS, PASSWORD, ROLE) VALUES('paco@gmail.com','paco','paco','paco','$2a$12$/.57XI5riojUPwXeoQXX9O/ru1XsQ5MRSsj8lZAo85sJb2b0tbEsi', 'user');
+INSERT INTO usuario(EMAIL, NICK, NOMBRE, APELLIDOS, PASSWORD, ROLE) VALUES('admin@gmail.com','admin','admin','admin','$2y$10$xiAIe5dxN/fi39Jq08f1nu3BLCnuU7OBhcHoDcuDnVNJqtrOZUJzK', 'admin');
 INSERT INTO juego (ID, TITULO, RUTA, DESARROLLADOR, DISTRIBUIDOR, ANIO) VALUES (150886, 'Truck Racer', '', 'Kylotonn Entertainment', 'Plug In Digital SAS',2013);
 INSERT INTO posee(ID_USUARIO, ID_JUEGO, FECHA) VALUES (1,150886, date(now()));
+INSERT INTO posee(ID_USUARIO, ID_JUEGO, FECHA) VALUES (2,150886, date(now()));
