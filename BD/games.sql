@@ -62,7 +62,7 @@ CREATE TABLE presta (
   CONSTRAINT `FK_PRES_IDU2_USU_ID` FOREIGN KEY (`ID_U2`) REFERENCES `usuario` (`id`)
 );
 
-CREATE TABLE compra (
+CREATE TABLE posee (
   `ID_USUARIO` int NOT NULL,
   `ID_JUEGO` int NOT NULL,
   `FECHA` date NOT NULL,
