@@ -234,8 +234,8 @@
                                 <hr class="dropdown-divider">
                             </li>
                             <li>
-                                <form action="" method="POST">
-                                    <input type="submit" value="Cerrar Sesión" name="logout">
+                                <form action="" method="POST" class="dropdown-item " >
+                                    <input type="submit" value="Cerrar Sesión" name="logout" class="logout">
                                 </form>
                             </li>
                         </ul>
