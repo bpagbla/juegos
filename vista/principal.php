@@ -151,7 +151,6 @@
             </div>
         </div>
     </header>
->>>>>>> 23f5f43a95f8b3af76c596f424ff5af946e6c357
     <div class="container-fluid">
         <div class="row">
 
