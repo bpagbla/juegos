@@ -1,18 +1,20 @@
 let listBg = document.querySelectorAll('.bg');
 let banner = document.querySelector('.banner');
 let tabs = document.querySelectorAll('.tab');
-let container = document.querySelector('.container');
-let heightDefault = container.offsetHeight;
+let contenido = document.querySelector('.contenido');
+let heightDefault = contenido.offsetHeight;
 let topBefore = 0;
 
 window.addEventListener('wheel', function (event) {
     event.preventDefault();
-    const scrollSpeed = 0.2;
+    const scrollSpeed = 0.5;
     const scrollValue = window.scrollY + (event.deltaY / 3) * scrollSpeed;
     this.window.scrollTo(0, scrollValue);
 
 
     let top = scrollValue;
+
+
     listBg.forEach((bg, index) => {
         if (index != 0) {
             bg.animate({
@@ -33,7 +35,7 @@ window.addEventListener('wheel', function (event) {
         }
         if (topBefore < top) {
             setHeight = heightDefault - this.window.scrollY * index;
-            container.animate({
+            contenido.animate({
                 height: `${setHeight + 100}px`
             }, { duration: 50, fill: "forwards" });
             topBefore = this.window.scrollY;
