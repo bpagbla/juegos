@@ -17,46 +17,51 @@
     <form class="row g-3">
         <div class="col-md-6">
             <label for="inputEmail4" class="form-label">Email</label>
-            <input type="email" class="form-control" id="inputEmail4">
+            <input type="email" class="form-control" id="inputEmail4" name="email" required>
         </div>
-        <div class="col-md-6">
-            <label for="inputPassword4" class="form-label">Password</label>
-            <input type="password" class="form-control" id="inputPassword4">
+        <div class="col-md-6"> </div>
+        <div class="col-md-4">
+            <label for="inputNombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="inputNombre" name="password" required>
+        </div>
+        <div class="col-md-8">
+            <label for="inputApellidos" class="form-label">Apellidos</label>
+            <input type="text" class="form-control" id="inputNombre" name="password" required>
         </div>
         <div class="col-12">
-            <label for="inputAddress" class="form-label">Address</label>
-            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-        </div>
-        <div class="col-12">
-            <label for="inputAddress2" class="form-label">Address 2</label>
-            <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+            <label for="inputAddress" class="form-label">Dirección</label>
+            <input type="text" class="form-control" id="inputAddress" placeholder="Calle/Avenida/Plaza" required name="direccion"
+                required>
         </div>
         <div class="col-md-6">
-            <label for="inputCity" class="form-label">City</label>
-            <input type="text" class="form-control" id="inputCity">
+            <label for="inputCity" class="form-label">Ciudad</label>
+            <input type="text" class="form-control" id="inputCity" required>
         </div>
         <div class="col-md-4">
-            <label for="inputState" class="form-label">State</label>
+            <label for="inputState" class="form-label">Provincia</label>
             <select id="inputState" class="form-select">
-                <option selected>Choose...</option>
-                <option>...</option>
+                <option selected>Elige...</option>
+                <option>Madrid</option>
             </select>
         </div>
         <div class="col-md-2">
-            <label for="inputZip" class="form-label">Zip</label>
-            <input type="text" class="form-control" id="inputZip">
+            <label for="inputZip" class="form-label">CP</label>
+            <input type="text" class="form-control" id="inputZip" required>
         </div>
-        <div class="col-12">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="gridCheck">
-                <label class="form-check-label" for="gridCheck">
-                    Check me out
-                </label>
-            </div>
+        <hr class="mt-4">
+        <div class="col-md-6">
+            <label for="inputUsuario" class="form-label">Nombre de Usuario</label>
+            <input type="text" class="form-control" id="inputUsuario" required>
         </div>
-        <div class="col-12">
-            <input type="submit" class="btn btn-primary" value="Crear Cuenta">
+        <div class="col-md-6">
+            <label for="inputPassword4" class="form-label">Password</label>
+            <input type="password" class="form-control" id="inputPassword4" name="password" required>
         </div>
+
+        <button id="liveToastBtn" class="btn  w-100 py-2 estiloBoton mt-4" type="submit">Iniciar Sesión</button>
+        <p class="mt-2 mb-3">¿Ya tienes cuenta? <a class="text-decoration-none link" href="Login.php">
+                Inicia sesión.
+            </a></p>
     </form>
 
 

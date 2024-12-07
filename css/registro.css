@@ -5,16 +5,59 @@ body{
 form{
     padding-left: 10%;
     padding-right: 10%;
-    padding-top: 10%;
-
+padding-top: 1rem;
     width: 100%;
     height: fit-content;
 
     color: whitesmoke;
 }
 
+.link{
+    color: #bd33fd !important;
+}
+
+.link:hover{
+    color: #ab51fa !important;
+}
+
+
+.nombreUsuario{
+    margin: auto;
+    padding-bottom: 1.5rem;
+}
+
+input:focus, select:focus{
+    border: 0.2rem solid #fff !important;
+    box-shadow: 0 0 .1rem #fff,
+              0 0 .1rem #fff,
+              0 0 1rem #bc13fe,
+              0 0 0.8rem #bc13fe,
+              0 0 2.8rem #bc13fe,
+              inset 0 0 1.3rem #bc13fe !important;
+}
+
+.estiloBoton {background-image: linear-gradient(to right, #DA22FF 0%, #9733EE  51%, #DA22FF  100%)}
+.estiloBoton {
+   margin: 10px;
+   padding: 15px 45px;
+   text-align: center;
+   text-transform: uppercase;
+   transition: 0.5s;
+   background-size: 200% auto;
+   color: white;            
+   box-shadow: 0 0 10px #ae7bff;
+   border-radius: 5px;
+   display: block;
+ }
+
+ .estiloBoton:hover {
+   background-position: right center; /* change the direction of the change here */
+   color: #fff;
+   text-decoration: none;
+ }
+
 :root {
-    --color-dark: #010103;
+    --color-dark: #0f0f1a;
     --color-hot-pink: #D11F8D;
     --color-bright-pink: #FB0CBB;
     --color-vivid-orange: #F75639;
