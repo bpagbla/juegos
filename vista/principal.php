@@ -237,10 +237,6 @@
             </div>
 
             <div class="col">
-<<<<<<< HEAD
-
-=======
->>>>>>> 23f5f43a95f8b3af76c596f424ff5af946e6c357
                 <div class="row justify-left">
                     <h2 class="mt-3">Tus Juegos</h2>
                 </div>
