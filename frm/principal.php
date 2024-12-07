@@ -191,7 +191,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col" style="height: 200vh;">
+            <div class="col">
                 <div class="row justify-content-around">
                     <div class="col-auto py-3">
                         <div class="card" style="width: 18rem;">
