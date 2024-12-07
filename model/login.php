@@ -3,8 +3,10 @@
     {
 
         include_once "../BD/baseDeDatos.php";
+      
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
+
 
         $consulta = $ddbb->consulta("SELECT * FROM `usuario` WHERE EMAIL='$id' || NICK='$id'");
         if (!empty($consulta)) {
@@ -15,7 +17,10 @@
             }
 
             if (password_verify($password, $passReal)) {
-                echo 'Password is valid!';
+                $nick=  $ddbb->consulta("SELECT nick FROM `usuario` WHERE EMAIL='$id' || NICK='$id'");
+                foreach ($nick as $row) {
+                    $_SESSION["nick"] = $row["nick"];
+                }
                 return true;
             } else {
                 echo 'Usuario o contraseña incorrecta.';

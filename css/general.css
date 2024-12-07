@@ -1,0 +1,15 @@
+body {
+    font-family: "Sono", monospace;
+  }
+
+  .nombre {
+    font-family: "Tiny5", sans-serif;
+}
+
+:root {
+    --color-dark: #010103;
+    --color-hot-pink: #D11F8D;
+    --color-bright-pink: #FB0CBB;
+    --color-vivid-orange: #F75639;
+    --color-pastel-yellow: #FAE55B;
+}
