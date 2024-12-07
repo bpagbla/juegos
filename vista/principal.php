@@ -247,7 +247,7 @@
                 <div class="row justify-left">
                     <h2 class="mt-3">Tus Juegos</h2>
                 </div>
-                <div class="row align-content-between">
+                <div class="row align-content-between align-items-end ">
                     <?php
                     foreach ($games as $game) {
                         include('../vista/templates/card-template.php');
