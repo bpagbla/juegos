@@ -153,9 +153,9 @@
                     </li>
 
                 </ul>
-                <form class="d-flex" role="search">
-                    <input class="btnLogin " type="submit" value="Login"></input>
-                </form>
+                <a class="d-flex text-decoration-none" href="login.php">
+                    <input class="btnLogin" type="button" value="Login">
+                </a>
             </div>
         </div>
     </nav>
