@@ -52,6 +52,7 @@ main {
 .bg-menu {
     backdrop-filter: blur(30px);
     background-color: #010103ab;
+    --bs-dropdown-link-active-bg: rgba(159, 41, 255, 0.726) !important;
 }
 
 .nav-flush .nav-link {
