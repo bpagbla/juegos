@@ -1,0 +1,22 @@
+body{
+    background-color: var(--color-dark) ;
+}
+
+form{
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 10%;
+
+    width: 100%;
+    height: fit-content;
+
+    color: whitesmoke;
+}
+
+:root {
+    --color-dark: #010103;
+    --color-hot-pink: #D11F8D;
+    --color-bright-pink: #FB0CBB;
+    --color-vivid-orange: #F75639;
+    --color-pastel-yellow: #FAE55B;
+}
