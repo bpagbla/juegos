@@ -8,23 +8,26 @@ class Controlador_Login
     public function inicia()
     {
         include_once "../model/login.php";
+        $loginAttempt = false;
 
         if (isset($_POST["user"]) && isset($_POST["passwd"])) {
 
             if (verificarUsuario($_POST["user"], $_POST["passwd"])) {
                 $this->iniciaSesion();
             } else {
-                include('../vista/login.php');
+                $loginAttempt = true;
             }
 
-        } else {
-            include('../vista/login.php');
         }
+
+        include('../vista/login.php');
+
     }
 
     public function iniciaSesion()
     {
         header("location: principal.php");
+        die();
     }
 
 }

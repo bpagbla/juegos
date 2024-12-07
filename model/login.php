@@ -26,7 +26,6 @@ function verificarUsuario($id, $password)
             }
             return true;
         } else {
-            echo 'Usuario o contraseña incorrecta.';
             return false;
         }
 
