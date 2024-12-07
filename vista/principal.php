@@ -230,6 +230,15 @@
                             <li><a class="dropdown-item" href="#">Amigos</a></li>
                             <li><a class="dropdown-item" href="#">Ajustes</a></li>
                             <li><a class="dropdown-item" href="#">Perfil</a></li>
+
+                            <?php
+
+                            if($_SESSION["role"]=="admin"){
+                                echo '<li><a class="dropdown-item" href="#">Administrar</a></li>';
+                            }
+
+                            ?>
+
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
