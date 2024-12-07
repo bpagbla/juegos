@@ -2,8 +2,8 @@
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
-//require_once "modelo.php";
-require_once "../vista/vista.php";
+//require_once "login.php";
+require_once "../vista/login.php";
 
 class Controlador
 {
@@ -14,7 +14,7 @@ class Controlador
 
     public function inicia()
     {
-        include_once "../model/modelo.php";
+        include_once "../model/login.php";
 
         if (isset($_POST["user"]) && isset($_POST["passwd"])) {
 
