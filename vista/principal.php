@@ -244,7 +244,9 @@
                 </div>
                 <div class="row align-content-between">
                     <?php
-                        include('../vista/templates/card-template.php');
+                        foreach ($games as $game) {
+                            include('../vista/templates/card-template.php');
+                        }
                     ?>
                 </div>
             </div>
