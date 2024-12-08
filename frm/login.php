@@ -13,6 +13,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../css/general.css">
     <meta name="theme-color" content="#712cf9">
 
     <!-- Custom styles for this template -->
@@ -110,7 +111,7 @@
                 <rect x="48.9781" y="16.3" width="8.0912" height="7.97125" fill="black" />
                 <rect x="0.615906" y="48.2917" width="8.0912" height="7.97125" fill="black" />
             </svg>
-            <h1 class="h3 mb-3 fw-normal">Inicia Sesión</h1>
+            <h1 class="h3 mb-4 mt-2 fw-normal">Inicia Sesión</h1>
 
             <div class="form-floating">
                 <input name="user" type="text" class="form-control" id="user" placeholder="name@example.com">
@@ -128,7 +129,7 @@
                 </label>
             </div>
             <button class="btn btn-primary w-100 py-2 estiloBoton" type="submit">Iniciar Sesión</button>
-            <p class="mt-2 mb-3 text-body-secondary">¿No tienes cuenta? <a class=" text-decoration-none"
+            <p class="mt-3 mb-3 text-body-secondary">¿No tienes cuenta? <br><a class=" text-decoration-none"
                     href="registro.php">
                     Regístrate ahora.
                 </a></p>

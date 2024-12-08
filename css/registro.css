@@ -2,21 +2,11 @@ body{
     background-color: var(--color-dark) ;
 }
 
-form{
-    padding-left: 10%;
-    padding-right: 10%;
-padding-top: 1rem;
-    width: 100%;
-    height: fit-content;
-
-    color: whitesmoke;
-}
-
-.link{
+a {
     color: #bd33fd !important;
 }
 
-.link:hover{
+a:hover {
     color: #ab51fa !important;
 }
 
@@ -38,10 +28,7 @@ input:focus, select:focus{
 
 .estiloBoton {background-image: linear-gradient(to right, #DA22FF 0%, #9733EE  51%, #DA22FF  100%)}
 .estiloBoton {
-   margin: 10px;
-   padding: 15px 45px;
    text-align: center;
-   text-transform: uppercase;
    transition: 0.5s;
    background-size: 200% auto;
    color: white;            
