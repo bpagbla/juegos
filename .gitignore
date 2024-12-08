@@ -131,3 +131,4 @@ dist
 
 .idea/
 /vendor/
+/BD/conf.env
