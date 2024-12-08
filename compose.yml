@@ -14,4 +14,4 @@ services:
     volumes:
       - D:\VS\Web\sql:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: ''
+      MYSQL_ALLOW_EMPTY_PASSWORD: yes
