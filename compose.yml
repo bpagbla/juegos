@@ -1,0 +1,17 @@
+services:
+  web:
+    container_name: web
+    build: .
+    ports:
+      - "80:80"
+    volumes:
+      - D:\VS\Web\juegos:/var/www/html
+  sql:
+    container_name: sql
+    image: "mysql:8"
+    ports:
+      - "3306:3306"
+    volumes:
+      - D:\VS\Web\sql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ''

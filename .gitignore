@@ -130,8 +130,4 @@ dist
 .pnp.*
 
 .idea/
-BD/conf.env
-/compose.yml
-/dockerfile
-
 /vendor/
