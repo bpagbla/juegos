@@ -1,6 +1,7 @@
 
 DROP DATABASE IF EXISTS games;
-CREATE USER IF NOT EXISTS 'games'@'%' identified by '1234';
+DROP USER IF EXISTS 'games'@'%';
+CREATE USER IF NOT EXISTS 'games'@'%' identified by 'gamespass';
 GRANT ALL PRIVILEGES ON games.* to 'games'@'%';
 
 CREATE DATABASE games;
@@ -122,11 +123,12 @@ CREATE TABLE `juego_juego` (
   CONSTRAINT `FK_JREL_IDJ2_JUE_ID` FOREIGN KEY (`ID_J2`) REFERENCES `juego` (`ID`)
 );
 
-INSERT INTO usuario(EMAIL, NICK, NOMBRE, APELLIDOS, PASSWORD, ROLE) VALUES('paco@gmail.com','paco','paco','paco','$2a$12$/.57XI5riojUPwXeoQXX9O/ru1XsQ5MRSsj8lZAo85sJb2b0tbEsi', 'user');
+INSERT INTO usuario(EMAIL, NICK, NOMBRE, APELLIDOS, PASSWORD, ROLE) VALUES('user@gmail.com','user','user','user','$2a$12$/.57XI5riojUPwXeoQXX9O/ru1XsQ5MRSsj8lZAo85sJb2b0tbEsi', 'user');
 INSERT INTO usuario(EMAIL, NICK, NOMBRE, APELLIDOS, PASSWORD, ROLE) VALUES('admin@gmail.com','admin','admin','admin','$2y$10$xiAIe5dxN/fi39Jq08f1nu3BLCnuU7OBhcHoDcuDnVNJqtrOZUJzK', 'admin');
 INSERT INTO juego (ID, TITULO, RUTA, DESARROLLADOR, DISTRIBUIDOR, ANIO) VALUES (150886, 'Truck Racer', 'algo', 'Kylotonn Entertainment', 'Plug In Digital SAS',2013);
 INSERT INTO juego (ID, TITULO, RUTA, DESARROLLADOR, DISTRIBUIDOR, ANIO) VALUES (63690, 'Pako 2', 'algo2', 'Uranium Software', 'Uranium Software',1995);
+INSERT INTO juego (ID, TITULO, RUTA, DESARROLLADOR, DISTRIBUIDOR, ANIO) VALUES (136678, 'Afterparty', 'algo3', 'Night School Studio, LLC', 'Night School Studio, LLC',2020);
+INSERT INTO juego (ID, TITULO, RUTA, DESARROLLADOR, DISTRIBUIDOR, ANIO) VALUES (73736, 'Tengami', 'algo4', 'Nyamyam Ltd.', 'Nyamyam Ltd.',2014);
+INSERT INTO juego (ID, TITULO, RUTA, DESARROLLADOR, DISTRIBUIDOR, ANIO) VALUES (190922, 'Oxenfree II: Lost Signals', 'algo5', 'Night School Studio, LLC', 'Netflix Inc.',2023);
 INSERT INTO posee(ID_USUARIO, ID_JUEGO, FECHA) VALUES (1,150886, date(now()));
-INSERT INTO posee(ID_USUARIO, ID_JUEGO, FECHA) VALUES (2,150886, date(now()));
 INSERT INTO posee(ID_USUARIO, ID_JUEGO, FECHA) VALUES (1,63690, date(now()));
-INSERT INTO posee(ID_USUARIO, ID_JUEGO, FECHA) VALUES (2,63690, date(now()));
