@@ -58,7 +58,7 @@
             <input type="password" class="form-control" id="inputPassword4" name="password" required>
         </div>
 
-        <button id="liveToastBtn" class="btn  w-100 py-2 estiloBoton mt-4" type="submit">Iniciar Sesión</button>
+        <button class="btn w-100 py-2 estiloBoton mt-4" type="submit">Iniciar Sesión</button>
         <p class="mt-2 mb-3">¿Ya tienes cuenta? <a class="text-decoration-none link" href="Login.php">
                 Inicia sesión.
             </a></p>
