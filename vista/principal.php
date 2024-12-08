@@ -215,6 +215,18 @@
                                 Soporte
                             </a>
                         </li>
+                        <?php
+                            if($_SESSION["role"]=="admin") {
+                                print "<li>";
+                                    print '<a href="#" class="nav-link text-white">';
+                                        print '<svg class="bi me-2" width="16" height="16">';
+                                            print '<use xlink:href="#tools" />';
+                                        print '</svg>';
+                                        print 'Administrar';
+                                    print '</a>';
+                                print '</li>';
+                            }
+                        ?>
                     </ul>
                     <hr>
                     <div class="dropdown">
@@ -230,15 +242,6 @@
                             <li><a class="dropdown-item" href="#">Amigos</a></li>
                             <li><a class="dropdown-item" href="#">Ajustes</a></li>
                             <li><a class="dropdown-item" href="#">Perfil</a></li>
-
-                            <?php
-
-                            if($_SESSION["role"]=="admin"){
-                                echo '<li><a class="dropdown-item" href="#">Administrar</a></li>';
-                            }
-
-                            ?>
-
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
@@ -252,11 +255,11 @@
                 </div>
             </div>
 
-            <div class="col">
+            <div class="col px-3">
                 <div class="row justify-left">
                     <h2 class="mt-3">Tus Juegos</h2>
                 </div>
-                <div class="row justify-content-around align-items-end">
+                <div class="row justify-content-start align-items-end">
                     <?php
                     foreach ($games as $game) {
                         include('../vista/templates/card-template.php');
