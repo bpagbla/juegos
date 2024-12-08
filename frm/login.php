@@ -2,7 +2,7 @@
 <html lang="en" data-bs-theme="dark">
 
 <head>
-    <script src="https://getbootstrap.com/docs/5.3/assets/js/color-modes.js"></script>
+    <script src="../js/color-modes.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Glitched Pixel | Inicia Sesión</title>
@@ -101,13 +101,23 @@
 
     <main class="form-signin w-100 m-auto">
         <form action="#" method="post" class="text-center">
-            <svg class="iconoLogo" viewBox="0 0 79 80" height="57"
+            <svg class="iconoLogo logoTheme" viewBox="0 0 79 80" height="57" data-bs-theme-value-svg="dark"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path
+                        d="M16.7071 24.2629V16.2629H40.7071V24.2629H16.7071ZM16.7071 56.2629V48.2629H8.7071V24.2629H16.7071V48.2629H32.7071V40.2629H24.7071V32.2629H40.7071V56.2629H16.7071Z"
+                        fill="white" />
+                <path d="M41 72.3H33V32.3H57V40.3H41V48.3H57V56.3H41V72.3ZM57 48.3V40.3H65V48.3H57Z" fill="white" />
+                <rect x="8.7071" y="56.2629" width="8.0912" height="7.97125" fill="white"/>
+                <rect x="48.9781" y="16.3" width="8.0912" height="7.97125" fill="white" />
+                <rect x="0.615906" y="48.2917" width="8.0912" height="7.97125" fill="white" />
+            </svg>
+            <svg class="iconoLogo d-none logoTheme" viewBox="0 0 79 80" height="57" data-bs-theme-value-svg="light"
                  xmlns="http://www.w3.org/2000/svg">
                 <path
                         d="M16.7071 24.2629V16.2629H40.7071V24.2629H16.7071ZM16.7071 56.2629V48.2629H8.7071V24.2629H16.7071V48.2629H32.7071V40.2629H24.7071V32.2629H40.7071V56.2629H16.7071Z"
                         fill="black" />
                 <path d="M41 72.3H33V32.3H57V40.3H41V48.3H57V56.3H41V72.3ZM57 48.3V40.3H65V48.3H57Z" fill="black" />
-                <rect x="8.7071" y="56.2629" width="8.0912" height="7.97125" fill="black" />
+                <rect x="8.7071" y="56.2629" width="8.0912" height="7.97125" fill="black"/>
                 <rect x="48.9781" y="16.3" width="8.0912" height="7.97125" fill="black" />
                 <rect x="0.615906" y="48.2917" width="8.0912" height="7.97125" fill="black" />
             </svg>
