@@ -15,6 +15,7 @@ function verificarUsuario($loginID, $password)
         $id = $item["ID"];
     }
 
+    //If someone with that nick/email
     if (!empty($id)) {
         $consPass = $ddbb->consulta("SELECT password FROM `usuario` WHERE EMAIL='$loginID' || NICK='$loginID'");
         $passReal = "";
@@ -22,9 +23,13 @@ function verificarUsuario($loginID, $password)
             $passReal = $row["password"];
         }
 
+        //Verificamos la contraseña
         if (password_verify($password, $passReal)) {
-            $datos = $ddbb->consulta("SELECT nick,email,id,role FROM `usuario` WHERE EMAIL='$loginID' || NICK='$loginID'");
+            //Saco los datos del user
+            $datos = $ddbb->consulta("SELECT nick,email,id,role FROM `usuario` WHERE ID='$id'");
             $ddbb->cerrar();
+
+            //Saco los datos del usuario
             foreach ($datos as $row) {
                 $_SESSION["nick"] = $row["nick"];
                 $_SESSION["email"] = $row["email"];
