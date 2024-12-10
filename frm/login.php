@@ -40,7 +40,7 @@
         </symbol>
     </svg>
     <div class="toast-container position-fixed top-0 start-0 p-3">
-        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div id="toastError" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
                 <strong class="me-auto">Login Error</strong>
                 <small>Ahora</small>
@@ -48,6 +48,18 @@
             </div>
             <div class="toast-body">
                 El usuario o la contraseña no son correctos
+            </div>
+        </div>
+    </div>
+    <div class="toast-container position-fixed top-0 start-0 p-3">
+        <div id="ToastNuevaCuenta" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">Éxito al crear la cuenta</strong>
+                <small>Ahora</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                Usuario creado. Inicia sesión.
             </div>
         </div>
     </div>
