@@ -98,11 +98,11 @@
 
         <div class="row g-5 justify-content-center">
             <div class="col-md-7 col-lg-8">
-                <form class="needs-validation" novalidate>
+                <form class="needs-validation" method="post" action="#" novalidate>
                     <div class="row g-3">
                         <div class="col-sm-6">
                             <label for="firstName" class="form-label ms-1">Nombre</label>
-                            <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+                            <input type="text" class="form-control" id="firstName" placeholder="" value="" name="nombre" required>
                             <div class="invalid-feedback">
                                 Se requiere de un nombre valido.
                             </div>
@@ -110,7 +110,7 @@
 
                         <div class="col-sm-6">
                             <label for="lastName" class="form-label ms-1">Apellidos</label>
-                            <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+                            <input type="text" class="form-control" id="lastName" placeholder="" value="" name="apellidos" required>
                             <div class="invalid-feedback">
                                 Se requiere de al menos un apellido valido.
                             </div>
@@ -120,7 +120,7 @@
                             <label for="username" class="form-label ms-1">Nick</label>
                             <div class="input-group has-validation">
                                 <span class="input-group-text">@</span>
-                                <input type="text" class="form-control" id="username" placeholder="Nick" required>
+                                <input type="text" class="form-control" id="username" placeholder="Nick" name="nick" required>
                                 <div class="invalid-feedback">
                                     Se requiere de un nick valido.
                                 </div>
@@ -129,7 +129,7 @@
 
                         <div class="col-12">
                             <label for="email" class="form-label ms-1">Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="tu@ejemplo.com" required>
+                            <input type="email" class="form-control" id="email" placeholder="tu@ejemplo.com" name="email" required>
                             <div class="invalid-feedback">
                                 Se requiere de un correo valido.
                             </div>
@@ -137,7 +137,7 @@
 
                         <div class="col-12">
                             <label for="passwd" class="form-label ms-1">Contraseña</label>
-                            <input type="password" class="form-control" id="passwd" placeholder="*************" required>
+                            <input type="password" class="form-control" id="passwd" placeholder="*************" name="passwd" required>
                             <div class="invalid-feedback">
                                 Introduce una contraseña valida.
                             </div>
@@ -152,7 +152,7 @@
                         </div>
 
                         <div class="col-md-5">
-                            <label for="province" class="form-label ms-1">Provincia</label>
+                            <label for="province" class="form-label ms-1" name="provincia">Provincia</label>
                             <select class="form-select" id="province" required>
                                 <option value="">Elije...</option>
                                 <option value="1">Madrid</option>
@@ -165,24 +165,24 @@
 
                         <div class="col-md-4">
                             <label for="city" class="form-label ms-1">Ciudad</label>
-                            <input type="text" class="form-control" id="city" placeholder="" required>
+                            <input type="text" class="form-control" id="city" placeholder="" name="ciudad" required>
                             <div class="invalid-feedback">
                                 Introduce una ciudad valida.
                             </div>
                         </div>
 
                         <div class="col-md-3">
-                            <label for="zip" class="form-label ms-1">Zip</label>
-                            <input type="text" class="form-control" id="zip" placeholder="" required>
+                            <label for="zip" class="form-label ms-1">CP</label>
+                            <input type="text" class="form-control" id="zip" placeholder="" name="cp" required>
                             <div class="invalid-feedback">
-                                Se requiere de zip valido.
+                                Se requiere de CP valido.
                             </div>
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col">
                             <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="save-info" required>
+                                <input type="checkbox" class="form-check-input" id="save-info" name="tyc" required>
                                 <label class="form-check-label" for="save-info">Acepto los Terminos y
                                     Condiciones</label>
                             </div>

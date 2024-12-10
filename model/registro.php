@@ -7,7 +7,7 @@ function verificarUsuario($id, $password)
     $ddbb = new BaseDeDatos;
     $ddbb->conectar();
 
-    $consulta = $ddbb->consulta("SELECT * FROM `usuario` WHERE EMAIL='$id' || NICK='$id'");
+    $consulta = $ddbb->consulta("SELECT * FROM `usuario` WHERE EMAIL='id$' || NICK='$id'");
     if (!empty($consulta)) {
         $consPass = $ddbb->consulta("SELECT password FROM `usuario` WHERE EMAIL='$id' || NICK='$id'");
         $passReal = "";
