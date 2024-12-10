@@ -41,34 +41,62 @@
             aria-expanded="false"
             data-bs-toggle="dropdown"
             aria-label="Toggle theme (auto)">
-        <svg class="bi my-1 theme-icon-active" width="1em" height="1em"><use href="#circle-half"></use></svg>
+        <svg class="bi my-1 theme-icon-active" width="1em" height="1em">
+            <use href="#circle-half"></use>
+        </svg>
         <span class="visually-hidden" id="bd-theme-text">Toggle theme</span>
     </button>
     <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bd-theme-text">
         <li>
-            <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
-                <svg class="bi me-2 opacity-50" width="1em" height="1em"><use href="#sun-fill"></use></svg>
+            <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light"
+                    aria-pressed="false">
+                <svg class="bi me-2 opacity-50" width="1em" height="1em">
+                    <use href="#sun-fill"></use>
+                </svg>
                 Light
-                <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
+                <svg class="bi ms-auto d-none" width="1em" height="1em">
+                    <use href="#check2"></use>
+                </svg>
             </button>
         </li>
         <li>
-            <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
-                <svg class="bi me-2 opacity-50" width="1em" height="1em"><use href="#moon-stars-fill"></use></svg>
+            <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark"
+                    aria-pressed="false">
+                <svg class="bi me-2 opacity-50" width="1em" height="1em">
+                    <use href="#moon-stars-fill"></use>
+                </svg>
                 Dark
-                <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
+                <svg class="bi ms-auto d-none" width="1em" height="1em">
+                    <use href="#check2"></use>
+                </svg>
             </button>
         </li>
         <li>
-            <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto" aria-pressed="true">
-                <svg class="bi me-2 opacity-50" width="1em" height="1em"><use href="#circle-half"></use></svg>
+            <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto"
+                    aria-pressed="true">
+                <svg class="bi me-2 opacity-50" width="1em" height="1em">
+                    <use href="#circle-half"></use>
+                </svg>
                 Auto
-                <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
+                <svg class="bi ms-auto d-none" width="1em" height="1em">
+                    <use href="#check2"></use>
+                </svg>
             </button>
         </li>
     </ul>
 </div>
-
+<div class="toast-container position-fixed top-0 start-0 p-3">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">Login Error</strong>
+            <small>Ahora</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            El usuario o la contraseña no son correctos
+        </div>
+    </div>
+</div>
 
 <div class="container">
     <main>
@@ -76,22 +104,23 @@
             <svg class="d-block mx-auto mb-2 logoTheme" viewBox="0 0 79 80" height="57" data-bs-theme-value-svg="dark"
                  xmlns="http://www.w3.org/2000/svg">
                 <path
-                    d="M16.7071 24.2629V16.2629H40.7071V24.2629H16.7071ZM16.7071 56.2629V48.2629H8.7071V24.2629H16.7071V48.2629H32.7071V40.2629H24.7071V32.2629H40.7071V56.2629H16.7071Z"
-                    fill="white" />
-                <path d="M41 72.3H33V32.3H57V40.3H41V48.3H57V56.3H41V72.3ZM57 48.3V40.3H65V48.3H57Z" fill="white" />
-                <rect x="8.7071" y="56.2629" width="8.0912" height="7.97125" fill="white" />
-                <rect x="48.9781" y="16.3" width="8.0912" height="7.97125" fill="white" />
-                <rect x="0.615906" y="48.2917" width="8.0912" height="7.97125" fill="white" />
+                        d="M16.7071 24.2629V16.2629H40.7071V24.2629H16.7071ZM16.7071 56.2629V48.2629H8.7071V24.2629H16.7071V48.2629H32.7071V40.2629H24.7071V32.2629H40.7071V56.2629H16.7071Z"
+                        fill="white"/>
+                <path d="M41 72.3H33V32.3H57V40.3H41V48.3H57V56.3H41V72.3ZM57 48.3V40.3H65V48.3H57Z" fill="white"/>
+                <rect x="8.7071" y="56.2629" width="8.0912" height="7.97125" fill="white"/>
+                <rect x="48.9781" y="16.3" width="8.0912" height="7.97125" fill="white"/>
+                <rect x="0.615906" y="48.2917" width="8.0912" height="7.97125" fill="white"/>
             </svg>
-            <svg class="d-block mx-auto mb-2 logoTheme d-none" viewBox="0 0 79 80" height="57" data-bs-theme-value-svg="light"
+            <svg class="d-block mx-auto mb-2 logoTheme d-none" viewBox="0 0 79 80" height="57"
+                 data-bs-theme-value-svg="light"
                  xmlns="http://www.w3.org/2000/svg">
                 <path
                         d="M16.7071 24.2629V16.2629H40.7071V24.2629H16.7071ZM16.7071 56.2629V48.2629H8.7071V24.2629H16.7071V48.2629H32.7071V40.2629H24.7071V32.2629H40.7071V56.2629H16.7071Z"
-                        fill="black" />
-                <path d="M41 72.3H33V32.3H57V40.3H41V48.3H57V56.3H41V72.3ZM57 48.3V40.3H65V48.3H57Z" fill="black" />
+                        fill="black"/>
+                <path d="M41 72.3H33V32.3H57V40.3H41V48.3H57V56.3H41V72.3ZM57 48.3V40.3H65V48.3H57Z" fill="black"/>
                 <rect x="8.7071" y="56.2629" width="8.0912" height="7.97125" fill="black"/>
-                <rect x="48.9781" y="16.3" width="8.0912" height="7.97125" fill="black" />
-                <rect x="0.615906" y="48.2917" width="8.0912" height="7.97125" fill="black" />
+                <rect x="48.9781" y="16.3" width="8.0912" height="7.97125" fill="black"/>
+                <rect x="0.615906" y="48.2917" width="8.0912" height="7.97125" fill="black"/>
             </svg>
             <h2>Registro</h2>
         </div>
@@ -102,7 +131,8 @@
                     <div class="row g-3">
                         <div class="col-sm-6">
                             <label for="firstName" class="form-label ms-1">Nombre</label>
-                            <input type="text" class="form-control" id="firstName" placeholder="" value="" name="nombre" required>
+                            <input type="text" class="form-control" id="firstName" placeholder="" value="" name="nombre"
+                                   required>
                             <div class="invalid-feedback">
                                 Se requiere de un nombre valido.
                             </div>
@@ -110,7 +140,8 @@
 
                         <div class="col-sm-6">
                             <label for="lastName" class="form-label ms-1">Apellidos</label>
-                            <input type="text" class="form-control" id="lastName" placeholder="" value="" name="apellidos" required>
+                            <input type="text" class="form-control" id="lastName" placeholder="" value=""
+                                   name="apellidos" required>
                             <div class="invalid-feedback">
                                 Se requiere de al menos un apellido valido.
                             </div>
@@ -120,7 +151,8 @@
                             <label for="username" class="form-label ms-1">Nick</label>
                             <div class="input-group has-validation">
                                 <span class="input-group-text">@</span>
-                                <input type="text" class="form-control" id="username" placeholder="Nick" name="nick" required>
+                                <input type="text" class="form-control" id="username" placeholder="Nick" name="nick"
+                                       required>
                                 <div class="invalid-feedback">
                                     Se requiere de un nick valido.
                                 </div>
@@ -129,7 +161,8 @@
 
                         <div class="col-12">
                             <label for="email" class="form-label ms-1">Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="tu@ejemplo.com" name="email" required>
+                            <input type="email" class="form-control" id="email" placeholder="tu@ejemplo.com"
+                                   name="email" required>
                             <div class="invalid-feedback">
                                 Se requiere de un correo valido.
                             </div>
@@ -137,7 +170,8 @@
 
                         <div class="col-12">
                             <label for="passwd" class="form-label ms-1">Contraseña</label>
-                            <input type="password" class="form-control" id="passwd" placeholder="*************" name="passwd" required>
+                            <input type="password" class="form-control" id="passwd" placeholder="*************"
+                                   name="passwd" required>
                             <div class="invalid-feedback">
                                 Introduce una contraseña valida.
                             </div>
@@ -145,7 +179,8 @@
 
                         <div class="col-12">
                             <label for="passwd2" class="form-label ms-1">Repite Contraseña</label>
-                            <input type="password" class="form-control" id="passwd2" placeholder="*************" required>
+                            <input type="password" class="form-control" id="passwd2" placeholder="*************"
+                                   required>
                             <div class="invalid-feedback">
                                 Las dos contraseñas no son iguales.
                             </div>
@@ -202,5 +237,4 @@
     </footer>
 </div>
 <script src="../js/bootstrap.bundle.min.js"></script>
-<script src="../js/registro.js"></script></body>
-</html>
+<script src="../js/registro.js"></script>
