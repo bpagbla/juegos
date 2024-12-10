@@ -1,12 +1,8 @@
 <?php
 
-class Vista{
-    public static function MuestraRegistro() {
-
-        include "../frm/registro.php";
-        print "</body>";
-        print "</html>";
-
-    }
-
+include "../frm/registro.php";
+if ($allPosts && !$added) {
+    print "<script src='../js/errorRegistro.js'></script>";
 }
+print "</body>";
+print "</html>";
