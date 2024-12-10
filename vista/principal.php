@@ -170,6 +170,7 @@
                             </a>
                         </li>
                         <?php
+                        //If the user is admin, show the administration button in the outside menu.
                         if($_SESSION["role"]=="admin") {
                             print "<li>";
                             print '<a href="#" class="nav-link text-white ps-2">';
@@ -190,6 +191,7 @@
                             <svg class="bi me-2" width="32" height="32">
                                 <use xlink:href="#people-circle" />
                             </svg>
+                            <!--Add the nick of the user to the menu-->
                             <strong><?php echo $_SESSION["nick"] ?></strong>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark text-small shadow bg-menu"
@@ -272,6 +274,7 @@
                             </a>
                         </li>
                         <?php
+                        //If the user is admin, show the administration button in the sidebar.
                             if($_SESSION["role"]=="admin") {
                                 print "<li>";
                                     print '<a href="#" class="nav-link text-white">';
@@ -317,6 +320,7 @@
                 </div>
                 <div class="row justify-content-start align-items-end">
                     <?php
+                    //Iterate over the games the user has and print the card for the game using the template
                     foreach ($games as $game) {
                         include('../vista/templates/card-template.php');
                     }
