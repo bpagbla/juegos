@@ -1,5 +1,5 @@
 <?php
-function añadirUsuario($email,$nick,$nombre,$apel,$pass)
+function anadirUsuario($email,$nick,$nombre,$apel,$pass)
 {
 
     include_once "../BD/baseDeDatos.php";

@@ -11,6 +11,7 @@ class Controlador
     public function inicia()
     {
         include_once '../controlador/registro.php';
+        anadirUsuario();
         Vista::MuestraRegistro();
     }
 
