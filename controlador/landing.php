@@ -5,6 +5,7 @@ error_reporting(E_ALL);
 
 class Controlador_Landing
 {
+    //funcion para iniciar la vista
     public function inicia()
     {
         include '../vista/landing.php';

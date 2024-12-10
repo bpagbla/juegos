@@ -3,6 +3,7 @@ class BaseDeDatos
 {
     private $db;
 
+    //funcion para conectar a la base de datos
     public function conectar()
     {
         include "conf.env";
@@ -15,6 +16,7 @@ class BaseDeDatos
 
     }
 
+    //funcion para hacer consultas con un query sql
     public function consulta($sql)
     {
         try {
@@ -27,6 +29,7 @@ class BaseDeDatos
         return null;
     }
 
+    //funcion para insertar datos en la base de daots
     public function insert($sql,$array) {
         $stmt= $this->db->prepare($sql);
         $stmt->execute($array);
