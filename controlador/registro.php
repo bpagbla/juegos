@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
 require_once "../vista/registro.php";
 
 class Controlador
@@ -10,6 +13,7 @@ class Controlador
 
     public function inicia()
     {
+
         include_once '../model/registro.php';
 
         $added = false;
@@ -19,9 +23,8 @@ class Controlador
         }
         $error = '';
         if (!$added && $allPosts) {
-            $error = 'Cuenta no creada porque el email o nick ya se esta usando';
+            echo 'Cuenta no creada porque el email o nick ya se esta usando';
         }
-        echo $error;
         Vista::MuestraRegistro();
     }
 

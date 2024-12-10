@@ -21,7 +21,7 @@ function anadirUsuario($email, $nick, $nombre, $apel, $pass)
 
         $pass = password_hash($pass, PASSWORD_DEFAULT);
 
-        $consulta = $ddbb->consulta("INSERT INTO usuario(EMAIL, NICK, NOMBRE, APELLIDOS, PASSWORD, ROLE) VALUES('$email','$nick','$nombre','$apel','$pass','user'");
+        $consulta = $ddbb->insert("INSERT INTO usuario(EMAIL, NICK, NOMBRE, APELLIDOS, PASSWORD, ROLE) VALUES(?,?,?,?,?,?)",[$email,$nick,$nombre,$apel,$pass,'user']);
         return true;
     } else {
         return false;

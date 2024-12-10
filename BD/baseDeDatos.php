@@ -27,6 +27,11 @@ class BaseDeDatos
         return null;
     }
 
+    public function insert($sql,$array) {
+        $stmt= $this->db->prepare($sql);
+        $stmt->execute($array);
+    }
+
     public function cerrar()
     {
 
