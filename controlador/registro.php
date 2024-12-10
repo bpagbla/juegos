@@ -10,6 +10,7 @@ class Controlador
 
     public function inicia()
     {
+        include_once '../controlador/registro.php';
         Vista::MuestraRegistro();
     }
 
