@@ -20,6 +20,7 @@ class Controlador
         if (!$added && $allPosts) {
             $error = 'Cuenta no creada porque el email o nick ya se esta usando';
         }
+        echo $erroru
         Vista::MuestraRegistro();
     }
 
