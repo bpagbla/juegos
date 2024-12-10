@@ -10,8 +10,14 @@ function anadirUsuario($email, $nick, $nombre, $apel, $pass)
     $email = $_POST("email");
     $nick = $_POST("nick");
 
-    $consulta = $ddbb->consulta("SELECT * FROM `usuario` WHERE EMAIL='$email' || NICK='$nick'");
-    if (empty($consulta)) {
+    $datos = $ddbb->consulta("SELECT * FROM `usuario` WHERE EMAIL='$email' || NICK='$nick'");
+    $existe = false;
+    foreach ($datos as $row) {
+        if($row["nick"] || $row["email"]){
+            $existe=true;
+        }
+    }
+    if (!$existe) {
 
         $pass = password_hash($pass, PASSWORD_DEFAULT);
 
