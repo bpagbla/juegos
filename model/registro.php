@@ -6,10 +6,6 @@ function anadirUsuario($email, $nick, $nombre, $apel, $pass)
 
     $ddbb = new BaseDeDatos;
     $ddbb->conectar();
-
-    $email = $_POST("email");
-    $nick = $_POST("nick");
-
     $datos = $ddbb->consulta("SELECT * FROM `usuario` WHERE EMAIL='$email' || NICK='$nick'");
     $existe = false;
     foreach ($datos as $row) {
