@@ -6,11 +6,11 @@ function anadirUsuario($email, $nick, $nombre, $apel, $pass)
 
     $ddbb = new BaseDeDatos;
     $ddbb->conectar();
-    $datos = $ddbb->consulta("SELECT * FROM `usuario` WHERE EMAIL='$email' || NICK='$nick'");
+    $datos = $ddbb->consulta("SELECT NICK,EMAIL FROM `usuario` WHERE EMAIL='$email' || NICK='$nick'");
     $existe = false;
     foreach ($datos as $row) {
-        if($row["nick"] || $row["email"]){
-            $existe=true;
+        if(isset($row["NICK"]) || isset($row["EMAIL"])){
+            $existe = true;
         }
     }
     if (!$existe) {
