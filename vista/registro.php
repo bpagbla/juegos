@@ -122,7 +122,7 @@ El Email o Nick ya estan en uso.
                 <rect x="48.9781" y="16.3" width="8.0912" height="7.97125" fill="black"/>
                 <rect x="0.615906" y="48.2917" width="8.0912" height="7.97125" fill="black"/>
             </svg>
-            <h2>Registra<?php print_r("a")?></h2>
+            <h2>Registro</h2>
         </div>
 
         <div class="row g-5 justify-content-center">
@@ -140,7 +140,7 @@ Se requiere de un nombre valido.
 
                         <div class="col-sm-6">
                             <label for="lastName" class="form-label ms-1">Apellidos</label>
-                            <input type="text" class="form-control" id="lastName" placeholder="" value=""
+                            <input type="text" class="form-control" id="lastName" placeholder="" value="<?php if(!empty($_POST["apellidos"])) { print $_POST["apellidos"]; } ?>"
                                    name="apellidos" required>
                             <div class="invalid-feedback">
 Se requiere de al menos un apellido valido.
@@ -151,7 +151,7 @@ Se requiere de al menos un apellido valido.
                             <label for="username" class="form-label ms-1">Nick</label>
                             <div class="input-group has-validation">
                                 <span class="input-group-text">@</span>
-                                <input type="text" class="form-control" id="username" placeholder="Nick" name="nick"
+                                <input type="text" class="form-control" id="username" placeholder="Nick" name="nick" value="<?php if(!empty($_POST["nick"])) { print $_POST["nick"]; } ?>"
                                        required>
                                 <div class="invalid-feedback">
 Se requiere de un nick valido.
@@ -161,7 +161,7 @@ Se requiere de un nick valido.
 
                         <div class="col-12">
                             <label for="email" class="form-label ms-1">Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="tu@ejemplo.com"
+                            <input type="email" class="form-control" id="email" placeholder="tu@ejemplo.com" value="<?php if(!empty($_POST["email"])) { print $_POST["email"]; } ?>"
                                    name="email" required>
                             <div class="invalid-feedback">
 Se requiere de un correo valido.
@@ -170,7 +170,7 @@ Se requiere de un correo valido.
 
                         <div class="col-12">
                             <label for="passwd" class="form-label ms-1">Contraseña</label>
-                            <input type="password" class="form-control" id="passwd" placeholder="*************"
+                            <input type="password" class="form-control" id="passwd" placeholder="*************" value="<?php if(!empty($_POST["passwd"])) { print $_POST["passwd"]; } ?>"
                                    name="passwd" required>
                             <div class="invalid-feedback">
 Introduce una contraseña valida.
@@ -179,8 +179,8 @@ Introduce una contraseña valida.
 
                         <div class="col-12">
                             <label for="passwd2" class="form-label ms-1">Repite Contraseña</label>
-                            <input type="password" class="form-control" id="passwd2" placeholder="*************"
-                                   required>
+                            <input type="password" class="form-control" id="passwd2" placeholder="*************" value="<?php if(!empty($_POST["passwd2"])) { print $_POST["passwd2"]; } ?>"
+                                   name="passwd2" required>
                             <div class="invalid-feedback">
 Las dos contraseñas no son iguales.
                             </div>
@@ -200,7 +200,7 @@ Selecciona una provincia valida.
 
                         <div class="col-md-4">
                             <label for="city" class="form-label ms-1">Ciudad</label>
-                            <input type="text" class="form-control" id="city" placeholder="" name="ciudad" required>
+                            <input type="text" class="form-control" id="city" placeholder="" name="ciudad" value="<?php if(!empty($_POST["ciudad"])) { print $_POST["ciudad"]; } ?>" required>
                             <div class="invalid-feedback">
 Introduce una ciudad valida.
                             </div>
@@ -208,7 +208,7 @@ Introduce una ciudad valida.
 
                         <div class="col-md-3">
                             <label for="zip" class="form-label ms-1">CP</label>
-                            <input type="text" class="form-control" id="zip" placeholder="" name="cp" required>
+                            <input type="text" class="form-control" id="zip" placeholder="" name="cp" value="<?php if(!empty($_POST["cp"])) { print $_POST["cp"]; } ?>" required>
                             <div class="invalid-feedback">
 Se requiere de CP valido.
                             </div>
@@ -217,7 +217,7 @@ Se requiere de CP valido.
                     <div class="row mt-3">
                         <div class="col">
                             <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="save-info" name="tyc" required>
+                                <input type="checkbox" class="form-check-input" id="save-info" name="tyc" <?php if(!empty($_POST["tyc"])) { print "checked"; } ?> required>
                                 <label class="form-check-label" for="save-info">Acepto los Terminos y
                                     Condiciones</label>
                             </div>
