@@ -16,7 +16,6 @@
             $role = $row['ROLE'];
         }
 
-
         $array = array();
         if ($role == 'admin') { //si el rol es admin
             $consulta = $ddbb->consulta("SELECT ID,TITULO FROM `juego`"); //se sacan todos los juegos de la base de datos

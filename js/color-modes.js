@@ -46,13 +46,17 @@
       element.classList.remove('active')
       element.setAttribute('aria-pressed', 'false')
     })
+    console.log(theme)
+        console.log("a")
 
-    if (theme !== 'auto') {
       document.querySelectorAll('.logoTheme').forEach(element => {
         element.classList.add('d-none')
+        
       })
       svgToActive.classList.remove('d-none')
-    }
+    
+
+  
 
     btnToActive.classList.add('active')
     btnToActive.setAttribute('aria-pressed', 'true')
