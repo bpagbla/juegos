@@ -110,43 +110,44 @@
             <div class="toast-body">
                 Las contraseñas no coinciden.
             </div>
-<div class="container">
-    <main>
-        <div class="pb-3 pt-4 text-center">
-            <svg class="d-block mx-auto mb-2 logoTheme" viewBox="0 0 79 80" height="57" data-bs-theme-value-svg="dark"
-                 xmlns="http://www.w3.org/2000/svg">
-                <path
-                        d="M16.7071 24.2629V16.2629H40.7071V24.2629H16.7071ZM16.7071 56.2629V48.2629H8.7071V24.2629H16.7071V48.2629H32.7071V40.2629H24.7071V32.2629H40.7071V56.2629H16.7071Z"
-                        fill="white"/>
-                <path d="M41 72.3H33V32.3H57V40.3H41V48.3H57V56.3H41V72.3ZM57 48.3V40.3H65V48.3H57Z" fill="white"/>
-                <rect x="8.7071" y="56.2629" width="8.0912" height="7.97125" fill="white"/>
-                <rect x="48.9781" y="16.3" width="8.0912" height="7.97125" fill="white"/>
-                <rect x="0.615906" y="48.2917" width="8.0912" height="7.97125" fill="white"/>
-            </svg>
-            <svg class="d-block mx-auto mb-2 logoTheme d-none" viewBox="0 0 79 80" height="57"
-                 data-bs-theme-value-svg="light"
-                 xmlns="http://www.w3.org/2000/svg">
-                <path
-                        d="M16.7071 24.2629V16.2629H40.7071V24.2629H16.7071ZM16.7071 56.2629V48.2629H8.7071V24.2629H16.7071V48.2629H32.7071V40.2629H24.7071V32.2629H40.7071V56.2629H16.7071Z"
-                        fill="black"/>
-                <path d="M41 72.3H33V32.3H57V40.3H41V48.3H57V56.3H41V72.3ZM57 48.3V40.3H65V48.3H57Z" fill="black"/>
-                <rect x="8.7071" y="56.2629" width="8.0912" height="7.97125" fill="black"/>
-                <rect x="48.9781" y="16.3" width="8.0912" height="7.97125" fill="black"/>
-                <rect x="0.615906" y="48.2917" width="8.0912" height="7.97125" fill="black"/>
-            </svg>
-            <svg class="d-block mx-auto mb-2 logoTheme d-none" viewBox="0 0 79 80" height="57"
-                 data-bs-theme-value-svg="auto"
-                 xmlns="http://www.w3.org/2000/svg">
-                <path
-                        d="M16.7071 24.2629V16.2629H40.7071V24.2629H16.7071ZM16.7071 56.2629V48.2629H8.7071V24.2629H16.7071V48.2629H32.7071V40.2629H24.7071V32.2629H40.7071V56.2629H16.7071Z"
-                        fill="#ab51fa"/>
-                <path d="M41 72.3H33V32.3H57V40.3H41V48.3H57V56.3H41V72.3ZM57 48.3V40.3H65V48.3H57Z" fill="#ab51fa"/>
-                <rect x="8.7071" y="56.2629" width="8.0912" height="7.97125" fill="#ab51fa"/>
-                <rect x="48.9781" y="16.3" width="8.0912" height="7.97125" fill="#ab51fa"/>
-                <rect x="0.615906" y="48.2917" width="8.0912" height="7.97125" fill="#ab51fa"/>
-            </svg>
-            <h2>Registro</h2>
         </div>
+    </div>
+    <div class="container">
+        <main>
+            <div class="pb-3 pt-4 text-center">
+                <svg class="d-block mx-auto mb-2 logoTheme" viewBox="0 0 79 80" height="57"
+                    data-bs-theme-value-svg="dark" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M16.7071 24.2629V16.2629H40.7071V24.2629H16.7071ZM16.7071 56.2629V48.2629H8.7071V24.2629H16.7071V48.2629H32.7071V40.2629H24.7071V32.2629H40.7071V56.2629H16.7071Z"
+                        fill="white" />
+                    <path d="M41 72.3H33V32.3H57V40.3H41V48.3H57V56.3H41V72.3ZM57 48.3V40.3H65V48.3H57Z" fill="white" />
+                    <rect x="8.7071" y="56.2629" width="8.0912" height="7.97125" fill="white" />
+                    <rect x="48.9781" y="16.3" width="8.0912" height="7.97125" fill="white" />
+                    <rect x="0.615906" y="48.2917" width="8.0912" height="7.97125" fill="white" />
+                </svg>
+                <svg class="d-block mx-auto mb-2 logoTheme d-none" viewBox="0 0 79 80" height="57"
+                    data-bs-theme-value-svg="light" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M16.7071 24.2629V16.2629H40.7071V24.2629H16.7071ZM16.7071 56.2629V48.2629H8.7071V24.2629H16.7071V48.2629H32.7071V40.2629H24.7071V32.2629H40.7071V56.2629H16.7071Z"
+                        fill="black" />
+                    <path d="M41 72.3H33V32.3H57V40.3H41V48.3H57V56.3H41V72.3ZM57 48.3V40.3H65V48.3H57Z" fill="black" />
+                    <rect x="8.7071" y="56.2629" width="8.0912" height="7.97125" fill="black" />
+                    <rect x="48.9781" y="16.3" width="8.0912" height="7.97125" fill="black" />
+                    <rect x="0.615906" y="48.2917" width="8.0912" height="7.97125" fill="black" />
+                </svg>
+                <svg class="d-block mx-auto mb-2 logoTheme d-none" viewBox="0 0 79 80" height="57"
+                    data-bs-theme-value-svg="auto" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M16.7071 24.2629V16.2629H40.7071V24.2629H16.7071ZM16.7071 56.2629V48.2629H8.7071V24.2629H16.7071V48.2629H32.7071V40.2629H24.7071V32.2629H40.7071V56.2629H16.7071Z"
+                        fill="#ab51fa" />
+                    <path d="M41 72.3H33V32.3H57V40.3H41V48.3H57V56.3H41V72.3ZM57 48.3V40.3H65V48.3H57Z"
+                        fill="#ab51fa" />
+                    <rect x="8.7071" y="56.2629" width="8.0912" height="7.97125" fill="#ab51fa" />
+                    <rect x="48.9781" y="16.3" width="8.0912" height="7.97125" fill="#ab51fa" />
+                    <rect x="0.615906" y="48.2917" width="8.0912" height="7.97125" fill="#ab51fa" />
+                </svg>
+                <h2>Registro</h2>
+            </div>
     </div>
 
     <div class="container">
@@ -181,11 +182,9 @@
                         <div class="row g-3">
                             <div class="col-sm-6">
                                 <label for="firstName" class="form-label ms-1">Nombre</label>
-                                <input type="text" class="form-control" id="firstName" placeholder=""
-                                    value="<?php if (!empty($_POST["nombre"])) {
-                                        print $_POST["nombre"];
-                                    } ?>"
-                                    name="nombre" required>
+                                <input type="text" class="form-control" id="firstName" placeholder="" value="<?php if (!empty($_POST["nombre"])) {
+                                    print $_POST["nombre"];
+                                } ?>" name="nombre" required>
                                 <div class="invalid-feedback">
                                     Se requiere de un nombre valido.
                                 </div>
@@ -193,11 +192,9 @@
 
                             <div class="col-sm-6">
                                 <label for="lastName" class="form-label ms-1">Apellidos</label>
-                                <input type="text" class="form-control" id="lastName" placeholder=""
-                                    value="<?php if (!empty($_POST["apellidos"])) {
-                                        print $_POST["apellidos"];
-                                    } ?>"
-                                    name="apellidos" required>
+                                <input type="text" class="form-control" id="lastName" placeholder="" value="<?php if (!empty($_POST["apellidos"])) {
+                                    print $_POST["apellidos"];
+                                } ?>" name="apellidos" required>
                                 <div class="invalid-feedback">
                                     Se requiere de al menos un apellido valido.
                                 </div>
@@ -219,11 +216,9 @@
 
                             <div class="col-12">
                                 <label for="email" class="form-label ms-1">Email</label>
-                                <input type="email" class="form-control" id="email" placeholder="tu@ejemplo.com"
-                                    value="<?php if (!empty($_POST["email"])) {
-                                        print $_POST["email"];
-                                    } ?>" name="email"
-                                    required>
+                                <input type="email" class="form-control" id="email" placeholder="tu@ejemplo.com" value="<?php if (!empty($_POST["email"])) {
+                                    print $_POST["email"];
+                                } ?>" name="email" required>
                                 <div class="invalid-feedback">
                                     Se requiere de un correo valido.
                                 </div>
@@ -234,8 +229,7 @@
                                 <input type="password" class="form-control" id="passwd" placeholder="*************"
                                     value="<?php if (!empty($_POST["passwd"])) {
                                         print $_POST["passwd"];
-                                    } ?>"
-                                    name="passwd" required>
+                                    } ?>" name="passwd" required>
                                 <div class="invalid-feedback">
                                     Introduce una contraseña valida.
                                 </div>
@@ -246,8 +240,7 @@
                                 <input type="password" class="form-control" id="passwd2" placeholder="*************"
                                     value="<?php if (!empty($_POST["passwd2"])) {
                                         print $_POST["passwd2"];
-                                    } ?>"
-                                    name="passwd2" required>
+                                    } ?>" name="passwd2" required>
                                 <div class="invalid-feedback">
                                     Las dos contraseñas no son iguales.
                                 </div>
@@ -267,10 +260,9 @@
 
                             <div class="col-md-4">
                                 <label for="city" class="form-label ms-1">Ciudad</label>
-                                <input type="text" class="form-control" id="city" placeholder="" name="ciudad"
-                                    value="<?php if (!empty($_POST["ciudad"])) {
-                                        print $_POST["ciudad"];
-                                    } ?>" required>
+                                <input type="text" class="form-control" id="city" placeholder="" name="ciudad" value="<?php if (!empty($_POST["ciudad"])) {
+                                    print $_POST["ciudad"];
+                                } ?>" required>
                                 <div class="invalid-feedback">
                                     Introduce una ciudad valida.
                                 </div>
@@ -278,10 +270,9 @@
 
                             <div class="col-md-3">
                                 <label for="zip" class="form-label ms-1">CP</label>
-                                <input type="text" class="form-control" id="zip" placeholder="" name="cp"
-                                    value="<?php if (!empty($_POST["cp"])) {
-                                        print $_POST["cp"];
-                                    } ?>" required>
+                                <input type="text" class="form-control" id="zip" placeholder="" name="cp" value="<?php if (!empty($_POST["cp"])) {
+                                    print $_POST["cp"];
+                                } ?>" required>
                                 <div class="invalid-feedback">
                                     Se requiere de CP valido.
                                 </div>
