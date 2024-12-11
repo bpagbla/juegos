@@ -322,7 +322,7 @@
                     <?php
                     //Iterate over the games the user has and print the card for the game using the template
                     foreach ($games as $game) {
-                        include('../vista/templates/card-template.php');
+                        include('../frm/templates/card-template.php');
                     }
                     ?>
                 </div>

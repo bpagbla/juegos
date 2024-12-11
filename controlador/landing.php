@@ -8,7 +8,8 @@ class Controlador_Landing
     //funcion para iniciar la vista
     public function inicia()
     {
-        include '../vista/landing.php';
+        include_once "../vista/vista.php";
+        Vista::mostrarLanding();
     }
 
 }

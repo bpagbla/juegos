@@ -8,10 +8,11 @@ class Controlador_Login
     public function inicia()
     {
         include_once "../model/login.php";
+        include_once "../vista/vista.php";
         $loginAttempt = false;
-//para verificar usuario se comprueba que se ha rellenado el formulario
+        //para verificar usuario se comprueba que se ha rellenado el formulario
         if (isset($_POST["user"]) && isset($_POST["passwd"])) {
-//se llama a la funcion verificar usuario del model/login.php
+            //se llama a la funcion verificar usuario del model/login.php
             if (verificarUsuario($_POST["user"], $_POST["passwd"])) {
                 //si se verifica el usuario se llama a la funcion iniciaSesion
                 $this->iniciaSesion();
@@ -22,7 +23,7 @@ class Controlador_Login
 
         }
         //incluye la vista del login
-        include('../vista/login.php');
+        Vista::mostrarLogin($loginAttempt);
 
     }
 
