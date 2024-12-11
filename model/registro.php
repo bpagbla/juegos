@@ -29,6 +29,7 @@ function anadirUsuario($email, $nick, $nombre, $apel, $pass)
     }
 }
 
+//funcion para comprobar que las dos contraseñas sean iguales, si son iguales devuelve true y sino false
 function comprobarPasswd(){
     if(isset($_POST["passwd"]) && isset($_POST["passwd2"])){
         if($_POST["passwd"] == $_POST["passwd2"]){
