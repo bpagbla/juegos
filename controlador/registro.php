@@ -20,8 +20,8 @@ class Controlador_Registro
         $error = '';
         //se comprueba que se hayan rellenado todos los campos
         $allPosts = (isset($_POST["email"]) && isset($_POST["nick"]) && isset($_POST["nombre"]) && isset($_POST["apellidos"]) && isset($_POST["passwd"]));
+        $passwdBien = false;
         if ($allPosts) {
-            $passwdBien = false;
             //se comprueba que las contraseñas sean iguales
             if (comprobarPasswd()) {
                 $passwdBien = true;
@@ -37,7 +37,8 @@ class Controlador_Registro
         }
 
         //se incluye la vista de registro
-        include "../vista/registro.php";
+        include "../vista/vista.php";
+        Vista::mostrarRegistro($allPosts,$added,$passwdBien);
     }
 
 }

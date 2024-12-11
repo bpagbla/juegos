@@ -16,8 +16,8 @@ class Vista
         include_once "../frm/principal.php";
     }
 
-    public static function mostrarRegistro() {
-
+    public static function mostrarRegistro($allPosts,$added,$passwdBien) {
+        include_once "../frm/registro.php";
     }
 
 }
