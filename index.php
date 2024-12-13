@@ -23,9 +23,12 @@ class Controlador
             case "login":
                 $this->iniciaLogin();
                 break;
-            case "principal": {
+            case "principal":
                 $this->iniciaPrincipal();
-            }
+                break;
+            case "registro":
+                $this->iniciaRegistro();
+                break;
         }
 
     }
@@ -56,6 +59,8 @@ class Controlador
         //si hay una sesion creada y se hace logout se destruye la sesión y se envia al landing
         if (isset($_SESSION["nick"])) {
             if (isset($_POST["logout"])) {
+                //SERIALIZAR EL CARRITO
+                //GAUARDAR EL CARRITO EN LA BASE DE DATOS
                 session_unset();
                 session_destroy();
                 header("location: ?page=login");
@@ -75,9 +80,6 @@ class Controlador
     //REGISTRO
     public function iniciaRegistro()
     {
-
-        include_once '../model/registro.php';
-
         $added = false;
         $error = '';
         //se comprueba que se hayan rellenado todos los campos
@@ -99,7 +101,6 @@ class Controlador
         }
 
         //se incluye la vista de registro
-        include "../vista/vista.php";
         Vista::mostrarRegistro($allPosts,$added,$passwdBien);
     }
 }

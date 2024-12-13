@@ -162,7 +162,7 @@
             </div>
             <button class="btn btn-primary w-100 py-2 estiloBoton" type="submit">Iniciar Sesión</button>
             <p class="mt-3 mb-3 text-body-secondary">¿No tienes cuenta? <br><a class=" text-decoration-none"
-                    href="registro.php">
+                    href="/?page=registro">
                     Regístrate ahora.
                 </a></p>
         </form>

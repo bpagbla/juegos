@@ -146,6 +146,7 @@
                     <rect x="48.9781" y="16.3" width="8.0912" height="7.97125" fill="#ab51fa" />
                     <rect x="0.615906" y="48.2917" width="8.0912" height="7.97125" fill="#ab51fa" />
                 </svg>
+                </svg>
                 <h2>Registro</h2>
             </div>
             <div class="row g-5 justify-content-center">
@@ -272,7 +273,7 @@
         </main>
 
         <footer class="mb-4 pt-3 text-body-secondary text-center text-small">
-            <p class="mb-1">¿Ya tienes cuenta? <a href="login.php">Login</a></p>
+            <p class="mb-1">¿Ya tienes cuenta? <a href="/?page=login">Login</a></p>
         </footer>
     </div>
     <script src="../js/bootstrap.bundle.min.js"></script>
