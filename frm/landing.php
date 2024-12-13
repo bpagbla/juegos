@@ -153,9 +153,9 @@
                     </li>
 
                 </ul>
-                <a class="d-flex text-decoration-none" href="login.php">
-                    <input class="btnLogin" type="button" value="Login">
-                </a>
+                <form class="d-flex text-decoration-none" action="" method="get">
+                    <input class="btnLogin" type="submit" name="page" value="login">
+                </form>
             </div>
         </div>
     </nav>

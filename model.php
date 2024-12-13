@@ -4,7 +4,7 @@ class model
 {
     static function getGames() {
 
-        include_once "../BD/baseDeDatos.php";
+        include_once "BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
 
@@ -46,7 +46,7 @@ class model
     static function verificarUsuario($loginID, $password)
     {
         //Include the ddbb class
-        include_once "../BD/baseDeDatos.php";
+        include_once "BD/baseDeDatos.php";
 
         //Open the database connection
         $ddbb = new BaseDeDatos;
@@ -92,7 +92,7 @@ class model
     static function anadirUsuario($email, $nick, $nombre, $apel, $pass)
     {
 
-        include_once "../BD/baseDeDatos.php";
+        include_once "BD/baseDeDatos.php";
 
         $ddbb = new BaseDeDatos;
         $ddbb->conectar(); //se conecta a la base de datos
