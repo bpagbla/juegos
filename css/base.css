@@ -188,4 +188,5 @@ h2 {
 
 .dropdown-menu {
     background-color: transparent !important;
+    padding: 0 !important;
 }
