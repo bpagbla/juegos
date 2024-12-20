@@ -4,3 +4,20 @@
     </svg>
     Añadir
 </button>
+<div class="col">
+    <div class="row">
+        <div class="col-6 bg-danger-subtle" style="height: 100vh"></div>
+        <div class="col-6 bg-danger-subtle">
+            <div class="row">
+                <div class="col bg-primary-subtle" style="height: 40vh">
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col bg-primary" style="height: 60vh">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
