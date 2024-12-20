@@ -63,7 +63,7 @@
                     error contacta con admin@juegos.com</p>
                 <div class="decoration d-inline-block rounded-pill"></div>
                 <br>
-                <button class="btn btn-primary py-2 estiloBoton m-auto" type="submit" name="page" value="landing">Volver</button>
+                <button class="btn btn-primary py-2 estiloBoton m-auto" type="submit" name="page" value="<?php echo (isset($_SESSION["id"])) ? 'principal' : 'landing'; ?>">Volver</button>
             </form>
         </main>
     </div>
