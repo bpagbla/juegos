@@ -5,7 +5,7 @@
         <div class="card-body">    <!--Include the title of the game in the card-->
             <h5 class="card-title"><?php print $game[1] ?></h5>
             <div class="d-flex justify-content-around">
-                <a href="#" class="btn btn-sm btn-primary">Edit</a>
+                <a href="#" class="btn btn-sm btn-primary">Editar</a>
                 <a href="#" class="btn btn-sm btn-primary">Borrar</a>
             </div>
         </div>
