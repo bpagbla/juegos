@@ -1,11 +1,11 @@
 <li class="dropdown nav-item">
-    <a class="nav-link dropdown-toggle text-white ps-2 show" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="true">
+    <a class="nav-link dropdown-toggle text-white ps-2 <?php echo ($page === "admin") ? "show" : "" ?>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="<?php echo ($page === "admin") ? "true" : "false" ?>">
         <svg class="bi me-2" width="16" height="16">
             <use xlink:href="#tools" />
         </svg>
         Administrar
     </a>
-    <ul class="dropdown-menu show">
+    <ul class="dropdown-menu <?php echo ($page === "admin") ? "show" : "" ?>">
         <li><a class="nav-link dropdown-item text-white" href="#">Usuarios</a></li>
         <li><a class="nav-link dropdown-item text-white" href="#">Juegos</a></li>
         <li><a class="nav-link dropdown-item text-white" href="#">Genero</a></li>
