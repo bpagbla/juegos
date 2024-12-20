@@ -86,11 +86,8 @@ class Controlador
         //Valida la sessión. Si erronea o logout envia a login.
         $this->validateAdminSession();
 
-        //se incluyen los juegos que posee el usuario
-        $games = Model::getGames($_SESSION['id']);
-
         //se incluye la vista de principal
-        Vista::mostrarAdminUsuarios($games);
+        Vista::mostrarAdminUsuarios();
     }
 
     public function iniciaAdminJuegos()
@@ -103,6 +100,24 @@ class Controlador
 
         //se incluye la vista de principal
         Vista::mostrarAdminJuegos($games);
+    }
+
+    public function iniciaAdminGeneros()
+    {
+        //Valida la sessión. Si erronea o logout envia a login.
+        $this->validateAdminSession();
+
+        //se incluye la vista de principal
+        Vista::mostrarAdminGeneros();
+    }
+
+    public function iniciaAdminSistemas()
+    {
+        //Valida la sessión. Si erronea o logout envia a login.
+        $this->validateAdminSession();
+
+        //se incluye la vista de principal
+        Vista::mostrarAdminSistemas();
     }
 
     //LOGIN

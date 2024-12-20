@@ -1,6 +1,6 @@
 <?php
     $isadmin = false;
-    if ($page === "adm-usuarios" || $page === "adm-juegos" || $page === "adm-generos" || $page === "adm-sistemas") {}
+    if ($page === "adm-usuarios" || $page === "adm-juegos" || $page === "adm-generos" || $page === "adm-sistemas") {$isadmin = true;}
 ?>
 <li class="dropdown nav-item">
     <a class="nav-link dropdown-toggle text-white ps-2 <?php echo ($isadmin) ? "show" : "" ?>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="<?php echo ($isadmin) ? "true" : "false" ?>">

@@ -21,7 +21,7 @@ class Vista
         include_once "frm/registro.php";
     }
 
-    public static function mostrarAdminUsuarios($games) {
+    public static function mostrarAdminUsuarios() {
         $page = "adm-usuarios";
         include_once "frm/templates/base.php";
     }
@@ -31,12 +31,12 @@ class Vista
         include_once "frm/templates/base.php";
     }
 
-    public static function mostrarAdminGeneros($games) {
+    public static function mostrarAdminGeneros() {
         $page = "adm-generos";
         include_once "frm/templates/base.php";
     }
 
-    public static function mostrarAdminSistemas($games) {
+    public static function mostrarAdminSistemas() {
         $page = "adm-sistemas";
         include_once "frm/templates/base.php";
     }
