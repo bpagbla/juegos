@@ -152,7 +152,7 @@
                     <?php
                     //If the user is admin, show the administration button in the outside menu.
                     if($_SESSION["role"]=="admin") {
-                        include_once 'frm/templates/admin-dropdown.php';
+                        include 'frm/templates/admin-dropdown.php';
                     }
                     ?>
                 </ul>
@@ -218,7 +218,7 @@
                         </button>
                         </form>
                     </li>
-                    <li>
+                    <li class="nav-item">
                         <form method="get">
                             <button class="nav-link text-white" type="submit" name="page" value="novedades">
                                 <svg class="bi me-2" width="16" height="16">
@@ -228,7 +228,7 @@
                             </button>
                         </form>
                     </li>
-                    <li>
+                    <li class="nav-item">
                         <form method="get">
                             <button class="nav-link text-white" type="submit" name="page" value="ofertas">
                                 <svg class="bi me-2" width="16" height="16">
@@ -238,7 +238,7 @@
                             </button>
                         </form>
                     </li>
-                    <li>
+                    <li class="nav-item">
                         <form method="get">
                             <button class="nav-link text-white" type="submit" name="page" value="juegos">
                                 <svg class="bi me-2" width="16" height="16">
@@ -248,7 +248,7 @@
                             </button>
                         </form>
                     </li>
-                    <li>
+                    <li class="nav-item">
                         <form method="get">
                             <button class="nav-link text-white" type="submit" name="page" value="soporte">
                                 <svg class="bi me-2" width="16" height="16">
@@ -260,16 +260,7 @@
                     </li>
                     <?php
                     //If the user is admin, show the administration button in the sidebar.
-                    if($_SESSION["role"]=="admin") {
-                        print "<li>";
-                        print '<a href="#" class="nav-link text-white active">';
-                        print '<svg class="bi me-2" width="16" height="16">';
-                        print '<use xlink:href="#tools" />';
-                        print '</svg>';
-                        print 'Administrar';
-                        print '</a>';
-                        print '</li>';
-                    }
+                    include "frm/templates/admin-dropdown.php"
                     ?>
                 </ul>
                 <hr>
