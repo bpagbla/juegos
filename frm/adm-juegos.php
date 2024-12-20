@@ -6,7 +6,8 @@
     ?>
 </div>
 
-<button type="button" class="btn text-white position-fixed end-0 bottom-0 m-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
+<button type="button" class="btn text-white position-fixed end-0 bottom-0 m-4" data-bs-toggle="modal"
+    data-bs-target="#exampleModal">
     <svg class="bi me-2" width="16" height="16">
         <use xlink:href="#plus" />
     </svg>
@@ -22,6 +23,16 @@
             </div>
             <div class="modal-body">
                 <form action="" method="post" enctype="multipart/form-data">
+                    <div class="img-container">
+                        <div class="img-area">
+                            <svg class="bi me-2" width="30" height="30">
+                                <use xlink:href="#upload" />
+                            </svg>
+                            <h3>Subir Imágen</h3>
+                            <p>La imagen debe ser de un tamaño menor que <span>XTAMAÑO</span></p>
+                        </div>
+                        <button class="select-img"> Seleccionar Imágen</button>
+                    </div>
                     <div class="mb-3">
                         <label for="recipient-name" class="col-form-label">Título:</label>
                         <input type="text" class="form-control" id="recipient-name">
@@ -33,8 +44,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Send message</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Añadir</button>
             </div>
         </div>
     </div>

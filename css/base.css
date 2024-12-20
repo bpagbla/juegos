@@ -190,3 +190,10 @@ h2 {
     /* background-color: transparent !important; */
     padding: 0 !important;
 }
+
+
+.img-container{
+    max-width: 400px;
+    width: 100%;
+    
+}
