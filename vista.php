@@ -20,4 +20,9 @@ class Vista
         include_once "frm/registro.php";
     }
 
+    public static function mostrarAdmin($games) {
+        $page = "admin";
+        include_once "frm/templates/base.php";
+    }
+
 }

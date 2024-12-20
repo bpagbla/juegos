@@ -29,8 +29,34 @@ class Controlador
             case "registro":
                 $this->iniciaRegistro();
                 break;
+            case "admin":
+                $this->iniciaAdmin();
         }
 
+    }
+
+    //ADMIN
+
+    public function iniciaAdmin()
+    {
+        //si hay una sesion creada y se hace logout se destruye la sesión y se envia al landing
+        if (isset($_SESSION["nick"])) {
+            if (isset($_POST["logout"])) {
+                //SERIALIZAR EL CARRITO
+                //GAUARDAR EL CARRITO EN LA BASE DE DATOS
+                session_unset();
+                session_destroy();
+                header("location: ?page=login");
+            }
+            //se incluyen los juegos que posee el usuario
+            $games = Model::getGames();
+
+            //se incluye la vista de principal
+            Vista::mostrarAdmin($games);
+
+        } else { //si no hay sesion creada con el nick se devuelve al landing
+            header("location: ?page=login");
+        }
     }
 
     //LOGIN
