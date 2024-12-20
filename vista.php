@@ -13,7 +13,8 @@ class Vista
     }
 
     public static function mostrarPrincipal($games) {
-        include_once "frm/principal.php";
+        $page = "principal";
+        include_once "frm/templates/base.php";
     }
 
     public static function mostrarRegistro($allPosts,$added,$passwdBien) {
