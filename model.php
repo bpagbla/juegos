@@ -10,7 +10,7 @@ class model
         $ddbb->conectar();
 
         //se saca el rol del usuario
-        $consulta = $ddbb->consulta("SELECT ROLE FROM `usuario` WHERE ID='$id'");
+        $consulta = $ddbb->consulta("SELECT ROLE FROM usuario WHERE ID=?", array($id));
         $role = '';
         foreach ($consulta as $row) {
             $role = $row['ROLE'];
@@ -18,7 +18,7 @@ class model
 
         $array = array();
         if ($role == 'admin') { //si el rol es admin
-            $consulta = $ddbb->consulta("SELECT ID,TITULO FROM `juego`"); //se sacan todos los juegos de la base de datos
+            $consulta = $ddbb->consulta("SELECT ID,TITULO FROM juego"); //se sacan todos los juegos de la base de datos
             $titulo = '';
             $id = '';
             //Se guardan el titulo y el id del juego en el array
@@ -28,10 +28,10 @@ class model
                 $array[] = [$id, $titulo];
             }
         } else { //si es usuario se sacan solo los juegos que tenga el usuario
-            $consulta = $ddbb->consulta("SELECT ID_JUEGO FROM `posee` WHERE ID_USUARIO='$id'");
+            $consulta = $ddbb->consulta("SELECT ID_JUEGO FROM posee WHERE ID_USUARIO=?", array($id));
             foreach ($consulta as $row) {
                 $id_juego = $row['ID_JUEGO'];
-                $consulta = $ddbb->consulta("SELECT TITULO FROM `juego` WHERE ID='$id_juego'");
+                $consulta = $ddbb->consulta("SELECT TITULO FROM juego WHERE ID=?", array($id_juego));
                 $titulo = '';
                 foreach ($consulta as $each) {
                     $titulo = $each['TITULO'];
@@ -52,7 +52,7 @@ class model
         $ddbb->conectar();
 
         //Check if there is any user with that email or nick
-        $consulta = $ddbb->consulta("SELECT ID FROM `usuario` WHERE EMAIL='$loginID' || NICK='$loginID'");
+        $consulta = $ddbb->consulta("SELECT ID FROM usuario WHERE EMAIL=? || NICK=?", array($loginID, $loginID));
         $id = "";
         foreach ($consulta as $item) {
             $id = $item["ID"];
@@ -69,7 +69,7 @@ class model
         //Open the database connection
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
-        $consPass = $ddbb->consulta("SELECT password FROM `usuario` WHERE ID='$id'");
+        $consPass = $ddbb->consulta("SELECT password FROM usuario WHERE ID=?", array($id));
         $passReal = "";
         foreach ($consPass as $row) {
             $passReal = $row["password"];
@@ -89,7 +89,7 @@ class model
          $ddbb->conectar();
 
         //Saco los datos del user
-        $datos = $ddbb->consulta("SELECT nick,email,id,role FROM `usuario` WHERE ID='$id'");
+        $datos = $ddbb->consulta("SELECT nick,email,id,role FROM `usuario` WHERE ID=?", array($id));
         
         //Guardar datos del usuario en la sesion
         foreach ($datos as $row) {
@@ -111,7 +111,7 @@ class model
         $ddbb->conectar(); //se conecta a la base de datos
 
         //se hace la consulta de usuario y nick para ver si están duplicados
-        $datos = $ddbb->consulta("SELECT NICK,EMAIL FROM `usuario` WHERE EMAIL='$email' || NICK='$nick'");
+        $datos = $ddbb->consulta("SELECT NICK,EMAIL FROM usuario WHERE EMAIL=? || NICK=?", array($email, $nick));
 
         $existe = false;
         foreach ($datos as $row) {
