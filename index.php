@@ -64,7 +64,7 @@ class Controlador
     public function validateAdminSession() {
         //si hay una sesion creada y se hace logout se destruye la sesión y se envia al landing
         if (isset($_SESSION["nick"])) {
-            if ($_SESSION["rol"] === "admin") {
+            if ($_SESSION["role"] === "admin") {
                 if (isset($_POST["logout"])) {
                     //SERIALIZAR EL CARRITO
                     //GAUARDAR EL CARRITO EN LA BASE DE DATOS
