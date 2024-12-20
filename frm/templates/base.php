@@ -5,34 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Glitched Pixel | Home</title>
-
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sidebars/">
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Favicons -->
     <meta name="theme-color" content="#7952b3">
-
-    <style>
-        .bd-placeholder-img {
-            font-size: 1.125rem;
-            text-anchor: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            user-select: none;
-        }
-
-        @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-                font-size: 3.5rem;
-            }
-        }
-    </style>
-
-    <link rel="stylesheet" href="../css/principal.css">
+    <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/general.css">
 
 </head>
-
 <body>
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
     <symbol id="home" viewBox="0 0 16 16">
@@ -130,14 +110,14 @@
             <div class="offcanvas-body">
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                     <li class="nav-item">
-                        <a href="#" class="nav-link ps-2" aria-current="page">
+                        <a href="#" class="nav-link text-white ps-2" aria-current="page">
                             <svg class="bi me-2" width="16" height="16">
                                 <use xlink:href="#home" />
                             </svg>
                             Biblioteca
                         </a>
                     </li>
-                    <li>
+                    <li class="nav-item">
                         <a href="#" class="nav-link text-white ps-2">
                             <svg class="bi me-2" width="16" height="16">
                                 <use xlink:href="#speedometer2" />
@@ -145,7 +125,7 @@
                             Novedades
                         </a>
                     </li>
-                    <li>
+                    <li class="nav-item">
                         <a href="#" class="nav-link text-white ps-2">
                             <svg class="bi me-2" width="16" height="16">
                                 <use xlink:href="#table" />
@@ -153,7 +133,7 @@
                             Ofertas
                         </a>
                     </li>
-                    <li>
+                    <li class="nav-item">
                         <a href="#" class="nav-link text-white ps-2">
                             <svg class="bi me-2" width="16" height="16">
                                 <use xlink:href="#grid" />
@@ -161,7 +141,7 @@
                             Todos los juegos
                         </a>
                     </li>
-                    <li>
+                    <li class="nav-item">
                         <a href="#" class="nav-link text-white ps-2">
                             <svg class="bi me-2" width="16" height="16">
                                 <use xlink:href="#question" />
@@ -172,14 +152,7 @@
                     <?php
                     //If the user is admin, show the administration button in the outside menu.
                     if($_SESSION["role"]=="admin") {
-                        print "<li>";
-                        print '<a href="#" class="nav-link text-white ps-2">';
-                        print '<svg class="bi me-2" width="16" height="16">';
-                        print '<use xlink:href="#tools" />';
-                        print '</svg>';
-                        print 'Administrar';
-                        print '</a>';
-                        print '</li>';
+                        include_once 'frm/templates/admin-dropdown.php';
                     }
                     ?>
                 </ul>
@@ -326,7 +299,7 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 
-<script src="../js/principal.js"></script>
+<script src="js/principal.js"></script>
 </body>
 
 </html>
