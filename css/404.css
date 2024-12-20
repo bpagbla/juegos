@@ -130,3 +130,19 @@ main {
     pointer-events: none;
     z-index: 1000;
 }
+
+p {
+    display: inline-block;
+}
+
+.decoration {
+    background-color: red;
+    height: 1em;
+    width: 1em;
+}
+
+.decoration-green {
+    background-color: green;
+    height: 1em;
+    width: 1em;
+}

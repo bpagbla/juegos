@@ -54,10 +54,15 @@
                     <rect x="0.615906" y="48.2917" width="8.0912" height="7.97125" fill="white"/>
                 </svg>
                 <h1>Error 404</h1>
-                <h2 class="mb-0">Pagina no encontrada!</h2>
+                <div class="decoration-green d-inline-block rounded-pill"></div>
+                <h2 class="mb-0 d-inline-block">Pagina no encontrada!</h2>
+                <div class="decoration-green d-inline-block rounded-pill"></div>
                 <br>
-                <p>Parece que la pagina que buscabas no existe o se ha eliminado.<br>Si crees que esto es debido a un
+                <div class="decoration d-inline-block rounded-pill"></div>
+                <p class="mb-5">Parece que la pagina que buscabas no existe o se ha eliminado.<br>Si crees que esto es debido a un
                     error contacta con admin@juegos.com</p>
+                <div class="decoration d-inline-block rounded-pill"></div>
+                <br>
                 <button class="btn btn-primary py-2 estiloBoton m-auto">Volver</button>
             </form>
         </main>
