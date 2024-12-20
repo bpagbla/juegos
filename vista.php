@@ -21,8 +21,23 @@ class Vista
         include_once "frm/registro.php";
     }
 
-    public static function mostrarAdmin($games) {
-        $page = "admin";
+    public static function mostrarAdminUsuarios($games) {
+        $page = "adm-usuarios";
+        include_once "frm/templates/base.php";
+    }
+
+    public static function mostrarAdminJuegos($games) {
+        $page = "adm-juegos";
+        include_once "frm/templates/base.php";
+    }
+
+    public static function mostrarAdminGeneros($games) {
+        $page = "adm-generos";
+        include_once "frm/templates/base.php";
+    }
+
+    public static function mostrarAdminSistemas($games) {
+        $page = "adm-sistemas";
         include_once "frm/templates/base.php";
     }
 

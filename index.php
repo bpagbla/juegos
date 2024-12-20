@@ -30,16 +30,23 @@ class Controlador
             case "registro":
                 $this->iniciaRegistro();
                 break;
-            case "admin":
-                $this->iniciaAdmin();
+            case "adm-usuarios":
+                $this->iniciaAdminUsuarios();
+                break;
+            case "adm-juegos":
+                $this->iniciaAdminJuegos();
+                break;
+            case "adm-generos":
+                $this->iniciaAdminGeneros();
+                break;
+            case "adm-sistemas":
+                $this->iniciaAdminSistemas();
+                break;
         }
 
     }
 
-    //ADMIN
-
-    public function iniciaAdmin()
-    {
+    public function validateSession() {
         //si hay una sesion creada y se hace logout se destruye la sesión y se envia al landing
         if (isset($_SESSION["nick"])) {
             if (isset($_POST["logout"])) {
@@ -49,15 +56,53 @@ class Controlador
                 session_destroy();
                 header("location: ?page=login");
             }
-            //se incluyen los juegos que posee el usuario
-            $games = Model::getGames($_SESSION['id']);
-
-            //se incluye la vista de principal
-            Vista::mostrarAdmin($games);
-
         } else { //si no hay sesion creada con el nick se devuelve al landing
             header("location: ?page=login");
         }
+    }
+
+    public function validateAdminSession() {
+        //si hay una sesion creada y se hace logout se destruye la sesión y se envia al landing
+        if (isset($_SESSION["nick"])) {
+            if ($_SESSION["rol"] === "admin") {
+                if (isset($_POST["logout"])) {
+                    //SERIALIZAR EL CARRITO
+                    //GAUARDAR EL CARRITO EN LA BASE DE DATOS
+                    session_unset();
+                    session_destroy();
+                    header("location: ?page=login");
+                }
+            } else {
+                header("location: ?page=principal");
+            }
+        } else { //si no hay sesion creada con el nick se devuelve al landing
+            header("location: ?page=login");
+        }
+    }
+
+    //ADMIN
+    public function iniciaAdminUsuarios()
+    {
+        //Valida la sessión. Si erronea o logout envia a login.
+        $this->validateAdminSession();
+
+        //se incluyen los juegos que posee el usuario
+        $games = Model::getGames($_SESSION['id']);
+
+        //se incluye la vista de principal
+        Vista::mostrarAdminUsuarios($games);
+    }
+
+    public function iniciaAdminJuegos()
+    {
+        //Valida la sessión. Si erronea o logout envia a login.
+        $this->validateAdminSession();
+
+        //se incluyen los juegos que posee el usuario
+        $games = Model::getGames($_SESSION['id']);
+
+        //se incluye la vista de principal
+        Vista::mostrarAdminJuegos($games);
     }
 
     //LOGIN
