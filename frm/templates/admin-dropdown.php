@@ -9,7 +9,7 @@
         </svg>
         Administrar
     </a>
-    <ul class="dropdown-menu <?php echo ($isadmin) ? "show" : "" ?>">
+    <ul class="dropdown-menu dropdown-menu-dark text-small shadow bg-menu <?php echo ($isadmin) ? "show" : "" ?>">
         <li class="nav-item">
             <form method="get">
                 <button class="nav-link dropdown-item text-white <?php if ($page === "adm-usuarios")
