@@ -42,6 +42,19 @@ class model
         return $array; //Se devuelve el array con los juegos
     }
 
+    static function getAllUsers() {
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+        $consulta = $ddbb->consulta("SELECT ID,NICK FROM usuario");
+        $users = array();
+        foreach ($consulta as $row) {
+            $users[] = array($row['ID'], $row['NICK']);
+        }
+        return array_reverse($users);
+
+    }
+
     static function existeUsuario($loginID, $password)
     {
         //Include the ddbb class

@@ -88,8 +88,10 @@ class Controlador
         //Valida la sessión. Si erronea o logout envia a login.
         $this->validateAdminSession();
 
+        $users = model::getAllUsers();
+
         //se incluye la vista de principal
-        Vista::mostrarAdminUsuarios();
+        Vista::mostrarAdminUsuarios($users);
     }
 
     public function iniciaAdminJuegos()
