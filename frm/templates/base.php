@@ -110,7 +110,7 @@
             <div class="offcanvas-body">
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                     <li class="nav-item">
-                        <a href="#" class="nav-link text-white ps-2" aria-current="page">
+                        <a class="nav-link text-white ps-2" aria-current="page">
                             <svg class="bi me-2" width="16" height="16">
                                 <use xlink:href="#home" />
                             </svg>
@@ -209,44 +209,54 @@
                 <hr>
                 <ul class="nav nav-pills flex-column mb-auto">
                     <li class="nav-item">
-                        <a href="#" class="nav-link text-white" aria-current="page">
+                        <form method="get">
+                        <button class="nav-link text-white" type="submit" name="page" value="principal">
                             <svg class="bi me-2" width="16" height="16">
                                 <use xlink:href="#home" />
                             </svg>
                             Biblioteca
-                        </a>
+                        </button>
+                        </form>
                     </li>
                     <li>
-                        <a href="#" class="nav-link text-white">
-                            <svg class="bi me-2" width="16" height="16">
-                                <use xlink:href="#speedometer2" />
-                            </svg>
-                            Novedades
-                        </a>
+                        <form method="get">
+                            <button class="nav-link text-white" type="submit" name="page" value="novedades">
+                                <svg class="bi me-2" width="16" height="16">
+                                    <use xlink:href="#speedometer2" />
+                                </svg>
+                                Novedades
+                            </button>
+                        </form>
                     </li>
                     <li>
-                        <a href="#" class="nav-link text-white">
-                            <svg class="bi me-2" width="16" height="16">
-                                <use xlink:href="#table" />
-                            </svg>
-                            Ofertas
-                        </a>
+                        <form method="get">
+                            <button class="nav-link text-white" type="submit" name="page" value="ofertas">
+                                <svg class="bi me-2" width="16" height="16">
+                                    <use xlink:href="#table" />
+                                </svg>
+                                Ofertas
+                            </button>
+                        </form>
                     </li>
                     <li>
-                        <a href="#" class="nav-link text-white">
-                            <svg class="bi me-2" width="16" height="16">
-                                <use xlink:href="#grid" />
-                            </svg>
-                            Todos los juegos
-                        </a>
+                        <form method="get">
+                            <button class="nav-link text-white" type="submit" name="page" value="juegos">
+                                <svg class="bi me-2" width="16" height="16">
+                                    <use xlink:href="#grid" />
+                                </svg>
+                                Todos los juegos
+                            </button>
+                        </form>
                     </li>
                     <li>
-                        <a href="#" class="nav-link text-white">
-                            <svg class="bi me-2" width="16" height="16">
-                                <use xlink:href="#question" />
-                            </svg>
-                            Soporte
-                        </a>
+                        <form method="get">
+                            <button class="nav-link text-white" type="submit" name="page" value="soporte">
+                                <svg class="bi me-2" width="16" height="16">
+                                    <use xlink:href="#question" />
+                                </svg>
+                                Soporte
+                            </button>
+                        </form>
                     </li>
                     <?php
                     //If the user is admin, show the administration button in the sidebar.

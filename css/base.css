@@ -159,6 +159,8 @@ h2 {
 
 .nav-link {
     border: 1px solid transparent;
+    width: 100%;
+    text-align: left;
 }
 
 .nav-link:hover {
