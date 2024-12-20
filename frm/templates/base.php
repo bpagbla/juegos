@@ -110,7 +110,7 @@
             <div class="offcanvas-body">
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                     <li class="nav-item">
-                        <a class="nav-link text-white ps-2" aria-current="page">
+                        <a class="nav-link text-white ps-2 <?php if ($page === "principal") echo 'active' ?>" <?php if ($page === "principal") echo 'aria-current="page"' ?>>
                             <svg class="bi me-2" width="16" height="16">
                                 <use xlink:href="#home" />
                             </svg>
@@ -210,7 +210,7 @@
                 <ul class="nav nav-pills flex-column mb-auto">
                     <li class="nav-item">
                         <form method="get">
-                        <button class="nav-link text-white" type="submit" name="page" value="principal">
+                        <button class="nav-link text-white <?php if ($page === "principal") echo 'active' ?>" type="submit" name="page" value="principal" <?php if ($page === "principal") echo 'aria-current="page"' ?>>
                             <svg class="bi me-2" width="16" height="16">
                                 <use xlink:href="#home" />
                             </svg>
