@@ -2,15 +2,14 @@
 
 class model
 {
-    static function getGames() {
+    static function getGames($id)
+    {
 
         include_once "BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
 
-        //se recoge el id del usuario para ver su rol
-        $id = $_SESSION['id'];
-
+        //se saca el rol del usuario
         $consulta = $ddbb->consulta("SELECT ROLE FROM `usuario` WHERE ID='$id'");
         $role = '';
         foreach ($consulta as $row) {
@@ -43,7 +42,7 @@ class model
         return $array; //Se devuelve el array con los juegos
     }
 
-    static function verificarUsuario($loginID, $password)
+    static function existeUsuario($loginID, $password)
     {
         //Include the ddbb class
         include_once "BD/baseDeDatos.php";
@@ -52,41 +51,55 @@ class model
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
 
-        //Check if there is any user with that email
+        //Check if there is any user with that email or nick
         $consulta = $ddbb->consulta("SELECT ID FROM `usuario` WHERE EMAIL='$loginID' || NICK='$loginID'");
         $id = "";
         foreach ($consulta as $item) {
             $id = $item["ID"];
         }
+        $ddbb->cerrar();
+        return $id;
+    }
 
-        //If someone with that nick/email
-        if (!empty($id)) {
-            $consPass = $ddbb->consulta("SELECT password FROM `usuario` WHERE EMAIL='$loginID' || NICK='$loginID'");
-            $passReal = "";
-            foreach ($consPass as $row) {
-                $passReal = $row["password"];
-            }
+    static function consultaPasswd($id)
+    {
+        //Include the ddbb class
+        include_once "BD/baseDeDatos.php";
 
-            //Verificamos la contraseña
-            if (password_verify($password, $passReal)) {
-                //Saco los datos del user
-                $datos = $ddbb->consulta("SELECT nick,email,id,role FROM `usuario` WHERE ID='$id'");
-                $ddbb->cerrar();
-
-                //Saco los datos del usuario
-                foreach ($datos as $row) {
-                    $_SESSION["nick"] = $row["nick"];
-                    $_SESSION["email"] = $row["email"];
-                    $_SESSION["id"] = $row["id"];
-                    $_SESSION["role"] = $row["role"];
-                }
-                return true;
-            } else {
-                return false;
-            }
-
+        //Open the database connection
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+        $consPass = $ddbb->consulta("SELECT password FROM `usuario` WHERE ID='$id'");
+        $passReal = "";
+        foreach ($consPass as $row) {
+            $passReal = $row["password"];
         }
-        return false;
+        $ddbb->cerrar();
+        return $passReal;
+    }
+
+
+    static function abrirSesion($id){
+
+         //Include the ddbb class
+         include_once "BD/baseDeDatos.php";
+
+         //Open the database connection
+         $ddbb = new BaseDeDatos;
+         $ddbb->conectar();
+
+        //Saco los datos del user
+        $datos = $ddbb->consulta("SELECT nick,email,id,role FROM `usuario` WHERE ID='$id'");
+        
+        //Guardar datos del usuario en la sesion
+        foreach ($datos as $row) {
+            $_SESSION["nick"] = $row["nick"];
+            $_SESSION["email"] = $row["email"];
+            $_SESSION["id"] = $row["id"];
+            $_SESSION["role"] = $row["role"];
+        }
+
+        $ddbb->cerrar();
     }
 
     static function anadirUsuario($email, $nick, $nombre, $apel, $pass)
@@ -102,7 +115,7 @@ class model
 
         $existe = false;
         foreach ($datos as $row) {
-            if(isset($row["NICK"]) || isset($row["EMAIL"])){
+            if (isset($row["NICK"]) || isset($row["EMAIL"])) {
                 $existe = true; //si están duplicados se cambia la variable a true
             }
         }
@@ -112,20 +125,11 @@ class model
             $pass = password_hash($pass, PASSWORD_DEFAULT); //se convierte a hash la contraseña
 
             //se insertan los datos en la base de detos
-            $consulta = $ddbb->insert("INSERT INTO usuario(EMAIL, NICK, NOMBRE, APELLIDOS, PASSWORD, ROLE) VALUES(?,?,?,?,?,?)", [$email,$nick,$nombre,$apel,$pass,'user']);
+            $consulta = $ddbb->insert("INSERT INTO usuario(EMAIL, NICK, NOMBRE, APELLIDOS, PASSWORD, ROLE) VALUES(?,?,?,?,?,?)", [$email, $nick, $nombre, $apel, $pass, 'user']);
             return true; //devuelve true si se ha creado
         } else {
             return false; //devuelve false si no se ha creado
         }
-    }
-
-    static function comprobarPasswd(){
-        if(isset($_POST["passwd"]) && isset($_POST["passwd2"])){
-            if($_POST["passwd"] == $_POST["passwd2"]) {
-                return true;
-            }
-        }
-        return false;
     }
 
 }

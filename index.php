@@ -9,9 +9,10 @@ include_once "model.php";
 class Controlador
 {
 
-    public function inicia() {
+    public function inicia()
+    {
 
-        if (!isset($_GET["page"])){
+        if (!isset($_GET["page"])) {
             Vista::mostrarLanding();
             die();
         }
@@ -49,7 +50,7 @@ class Controlador
                 header("location: ?page=login");
             }
             //se incluyen los juegos que posee el usuario
-            $games = Model::getGames();
+            $games = Model::getGames($_SESSION['id']);
 
             //se incluye la vista de principal
             Vista::mostrarAdmin($games);
@@ -65,8 +66,9 @@ class Controlador
         $loginAttempt = false;
         //para verificar usuario se comprueba que se ha rellenado el formulario
         if (isset($_POST["user"]) && isset($_POST["passwd"])) {
-            //se llama a la funcion verificar usuario del model/login.php
-            if (Model::verificarUsuario($_POST["user"], $_POST["passwd"])) {
+            //se llama a la funcion existe usuario del model/login.php
+            if ($this->verificaUsuario(Model::existeUsuario($_POST["user"], $_POST["passwd"]))) {
+                
                 //si se verifica el usuario se llama a la funcion iniciaSesion
                 header("location: ?page=principal");
                 die();
@@ -92,11 +94,11 @@ class Controlador
                 header("location: ?page=login");
             }
             //se incluyen los juegos que posee el usuario
-            $games = Model::getGames();
+            $games = Model::getGames($_SESSION['id']);
 
             //se incluye la vista de principal
             Vista::mostrarPrincipal($games);
-            
+
         } else { //si no hay sesion creada con el nick se devuelve al landing
             header("location: ?page=login");
         }
@@ -113,10 +115,10 @@ class Controlador
         $passwdBien = false;
         if ($allPosts) {
             //se comprueba que las contraseñas sean iguales
-            if (comprobarPasswd()) {
+            if ($this->comprobarPasswd()) {
                 $passwdBien = true;
                 //se llama a la funcion anadirUsuario que devuelve true si se crea la nueva cuenta y false si no
-                $added = anadirUsuario($_POST["email"], $_POST["nick"], $_POST["nombre"], $_POST["apellidos"], $_POST["passwd"]);
+                $added = Model::anadirUsuario($_POST["email"], $_POST["nick"], $_POST["nombre"], $_POST["apellidos"], $_POST["passwd"]);
             }
 
         }
@@ -127,8 +129,40 @@ class Controlador
         }
 
         //se incluye la vista de registro
-        Vista::mostrarRegistro($allPosts,$added,$passwdBien);
+        Vista::mostrarRegistro($allPosts, $added, $passwdBien);
     }
+
+    //comprobar contraseñas iguales del registro
+    static function comprobarPasswd()
+    {
+        if (isset($_POST["passwd"]) && isset($_POST["passwd2"])) {
+            if ($_POST["passwd"] == $_POST["passwd2"]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    //funcion para verificar usuario
+    public function verificaUsuario($id){
+                //If someone with that nick/email
+                if (!empty($id)) {
+                    
+                    $passReal = model::consultaPasswd($id);
+        
+                    //Verificamos la contraseña
+                    if (password_verify($_POST["passwd"], $passReal)) {
+                        model::abrirSesion($id);
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+    }
+
+
+
 }
 
 $controlador = new Controlador();

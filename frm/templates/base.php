@@ -270,6 +270,7 @@
                     </li>
                     <?php
                     //If the user is admin, show the administration button in the sidebar.
+                    
                     include "frm/templates/admin-dropdown.php"
                     ?>
                 </ul>
