@@ -16,6 +16,9 @@
 
 <body>
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="plus" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+        </symbol>
         <symbol id="home" viewBox="0 0 16 16">
             <path
                 d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z" />
@@ -112,11 +115,9 @@
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                         <li class="nav-item">
                             <form method="get">
-                                <button
-                                    class="nav-link text-white ps-2 <?php if ($page === "principal")
-                                        echo 'active' ?>"
-                                        type="submit" name="page" value="principal" <?php if ($page === "principal")
-                                        echo 'aria-current="page"' ?>>
+                                <button class="nav-link text-white ps-2 <?php if ($page === "principal")
+                                    echo 'active' ?>" type="submit" name="page" value="principal" <?php if ($page === "principal")
+                                    echo 'aria-current="page"' ?>>
                                         <svg class="bi me-2" width="16" height="16">
                                             <use xlink:href="#home" />
                                         </svg>
@@ -126,11 +127,9 @@
                             </li>
                             <li class="nav-item">
                                 <form method="get">
-                                    <button
-                                        class="nav-link text-white ps-2 <?php if ($page === "novedades")
-                                        echo 'active' ?>"
-                                        type="submit" name="page" value="novedades" <?php if ($page === "novedades")
-                                        echo 'aria-current="page"' ?>>
+                                    <button class="nav-link text-white ps-2 <?php if ($page === "novedades")
+                                    echo 'active' ?>" type="submit" name="page" value="novedades" <?php if ($page === "novedades")
+                                    echo 'aria-current="page"' ?>>
                                         <svg class="bi me-2" width="16" height="16">
                                             <use xlink:href="#speedometer2" />
                                         </svg>
@@ -141,9 +140,8 @@
                             <li class="nav-item">
                                 <form method="get">
                                     <button class="nav-link text-white ps-2 <?php if ($page === "ofertas")
-                                        echo 'active' ?>"
-                                        type="submit" name="page" value="ofertas" <?php if ($page === "ofertas")
-                                        echo 'aria-current="page"' ?>>
+                                    echo 'active' ?>" type="submit" name="page" value="ofertas" <?php if ($page === "ofertas")
+                                    echo 'aria-current="page"' ?>>
                                         <svg class="bi me-2" width="16" height="16">
                                             <use xlink:href="#table" />
                                         </svg>
@@ -154,9 +152,8 @@
                             <li class="nav-item">
                                 <form method="get">
                                     <button class="nav-link text-white ps-2 <?php if ($page === "juegos")
-                                        echo 'active' ?>"
-                                        type="submit" name="page" value="juegos" <?php if ($page === "juegos")
-                                        echo 'aria-current="page"' ?>>
+                                    echo 'active' ?>" type="submit" name="page" value="juegos" <?php if ($page === "juegos")
+                                    echo 'aria-current="page"' ?>>
                                         <svg class="bi me-2" width="16" height="16">
                                             <use xlink:href="#grid" />
                                         </svg>
@@ -167,9 +164,8 @@
                             <li class="nav-item">
                                 <form method="get">
                                     <button class="nav-link text-white ps-2 <?php if ($page === "soporte")
-                                        echo 'active' ?>"
-                                        type="submit" name="page" value="soporte" <?php if ($page === "soporte")
-                                        echo 'aria-current="page"' ?>>
+                                    echo 'active' ?>" type="submit" name="page" value="soporte" <?php if ($page === "soporte")
+                                    echo 'aria-current="page"' ?>>
                                         <svg class="bi me-2" width="16" height="16">
                                             <use xlink:href="#question" />
                                         </svg>
@@ -178,11 +174,11 @@
                                 </form>
                             </li>
                             <?php
-                                    //If the user is admin, show the administration button in the outside menu.
-                                    if ($_SESSION["role"] == "admin") {
-                                        include 'frm/templates/admin-dropdown.php';
-                                    }
-                                    ?>
+                                //If the user is admin, show the administration button in the outside menu.
+                                if ($_SESSION["role"] == "admin") {
+                                    include 'frm/templates/admin-dropdown.php';
+                                }
+                                ?>
                     </ul>
                 </div>
                 <div class="offcanvas-bottom p-3 px-4">
@@ -239,8 +235,7 @@
                         <li class="nav-item">
                             <form method="get">
                                 <button class="nav-link text-white <?php if ($page === "principal")
-                                    echo 'active' ?>"
-                                        type="submit" name="page" value="principal" <?php if ($page === "principal")
+                                    echo 'active' ?>" type="submit" name="page" value="principal" <?php if ($page === "principal")
                                     echo 'aria-current="page"' ?>>
                                         <svg class="bi me-2" width="16" height="16">
                                             <use xlink:href="#home" />
@@ -252,8 +247,7 @@
                             <li class="nav-item">
                                 <form method="get">
                                     <button class="nav-link text-white <?php if ($page === "novedades")
-                                    echo 'active' ?>"
-                                        type="submit" name="page" value="novedades" <?php if ($page === "novedades")
+                                    echo 'active' ?>" type="submit" name="page" value="novedades" <?php if ($page === "novedades")
                                     echo 'aria-current="page"' ?>>
                                         <svg class="bi me-2" width="16" height="16">
                                             <use xlink:href="#speedometer2" />
@@ -265,8 +259,7 @@
                             <li class="nav-item">
                                 <form method="get">
                                     <button class="nav-link text-white <?php if ($page === "ofertas")
-                                    echo 'active' ?>"
-                                        type="submit" name="page" value="ofertas" <?php if ($page === "ofertas")
+                                    echo 'active' ?>" type="submit" name="page" value="ofertas" <?php if ($page === "ofertas")
                                     echo 'aria-current="page"' ?>>
                                         <svg class="bi me-2" width="16" height="16">
                                             <use xlink:href="#table" />
@@ -278,8 +271,7 @@
                             <li class="nav-item">
                                 <form method="get">
                                     <button class="nav-link text-white <?php if ($page === "juegos")
-                                    echo 'active' ?>"
-                                        type="submit" name="page" value="juegos" <?php if ($page === "juegos")
+                                    echo 'active' ?>" type="submit" name="page" value="juegos" <?php if ($page === "juegos")
                                     echo 'aria-current="page"' ?>>
                                         <svg class="bi me-2" width="16" height="16">
                                             <use xlink:href="#grid" />
@@ -291,8 +283,7 @@
                             <li class="nav-item">
                                 <form method="get">
                                     <button class="nav-link text-white <?php if ($page === "soporte")
-                                    echo 'active' ?>"
-                                        type="submit" name="page" value="soporte" <?php if ($page === "soporte")
+                                    echo 'active' ?>" type="submit" name="page" value="soporte" <?php if ($page === "soporte")
                                     echo 'aria-current="page"' ?>>
                                         <svg class="bi me-2" width="16" height="16">
                                             <use xlink:href="#question" />

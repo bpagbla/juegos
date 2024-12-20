@@ -190,3 +190,8 @@ h2 {
     /* background-color: transparent !important; */
     padding: 0 !important;
 }
+
+.posFixBotomRight{
+    bottom: 1.5rem;
+    right: 1.5rem;
+}
