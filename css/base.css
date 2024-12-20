@@ -195,5 +195,14 @@ h2 {
 .img-container{
     max-width: 400px;
     width: 100%;
-    
+    border-radius: 30px;
+}
+
+.img-area{
+    position: relative;
+    width: 100%;
+    height: 10rem;
+    background: var(--color-dark);
+    border-radius: 15px;
+    padding: 5%;
 }
