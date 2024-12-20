@@ -42,6 +42,8 @@ class Controlador
             case "adm-sistemas":
                 $this->iniciaAdminSistemas();
                 break;
+            default:
+                $this->inicia404();
         }
 
     }
@@ -182,6 +184,10 @@ class Controlador
         Vista::mostrarRegistro($allPosts, $added, $passwdBien);
     }
 
+    public function inicia404() {
+        Vista::mostrar404();
+    }
+
     //comprobar contraseñas iguales del registro
     static function comprobarPasswd()
     {
@@ -210,7 +216,6 @@ class Controlador
                     }
                 }
     }
-
 
 
 }

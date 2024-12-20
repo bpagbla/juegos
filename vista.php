@@ -41,4 +41,8 @@ class Vista
         include_once "frm/templates/base.php";
     }
 
+    public static function mostrar404() {
+        include_once "frm/404.php";
+    }
+
 }
