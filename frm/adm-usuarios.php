@@ -4,3 +4,9 @@
     </svg>
     Añadir
 </button>
+
+<?php
+foreach ($users as $user) {
+    include "frm/templates/card-user.php";
+}
+?>

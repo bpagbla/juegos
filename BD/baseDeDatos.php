@@ -17,11 +17,12 @@ class BaseDeDatos
     }
 
     //funcion para hacer consultas con un query sql
-    public function consulta($sql)
+    public function consulta($sql,$array=array())
     {
         try {
-            $consulta = $this->db->query($sql);
-            return $consulta;
+            $consulta = $this->db->prepare($sql);
+            $consulta->execute($array);
+            return $consulta->fetchAll();
         } catch (PDOException $e) {
             echo "Error (" . $e->getCode() . ") al abrir " .
                 "la base de datos: " . $e->getMessage();
