@@ -7,6 +7,7 @@
 
 <?php
 foreach ($users as $user) {
-    include "frm/templates/card-user.php";
+    include "frm/templates/card-user-adm.php";
 }
 ?>
+

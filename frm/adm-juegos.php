@@ -1,18 +1,10 @@
-<div class="row">
-    <?php
+<div class="row justify-content-around justify-content-lg-start">
+<?php
     foreach ($games as $game) {
-        include "frm/templates/card-admin.php";
+        include "frm/templates/card-game-adm.php";
     }
-    ?>
+?>
 </div>
-
-<button type="button" class="btn text-white position-fixed end-0 bottom-0 m-4" data-bs-toggle="modal"
-    data-bs-target="#exampleModal">
-    <svg class="bi me-2" width="16" height="16">
-        <use xlink:href="#plus" />
-    </svg>
-    Añadir
-</button>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
@@ -58,6 +50,15 @@
         </div>
     </div>
 </div>
+
+<button type="button" class="btn text-white position-fixed end-0 bottom-0 m-4" data-bs-toggle="modal"
+        data-bs-target="#exampleModal">
+    <svg class="bi me-2" width="16" height="16">
+        <use xlink:href="#plus" />
+    </svg>
+    Añadir
+</button>
+
 <script>
     const myModal = document.getElementById('myModal')
     const myInput = document.getElementById('myInput')
