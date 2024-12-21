@@ -1,1 +1,1 @@
-<option value="1">One</option>
+<option value="<?php print $dis[0] ?>"><?php print $dis[1] ?></option>

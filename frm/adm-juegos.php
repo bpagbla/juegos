@@ -42,9 +42,12 @@
                             </div>
                             <div class="row mb-3">
                                 <select class="distribuidor" aria-label="select distribuidor">
-                                    <!-- DISTROBUIDORES -->
-
-                                    
+                                    <!-- PLANTILLA DISTROBUIDORES -->
+                                    <?php
+                                    foreach ($distribuidores as $dis) {
+                                        include "frm/templates/distribuidores.php";
+                                    }
+                                    ?>
 
                                 </select>
                             </div>
@@ -57,6 +60,7 @@
                                 <ul id="listaGeneros" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <!-- Input de búsqueda -->
                                     <input class="form-control mb-2" id="buscarGen" type="text" placeholder="Buscar...">
+                                    <!-- PLANTILLA GENEROS -->
                                     <?php
                                     $gen = 0;
                                     foreach ($generos as $genero) {
