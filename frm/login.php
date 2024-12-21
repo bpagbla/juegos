@@ -164,7 +164,7 @@
         </form>
         <div>
             <p class="mt-3 mb-0 text-body-secondary text-center">¿No tienes cuenta?</p>
-            <form class="text-center" type="get">
+            <form class="text-center" method="get">
                 <button class="text-decoration-none link border-0 bg-transparent" name="page" value="registro"
                         href="/?page=registro">
                     Regístrate ahora.

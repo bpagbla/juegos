@@ -274,7 +274,7 @@
 
         <footer class="mb-4 pt-3 text-body-secondary text-center text-small">
             <p class="mb-1 d-inline-block">¿Ya tienes cuenta?</p>
-            <form type="get" class="d-inline-block">
+            <form method="get" class="d-inline-block">
                 <button name="page" value="login" class="bg-transparent border-0 link">Login</button>
             </form>
         </footer>
