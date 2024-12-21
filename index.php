@@ -178,7 +178,7 @@ class Controlador
         }
         if ($added) {
             //si se crea la nueva cuenta te devuelve al login para que inicies sesion
-            header("Location: login.php");
+            header("Location: ?page=login");
             $_SESSION["nuevaCuenta"] = true;
         }
 

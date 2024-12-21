@@ -2,11 +2,11 @@ body{
     background-color: var(--color-dark) ;
 }
 
-a {
+.link {
     color: #bd33fd !important;
 }
 
-a:hover {
+.link:hover {
     color: #ab51fa !important;
 }
 
