@@ -11,3 +11,4 @@
         ?>
     </div>
 </div>
+<script src="js/principal.js"></script>
