@@ -222,3 +222,7 @@ textarea:focus {
 .select-img{
     text-align: center;
 }
+
+.campos{
+    margin: 1.5rem !important;
+}

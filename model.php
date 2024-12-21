@@ -39,10 +39,37 @@ class model
                 $array[] = [$id_juego, $titulo];
             }
         }
+        $ddbb->cerrar();
         return $array; //Se devuelve el array con los juegos
     }
 
-    static function getAllUsers() {
+
+    static function getGeneros()
+    {
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+
+
+        $array = array();
+
+        $consulta = $ddbb->consulta("SELECT ID,NOMBRE FROM genero"); //se sacan todos los generos de la base de datos
+        $nombre = '';
+        $id = '';
+
+        //Se guardan el nombre y el id del genero en el array
+        foreach ($consulta as $each) {
+            $nombre = $each['NOMBRE'];
+            $id = $each['ID'];
+            $array[] = [$id, $nombre];
+        }
+
+        $ddbb->cerrar();
+        return $array; //devolver el array con todos los generos
+    }
+
+    static function getAllUsers()
+    {
         include_once "BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
@@ -51,6 +78,7 @@ class model
         foreach ($consulta as $row) {
             $users[] = array($row['ID'], $row['NICK']);
         }
+        $ddbb->cerrar();
         return array_reverse($users);
 
     }
@@ -92,18 +120,19 @@ class model
     }
 
 
-    static function abrirSesion($id){
+    static function abrirSesion($id)
+    {
 
-         //Include the ddbb class
-         include_once "BD/baseDeDatos.php";
+        //Include the ddbb class
+        include_once "BD/baseDeDatos.php";
 
-         //Open the database connection
-         $ddbb = new BaseDeDatos;
-         $ddbb->conectar();
+        //Open the database connection
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
 
         //Saco los datos del user
         $datos = $ddbb->consulta("SELECT nick,email,id,role FROM `usuario` WHERE ID=?", array($id));
-        
+
         //Guardar datos del usuario en la sesion
         foreach ($datos as $row) {
             $_SESSION["nick"] = $row["nick"];

@@ -101,9 +101,10 @@ class Controlador
 
         //se incluyen los juegos que posee el usuario
         $games = Model::getGames($_SESSION['id']);
+        $generos = Model::getGeneros();
 
         //se incluye la vista de principal
-        Vista::mostrarAdminJuegos($games);
+        Vista::mostrarAdminJuegos($games, $generos);
     }
 
     public function iniciaAdminGeneros()

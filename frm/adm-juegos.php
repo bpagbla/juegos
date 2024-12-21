@@ -1,9 +1,9 @@
 <div class="row justify-content-around justify-content-lg-start">
-<?php
+    <?php
     foreach ($games as $game) {
         include "frm/templates/card-game-adm.php";
     }
-?>
+    ?>
 </div>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -22,7 +22,8 @@
 
                             <img class="portada" src="https://placehold.co/400x600?text=Portada" alt="">
 
-                            <button type="button" class="select-img btn text-white position-absolute bottom-0 end-0 m-4"><svg
+                            <button type="button"
+                                class="select-img btn text-white position-absolute bottom-0 end-0 m-4"><svg
                                     class="bi me-2 d-flex align-items-center" width="30" height="30">
                                     <use xlink:href="#upload" />
                                 </svg></button>
@@ -30,7 +31,7 @@
 
 
 
-                        <div class="col">
+                        <div class="col campos">
                             <div class="row mb-3">
                                 <label for="recipient-name" class="col-form-label">Título:</label>
                                 <input type="text" class="form-control" id="recipient-name">
@@ -39,6 +40,48 @@
                                 <label for="message-text" class="col-form-label">Descripción:</label>
                                 <textarea class="form-control" id="message-text"></textarea>
                             </div>
+                            <div class="col">
+                                <div class="row mb-3">
+                                    <select class="distribuidor" aria-label="select distribuidor">
+                                        <option selected>Distribuidor</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </div>
+
+                                <div class="dropdown row mb-3">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        Dropdown button
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <?php
+                                        $gen = 0;
+                                        foreach ($generos as $genero) {
+                                            include "frm/templates/generos.php";
+                                            $gen++;
+                                        }
+                                        if ($gen == 0) {
+                                            ?>
+                                            <li>
+                                                <div class="dropdown-item">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="" id="gen"
+                                                            disabled />
+                                                        <label class="form-check-label" for="gen">
+                                                            No existen géneros</label>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <?php
+                                        }
+                                        ?>
+                                    </ul>
+
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </form>
@@ -52,7 +95,7 @@
 </div>
 
 <button type="button" class="btn text-white position-fixed end-0 bottom-0 m-4" data-bs-toggle="modal"
-        data-bs-target="#exampleModal">
+    data-bs-target="#exampleModal">
     <svg class="bi me-2" width="16" height="16">
         <use xlink:href="#plus" />
     </svg>
