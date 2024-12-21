@@ -1,4 +1,6 @@
 $(document).ready(function () {
+
+    //buscar generos
     $("#buscarGen").on("keyup", function () {
         var value = $(this).val().toLowerCase();
         // Excluir el input del filtro y buscar en los <li>
@@ -6,4 +8,6 @@ $(document).ready(function () {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
         });
     });
+
+    
 });

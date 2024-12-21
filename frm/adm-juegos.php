@@ -40,47 +40,45 @@
                                 <label for="message-text" class="col-form-label">Descripción:</label>
                                 <textarea class="form-control" id="message-text"></textarea>
                             </div>
-                            <div class="col">
-                                <div class="row mb-3">
-                                    <select class="distribuidor" aria-label="select distribuidor">
-                                        <!-- DISTROBUIDORES -->
-                                    </select>
-                                </div>
+                            <div class="row mb-3">
+                                <select class="distribuidor" aria-label="select distribuidor">
+                                    <!-- DISTROBUIDORES -->
 
-                                <div class="dropdown row mb-3">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        Géneros
-                                    </button>
-                                    <ul id="listaGeneros" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <!-- Input de búsqueda -->
-                                        <input class="form-control mb-2" id="buscarGen" type="text"
-                                            placeholder="Buscar...">
-                                        <?php
-                                        $gen = 0;
-                                        foreach ($generos as $genero) {
-                                            include "frm/templates/generos.php";
-                                            $gen++;
-                                        }
-                                        if ($gen == 0) {
-                                            ?>
-                                            <li>
-                                                <div class="dropdown-item">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="gen"
-                                                            disabled />
-                                                        <label class="form-check-label" for="gen">No existen géneros</label>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <?php
-                                        }
-                                        ?>
-                                    </ul>
-                                </div>
+                                    
 
+                                </select>
                             </div>
 
+                            <div class="dropdown row mb-3">
+                                <button class="btn btn-secondary dropdown-toggle" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Géneros
+                                </button>
+                                <ul id="listaGeneros" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <!-- Input de búsqueda -->
+                                    <input class="form-control mb-2" id="buscarGen" type="text" placeholder="Buscar...">
+                                    <?php
+                                    $gen = 0;
+                                    foreach ($generos as $genero) {
+                                        include "frm/templates/generos.php";
+                                        $gen++;
+                                    }
+                                    if ($gen == 0) {
+                                        ?>
+                                        <li>
+                                            <div class="dropdown-item">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="gen"
+                                                        disabled />
+                                                    <label class="form-check-label" for="gen">No existen géneros</label>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <?php
+                                    }
+                                    ?>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </form>
