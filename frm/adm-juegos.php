@@ -23,23 +23,33 @@
             </div>
             <div class="modal-body">
                 <form action="" method="post" enctype="multipart/form-data">
-                    <div class="img-container">
-                        <div class="img-area">
-                            <svg class="bi me-2" width="30" height="30">
-                                <use xlink:href="#upload" />
-                            </svg>
-                            <h3>Subir Imágen</h3>
-                            <p>La imagen debe ser de un tamaño menor que <span>XTAMAÑO</span></p>
+                    <div class="row">
+
+                        <div class="position-relative col-4 img-container d-flex align-items-center flex-column">
+                            <input type="file" id="file" accept="image/*" hidden>
+
+                            <img class="portada" src="https://placehold.co/400x600?text=Portada" alt="">
+
+                            <button class="select-img btn text-white position-absolute bottom-0 end-0 m-4"><svg
+                                    class="bi me-2 d-flex align-items-center" width="30" height="30">
+                                    <use xlink:href="#upload" />
+                                </svg></button>
+
+
                         </div>
-                        <button class="select-img"> Seleccionar Imágen</button>
-                    </div>
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">Título:</label>
-                        <input type="text" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="mb-3">
-                        <label for="message-text" class="col-form-label">Descripción:</label>
-                        <textarea class="form-control" id="message-text"></textarea>
+
+
+
+                        <div class="col">
+                            <div class="row mb-3">
+                                <label for="recipient-name" class="col-form-label">Título:</label>
+                                <input type="text" class="form-control" id="recipient-name">
+                            </div>
+                            <div class="row mb-3">
+                                <label for="message-text" class="col-form-label">Descripción:</label>
+                                <textarea class="form-control" id="message-text"></textarea>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>

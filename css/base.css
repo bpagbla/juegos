@@ -35,7 +35,7 @@ main {
 
 }
 
-.logout{
+.logout {
     background-color: transparent !important;
     color: whitesmoke;
     border: none;
@@ -92,7 +92,7 @@ main {
     border: 1px solid rgba(177, 41, 255) !important;
 }
 
-.btn:hover{
+.btn:hover {
     background-color: rgba(137, 0, 250, 0.822) !important;
 }
 
@@ -191,18 +191,34 @@ h2 {
     padding: 0 !important;
 }
 
-
-.img-container{
-    max-width: 400px;
-    width: 100%;
-    border-radius: 30px;
+input:focus,
+select:focus,
+textarea:focus {
+    border: 0.2rem solid #fff !important;
+    box-shadow: 0 0 .1rem #fff,
+        0 0 .1rem #fff,
+        0 0 1rem #bc13fe,
+        0 0 0.8rem #bc13fe,
+        0 0 2.8rem #bc13fe,
+        inset 0 0 1.3rem #bc13fe !important;
 }
 
-.img-area{
-    position: relative;
-    width: 100%;
-    height: 10rem;
-    background: var(--color-dark);
+.img-container {
     border-radius: 15px;
-    padding: 5%;
+    border: #bc13fe solid 1px;
+    margin: 1.5rem;
+    padding: 0 !important;
+    height: 60vh;
+}
+
+
+.portada {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.select-img{
+    text-align: center;
 }
