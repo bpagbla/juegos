@@ -223,20 +223,22 @@
         <div class="row">
             <div class='col-auto ps-0 d-none d-md-block'>
                 <div class="d-flex flex-column flex-shrink-0 p-3 text-white sidebar sticky-top">
-                    <a href="#"
-                        class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                        <svg width="40" height="32" viewBox="0 0 79 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M16.7071 24.2629V16.2629H40.7071V24.2629H16.7071ZM16.7071 56.2629V48.2629H8.7071V24.2629H16.7071V48.2629H32.7071V40.2629H24.7071V32.2629H40.7071V56.2629H16.7071Z"
-                                fill="whitesmoke" />
-                            <path d="M41 72.3H33V32.3H57V40.3H41V48.3H57V56.3H41V72.3ZM57 48.3V40.3H65V48.3H57Z"
-                                fill="whitesmoke" />
-                            <rect x="8.7071" y="56.2629" width="8.0912" height="7.97125" fill="whitesmoke" />
-                            <rect x="48.9781" y="16.3" width="8.0912" height="7.97125" fill="whitesmoke" />
-                            <rect x="0.615906" y="48.2917" width="8.0912" height="7.97125" fill="whitesmoke" />
-                        </svg>
-                        <span class="fs-4 nombre">Glitched Pixel</span>
-                    </a>
+                    <form type="get">
+                        <button name="page" value="principal"
+                            class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none border-0 bg-transparent">
+                            <svg width="40" height="32" viewBox="0 0 79 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M16.7071 24.2629V16.2629H40.7071V24.2629H16.7071ZM16.7071 56.2629V48.2629H8.7071V24.2629H16.7071V48.2629H32.7071V40.2629H24.7071V32.2629H40.7071V56.2629H16.7071Z"
+                                    fill="whitesmoke" />
+                                <path d="M41 72.3H33V32.3H57V40.3H41V48.3H57V56.3H41V72.3ZM57 48.3V40.3H65V48.3H57Z"
+                                    fill="whitesmoke" />
+                                <rect x="8.7071" y="56.2629" width="8.0912" height="7.97125" fill="whitesmoke" />
+                                <rect x="48.9781" y="16.3" width="8.0912" height="7.97125" fill="whitesmoke" />
+                                <rect x="0.615906" y="48.2917" width="8.0912" height="7.97125" fill="whitesmoke" />
+                            </svg>
+                            <span class="fs-4 nombre">Glitched Pixel</span>
+                        </button>
+                    </form>
                     <hr>
                     <ul class="nav nav-pills flex-column mb-auto">
                         <li class="nav-item">
