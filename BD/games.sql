@@ -30,14 +30,22 @@ CREATE TABLE tarjeta_bancaria (
   CONSTRAINT `FK_TAR_IDUS_USU_ID` FOREIGN KEY (`ID_USUARIO`) REFERENCES `usuario` (`ID`)
 );
 
+CREATE TABLE compania (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `NOMBRE` varchar(32) COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`ID`)
+);
+
 CREATE TABLE juego (
   `ID` int NOT NULL,
   `TITULO` varchar(32) COLLATE utf8mb4_general_ci NOT NULL,
   `RUTA` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
-  `DESARROLLADOR` varchar(64) COLLATE utf8mb4_general_ci NOT NULL,
-  `DISTRIBUIDOR` varchar(64) COLLATE utf8mb4_general_ci NOT NULL,
+  `DESARROLLADOR` int NOT NULL,
+  `DISTRIBUIDOR` int NOT NULL,
   `ANIO` year NOT NULL,
   PRIMARY KEY (`ID`),
+  CONSTRAINT `FK_JDEV_IDJ_COM_ID` FOREIGN KEY (`DESARROLLADOR`) REFERENCES `compania` (`ID`),
+  CONSTRAINT `FK_JDIS_IDJ_COM_ID` FOREIGN KEY (`DISTRIBUIDOR`) REFERENCES `compania` (`ID`),
   UNIQUE KEY `RUTA` (`RUTA`)
 );
 
@@ -123,14 +131,39 @@ CREATE TABLE `juego_juego` (
   CONSTRAINT `FK_JREL_IDJ2_JUE_ID` FOREIGN KEY (`ID_J2`) REFERENCES `juego` (`ID`)
 );
 
+#Users
 INSERT INTO usuario(EMAIL, NICK, NOMBRE, APELLIDOS, PASSWORD, ROLE) VALUES('user@gmail.com','user','user','user','$2a$12$/.57XI5riojUPwXeoQXX9O/ru1XsQ5MRSsj8lZAo85sJb2b0tbEsi', 'user');
 INSERT INTO usuario(EMAIL, NICK, NOMBRE, APELLIDOS, PASSWORD, ROLE) VALUES('admin@gmail.com','admin','admin','admin','$2y$10$xiAIe5dxN/fi39Jq08f1nu3BLCnuU7OBhcHoDcuDnVNJqtrOZUJzK', 'admin');
-INSERT INTO juego (ID, TITULO, RUTA, DESARROLLADOR, DISTRIBUIDOR, ANIO) VALUES (150886, 'Truck Racer', 'algo', 'Kylotonn Entertainment', 'Plug In Digital SAS',2013);
-INSERT INTO juego (ID, TITULO, RUTA, DESARROLLADOR, DISTRIBUIDOR, ANIO) VALUES (63690, 'Pako 2', 'algo2', 'Uranium Software', 'Uranium Software',1995);
-INSERT INTO juego (ID, TITULO, RUTA, DESARROLLADOR, DISTRIBUIDOR, ANIO) VALUES (136678, 'Afterparty', 'algo3', 'Night School Studio, LLC', 'Night School Studio, LLC',2020);
-INSERT INTO juego (ID, TITULO, RUTA, DESARROLLADOR, DISTRIBUIDOR, ANIO) VALUES (73736, 'Tengami', 'algo4', 'Nyamyam Ltd.', 'Nyamyam Ltd.',2014);
-INSERT INTO juego (ID, TITULO, RUTA, DESARROLLADOR, DISTRIBUIDOR, ANIO) VALUES (190922, 'Oxenfree II: Lost Signals', 'algo5', 'Night School Studio, LLC', 'Netflix Inc.',2023);
+
+#Empresa
+INSERT INTO compania(ID, NOMBRE) VALUES (20858, 'Plug In Digital SAS');
+INSERT INTO compania(ID, NOMBRE) VALUES (6920, 'Kylotonn Entertainment');
+INSERT INTO compania(ID, NOMBRE) VALUES (16712, 'Uranium Software');
+INSERT INTO compania(ID, NOMBRE) VALUES (24675, 'Night School Studio, LLC');
+INSERT INTO compania(ID, NOMBRE) VALUES (23619, 'Nyamyam Ltd.');
+INSERT INTO compania(ID, NOMBRE) VALUES (26326, 'Netflix Inc.');
+
+#Games
+INSERT INTO juego (ID, TITULO, RUTA, DESARROLLADOR, DISTRIBUIDOR, ANIO) VALUES (150886, 'Truck Racer', 'algo', 6920, 20858,2013);
+INSERT INTO juego (ID, TITULO, RUTA, DESARROLLADOR, DISTRIBUIDOR, ANIO) VALUES (63690, 'Pako 2', 'algo2', 16712, 16712,1995);
+INSERT INTO juego (ID, TITULO, RUTA, DESARROLLADOR, DISTRIBUIDOR, ANIO) VALUES (136678, 'Afterparty', 'algo3', 24675, 24675,2020);
+INSERT INTO juego (ID, TITULO, RUTA, DESARROLLADOR, DISTRIBUIDOR, ANIO) VALUES (73736, 'Tengami', 'algo4', 23619, 23619,2014);
+INSERT INTO juego (ID, TITULO, RUTA, DESARROLLADOR, DISTRIBUIDOR, ANIO) VALUES (190922, 'Oxenfree II: Lost Signals', 'algo5', 24675, 26326,2023);
+
+#Ownership
 INSERT INTO posee(ID_USUARIO, ID_JUEGO, FECHA) VALUES (1,150886, date(now()));
 INSERT INTO posee(ID_USUARIO, ID_JUEGO, FECHA) VALUES (1,63690, date(now()));
+
+#Genre
 INSERT INTO genero(ID, NOMBRE) VALUES (1, 'Action');
-INSERT INTO genero(ID, NOMBRE) VALUES (21, 'Add-on');
+INSERT INTO genero(ID, NOMBRE) VALUES (2, 'Adventure');
+INSERT INTO genero(ID, NOMBRE) VALUES (62, 'Add-on');
+INSERT INTO genero(ID, NOMBRE) VALUES (76, 'Compilation');
+INSERT INTO genero(ID, NOMBRE) VALUES (12, 'Educational');
+
+#Systems
+INSERT INTO sistema(ID, nombre) VALUES (1,'Linux');
+INSERT INTO sistema(ID, nombre) VALUES (2,'DOS');
+INSERT INTO sistema(ID, nombre) VALUES (3,'Windows');
+INSERT INTO sistema(ID, nombre) VALUES (4,'PC Booter');
+INSERT INTO sistema(ID, nombre) VALUES (5,'Windows 3.x');
