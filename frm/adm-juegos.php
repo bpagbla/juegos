@@ -43,19 +43,19 @@
                             <div class="col">
                                 <div class="row mb-3">
                                     <select class="distribuidor" aria-label="select distribuidor">
-                                        <option selected>Distribuidor</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                        <!-- DISTROBUIDORES -->
                                     </select>
                                 </div>
 
                                 <div class="dropdown row mb-3">
                                     <button class="btn btn-secondary dropdown-toggle" type="button"
                                         data-bs-toggle="dropdown" aria-expanded="false">
-                                        Dropdown button
+                                        Géneros
                                     </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <ul id="listaGeneros" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <!-- Input de búsqueda -->
+                                        <input class="form-control mb-2" id="buscarGen" type="text"
+                                            placeholder="Buscar...">
                                         <?php
                                         $gen = 0;
                                         foreach ($generos as $genero) {
@@ -69,8 +69,7 @@
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="checkbox" value="" id="gen"
                                                             disabled />
-                                                        <label class="form-check-label" for="gen">
-                                                            No existen géneros</label>
+                                                        <label class="form-check-label" for="gen">No existen géneros</label>
                                                     </div>
                                                 </div>
                                             </li>
@@ -78,8 +77,8 @@
                                         }
                                         ?>
                                     </ul>
-
                                 </div>
+
                             </div>
 
                         </div>
@@ -102,6 +101,8 @@
     Añadir
 </button>
 
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     const myModal = document.getElementById('myModal')
     const myInput = document.getElementById('myInput')
@@ -109,5 +110,7 @@
     myModal.addEventListener('shown.bs.modal', () => {
         myInput.focus()
     })
+
 </script>
 <script src="js/img-selector.js"></script>
+<script src="js/adm-juegos.js"></script>
