@@ -105,7 +105,9 @@
 
     <header class="navbar sticky-top d-md-none header-color">
         <div class="container-fluid">
-            <a class="navbar-brand nombre text-white" href="#">Glitched Pixel</a>
+            <form type="get">
+                <button class="navbar-brand nombre text-white border-0 bg-transparent" name="page" value="principal">Glitched Pixel</button>
+            </form>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
                 aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
