@@ -161,11 +161,16 @@
                 </label>
             </div>
             <button class="btn btn-primary w-100 py-2 estiloBoton" type="submit">Iniciar Sesión</button>
-            <p class="mt-3 mb-3 text-body-secondary">¿No tienes cuenta? <br><a class=" text-decoration-none"
-                    href="/?page=registro">
-                    Regístrate ahora.
-                </a></p>
         </form>
+        <div>
+            <p class="mt-3 mb-0 text-body-secondary text-center">¿No tienes cuenta?</p>
+            <form class="text-center" type="get">
+                <button class="text-decoration-none link border-0 bg-transparent" name="page" value="registro"
+                        href="/?page=registro">
+                    Regístrate ahora.
+                </button>
+            </form>
+        </div>
     </main>
     <script src="../js/bootstrap.bundle.min.js"></script>
     <?php

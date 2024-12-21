@@ -12,11 +12,11 @@ label * {
     background-color: white !important;
 }
 
-a{
+.link{
     color: #bd33fd !important;
 }
 
-a:hover{
+.link:hover{
     color: #ab51fa !important;
 }
 
