@@ -30,12 +30,10 @@
 
                             <img class="portada" src="https://placehold.co/400x600?text=Portada" alt="">
 
-                            <button class="select-img btn text-white position-absolute bottom-0 end-0 m-4"><svg
+                            <button type="button" class="select-img btn text-white position-absolute bottom-0 end-0 m-4"><svg
                                     class="bi me-2 d-flex align-items-center" width="30" height="30">
                                     <use xlink:href="#upload" />
                                 </svg></button>
-
-
                         </div>
 
 
@@ -60,7 +58,6 @@
         </div>
     </div>
 </div>
-
 <script>
     const myModal = document.getElementById('myModal')
     const myInput = document.getElementById('myInput')
@@ -69,3 +66,4 @@
         myInput.focus()
     })
 </script>
+<script src="js/img-selector.js"></script>

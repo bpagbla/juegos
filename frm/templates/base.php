@@ -342,7 +342,6 @@
         crossorigin="anonymous"></script>
 
     <script src="js/principal.js"></script>
-    <script src="js/img-selector.js"></script>
 </body>
 
 </html>
