@@ -40,16 +40,68 @@
                                 <label for="message-text" class="col-form-label">Descripción:</label>
                                 <textarea class="form-control" id="message-text"></textarea>
                             </div>
-                            <div class="row mb-3">
-                                <select class="distribuidor" aria-label="select distribuidor">
-                                    <!-- PLANTILLA DISTROBUIDORES -->
+                            <div class="dropdown row mb-3">
+                                <button class="btn btn-secondary dropdown-toggle" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Distribuidores
+                                </button>
+                                <ul id="listaGeneros" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <!-- Input de búsqueda -->
+                                    <input class="form-control mb-2" id="buscarGen" type="text" placeholder="Buscar...">
+                                    <!-- PLANTILLA DISTRIBUIDORES -->
                                     <?php
-                                    foreach ($distribuidores as $dis) {
+                                    $contDis = 0;
+                                    foreach ($dists as $dis) {
                                         include "frm/templates/distribuidores.php";
+                                        $contDis++;
+                                    }
+                                    if ($contDis == 0) {
+                                        ?>
+                                        <li>
+                                            <div class="dropdown-item">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="gen"
+                                                        disabled />
+                                                    <label class="form-check-label" for="gen">No existen Distribuidores</label>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <?php
                                     }
                                     ?>
+                                </ul>
+                            </div>
 
-                                </select>
+                            <div class="dropdown row mb-3">
+                                <button class="btn btn-secondary dropdown-toggle" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Desarrolladores
+                                </button>
+                                <ul id="listaGeneros" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <!-- Input de búsqueda -->
+                                    <input class="form-control mb-2" id="buscarGen" type="text" placeholder="Buscar...">
+                                    <!-- PLANTILLA GENEROS -->
+                                    <?php
+                                    $contDev = 0;
+                                    foreach ($devs as $dev) {
+                                        include "frm/templates/dev.php";
+                                        $contDev++;
+                                    }
+                                    if ($contDev == 0) {
+                                        ?>
+                                        <li>
+                                            <div class="dropdown-item">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="gen"
+                                                        disabled />
+                                                    <label class="form-check-label" for="gen">No existen Desarrolladores</label>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <?php
+                                    }
+                                    ?>
+                                </ul>
                             </div>
 
                             <div class="dropdown row mb-3">
@@ -82,6 +134,11 @@
                                     }
                                     ?>
                                 </ul>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-form-label" for="year">Año</label>
+                                <input class="form-control" type="number" name="year" id="year" min="1900" max="<?php echo date("Y"); ?>">
                             </div>
                         </div>
                     </div>
