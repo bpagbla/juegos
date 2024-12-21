@@ -1,6 +1,6 @@
 <?php
     $isadmin = false;
-    if ($page === "adm-usuarios" || $page === "adm-juegos" || $page === "adm-generos" || $page === "adm-sistemas") {$isadmin = true;}
+    if ($page === "adm-usuarios" || $page === "adm-juegos" || $page === "adm-generos" || $page === "adm-sistemas" || $page === "adm-dev" || $page === "adm-distribuidores") {$isadmin = true;}
 ?>
 <li class="dropdown nav-item">
     <button class="nav-link dropdown-toggle text-white ps-2 <?php echo ($isadmin) ? "show" : "" ?>" role="button" data-bs-toggle="dropdown" aria-expanded="<?php echo ($isadmin) ? "true" : "false" ?>">
@@ -47,6 +47,26 @@
                         type="submit" name="page" value="adm-sistemas" <?php if ($page === "adm-sistemas")
                     echo 'aria-current="page"' ?>>
                     Sistemas
+                </button>
+            </form>
+        </li>
+        <li class="nav-item">
+            <form method="get">
+                <button class="nav-link dropdown-item text-white rounded-bottom-3 ps-2 <?php if ($page === "adm-dev")
+                    echo 'active' ?>"
+                        type="submit" name="page" value="adm-dev" <?php if ($page === "adm-dev")
+                    echo 'aria-current="page"' ?>>
+                    Desarrolladores
+                </button>
+            </form>
+        </li>
+        <li class="nav-item">
+            <form method="get">
+                <button class="nav-link dropdown-item text-white rounded-bottom-3 ps-2 <?php if ($page === "adm-distribuidores")
+                    echo 'active' ?>"
+                        type="submit" name="page" value="adm-distribuidores" <?php if ($page === "adm-distribuidores")
+                    echo 'aria-current="page"' ?>>
+                    Distribuidores
                 </button>
             </form>
         </li>
