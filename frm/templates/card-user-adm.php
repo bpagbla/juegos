@@ -6,6 +6,7 @@
                 <div class="d-inline-block">
                     <form method="post">
                         <input type="hidden" name="user" value="<?php print $user[0]?>">
+                        <button class="btn btn-sm btn-primary" name="action" value="user-passwd">Restablecer Contraseña</button>
                         <button class="btn btn-sm btn-primary" name="action" value="user-edit">Editar</button>
                         <button class="btn btn-sm btn-primary" name="action" value="user-delete">Borrar</button>
                     </form>
