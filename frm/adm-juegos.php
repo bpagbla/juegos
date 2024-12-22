@@ -40,8 +40,8 @@
                             </div>
                             <div class="dropdown row mb-3">
                                 <!-- PLANTILLA DISTRIBUIDORES -->
-                                <select class="form-select" id="select-dis" name="dis" aria-label="Default select example">
-                                    <option selected disabled>Selecciona un Distribuidor</option>
+                                <select class="form-select" id="select-dis" name="dis" aria-label="Default select example" required>
+                                    <option selected disabled value="">Selecciona un Distribuidor</option>
                                     <?php
                                     $contDist = 0;
                                     foreach ($companias as $dis) {
@@ -53,7 +53,7 @@
                                         <li>
                                             <div class="dropdown-item">
                                                 <div class="form-check">
-                                                    <option disabled>No existen Distribuidores</option>
+                                                    <option disabled value="">No existen Distribuidores</option>
                                                 </div>
                                             </div>
                                         </li>
@@ -65,8 +65,8 @@
 
                             <div class="dropdown row mb-3">
                                 <!-- PLANTILLA DEV -->
-                                <select class="form-select " name="dev" id="select-dev" aria-label="Default select example">
-                                    <option selected disabled>Selecciona un Desarrollador</option>
+                                <select class="form-select " name="dev" id="select-dev" aria-label="Default select example" required>
+                                    <option selected disabled value="">Selecciona un Desarrollador</option>
                                     <?php
                                     $contDev = 0;
                                     foreach ($companias as $dev) {
@@ -78,7 +78,7 @@
                                         <li>
                                             <div class="dropdown-item">
                                                 <div class="form-check">
-                                                    <option disabled>No existen Desarrolladores</option>
+                                                    <option disabled value="">No existen Desarrolladores</option>
                                                 </div>
                                             </div>
                                         </li>
