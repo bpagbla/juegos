@@ -237,4 +237,16 @@ class model
         }
     }
 
+    static function addGame($titulo, $ruta, $dev, $dis, $year){
+
+
+        include_once "BD/baseDeDatos.php";
+
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar(); //se conecta a la base de datos
+
+
+        /* TITULO, RUTA, DESARROLLADOR, DISTRIBUIDOR, ANIO */
+    }
+
 }
