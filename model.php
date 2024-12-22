@@ -281,4 +281,20 @@ class model
 
     }
 
+    static function changePasswd($id, $passwd) {
+
+        if (empty($id)) {
+            return false;
+        }
+
+        include_once "BD/baseDeDatos.php";
+
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar(); //se conecta a la base de datos
+
+        $hash = password_hash($passwd, PASSWORD_DEFAULT);
+        return $ddbb->update("UPDATE usuario SET PASSWORD = ? WHERE ID = ?", [$hash, $id]);
+
+    }
+
 }

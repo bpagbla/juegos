@@ -7,9 +7,11 @@
                     <form method="post">
                         <input type="hidden" name="id" value="<?php print $user[0]?>">
                         <input type="hidden" name="nick" value="<?php print $user[1]?>">
-                        <button class="btn btn-sm btn-primary" name="action" value="user-passwd">Restablecer Contraseña</button>
+                        <button class="btn btn-sm btn-primary" name="action" value="user-passwd">Cambiar Contraseña</button>
                         <button class="btn btn-sm btn-primary" name="action" value="user-edit">Editar</button>
+                        <?php if ($_SESSION["nick"] !== $user[1]) { ?>
                         <button class="btn btn-sm btn-primary" name="action" value="user-delete">Borrar</button>
+                        <?php } ?>
                     </form>
                 </div>
             </div>

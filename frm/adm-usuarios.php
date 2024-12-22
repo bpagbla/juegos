@@ -102,7 +102,12 @@ if (isset($_POST["action"]) && $_POST["action"] == "user-passwd") {
                 </div>
                 <div class="modal-body">
                     <form id="model-cancel" method="post"></form>
-                    <form id="modal-form" method="post">
+                    <form id="modal-form" method="post" onsubmit="return validate()">
+                        <div class="row justify-content-center">
+                            <div id="passwd-alert" class="alert alert-danger col-11 d-none" role="alert">
+                                Las contraseñas no coinciden!
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-12">
                                 <label for="passwd" class="form-label ms-1">Contraseña</label>
@@ -126,11 +131,12 @@ if (isset($_POST["action"]) && $_POST["action"] == "user-passwd") {
                                 </div>
                             </div>
                         </div>
+                        <input type="hidden" value="<?php echo $_POST["id"]; ?>" name="id">
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-secondary" form="model-cancel">Cancelar</button>
-                    <button type="submit" class="btn btn-primary" value="apply" form="modal-form">Aplicar</button>
+                    <button type="submit" class="btn btn-primary" name="action" value="user-passwd-apply" form="modal-form">Aplicar</button>
                 </div>
             </div>
         </div>
@@ -141,6 +147,25 @@ if (isset($_POST["action"]) && $_POST["action"] == "user-passwd") {
             keyboard: false
         })
         myModal.show();
+
+        function validate(e) {
+
+            let inputs = document.getElementById("modal-form").querySelectorAll("input")
+
+            if (inputs[0].value === inputs[1].value) {
+                return true;
+            } else {
+                document.getElementById("passwd-alert").classList.remove('d-none')
+                document.getElementById("passwd-alert").classList.add('shake')
+                setTimeout(() => {
+                    document.getElementById("passwd-alert").classList.remove('shake')
+                }, 1000);
+                inputs[0].style.borderColor = 'red';
+                inputs[1].style.borderColor = 'red';
+                return false;
+            }
+
+        }
     </script>
 
     <?php
