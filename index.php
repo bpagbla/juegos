@@ -42,11 +42,8 @@ class Controlador
             case "adm-sistemas":
                 $this->iniciaAdminSistemas();
                 break;
-            case "adm-dev":
-                $this->iniciaAdminDev();
-                break;
-            case "adm-distribuidores":
-                $this->iniciaAdminDistribuidores();
+            case "adm-company":
+                $this->iniciaAdminEmpresa();
                 break;
             default:
                 $this->inicia404();
@@ -153,23 +150,13 @@ class Controlador
         //se incluye la vista de principal
         Vista::mostrarAdminSistemas();
     }
-
-    public function iniciaAdminDev()
+    public function iniciaAdminEmpresa()
     {
         //Valida la sessión. Si erronea o logout envia a login.
         $this->validateAdminSession();
 
         //se incluye la vista de principal
-        Vista::mostrarAdminDev();
-    }
-
-    public function iniciaAdminDistribuidores()
-    {
-        //Valida la sessión. Si erronea o logout envia a login.
-        $this->validateAdminSession();
-
-        //se incluye la vista de principal
-        Vista::mostrarAdminDistribuidores();
+        Vista::mostrarAdminEmpresa();
     }
 
     //LOGIN
