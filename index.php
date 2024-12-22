@@ -102,6 +102,14 @@ class Controlador
 
         }
 
+        if (isset($_POST["action"]) && $_POST["action"] == "user-delete") {
+
+            model::deleteUser($_POST["id"]);
+            header('Location: ?page=adm-usuarios');
+            die();
+
+        }
+
         $users = model::getAllUsers();
         if (isset($_POST["action"]) && $_POST["action"] == "user-edit") {
             $user = model::getUserData($_POST["id"]);
