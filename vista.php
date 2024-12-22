@@ -26,7 +26,7 @@ class Vista
         include_once "frm/templates/base.php";
     }
 
-    public static function mostrarAdminJuegos($games, $generos) {
+    public static function mostrarAdminJuegos($games, $generos, $sistemas, $companias) {
         $page = "adm-juegos";
         include_once "frm/templates/base.php";
     }

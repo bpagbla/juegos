@@ -29,61 +29,47 @@
                                 </svg></button>
                         </div>
 
-
-
                         <div class="col campos">
                             <div class="row mb-3">
-                                <label for="recipient-name" class="col-form-label">Título:</label>
-                                <input type="text" class="form-control" id="recipient-name">
+                                <label for="titulo" class="col-form-label">Título:</label>
+                                <input type="text" class="form-control" id="titulo" name="titulo" required>
                             </div>
                             <div class="row mb-3">
-                                <label for="message-text" class="col-form-label">Descripción:</label>
-                                <textarea class="form-control" id="message-text"></textarea>
+                                <label for="descripcion" class="col-form-label">Descripción:</label>
+                                <textarea class="form-control" id="descripcion" name="descripcion" required></textarea>
                             </div>
                             <div class="dropdown row mb-3">
-                                <button class="btn btn-secondary dropdown-toggle" type="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    Distribuidores
-                                </button>
-                                <ul id="listaGeneros" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <!-- Input de búsqueda -->
-                                    <input class="form-control mb-2" id="buscarGen" type="text" placeholder="Buscar...">
-                                    <!-- PLANTILLA DISTRIBUIDORES -->
+                                <!-- PLANTILLA DISTRIBUIDORES -->
+                                <select class="form-select" id="select-dis" name="dis" aria-label="Default select example">
+                                    <option selected disabled>Selecciona un Distribuidor</option>
                                     <?php
-                                    $contDis = 0;
-                                    foreach ($dists as $dis) {
+                                    $contDist = 0;
+                                    foreach ($companias as $dis) {
                                         include "frm/templates/distribuidores.php";
-                                        $contDis++;
+                                        $contDist++;
                                     }
-                                    if ($contDis == 0) {
+                                    if ($contDist == 0) {
                                         ?>
                                         <li>
                                             <div class="dropdown-item">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="gen"
-                                                        disabled />
-                                                    <label class="form-check-label" for="gen">No existen Distribuidores</label>
+                                                    <option disabled>No existen Distribuidores</option>
                                                 </div>
                                             </div>
                                         </li>
                                         <?php
                                     }
                                     ?>
-                                </ul>
+                                </select>
                             </div>
 
                             <div class="dropdown row mb-3">
-                                <button class="btn btn-secondary dropdown-toggle" type="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    Desarrolladores
-                                </button>
-                                <ul id="listaGeneros" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <!-- Input de búsqueda -->
-                                    <input class="form-control mb-2" id="buscarGen" type="text" placeholder="Buscar...">
-                                    <!-- PLANTILLA GENEROS -->
+                                <!-- PLANTILLA DEV -->
+                                <select class="form-select " name="dev" id="select-dev" aria-label="Default select example">
+                                    <option selected disabled>Selecciona un Desarrollador</option>
                                     <?php
                                     $contDev = 0;
-                                    foreach ($devs as $dev) {
+                                    foreach ($companias as $dev) {
                                         include "frm/templates/dev.php";
                                         $contDev++;
                                     }
@@ -92,9 +78,39 @@
                                         <li>
                                             <div class="dropdown-item">
                                                 <div class="form-check">
+                                                    <option disabled>No existen Desarrolladores</option>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="dropdown row mb-3">
+                                <button class="btn btn-secondary dropdown-toggle" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Sistema
+                                </button>
+                                <ul id="listaSist" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <!-- Input de búsqueda -->
+                                    <input class="form-control mb-2" id="buscarSist" type="text"
+                                        placeholder="Buscar...">
+                                    <!-- PLANTILLA SISTEMA -->
+                                    <?php
+                                    $contSist = 0;
+                                    foreach ($sistemas as $sistema) {
+                                        include "frm/templates/sistema.php";
+                                        $contSist++;
+                                    }
+                                    if ($contSist == 0) {
+                                        ?>
+                                        <li>
+                                            <div class="dropdown-item">
+                                                <div class="form-check">
                                                     <input class="form-check-input" type="checkbox" value="" id="gen"
                                                         disabled />
-                                                    <label class="form-check-label" for="gen">No existen Desarrolladores</label>
+                                                    <label class="form-check-label" for="gen">No existen Sistemas</label>
                                                 </div>
                                             </div>
                                         </li>
@@ -138,16 +154,18 @@
 
                             <div class="row mb-3">
                                 <label class="col-form-label" for="year">Año</label>
-                                <input class="form-control" type="number" name="year" id="year" min="1900" max="<?php echo date("Y"); ?>">
+                                <input class="form-control" type="number" name="year" id="year" min="1900"
+                                    max="<?php echo date("Y"); ?>" required>
                             </div>
                         </div>
                     </div>
-                </form>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary">Añadir</button>
+                <input type="submit" class="btn btn-primary" value="Añadir">
             </div>
+            </form>
         </div>
     </div>
 </div>
@@ -171,5 +189,6 @@
     })
 
 </script>
+<script src="library/dselect.js"></script>
 <script src="js/img-selector.js"></script>
 <script src="js/adm-juegos.js"></script>

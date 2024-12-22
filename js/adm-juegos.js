@@ -1,5 +1,5 @@
 $(document).ready(function () {
-
+console.log("hola")
     //buscar generos
     $("#buscarGen").on("keyup", function () {
         var value = $(this).val().toLowerCase();
@@ -9,5 +9,13 @@ $(document).ready(function () {
         });
     });
 
-    
+        //buscar sistemas
+        $("#buscarSist").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            // Excluir el input del filtro y buscar en los <li>
+            $("#listaSist li").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+            });
+        });
+
 });

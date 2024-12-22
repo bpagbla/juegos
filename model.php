@@ -68,6 +68,54 @@ class model
         return $array; //devolver el array con todos los generos
     }
 
+    static function getComp()
+    {
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+
+
+        $array = array();
+
+        $consulta = $ddbb->consulta("SELECT ID,NOMBRE FROM compania"); //se sacan todas las compañias de la base de datos
+        $nombre = '';
+        $id = '';
+
+        //Se guardan el nombre y el id del genero en el array
+        foreach ($consulta as $each) {
+            $nombre = $each['NOMBRE'];
+            $id = $each['ID'];
+            $array[] = [$id, $nombre];
+        }
+
+        $ddbb->cerrar();
+        return $array; //devolver el array con todos los generos
+    }
+
+    static function getSist()
+    {
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+
+
+        $array = array();
+
+        $consulta = $ddbb->consulta("SELECT ID,NOMBRE FROM sistema"); //se sacan todos los sistemas de la base de datos
+        $nombre = '';
+        $id = '';
+
+        //Se guardan el nombre y el id del sistema en el array
+        foreach ($consulta as $each) {
+            $nombre = $each['NOMBRE'];
+            $id = $each['ID'];
+            $array[] = [$id, $nombre];
+        }
+
+        $ddbb->cerrar();
+        return $array; //devolver el array con todos los sistemas
+    }
+
     static function getAllUsers()
     {
         include_once "BD/baseDeDatos.php";
