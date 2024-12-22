@@ -36,6 +36,10 @@ class BaseDeDatos
         $stmt->execute($array);
     }
 
+    public function update($sql,$array) {
+        $this::insert($sql,$array);
+    }
+
     public function cerrar()
     {
 
