@@ -252,12 +252,31 @@ class model
 
     static function modifyUser($id, $nick, $rol, $email, $nombre, $apel) {
 
+        if (empty($id)) {
+            return false;
+        }
+
         include_once "BD/baseDeDatos.php";
 
         $ddbb = new BaseDeDatos;
         $ddbb->conectar(); //se conecta a la base de datos
 
-        $ddbb->update("UPDATE usuario SET NICK = ?, ROLE = ?, EMAIL = ?, NOMBRE = ?, APELLIDOS = ? WHERE ID = ?", [$nick, $rol, $email, $nombre, $apel, $id]);
+        return $ddbb->update("UPDATE usuario SET NICK = ?, ROLE = ?, EMAIL = ?, NOMBRE = ?, APELLIDOS = ? WHERE ID = ?", [$nick, $rol, $email, $nombre, $apel, $id]);
+
+    }
+
+    static function deleteUser($id)
+    {
+
+        if (empty($id)) {
+            return false;
+        }
+
+        include_once "BD/baseDeDatos.php";
+
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar(); //se conecta a la base de datos
+        return $ddbb->delete("DELETE FROM usuario WHERE ID = ?", array($id));
 
     }
 
