@@ -250,4 +250,13 @@ class model
 
     }
 
+    static function modifyUser($id, $nick, $rol, $email, $nombre, $apel) {
+
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar(); //se conecta a la base de datos
+
+        $ddbb->update("UPDATE usuario SET NICK = ?, ROLE = ?, EMAIL = ?, NOMBRE = ?, APELLIDOS = ? WHERE ID = ?", [$nick, $rol, $email, $nombre, $apel, $id]);
+
+    }
+
 }
