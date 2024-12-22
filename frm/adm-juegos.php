@@ -16,17 +16,8 @@
             <div class="modal-body">
                 <form action="" method="post" enctype="multipart/form-data">
                     <div class="row">
-
                         <div class="position-relative col-4 img-container d-flex align-items-center flex-column">
-                            <input type="file" id="file" accept="image/*" hidden>
-
-                            <img class="portada" src="https://placehold.co/400x600?text=Portada" alt="">
-
-                            <button type="button"
-                                class="select-img btn text-white position-absolute bottom-0 end-0 m-4"><svg
-                                    class="bi me-2 d-flex align-items-center" width="30" height="30">
-                                    <use xlink:href="#upload" />
-                                </svg></button>
+                            <!-- IMG PREVIEW -->
                         </div>
 
                         <div class="col campos">
@@ -164,13 +155,19 @@
                             </div>
                         </div>
                     </div>
-
+                    <div class="row">
+                        <div class="col-4 campos">
+                            <!-- INPUT PORTADA -->
+                            <label for="portada" class="col-form-label">Portada:</label>
+                            <input type="file" id="file" name="portada" accept="image/*">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <input type="submit" class="btn btn-primary" value="Añadir" name="addGame">
+                    </div>
+                </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <input type="submit" class="btn btn-primary" value="Añadir">
-            </div>
-            </form>
         </div>
     </div>
 </div>
@@ -186,9 +183,14 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-
+    <?php
+    if (isset($_POST["addGame"])) {
+        ?>
+        console.log("bien bien");
+        <?php
+    }
+    ?>
 
 </script>
 <script src="library/dselect.js"></script>
-<script src="js/img-selector.js"></script>
 <script src="js/adm-juegos.js"></script>

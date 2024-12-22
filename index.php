@@ -54,7 +54,8 @@ class Controlador
 
     }
 
-    public function validateSession() {
+    public function validateSession()
+    {
         //si hay una sesion creada y se hace logout se destruye la sesión y se envia al landing
         if (isset($_SESSION["nick"])) {
             if (isset($_POST["logout"])) {
@@ -69,7 +70,8 @@ class Controlador
         }
     }
 
-    public function validateAdminSession() {
+    public function validateAdminSession()
+    {
         //si hay una sesion creada y se hace logout se destruye la sesión y se envia al landing
         if (isset($_SESSION["nick"])) {
             if ($_SESSION["role"] === "admin") {
@@ -121,10 +123,38 @@ class Controlador
         }
     }
 
+    public function thumbnailFilesUpload()
+    {
+        $mime=$_FILES["portada"]["type"];
+        $extension = explode("/", $mime);
+
+        $ruta = "img/game-thumbnail/" . $_POST["titulo"].".".$extension[1];
+        $resultado = move_uploaded_file($_FILES["portada"]["tmp_name"], $ruta);
+        if($resultado){
+           return $ruta; 
+        }else{
+            return 0;
+        }
+        
+    }
+
     public function iniciaAdminJuegos()
     {
         //Valida la sessión. Si erronea o logout envia a login.
         $this->validateAdminSession();
+
+        if (isset($_POST["addGame"])) {
+            if (isset($_POST["titulo"]) && isset($_POST["descripcion"]) && isset($_POST["descripcion"]) && isset($_POST["dis"]) && isset($_POST["dev"]) && isset($_POST["year"])) {
+
+                $ruta = $this->thumbnailFilesUpload();
+                if ($ruta!=0) {
+                    model::addGame($_POST["titulo"], 'img/game-thumbnail/"' . $_POST["titulo"], $ruta, isset($_POST["year"]));
+                } else {
+                    print ("f");
+                }
+
+            }
+        }
 
         //se incluyen los juegos que posee el usuario
         $games = Model::getGames($_SESSION['id']);
@@ -134,6 +164,9 @@ class Controlador
 
         //se incluye la vista de principal
         Vista::mostrarAdminJuegos($games, $generos, $sistemas, $companias);
+
+
+
     }
 
     public function iniciaAdminGeneros()
@@ -180,7 +213,7 @@ class Controlador
         if (isset($_POST["user"]) && isset($_POST["passwd"])) {
             //se llama a la funcion existe usuario del model/login.php
             if ($this->verificaUsuario(Model::existeUsuario($_POST["user"], $_POST["passwd"]))) {
-                
+
                 //si se verifica el usuario se llama a la funcion iniciaSesion
                 header("location: ?page=principal");
                 die();
@@ -234,7 +267,8 @@ class Controlador
         Vista::mostrarRegistro($allPosts, $added, $passwdBien);
     }
 
-    public function inicia404() {
+    public function inicia404()
+    {
         Vista::mostrar404();
     }
 
@@ -251,20 +285,21 @@ class Controlador
 
 
     //funcion para verificar usuario
-    public function verificaUsuario($id){
-                //If someone with that nick/email
-                if (!empty($id)) {
-                    
-                    $passReal = model::consultaPasswd($id);
-        
-                    //Verificamos la contraseña
-                    if (password_verify($_POST["passwd"], $passReal)) {
-                        model::abrirSesion($id);
-                        return true;
-                    } else {
-                        return false;
-                    }
-                }
+    public function verificaUsuario($id)
+    {
+        //If someone with that nick/email
+        if (!empty($id)) {
+
+            $passReal = model::consultaPasswd($id);
+
+            //Verificamos la contraseña
+            if (password_verify($_POST["passwd"], $passReal)) {
+                model::abrirSesion($id);
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
 

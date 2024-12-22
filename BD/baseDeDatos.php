@@ -37,11 +37,11 @@ class BaseDeDatos
     }
 
     public function update($sql,$array) {
-        return $this::insert($sql,$array);
+        return $this->insert($sql,$array);
     }
 
     public function delete($sql,$array) {
-        return $this::insert($sql,$array);
+        return $this->insert($sql,$array);
     }
 
     public function cerrar()
