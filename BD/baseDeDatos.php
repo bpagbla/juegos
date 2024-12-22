@@ -33,11 +33,11 @@ class BaseDeDatos
     //funcion para insertar datos en la base de daots
     public function insert($sql,$array) {
         $stmt= $this->db->prepare($sql);
-        $stmt->execute($array);
+        return $stmt->execute($array);
     }
 
     public function update($sql,$array) {
-        $this::insert($sql,$array);
+        return $this::insert($sql,$array);
     }
 
     public function cerrar()
