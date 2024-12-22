@@ -229,7 +229,7 @@ class model
 
             $pass = password_hash($pass, PASSWORD_DEFAULT); //se convierte a hash la contraseña
 
-            //se insertan los datos en la base de detos
+            //se insertan los datos en la base de datos
             $consulta = $ddbb->insert("INSERT INTO usuario(EMAIL, NICK, NOMBRE, APELLIDOS, PASSWORD, ROLE) VALUES(?,?,?,?,?,?)", [$email, $nick, $nombre, $apel, $pass, 'user']);
             return true; //devuelve true si se ha creado
         } else {
@@ -237,7 +237,7 @@ class model
         }
     }
 
-    static function addGame($titulo, $ruta, $portada, $year)
+    static function addGame($titulo, $ruta, $portada, $dev, $dis, $year)
     {
 
         include_once "BD/baseDeDatos.php";
@@ -245,8 +245,8 @@ class model
         $ddbb = new BaseDeDatos;
         $ddbb->conectar(); //se conecta a la base de datos
 
-        //se insertan los datos en la base de detos
-        $consulta = $ddbb->insert("INSERT INTO juego(TITULO, RUTA, PORTADA, ANIO) VALUES(?,?,?,?)", [$titulo, $ruta, $portada, $year]);
+        //se insertan los datos en la base de datos
+        $consulta = $ddbb->insert("INSERT INTO juego(ID, TITULO, RUTA, PORTADA, DESARROLLADOR, DISTRIBUIDOR, ANIO) VALUES(?,?,?,?,?,?,?)", [1, $titulo, $ruta, $portada, $dev, $dis, $year]);
         return $consulta;
     }
 

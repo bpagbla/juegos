@@ -1,1 +1,1 @@
-<option value="dev<?php print $dev[0] ?>"><?php print $dev[1] ?></option>
+<option value="<?php print $dev[0] ?>"><?php print $dev[1] ?></option>

@@ -151,13 +151,13 @@ class Controlador
         $this->validateAdminSession();
 
         if (isset($_POST["addGame"])) {
-            if (isset($_POST["titulo"]) && isset($_POST["descripcion"]) && isset($_POST["descripcion"]) && isset($_POST["dis"]) && isset($_POST["dev"]) && isset($_POST["year"])) {
+            if (isset($_POST["titulo"]) && isset($_POST["descripcion"]) && isset($_POST["dis"]) && isset($_POST["dev"]) && isset($_POST["year"])) {
 
                 $ruta = $this->thumbnailFilesUpload();
                 if ($ruta!=0) {
-                    model::addGame($_POST["titulo"], 'img/game-thumbnail/"' . $_POST["titulo"], $ruta, isset($_POST["year"]));
+                    model::addGame($_POST["titulo"], 'rutaJuego', $ruta, $_POST["dev"], $_POST["dis"], $_POST["year"]);
                 } else {
-                    print ("f");
+                    print ("Failed to upload thumbnail.");
                 }
 
             }
