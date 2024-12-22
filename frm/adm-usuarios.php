@@ -16,7 +16,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "user-edit") {
 ?>
 
     <!-- Modal -->
-    <div class="modal fade" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade modal-lg" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
          aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -26,8 +26,60 @@ if (isset($_POST["action"]) && $_POST["action"] == "user-edit") {
                 </div>
                 <div class="modal-body">
                     <form>
-                        <label for="nick">Usuario</label>
-                        <input id="nick" type="text" />
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Nick</label>
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon1">@</span>
+                                <input type="text" class="form-control" placeholder="Username" aria-label="Nick" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Correo Electronico</label>
+                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="usuario@ejemplo.com">
+                        </div>
+                        <div class="row">
+                            <div class="col-6 mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Nombre</label>
+                                <input type="email" class="form-control" id="exampleFormControlInput1">
+                            </div>
+                            <div class="col-6 mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Apellidos</label>
+                                <input type="email" class="form-control" id="exampleFormControlInput1">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <label for="province" class="form-label ms-1" name="provincia">Provincia</label>
+                                <select class="form-select" id="province" required>
+                                    <option value="">Elije...</option>
+                                    <option value="1">Madrid</option>
+                                    <option value="2">Barcelona</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Selecciona una provincia valida.
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="city" class="form-label ms-1">Ciudad</label>
+                                <input type="text" class="form-control" id="city" placeholder="" name="ciudad" value="<?php if (!empty($_POST["ciudad"])) {
+                                    print $_POST["ciudad"];
+                                } ?>" required>
+                                <div class="invalid-feedback">
+                                    Introduce una ciudad valida.
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label for="zip" class="form-label ms-1">CP</label>
+                                <input type="text" class="form-control" id="zip" placeholder="" name="cp" value="<?php if (!empty($_POST["cp"])) {
+                                    print $_POST["cp"];
+                                } ?>" required>
+                                <div class="invalid-feedback">
+                                    Se requiere de CP valido.
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
