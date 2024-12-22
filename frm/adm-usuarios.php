@@ -131,11 +131,12 @@ if (isset($_POST["action"]) && $_POST["action"] == "user-passwd") {
                                 </div>
                             </div>
                         </div>
+                        <input type="hidden" value="<?php echo $_POST["id"]; ?>" name="id">
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-secondary" form="model-cancel">Cancelar</button>
-                    <button type="submit" class="btn btn-primary" value="apply" form="modal-form">Aplicar</button>
+                    <button type="submit" class="btn btn-primary" name="action" value="user-passwd-apply" form="modal-form">Aplicar</button>
                 </div>
             </div>
         </div>
