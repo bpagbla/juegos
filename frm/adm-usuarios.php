@@ -26,11 +26,12 @@ if (isset($_POST["action"]) && $_POST["action"] == "user-edit") {
                     <button type="submit" class="btn-close" form="dismiss-form"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="apply-form">
+                    <form id="apply-form" method="post">
                         <div class="row">
                             <div class="col-2 mb-3">
                                 <label for="form-id" class="form-label">ID</label>
-                                <input name="id" type="text" class="form-control" id="form-id" value="<?php print $_POST["id"] ?>" disabled>
+                                <input type="number" class="form-control" id="form-id" value="<?php print $_POST["id"] ?>" disabled>
+                                <input name="id" type="hidden" value="<?php print $_POST["id"] ?>">
                             </div>
                             <div class="col-7 mb-3">
                                 <label for="form-nick" class="form-label">Nick</label>

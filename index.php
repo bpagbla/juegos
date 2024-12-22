@@ -94,6 +94,12 @@ class Controlador
         //Valida la sessión. Si erronea o logout envia a login.
         $this->validateAdminSession();
 
+        if (isset($_POST["action"]) && $_POST["action"] == "user-apply") {
+
+            model::modifyUser($_POST["id"], $_POST["nick"], $_POST["role"], $_POST["email"], $_POST["firstName"], $_POST["lastName"]);
+
+        }
+
         $users = model::getAllUsers();
         if (isset($_POST["action"]) && $_POST["action"] == "user-edit") {
             $user = model::getUserData($_POST["id"]);

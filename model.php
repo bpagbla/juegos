@@ -252,6 +252,8 @@ class model
 
     static function modifyUser($id, $nick, $rol, $email, $nombre, $apel) {
 
+        include_once "BD/baseDeDatos.php";
+
         $ddbb = new BaseDeDatos;
         $ddbb->conectar(); //se conecta a la base de datos
 
