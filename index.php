@@ -95,9 +95,14 @@ class Controlador
         $this->validateAdminSession();
 
         $users = model::getAllUsers();
-
-        //se incluye la vista de principal
-        Vista::mostrarAdminUsuarios($users);
+        if (isset($_POST["action"]) && $_POST["action"] == "user-edit") {
+            $user = model::getUserData($_POST["id"]);
+            //se incluye la vista de principal con datos de usuario pedido
+            Vista::mostrarAdminUsuarios($users, $user);
+        } else {
+            //se incluye la vista de principal
+            Vista::mostrarAdminUsuarios($users);
+        }
     }
 
     public function iniciaAdminJuegos()

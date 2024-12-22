@@ -131,6 +131,21 @@ class model
 
     }
 
+    static function getUserData($id)
+    {
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+        $consulta = $ddbb->consulta("SELECT EMAIL, NOMBRE, APELLIDOS, ROLE FROM usuario WHERE ID=?", array($id));
+        $user = array();
+        foreach ($consulta as $row) {
+            $user = array($row['ROLE'],$row['EMAIL'],$row['NOMBRE'],$row['APELLIDOS']);
+        }
+        $ddbb->cerrar();
+        return $user;
+
+    }
+
     static function existeUsuario($loginID, $password)
     {
         //Include the ddbb class
