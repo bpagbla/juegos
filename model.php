@@ -139,7 +139,7 @@ class model
         $consulta = $ddbb->consulta("SELECT EMAIL, NOMBRE, APELLIDOS, ROLE FROM usuario WHERE ID=?", array($id));
         $user = array();
         foreach ($consulta as $row) {
-            $user = array($row['ROLE'],$row['EMAIL'],$row['NOMBRE'],$row['APELLIDOS']);
+            $user = array($row['ROLE'], $row['EMAIL'], $row['NOMBRE'], $row['APELLIDOS']);
         }
         $ddbb->cerrar();
         return $user;
@@ -237,16 +237,17 @@ class model
         }
     }
 
-    static function addGame($titulo, $ruta, $dev, $dis, $year){
-
+    static function addGame($titulo, $ruta,$portada, $dev, $dis, $year)
+    {
 
         include_once "BD/baseDeDatos.php";
 
         $ddbb = new BaseDeDatos;
         $ddbb->conectar(); //se conecta a la base de datos
 
+        //se insertan los datos en la base de detos
+        $consulta = $ddbb->insert("INSERT INTO juego(TITULO, RUTA, PORTADA, DESARROLLADOR, DISTRIBUIDOR, ANIO) VALUES(?,?,?,?,?,?)", [$titulo, $ruta,$portada, $dev, $dis, $year]);
 
-        /* TITULO, RUTA, DESARROLLADOR, DISTRIBUIDOR, ANIO */
     }
 
 }
