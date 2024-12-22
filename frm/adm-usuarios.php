@@ -20,51 +20,52 @@ if (isset($_POST["action"]) && $_POST["action"] == "user-edit") {
          aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
+                <form id="dismiss-form" method="post"></form>
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Usuario <?php echo ""; ?></h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Usuario: <?php echo $_POST["nick"]; ?></h1>
+                    <button type="submit" class="btn-close" form="dismiss-form"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form id="apply-form">
                         <div class="row">
                             <div class="col-8 mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Nick</label>
                                 <div class="input-group">
                                     <span class="input-group-text" id="basic-addon1">@</span>
-                                    <input type="text" class="form-control" placeholder="Username" aria-label="Nick" aria-describedby="basic-addon1">
+                                    <input type="text" class="form-control" placeholder="Username" aria-label="Nick" aria-describedby="basic-addon1" value="<?php echo $_POST["nick"] ?>">
                                 </div>
                             </div>
                             <div class="col-4">
                                 <label for="province" class="form-label ms-1">Rol</label>
                                 <select class="form-select" id="role" name="role" required>
                                     <option value="">Elije...</option>
-                                    <option value="1">admin</option>
-                                    <option value="2">user</option>
+                                    <option value="admin" <?php if ($reqUser[0] === "admin") {echo "selected";} ?>>admin</option>
+                                    <option value="user" <?php if ($reqUser[0] === "user") {echo "selected";} ?>>user</option>
                                 </select>
                                 <div class="invalid-feedback">
-                                    Selecciona una provincia valida.
+                                    Selecciona un rol valido.
                                 </div>
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label">Correo Electronico</label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="usuario@ejemplo.com">
+                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="usuario@ejemplo.com" value="<?php print $reqUser[1] ?>">
                         </div>
                         <div class="row">
                             <div class="col-6 mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Nombre</label>
-                                <input type="email" class="form-control" id="exampleFormControlInput1">
+                                <input type="email" class="form-control" id="exampleFormControlInput1" value="<?php print $reqUser[2] ?>">
                             </div>
                             <div class="col-6 mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Apellidos</label>
-                                <input type="email" class="form-control" id="exampleFormControlInput1">
+                                <input type="email" class="form-control" id="exampleFormControlInput1" value="<?php print $reqUser[3] ?>">
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary">Aplicar</button>
+                    <button type="submit" class="btn btn-secondary" form="dismiss-form">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" form="apply-form">Aplicar</button>
                 </div>
             </div>
         </div>
