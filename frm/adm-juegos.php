@@ -33,14 +33,18 @@
                             <div class="row mb-3">
                                 <label for="titulo" class="col-form-label">Título:</label>
                                 <input type="text" class="form-control" id="titulo" name="titulo" required>
+                                <!-- Aquí se mostrarán las sugerencias dinámicamente -->
+                                <div id="sugerencias-container"></div>
                             </div>
+
                             <div class="row mb-3">
                                 <label for="descripcion" class="col-form-label">Descripción:</label>
                                 <textarea class="form-control" id="descripcion" name="descripcion" required></textarea>
                             </div>
                             <div class="dropdown row mb-3">
                                 <!-- PLANTILLA DISTRIBUIDORES -->
-                                <select class="form-select" id="select-dis" name="dis" aria-label="Default select example" required>
+                                <select class="form-select" id="select-dis" name="dis"
+                                    aria-label="Default select example" required>
                                     <option selected disabled value="">Selecciona un Distribuidor</option>
                                     <?php
                                     $contDist = 0;
@@ -65,7 +69,8 @@
 
                             <div class="dropdown row mb-3">
                                 <!-- PLANTILLA DEV -->
-                                <select class="form-select " name="dev" id="select-dev" aria-label="Default select example" required>
+                                <select class="form-select " name="dev" id="select-dev"
+                                    aria-label="Default select example" required>
                                     <option selected disabled value="">Selecciona un Desarrollador</option>
                                     <?php
                                     $contDev = 0;
@@ -181,12 +186,7 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    const myModal = document.getElementById('myModal')
-    const myInput = document.getElementById('myInput')
 
-    myModal.addEventListener('shown.bs.modal', () => {
-        myInput.focus()
-    })
 
 </script>
 <script src="library/dselect.js"></script>
