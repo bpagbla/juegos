@@ -28,14 +28,18 @@ if (isset($_POST["action"]) && $_POST["action"] == "user-edit") {
                 <div class="modal-body">
                     <form id="apply-form">
                         <div class="row">
-                            <div class="col-8 mb-3">
+                            <div class="col-2 mb-3">
+                                <label for="form-id" class="form-label">ID</label>
+                                <input name="id" type="text" class="form-control" id="form-id" value="<?php print $_POST["id"] ?>" disabled>
+                            </div>
+                            <div class="col-7 mb-3">
                                 <label for="form-nick" class="form-label">Nick</label>
                                 <div class="input-group">
                                     <span class="input-group-text" id="at">@</span>
                                     <input name="nick" id="form-nick" type="text" class="form-control" placeholder="Username" aria-label="Nick" aria-describedby="at" value="<?php echo $_POST["nick"] ?>">
                                 </div>
                             </div>
-                            <div class="col-4">
+                            <div class="col-3">
                                 <label for="form-role" class="form-label ms-1">Rol</label>
                                 <select class="form-select" id="form-role" name="role" required>
                                     <option value="">Elije...</option>
