@@ -97,6 +97,8 @@ class Controlador
         if (isset($_POST["action"]) && $_POST["action"] == "user-apply") {
 
             model::modifyUser($_POST["id"], $_POST["nick"], $_POST["role"], $_POST["email"], $_POST["firstName"], $_POST["lastName"]);
+            header('Location: ?page=adm-usuarios');
+            die();
 
         }
 

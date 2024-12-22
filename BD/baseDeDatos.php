@@ -40,6 +40,10 @@ class BaseDeDatos
         return $this::insert($sql,$array);
     }
 
+    public function delete($sql,$array) {
+        return $this::insert($sql,$array);
+    }
+
     public function cerrar()
     {
 
