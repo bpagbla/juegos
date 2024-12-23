@@ -6,3 +6,6 @@
     }
     ?>
 </div>
+<div class="position-absolute top-0 end-0">
+    <?php include "frm/templates/boton-carrito.php" ?>
+</div>
