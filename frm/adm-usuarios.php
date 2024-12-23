@@ -1,4 +1,4 @@
-<button id="myInput" type="button" class="btn text-white position-fixed end-0 bottom-0 m-4">
+<button id="display-add-button" type="button" class="btn text-white position-fixed end-0 bottom-0 m-4">
     <svg class="bi me-2" width="16" height="16">
         <use xlink:href="#plus" />
     </svg>
@@ -37,7 +37,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "user-edit") {
                                 <label for="form-nick" class="form-label">Nick</label>
                                 <div class="input-group">
                                     <span class="input-group-text" id="at">@</span>
-                                    <input name="nick" id="form-nick" type="text" class="form-control" placeholder="Username" aria-label="Nick" aria-describedby="at" value="<?php echo $_POST["nick"] ?>">
+                                    <input name="nick" id="form-nick" type="text" class="form-control" placeholder="Username" aria-label="Nick" aria-describedby="at" value="<?php echo $_POST["nick"] ?>" required>
                                 </div>
                             </div>
                             <div class="col-3">
@@ -54,12 +54,12 @@ if (isset($_POST["action"]) && $_POST["action"] == "user-edit") {
                         </div>
                         <div class="mb-3">
                             <label for="form-email" class="form-label">Correo Electronico</label>
-                            <input name="email" type="email" class="form-control" id="form-email" placeholder="usuario@ejemplo.com" value="<?php print $reqUser[1] ?>">
+                            <input name="email" type="email" class="form-control" id="form-email" placeholder="usuario@ejemplo.com" value="<?php print $reqUser[1] ?>" required>
                         </div>
                         <div class="row">
                             <div class="col-6 mb-3">
                                 <label for="form-firstName" class="form-label">Nombre</label>
-                                <input name="firstName" type="text" class="form-control" id="form-firstName" value="<?php print $reqUser[2] ?>">
+                                <input name="firstName" type="text" class="form-control" id="form-firstName" value="<?php print $reqUser[2] ?>" required>
                             </div>
                             <div class="col-6 mb-3">
                                 <label for="form-lastName" class="form-label">Apellidos</label>
@@ -171,3 +171,77 @@ if (isset($_POST["action"]) && $_POST["action"] == "user-passwd") {
     <?php
 }
 ?>
+
+<!-- Modal -->
+<div class="modal fade modal-lg" id="add-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Añadir Usuario</h1>
+                <button type="submit" class="btn-close" form="add-cancel"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row justify-content-center">
+                    <div id="passwd-alert" class="alert alert-danger col-11 <?php if (!isset($userError)) print 'd-none';?>" role="alert">
+                        <?php if (isset($userError)) print $userError ?>
+                    </div>
+                </div>
+                <form id="add-cancel" method="post"></form>
+                <form id="add-form" method="post">
+                    <div class="row">
+                        <div class="col-8 mb-3">
+                            <label for="add-nick" class="form-label">Nick</label>
+                            <div class="input-group">
+                                <span class="input-group-text" id="at">@</span>
+                                <input name="nick" id="add-nick" type="text" class="form-control" placeholder="Username" aria-label="Nick" aria-describedby="at" value="<?php if (isset($_POST["nick"])) echo $_POST["nick"] ?>" required>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <label for="add-role" class="form-label ms-1">Rol</label>
+                            <select class="form-select" id="add-role" name="role" required>
+                                <option value="">Elije...</option>
+                                <option value="admin" <?php if (isset($_POST["role"]) && $_POST["role"] === "admin") {echo "selected";} ?>>admin</option>
+                                <option value="user" <?php if (isset($_POST["role"]) && $_POST["role"] === "user") {echo "selected";} ?>>user</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Selecciona un rol valido.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="add-email" class="form-label">Correo Electronico</label>
+                        <input name="email" type="email" class="form-control" id="add-email" placeholder="usuario@ejemplo.com" value="<?php if (isset($_POST["email"])) print $_POST["email"] ?>" required>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <label for="add-firstName" class="form-label">Nombre</label>
+                            <input name="firstName" type="text" class="form-control" id="add-firstName" value="<?php if (isset($_POST["firstName"])) print $_POST["firstName"] ?>" required>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="add-lastName" class="form-label">Apellidos</label>
+                            <input name="lastName" type="text" class="form-control" id="add-lastName" value="<?php if (isset($_POST["lastName"])) print $_POST["lastName"] ?>" required>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-secondary" form="add-cancel">Cancelar</button>
+                <button type="submit" class="btn btn-primary" form="add-form" name="action" value="user-add">Aplicar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const addModal = new bootstrap.Modal('#add-modal', {
+        keyboard: false
+    })
+
+    <?php
+        if (isset($_POST["action"]) && $_POST["action"] === "user-add") print "addModal.show()"
+    ?>
+
+    document.getElementById('display-add-button').addEventListener('click', function () {addModal.show()})
+</script>
+
