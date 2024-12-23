@@ -365,7 +365,7 @@
                 </button>
 
             <div class="collapse mt-4 me-5" id="collapseExample">
-                <div class="card" style="width: 18rem;">
+                <div class="card cardCarrito" style="width: 18rem;">
                     <div class="card-body">
                         <h5 class="card-title">Tu cesta</h5>
                         <p class="card-text">Total: PRECIO</p>
