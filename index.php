@@ -211,7 +211,18 @@ class Controlador
 
         //se incluyen los juegos que posee el usuario
         $games = Model::getAllGames();
+        $gamesOwned = model::getGames($_SESSION["id"]);
 
+        $i = 0;
+        foreach ($games as $game) {
+            foreach ($gamesOwned as $gameOwned) {
+                if ($game[0] == $gameOwned[0]) {
+                    $games[$i][] = true;
+                }
+            }
+            $i++;
+        }
+        
         //se incluye la vista de principal
         Vista::mostrarJuegos($games);
     }

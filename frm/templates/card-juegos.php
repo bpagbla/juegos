@@ -6,7 +6,7 @@
             <h5 class="card-title text-white"><?php print $game[1] ?></h5>
             <div class="d-flex justify-content-between">
                 <a href="#" class="btn btn-sm btn-primary">Info</a>
-                <a href="#" class="btn btn-sm btn-primary">Comprar</a>
+                <a href="#" class="btn btn-sm btn-primary <?php if(isset($game[2]))echo "disabled" ?>">Comprar</a>
                 <a href="#" class="btn btn-sm btn-primary">Regalar</a>
             </div>
         </div>
