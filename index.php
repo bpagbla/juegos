@@ -208,7 +208,8 @@ class Controlador
 
     public function iniciaJuegos()
     {
-
+//Valida la sessión. Si erronea o logout envia a login.
+$this->validateAdminSession();
         //se incluyen los juegos que posee el usuario
         $games = Model::getAllGames();
         $gamesOwned = model::getGames($_SESSION["id"]);
@@ -222,7 +223,7 @@ class Controlador
             }
             $i++;
         }
-        
+
         //se incluye la vista de principal
         Vista::mostrarJuegos($games);
     }
