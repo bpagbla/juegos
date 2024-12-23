@@ -45,6 +45,9 @@ class Controlador
             case "adm-company":
                 $this->iniciaAdminEmpresa();
                 break;
+            case "juegos":
+                $this->iniciaJuegos();
+                break;
             default:
                 $this->inicia404();
         }
@@ -132,17 +135,17 @@ class Controlador
 
     public function thumbnailFilesUpload()
     {
-        $mime=$_FILES["portada"]["type"];
+        $mime = $_FILES["portada"]["type"];
         $extension = explode("/", $mime); //coge la extensión (por si no es siempre la misma no se)
 
-        $ruta = "img/game-thumbnail/" . $_POST["titulo"].".".$extension[1]; //ESE TITULO HAY QUE CAMBIARLO POR EL ID DEL JUEGO EN LA API
+        $ruta = "img/game-thumbnail/" . $_POST["titulo"] . "." . $extension[1]; //ESE TITULO HAY QUE CAMBIARLO POR EL ID DEL JUEGO EN LA API
         $resultado = move_uploaded_file($_FILES["portada"]["tmp_name"], $ruta); //mueve el archivo al directorio
-        if($resultado){ //si ha salido bien que devuelva la ruta
-           return $ruta; 
-        }else{
+        if ($resultado) { //si ha salido bien que devuelva la ruta
+            return $ruta;
+        } else {
             return 0; //si no se ha subido que devuelva 0
         }
-        
+
     }
 
     public function iniciaAdminJuegos()
@@ -154,16 +157,16 @@ class Controlador
             if (isset($_POST["titulo"]) && isset($_POST["descripcion"]) && isset($_POST["dis"]) && isset($_POST["dev"]) && isset($_POST["year"])) { //verifica que se han rellenado los campos
 
                 $ruta = $this->thumbnailFilesUpload();
-                if ($ruta!=0) { //si se ha subido la imagen mete los datos en la bbdd
+                if ($ruta != 0) { //si se ha subido la imagen mete los datos en la bbdd
                     model::addGame($_POST["titulo"], 'rutaJuego', $ruta, $_POST["dev"], $_POST["dis"], $_POST["year"]);
                 } else {
                     print ("Failed to upload thumbnail."); //AÑADIR MENSAJE DE ERROR???????
                 }
                 header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
-            }else{
+            } else {
                 print "error"; //OTRO MENSAJE DE ERROR?
             }
-            
+
         }
 
         //se incluyen los juegos que posee el usuario
@@ -202,6 +205,17 @@ class Controlador
         //se incluye la vista de principal
         Vista::mostrarAdminEmpresa();
     }
+
+    public function iniciaJuegos()
+    {
+
+        //se incluyen los juegos que posee el usuario
+        $games = Model::getAllGames();
+
+        //se incluye la vista de principal
+        Vista::mostrarJuegos($games);
+    }
+
 
     //LOGIN
     public function iniciaLogin()

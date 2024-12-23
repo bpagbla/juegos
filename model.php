@@ -43,6 +43,29 @@ class model
         return $array; //Se devuelve el array con los juegos
     }
 
+    static function getAllGames(){
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+
+
+        $array = array();
+
+        $consulta = $ddbb->consulta("SELECT ID,TITULO FROM juego"); //se sacan todos los generos de la base de datos
+        $nombre = '';
+        $id = '';
+
+        //Se guardan el nombre y el id del genero en el array
+        foreach ($consulta as $each) {
+            $nombre = $each['TITULO'];
+            $id = $each['ID'];
+            $array[] = [$id, $nombre];
+        }
+
+        $ddbb->cerrar();
+        return $array; //devolver el array con todos los juegos
+    }
+
 
     static function getGeneros()
     {
