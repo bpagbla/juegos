@@ -16,9 +16,15 @@
 </head>
 
 <body>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="cart" viewBox="0 0 16 16">
+            <path
+                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+        </symbol>
         <symbol id="plus" viewBox="0 0 16 16">
             <path fill-rule="evenodd"
                 d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
@@ -109,7 +115,8 @@
     <header class="navbar sticky-top d-md-none header-color">
         <div class="container-fluid">
             <form type="get">
-                <button class="navbar-brand nombre text-white border-0 bg-transparent" name="page" value="principal">Glitched Pixel</button>
+                <button class="navbar-brand nombre text-white border-0 bg-transparent" name="page"
+                    value="principal">Glitched Pixel</button>
             </form>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
                 aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
@@ -229,7 +236,8 @@
                     <form type="get">
                         <button name="page" value="principal"
                             class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none border-0 bg-transparent">
-                            <svg width="40" height="32" viewBox="0 0 79 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg width="40" height="32" viewBox="0 0 79 80" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M16.7071 24.2629V16.2629H40.7071V24.2629H16.7071ZM16.7071 56.2629V48.2629H8.7071V24.2629H16.7071V48.2629H32.7071V40.2629H24.7071V32.2629H40.7071V56.2629H16.7071Z"
                                     fill="whitesmoke" />
@@ -343,6 +351,39 @@
             </div>
         </div>
     </div>
+    <div class="position-absolute top-0 end-0">
+        <div class="d-flex justify-content-end flex-column">
+            
+                <button type="button" class="btn btn-primary position-relative carrito mt-4 me-5"
+                    data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false"
+                    aria-controls="collapseExample">
+                    <svg class="bi m-1" width="25" height="25">
+                        <use xlink:href="#cart" />
+                    </svg> <span
+                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger border-light">+99
+                        <span class="visually-hidden">productos en carrito</span></span>
+                </button>
+
+            <div class="collapse mt-4 me-5" id="collapseExample">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Tu cesta</h5>
+                        <p class="card-text">Total: PRECIO</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <?php
+                        include "frm/templates/productos-carrito.php";
+                        ?>
+                    </ul>
+                    <div class="card-body">
+                        <a href="#" class="card-link">Card link</a>
+                        <a href="#" class="card-link">Another link</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>
