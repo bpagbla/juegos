@@ -208,8 +208,8 @@ class Controlador
 
     public function iniciaJuegos()
     {
-//Valida la sessión. Si erronea o logout envia a login.
-$this->validateAdminSession();
+        //Valida la sessión. Si erronea o logout envia a login.
+        $this->validateSession();
         //se incluyen los juegos que posee el usuario
         $games = Model::getAllGames();
         $gamesOwned = model::getGames($_SESSION["id"]);
