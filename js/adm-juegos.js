@@ -22,3 +22,27 @@ $(document).ready(function () {
 
 });
 
+console.log("carga");
+// Seleccionar los elementos
+const fileInput = document.getElementById('file');
+const imgPreview = document.getElementById('portada');
+
+// Escuchar el evento change del input de archivo
+fileInput.addEventListener('change', function (event) {
+    const file = event.target.files[0]; // Obtener el archivo seleccionado
+    console.log("ok?")
+    // Verificar si se seleccionó un archivo y si es una imagen
+    if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+
+        // Leer el archivo y actualizar el src del img
+        reader.onload = function (e) {
+            imgPreview.src = e.target.result; // Establecer la ruta de la imagen
+        };
+
+        reader.readAsDataURL(file); // Leer el archivo como URL
+    } else {
+        imgPreview.src = ''; // Limpiar la previsualización si no es válido
+        alert('Por favor, selecciona un archivo de imagen válido.');
+    }
+});

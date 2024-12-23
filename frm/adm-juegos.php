@@ -18,6 +18,9 @@
                     <div class="row">
                         <div class="position-relative col-4 img-container d-flex align-items-center flex-column">
                             <!-- IMG PREVIEW -->
+
+                            <img id="portada" src="" alt="Previsualización de la imagen">
+
                         </div>
 
                         <div class="col campos">

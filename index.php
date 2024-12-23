@@ -159,8 +159,8 @@ class Controlador
                 } else {
                     print ("Failed to upload thumbnail.");
                 }
-
             }
+            header('Location: ?page=adm-juegos');
         }
 
         //se incluyen los juegos que posee el usuario
