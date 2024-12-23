@@ -133,14 +133,14 @@ class Controlador
     public function thumbnailFilesUpload()
     {
         $mime=$_FILES["portada"]["type"];
-        $extension = explode("/", $mime);
+        $extension = explode("/", $mime); //coge la extensión (por si no es siempre la misma no se)
 
-        $ruta = "img/game-thumbnail/" . $_POST["titulo"].".".$extension[1];
-        $resultado = move_uploaded_file($_FILES["portada"]["tmp_name"], $ruta);
-        if($resultado){
+        $ruta = "img/game-thumbnail/" . $_POST["titulo"].".".$extension[1]; //ESE TITULO HAY QUE CAMBIARLO POR EL ID DEL JUEGO EN LA API
+        $resultado = move_uploaded_file($_FILES["portada"]["tmp_name"], $ruta); //mueve el archivo al directorio
+        if($resultado){ //si ha salido bien que devuelva la ruta
            return $ruta; 
         }else{
-            return 0;
+            return 0; //si no se ha subido que devuelva 0
         }
         
     }
@@ -151,16 +151,19 @@ class Controlador
         $this->validateAdminSession();
 
         if (isset($_POST["addGame"])) {
-            if (isset($_POST["titulo"]) && isset($_POST["descripcion"]) && isset($_POST["dis"]) && isset($_POST["dev"]) && isset($_POST["year"])) {
+            if (isset($_POST["titulo"]) && isset($_POST["descripcion"]) && isset($_POST["dis"]) && isset($_POST["dev"]) && isset($_POST["year"])) { //verifica que se han rellenado los campos
 
                 $ruta = $this->thumbnailFilesUpload();
-                if ($ruta!=0) {
+                if ($ruta!=0) { //si se ha subido la imagen mete los datos en la bbdd
                     model::addGame($_POST["titulo"], 'rutaJuego', $ruta, $_POST["dev"], $_POST["dis"], $_POST["year"]);
                 } else {
-                    print ("Failed to upload thumbnail.");
+                    print ("Failed to upload thumbnail."); //AÑADIR MENSAJE DE ERROR???????
                 }
+                header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
+            }else{
+                print "error"; //OTRO MENSAJE DE ERROR?
             }
-            header('Location: ?page=adm-juegos');
+            
         }
 
         //se incluyen los juegos que posee el usuario
@@ -171,8 +174,6 @@ class Controlador
 
         //se incluye la vista de principal
         Vista::mostrarAdminJuegos($games, $generos, $sistemas, $companias);
-
-
 
     }
 
