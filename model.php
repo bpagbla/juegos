@@ -217,7 +217,7 @@ class model
         $ddbb->conectar();
 
         //Saco los datos del user
-        $datos = $ddbb->consulta("SELECT nick,email,id,role FROM `usuario` WHERE ID=?", array($id));
+        $datos = $ddbb->consulta("SELECT nick,email,id,role,carrito FROM `usuario` WHERE ID=?", array($id));
 
         //Guardar datos del usuario en la sesion
         foreach ($datos as $row) {
@@ -225,6 +225,7 @@ class model
             $_SESSION["email"] = $row["email"];
             $_SESSION["id"] = $row["id"];
             $_SESSION["role"] = $row["role"];
+            $_SESSION["carrito"] = $row["carrito"];
         }
 
         $ddbb->cerrar();

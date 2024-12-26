@@ -65,7 +65,8 @@ class Controlador
                 //SERIALIZAR EL CARRITO
                 $carrito = serialize($_SESSION["carrito"]);
                 //GAUARDAR EL CARRITO EN LA BASE DE DATOS
-                
+                model::guardarCarrito($carrito, $_SESSION["id"]);
+
                 session_unset();
                 session_destroy();
                 header("location: ?page=login");
@@ -82,7 +83,9 @@ class Controlador
             if ($_SESSION["role"] === "admin") {
                 if (isset($_POST["logout"])) {
                     //SERIALIZAR EL CARRITO
+                    $carrito = serialize($_SESSION["carrito"]);
                     //GAUARDAR EL CARRITO EN LA BASE DE DATOS
+                    model::guardarCarrito($carrito, $_SESSION["id"]);
                     session_unset();
                     session_destroy();
                     header("location: ?page=login");
@@ -117,9 +120,9 @@ class Controlador
             if ($_POST["action"] == "user-delete") {
 
                 if ($_POST["id"] === $_SESSION["id"]) {
-                    $this->sendNotification("User error","No puedes borrarte a ti mismo.");
+                    $this->sendNotification("User error", "No puedes borrarte a ti mismo.");
                 } else {
-                    $this->sendNotification("Usuario borrado","Se ha borrado el usuario exitosamente.");
+                    $this->sendNotification("Usuario borrado", "Se ha borrado el usuario exitosamente.");
                     model::deleteUser($_POST["id"]);
                 }
                 header('Location: ?page=adm-usuarios');
@@ -167,12 +170,12 @@ class Controlador
                     $added = Model::anadirUsuario($_POST["email"], $_POST["nick"], $_POST["firstName"], $_POST["lastName"], $random, $_POST["role"]);
 
                     if ($added) {
-                        $this->sendNotification('Usuario Creado',"Usuario registrado correctamente. Contraseña aleatoria: " . htmlentities($random), 20000);
+                        $this->sendNotification('Usuario Creado', "Usuario registrado correctamente. Contraseña aleatoria: " . htmlentities($random), 20000);
                     } else {
-                        $this->sendNotification('Error Usuario',"Ha ocurrido un error al registrar el usuario. Reporta al administrador del sistema");
+                        $this->sendNotification('Error Usuario', "Ha ocurrido un error al registrar el usuario. Reporta al administrador del sistema");
                     }
                 } catch (RandomException $e) {
-                    $this->sendNotification('',"Error al generar una contraseña aletoria. Reporta al administrador del sistema");
+                    $this->sendNotification('', "Error al generar una contraseña aletoria. Reporta al administrador del sistema");
                 } finally {
 
                     if (!$dupe) {
@@ -384,6 +387,10 @@ class Controlador
             //Verificamos la contraseña
             if (password_verify($_POST["passwd"], $passReal)) {
                 model::abrirSesion($id);
+                if (!empty($_SESSION["carrito"])) {
+                    $_SESSION["carrito"] = unserialize($_SESSION["carrito"]);
+                }
+
                 return true;
             } else {
                 return false;
@@ -391,12 +398,13 @@ class Controlador
         }
     }
 
-    public function sendNotification($title, $body, $time=5000) {
+    public function sendNotification($title, $body, $time = 5000)
+    {
         if (!isset($_SESSION["notifications"])) {
             $_SESSION["notifications"] = array();
         }
 
-        $_SESSION["notifications"][] = array($title,$body,$time);
+        $_SESSION["notifications"][] = array($title, $body, $time);
 
     }
 
