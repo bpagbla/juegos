@@ -330,4 +330,16 @@ class model
         return $ddbb->update("UPDATE usuario SET CARRITO=? WHERE ID = ?", [$carrito, $id]);
     }
 
+    static function deleteGame($id){
+        if (empty($id)) {
+            return false;
+        }
+
+        include_once "BD/baseDeDatos.php";
+
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar(); //se conecta a la base de datos
+        return $ddbb->delete("DELETE FROM juego WHERE ID = ?", array($id));
+    }
+
 }
