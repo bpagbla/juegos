@@ -291,6 +291,7 @@ class Controlador
             }
             $i++;
             $this->meterJuegoCarrito($game[0], $game[1]);
+            $this->sacarJuegoCarrito($game[0]);
         }
 
         //se incluye la vista de principal
@@ -417,7 +418,10 @@ class Controlador
     }
 
     public function sacarJuegoCarrito($idJuego){
-        $_SESSION["carrito"][$idJuego];
+        if (isset($_POST["borrar$idJuego"])) {
+            unset($_SESSION["carrito"][$idJuego]);
+            $this->sendNotification('Juego eliminado del carrito', "Se ha eliminado el juego del carrito correctamente" , 20000);
+        }
     }
 
 }

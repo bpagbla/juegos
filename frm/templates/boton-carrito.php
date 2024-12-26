@@ -27,7 +27,7 @@
             <ul class="list-group list-group-flush">
                 <?php
                 if (isset($_SESSION["carrito"]) && !empty($_SESSION["carrito"])) {
-                    foreach ($_SESSION["carrito"] as $item) {
+                    foreach ($_SESSION["carrito"] as $idJuego => $item) {
                         include "frm/templates/productos-carrito.php";
                     }
                 }
