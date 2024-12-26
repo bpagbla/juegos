@@ -15,8 +15,3 @@
         </div>
     </div>
 </div>
-
-<?php
-if (isset($_POST["juegoCompra$game[0]"])) {
-    $_SESSION["carrito"][$game[0]] = $game[1];
-}

@@ -26,10 +26,12 @@
             </div>
             <ul class="list-group list-group-flush">
                 <?php
-
-                foreach ($_SESSION["carrito"] as $item) {
-                    include "frm/templates/productos-carrito.php";
+                if (isset($_SESSION["carrito"]) && !empty($_SESSION["carrito"])) {
+                    foreach ($_SESSION["carrito"] as $item) {
+                        include "frm/templates/productos-carrito.php";
+                    }
                 }
+
 
                 ?>
             </ul>

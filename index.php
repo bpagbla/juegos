@@ -290,6 +290,7 @@ class Controlador
                 }
             }
             $i++;
+            $this->meterJuegoCarrito($game[0], $game[1]);
         }
 
         //se incluye la vista de principal
@@ -406,6 +407,13 @@ class Controlador
 
         $_SESSION["notifications"][] = array($title, $body, $time);
 
+    }
+
+    public function meterJuegoCarrito($idJuego, $nombreJuego){
+        if (isset($_POST["juegoCompra$idJuego"])) {
+            $_SESSION["carrito"][$idJuego] = $nombreJuego;
+            $this->sendNotification('Juego añadido al carrito', "Se ha añadido el juego al carrito correctamente" , 20000);
+        }
     }
 
 }
