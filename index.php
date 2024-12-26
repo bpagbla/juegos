@@ -266,7 +266,7 @@ class Controlador
 
             if ($_POST["action"] == "game-apply") {
                 //se modifica el juego en la base de datos
-                
+                /* model::modifyGame(); */
                 //mensaje de notificacion
                 $this->sendNotification("Juego Actualizado", "Se han actualizado los datos del juego exitosamente!");
                 header('Location: ?page=adm-juegos');
