@@ -342,4 +342,20 @@ class model
         return $ddbb->delete("DELETE FROM juego WHERE ID = ?", array($id));
     }
 
+    static function modifyGame($id, $titulo, $portada, $desarrollador, $distribuidor, $year)
+    {
+
+        if (empty($id)) {
+            return false;
+        }
+
+        include_once "BD/baseDeDatos.php";
+
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar(); //se conecta a la base de datos
+
+        return $ddbb->update("UPDATE juego SET TITULO = ?, PORTADA = ?, DESARROLLADOR = ?, DISTRIBUIDOR = ?, YEAR = ? WHERE ID = ?", [$titulo, $portada, $desarrollador, $distribuidor, $year, $id]);
+
+    }
+
 }
