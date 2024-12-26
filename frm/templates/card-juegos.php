@@ -7,11 +7,18 @@
             <div class="d-flex justify-content-between">
                 <a href="#" class="btn btn-sm btn-primary">Info</a>
                 <form action="" method="post">
-                    <input type="submit" value="Comprar" class="btn btn-sm btn-primary <?php if (isset($game[2]))
+                    <div class="<?php if (isset($game[2]))
+                        echo " owned" ?>">
+                            <input type="submit" value="Comprar" class="btn btn-sm btn-primary <?php if (isset($game[2]))
                         echo "disabled" ?>" name="juegoCompra<?php print $game[0] ?>">
-                </form>
-                <a href="#" class="btn btn-sm btn-primary">Regalar</a>
+
+                        <?php if (isset($game[2]))
+                            echo "<span class='ownedText'>Ya tienes este juego</span>" ?>
+                            
+                        </div>
+                    </form>
+                    <a href="#" class="btn btn-sm btn-primary">Regalar</a>
+                </div>
             </div>
         </div>
     </div>
-</div>

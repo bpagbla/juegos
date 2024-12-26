@@ -416,6 +416,10 @@ class Controlador
         }
     }
 
+    public function sacarJuegoCarrito($idJuego){
+        $_SESSION["carrito"][$idJuego];
+    }
+
 }
 
 $controlador = new Controlador();
