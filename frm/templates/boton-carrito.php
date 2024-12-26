@@ -4,10 +4,18 @@
         data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
         <svg class="bi m-1" width="25" height="25">
             <use xlink:href="#cart" />
-        </svg> <span
-            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger border-light">
-            <?php echo count($_SESSION["carrito"]) ?>
-            <span class="visually-hidden">productos en carrito</span></span>
+        </svg>
+        <?php
+        if (isset($_SESSION["carrito"]) && !empty($_SESSION["carrito"])) {
+            ?>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger border-light">
+                <?php echo count($_SESSION["carrito"]) ?>
+                <span class="visually-hidden">productos en carrito</span></span>
+            <?php
+        }
+
+        ?>
+
     </button>
 
     <div class="collapse mt-4 me-5" id="collapseExample">

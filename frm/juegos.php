@@ -7,9 +7,7 @@
     ?>
 </div>
 <div class="position-absolute top-0 end-0">
-    <?php 
-    if(isset($_SESSION["carrito"]) && !empty($_SESSION["carrito"])){
-        include "frm/templates/boton-carrito.php";
-    } 
+    <?php
+    include "frm/templates/boton-carrito.php";
     ?>
 </div>
