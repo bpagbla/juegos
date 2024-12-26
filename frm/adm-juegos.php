@@ -26,14 +26,21 @@
                         <div class="col campos">
                             <div class="row">
                                 <div class="col-3 ps-0 pe-3">
-                                    <label for="titulo" class="col-form-label">ID:</label>
-                                    <input type="text" class="form-control" id="titulo" name="titulo" required>
+                                    <label for="id" class="col-form-label">ID:</label>
+                                    <input type="text" class="form-control" id="id" name="id" required>
                                 </div>
                                 <div class="col-9 p-0">
                                     <label for="titulo" class="col-form-label">Título:</label>
                                     <input type="text" class="form-control" id="titulo" name="titulo" required>
-                                    <!-- Aquí se mostrarán las sugerencias dinámicamente -->
-                                    <div id="sugerencias-container"></div>
+                                    <div class="position-relative">
+                                        <div id="sugerencias" class="position-absolute bg-primary w-100 rounded z-overmodal mt-1 branded-shadow d-none">
+                                            <ul id="sugerencias-list" class="list-group placeholder-glow">
+                                                <li class="list-group-item"><span class="placeholder w-75"></span></li>
+                                                <li class="list-group-item"><span class="placeholder w-75"></span></li>
+                                                <li class="list-group-item"><span class="placeholder w-75"></span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -199,6 +206,56 @@
         <?php
     }
     ?>
+
+    //TODO quitar
+    const addModal = new bootstrap.Modal('#exampleModal', {
+        keyboard: false
+    })
+
+    addModal.show()
+
+    let timeout = ''
+
+    const titulo = document.getElementById('titulo')
+    const sugerencias = document.getElementById('sugerencias')
+    const list = document.getElementById('sugerencias-list')
+
+    titulo.addEventListener('focus', function () {
+        sugerencias.classList.remove('d-none')
+    })
+    titulo.addEventListener('focusout', function () {
+        sugerencias.classList.add('d-none')
+    })
+    titulo.addEventListener('input', startQueue)
+
+    function startQueue (e) {
+        clearTimeout(timeout)
+        timeout = setTimeout(function() {loadNames(e)},400);
+    }
+
+    async function loadNames(e) {
+        const response = await fetch('http://localhost/?page=api&endpoint=games&format=brief&title='+e.target.value)
+        const json = await response.json()
+        if (json.hasOwnProperty('games')) {
+            let length = json.games.length
+            if (length > 0) {
+                list.innerHTML = ''
+                for (let i = 0; i < length; i++) {
+                    const el = document.createElement('li')
+                    el.classList.add('list-group-item')
+                    el.innerText = json.games[i].title
+                    list.appendChild(el)
+                    console.log(json.games[i].title)
+                }
+            } else {
+                list.innerHTML = ''
+                const el = document.createElement('li')
+                el.classList.add('list-group-item')
+                el.innerText = 'No hay resultados'
+                list.appendChild(el)
+            }
+        }
+    }
 
 </script>
 <script src="library/dselect.js"></script>
