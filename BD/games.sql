@@ -16,7 +16,9 @@ CREATE TABLE usuario (
   `APELLIDOS` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
   `PASSWORD` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
   `CARRITO` varchar(128) COLLATE utf8mb4_general_ci,
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `email_usuario` (`EMAIL`),
+  UNIQUE KEY `nick_usuario` (`NICK`)
 );
 
 CREATE TABLE tarjeta_bancaria (

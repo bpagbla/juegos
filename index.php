@@ -108,6 +108,7 @@ class Controlador
             if ($_POST["action"] == "user-apply") {
 
                 model::modifyUser($_POST["id"], $_POST["nick"], $_POST["role"], $_POST["email"], $_POST["firstName"], $_POST["lastName"]);
+                $this->sendNotification("Usuario Actualizado", "Se han actualizado los datos del usuario exitosamente!");
                 header('Location: ?page=adm-usuarios');
                 die();
 
@@ -116,8 +117,9 @@ class Controlador
             if ($_POST["action"] == "user-delete") {
 
                 if ($_POST["id"] === $_SESSION["id"]) {
-                    $_SESSION["notification"] = "No puedes borrarte a ti mismo.";
+                    $this->sendNotification("User error","No puedes borrarte a ti mismo.");
                 } else {
+                    $this->sendNotification("Usuario borrado","Se ha borrado el usuario exitosamente.");
                     model::deleteUser($_POST["id"]);
                 }
                 header('Location: ?page=adm-usuarios');
@@ -129,6 +131,9 @@ class Controlador
 
                 if ($_POST["passwd"] === $_POST["passwd2"]) {
                     model::changePasswd($_POST["id"], $_POST["passwd"]);
+                    $this->sendNotification("Contraseña cambiada", "La contraseña se ha cambiado correctamente!");
+                } else {
+                    $this->sendNotification("Error Usuario", "Ha habido un error cambiando la contraseña. Contacta con el administrador del sistema.");
                 }
                 header('Location: ?page=adm-usuarios');
                 die();
@@ -162,7 +167,7 @@ class Controlador
                     $added = Model::anadirUsuario($_POST["email"], $_POST["nick"], $_POST["firstName"], $_POST["lastName"], $random, $_POST["role"]);
 
                     if ($added) {
-                        $this->sendNotification('Usuario Creado',"Usuario registrado correctamente. Contraseña aleatoria: " . htmlentities($random));
+                        $this->sendNotification('Usuario Creado',"Usuario registrado correctamente. Contraseña aleatoria: " . htmlentities($random), 20000);
                     } else {
                         $this->sendNotification('Error Usuario',"Ha ocurrido un error al registrar el usuario. Reporta al administrador del sistema");
                     }
@@ -386,12 +391,12 @@ class Controlador
         }
     }
 
-    public function sendNotification($title, $body) {
+    public function sendNotification($title, $body, $time=5000) {
         if (!isset($_SESSION["notifications"])) {
             $_SESSION["notifications"] = array();
         }
 
-        $_SESSION["notifications"][] = array($title,$body);
+        $_SESSION["notifications"][] = array($title,$body,$time);
 
     }
 
