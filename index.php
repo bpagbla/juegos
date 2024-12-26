@@ -79,6 +79,51 @@ class Controlador
                 }
                 Vista::showAPIGames($json);
                 break;
+            case "companies":
+                $array = model::getComp();
+                $filter = $_GET["name"] ?? ".+";
+                $filter = '/'.$filter.'/i';
+                $json["companies"] = array();
+                $quant = 0;
+                foreach ($array as $value) {
+                    if (preg_match($filter, $value[1])) {
+                        $json["companies"][] = array('company_id' => $value[0], 'name' => $value[1]);
+                    }
+                    $quant++;
+                    if ($quant >= 5) {break;}
+                }
+                Vista::showAPIGames(json_encode($json));
+                break;
+            case "genres":
+                $array = model::getGeneros();
+                $filter = $_GET["name"] ?? ".+";
+                $filter = '/'.$filter.'/i';
+                $json["genres"] = array();
+                $quant = 0;
+                foreach ($array as $value) {
+                    if (preg_match($filter, $value[1])) {
+                        $json["genres"][] = array('genre_id' => $value[0], 'name' => $value[1]);
+                    }
+                    $quant++;
+                    if ($quant >= 5) {break;}
+                }
+                Vista::showAPIGames(json_encode($json));
+                break;
+            case "platforms":
+                $array = model::getSist();
+                $filter = $_GET["name"] ?? ".+";
+                $filter = '/'.$filter.'/i';
+                $json["platforms"] = array();
+                $quant = 0;
+                foreach ($array as $value) {
+                    if (preg_match($filter, $value[1])) {
+                        $json["platforms"][] = array('platform_id' => $value[0], 'name' => $value[1]);
+                    }
+                    $quant++;
+                    if ($quant >= 5) {break;}
+                }
+                Vista::showAPIGames(json_encode($json));
+                break;
             default:
                 $this->inicia404();
         }
