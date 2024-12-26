@@ -68,9 +68,15 @@ class Controlador
         }
         switch ($_GET["endpoint"]) {
             case "games":
-                $title = $_GET["title"] ?? "";
+                //http://localhost/?page=api&endpoint=games&format=brief&title=
                 $format = $_GET["format"] ?? "id";
-                $json = model::getMobyGamebyName($format,$title);
+                $json = '';
+                if (isset($_GET["id"])) {
+                    $json = model::getMobyGamebyID($format,$_GET["id"]);
+                } else {
+                    $title = $_GET["title"] ?? "";
+                    $json = model::getMobyGamebyName($format, $title);
+                }
                 Vista::showAPIGames($json);
                 break;
             default:

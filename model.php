@@ -357,15 +357,26 @@ class model
 
     }
 
-    static function getMobyGamebyName($format,$title){
+    static private function getMoby($endpoint, $params) {
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        $params = array('api_key' => 'moby_Ivjf8fphPEz3gLn9DVIcRsvNYgE');
+        $params['api_key'] = 'moby_Ivjf8fphPEz3gLn9DVIcRsvNYgE';
+        curl_setopt($curl, CURLOPT_URL, 'https://games.eduardojaramillo.click/v1/'.$endpoint.'?'.http_build_query($params));
+        return curl_exec($curl);
+    }
+
+    static function getMobyGamebyName($format,$title){
         $params['limit'] = '5';
         $params['format'] = $format;
         $params['title'] = $title;
-        curl_setopt($curl, CURLOPT_URL, 'https://games.eduardojaramillo.click/v1/games?'.http_build_query($params));
-        return curl_exec($curl);
+        return model::getMoby('games',$params);
+    }
+
+    static function getMobyGamebyID($format, $id){
+        $params['limit'] = '5';
+        $params['format'] = $format;
+        $params['id'] = $id;
+        return model::getMoby('games',$params);
     }
 
 }
