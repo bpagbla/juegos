@@ -106,6 +106,7 @@ class Controlador
             if ($_POST["action"] == "user-apply") {
 
                 model::modifyUser($_POST["id"], $_POST["nick"], $_POST["role"], $_POST["email"], $_POST["firstName"], $_POST["lastName"]);
+                $this->sendNotification("Usuario Actualizado", "Se han actualizado los datos del usuario exitosamente!");
                 header('Location: ?page=adm-usuarios');
                 die();
 
@@ -114,8 +115,9 @@ class Controlador
             if ($_POST["action"] == "user-delete") {
 
                 if ($_POST["id"] === $_SESSION["id"]) {
-                    $_SESSION["notification"] = "No puedes borrarte a ti mismo.";
+                    $this->sendNotification("User error","No puedes borrarte a ti mismo.");
                 } else {
+                    $this->sendNotification("Usuario borrado","Se ha borrado el usuario exitosamente.");
                     model::deleteUser($_POST["id"]);
                 }
                 header('Location: ?page=adm-usuarios');
@@ -127,6 +129,9 @@ class Controlador
 
                 if ($_POST["passwd"] === $_POST["passwd2"]) {
                     model::changePasswd($_POST["id"], $_POST["passwd"]);
+                    $this->sendNotification("Contraseña cambiada", "La contraseña se ha cambiado correctamente!");
+                } else {
+                    $this->sendNotification("Error Usuario", "Ha habido un error cambiando la contraseña. Contacta con el administrador del sistema.");
                 }
                 header('Location: ?page=adm-usuarios');
                 die();
