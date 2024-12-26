@@ -63,7 +63,9 @@ class Controlador
         if (isset($_SESSION["nick"])) {
             if (isset($_POST["logout"])) {
                 //SERIALIZAR EL CARRITO
+                $carrito = serialize($_SESSION["carrito"]);
                 //GAUARDAR EL CARRITO EN LA BASE DE DATOS
+                
                 session_unset();
                 session_destroy();
                 header("location: ?page=login");

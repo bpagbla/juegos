@@ -1,1 +1,5 @@
-<li class="list-group-item">An item</li>
+<li class="list-group-item">
+    <?php
+    echo$item;
+    ?>
+</li>

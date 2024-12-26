@@ -320,4 +320,13 @@ class model
 
     }
 
+    static function guardarCarrito($carrito,$id){
+        include_once "BD/baseDeDatos.php";
+
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar(); //se conecta a la base de datos
+
+        return $ddbb->update("UPDATE usuario SET CARRITO=? WHERE ID = ?", [$carrito, $id]);
+    }
+
 }
