@@ -352,6 +352,19 @@
         </div>
     </div>
 
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <?php
+        if (isset($_SESSION["notifications"])) {
+            foreach ($_SESSION["notifications"] as $notification) {
+                include "frm/templates/toast-template.php";
+            }
+        }
+        $_SESSION["notifications"] = null;
+        ?>
+    </div>
+
+    <script async src="js/base.js"></script>
+
 </body>
 
 </html>

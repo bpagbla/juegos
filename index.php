@@ -1,4 +1,7 @@
 <?php
+
+use Random\RandomException;
+
 session_start();
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
@@ -96,29 +99,83 @@ class Controlador
         //Valida la sessión. Si erronea o logout envia a login.
         $this->validateAdminSession();
 
-        if (isset($_POST["action"]) && $_POST["action"] == "user-apply") {
+        $error = "";
+        $notification = "";
+        if (isset($_POST["action"])) {
 
-            model::modifyUser($_POST["id"], $_POST["nick"], $_POST["role"], $_POST["email"], $_POST["firstName"], $_POST["lastName"]);
-            header('Location: ?page=adm-usuarios');
-            die();
+            if ($_POST["action"] == "user-apply") {
 
-        }
+                model::modifyUser($_POST["id"], $_POST["nick"], $_POST["role"], $_POST["email"], $_POST["firstName"], $_POST["lastName"]);
+                header('Location: ?page=adm-usuarios');
+                die();
 
-        if (isset($_POST["action"]) && $_POST["action"] == "user-delete") {
-
-            model::deleteUser($_POST["id"]);
-            header('Location: ?page=adm-usuarios');
-            die();
-
-        }
-
-        if (isset($_POST["action"]) && $_POST["action"] == "user-passwd-apply") {
-
-            if ($_POST["passwd"] === $_POST["passwd2"]) {
-                model::changePasswd($_POST["id"], $_POST["passwd"]);
             }
-            header('Location: ?page=adm-usuarios');
-            die();
+
+            if ($_POST["action"] == "user-delete") {
+
+                if ($_POST["id"] === $_SESSION["id"]) {
+                    $_SESSION["notification"] = "No puedes borrarte a ti mismo.";
+                } else {
+                    model::deleteUser($_POST["id"]);
+                }
+                header('Location: ?page=adm-usuarios');
+                die();
+
+            }
+
+            if ($_POST["action"] == "user-passwd-apply") {
+
+                if ($_POST["passwd"] === $_POST["passwd2"]) {
+                    model::changePasswd($_POST["id"], $_POST["passwd"]);
+                }
+                header('Location: ?page=adm-usuarios');
+                die();
+
+            }
+
+            if ($_POST["action"] == "user-add") {
+
+                $users = model::getAllUsers();
+                $dupe = false;
+                foreach ($users as $user) {
+                    if ($user[1] === $_POST["nick"]) {
+                        $dupe = true;
+                        $error = "El nick ya esta en uso";
+                        break;
+                    }
+                    if ($user[2] === $_POST["email"]) {
+                        $dupe = true;
+                        $error = "El email ya esta en uso";
+                        break;
+                    }
+                }
+
+                try {
+                    $characters = str_split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&');
+                    $random = '';
+                    for ($i = 0; $i < 16; $i++) {
+                        $random .= $characters[rand(0, sizeof($characters) - 1)];
+                    }
+
+                    $added = Model::anadirUsuario($_POST["email"], $_POST["nick"], $_POST["firstName"], $_POST["lastName"], $random, $_POST["role"]);
+
+                    if ($added) {
+                        $this->sendNotification('Usuario Creado',"Usuario registrado correctamente. Contraseña aleatoria: " . htmlentities($random));
+                    } else {
+                        $this->sendNotification('Error Usuario',"Ha ocurrido un error al registrar el usuario. Reporta al administrador del sistema");
+                    }
+                } catch (RandomException $e) {
+                    $this->sendNotification('',"Error al generar una contraseña aletoria. Reporta al administrador del sistema");
+                } finally {
+
+                    if (!$dupe) {
+                        header('Location: ?page=adm-usuarios');
+                        die();
+                    }
+
+                }
+
+            }
 
         }
 
@@ -126,11 +183,12 @@ class Controlador
         if (isset($_POST["action"]) && $_POST["action"] == "user-edit") {
             $user = model::getUserData($_POST["id"]);
             //se incluye la vista de principal con datos de usuario pedido
-            Vista::mostrarAdminUsuarios($users, $user);
+            Vista::mostrarAdminUsuarios($error, $users, $user);
         } else {
             //se incluye la vista de principal
-            Vista::mostrarAdminUsuarios($users);
+            Vista::mostrarAdminUsuarios($error, $users);
         }
+
     }
 
     public function thumbnailFilesUpload()
@@ -236,7 +294,7 @@ class Controlador
         //para verificar usuario se comprueba que se ha rellenado el formulario
         if (isset($_POST["user"]) && isset($_POST["passwd"])) {
             //se llama a la funcion existe usuario del model/login.php
-            if ($this->verificaUsuario(Model::existeUsuario($_POST["user"], $_POST["passwd"]))) {
+            if ($this->verificaUsuario(Model::getID($_POST["user"]))) {
 
                 //si se verifica el usuario se llama a la funcion iniciaSesion
                 header("location: ?page=principal");
@@ -326,6 +384,14 @@ class Controlador
         }
     }
 
+    public function sendNotification($title, $body) {
+        if (!isset($_SESSION["notifications"])) {
+            $_SESSION["notifications"] = array();
+        }
+
+        $_SESSION["notifications"][] = array($title,$body);
+
+    }
 
 }
 

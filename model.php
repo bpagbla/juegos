@@ -144,10 +144,10 @@ class model
         include_once "BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
-        $consulta = $ddbb->consulta("SELECT ID,NICK FROM usuario");
+        $consulta = $ddbb->consulta("SELECT ID,NICK,EMAIL FROM usuario");
         $users = array();
         foreach ($consulta as $row) {
-            $users[] = array($row['ID'], $row['NICK']);
+            $users[] = array($row['ID'], $row['NICK'], $row['EMAIL']);
         }
         $ddbb->cerrar();
         return array_reverse($users);
@@ -169,7 +169,7 @@ class model
 
     }
 
-    static function existeUsuario($loginID, $password)
+    static function getID($loginID)
     {
         //Include the ddbb class
         include_once "BD/baseDeDatos.php";
@@ -230,7 +230,7 @@ class model
         $ddbb->cerrar();
     }
 
-    static function anadirUsuario($email, $nick, $nombre, $apel, $pass)
+    static function anadirUsuario($email, $nick, $nombre, $apel, $pass, $role='user')
     {
 
         include_once "BD/baseDeDatos.php";
@@ -253,7 +253,7 @@ class model
             $pass = password_hash($pass, PASSWORD_DEFAULT); //se convierte a hash la contraseña
 
             //se insertan los datos en la base de datos
-            $consulta = $ddbb->insert("INSERT INTO usuario(EMAIL, NICK, NOMBRE, APELLIDOS, PASSWORD, ROLE) VALUES(?,?,?,?,?,?)", [$email, $nick, $nombre, $apel, $pass, 'user']);
+            $consulta = $ddbb->insert("INSERT INTO usuario(EMAIL, NICK, NOMBRE, APELLIDOS, PASSWORD, ROLE) VALUES(?,?,?,?,?,?)", [$email, $nick, $nombre, $apel, $pass, $role]);
             return true; //devuelve true si se ha creado
         } else {
             return false; //devuelve false si no se ha creado

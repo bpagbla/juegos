@@ -9,8 +9,8 @@ USE games;
 
 CREATE TABLE usuario (
   `ID` int NOT NULL AUTO_INCREMENT,
-  `EMAIL` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
-  `NICK` varchar(32) COLLATE utf8mb4_general_ci NOT NULL,
+  `EMAIL` varchar(128) COLLATE utf8mb4_general_ci NOT NULL UNIQUE,
+  `NICK` varchar(32) COLLATE utf8mb4_general_ci NOT NULL UNIQUE,
   `ROLE` varchar(32) COLLATE utf8mb4_general_ci NOT NULL,
   `NOMBRE` varchar(64) COLLATE utf8mb4_general_ci NOT NULL,
   `APELLIDOS` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
@@ -19,7 +19,7 @@ CREATE TABLE usuario (
   UNIQUE KEY `email` (`EMAIL`),
   UNIQUE KEY `nick` (`NICK`)
 );
-
+-
 CREATE TABLE tarjeta_bancaria (
   `NUMERO` int NOT NULL,
   `CVV` int DEFAULT NULL,

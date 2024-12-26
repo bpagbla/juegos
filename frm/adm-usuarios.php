@@ -183,8 +183,8 @@ if (isset($_POST["action"]) && $_POST["action"] == "user-passwd") {
             </div>
             <div class="modal-body">
                 <div class="row justify-content-center">
-                    <div id="passwd-alert" class="alert alert-danger col-11 <?php if (!isset($userError)) print 'd-none';?>" role="alert">
-                        <?php if (isset($userError)) print $userError ?>
+                    <div id="passwd-alert" class="alert alert-danger col-11 <?php if (empty($userError)) print 'd-none';?>" role="alert">
+                        <?php if (!empty($userError)) print $userError ?>
                     </div>
                 </div>
                 <form id="add-cancel" method="post"></form>
@@ -220,7 +220,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "user-passwd") {
                         </div>
                         <div class="col-6 mb-3">
                             <label for="add-lastName" class="form-label">Apellidos</label>
-                            <input name="lastName" type="text" class="form-control" id="add-lastName" value="<?php if (isset($_POST["lastName"])) print $_POST["lastName"] ?>" required>
+                            <input name="lastName" type="text" class="form-control" id="add-lastName" value="<?php if (isset($_POST["lastName"])) print $_POST["lastName"] ?>">
                         </div>
                     </div>
                 </form>
