@@ -229,6 +229,7 @@
     titulo.addEventListener('input', startQueue)
 
     function startQueue (e) {
+        showLoading(list)
         clearTimeout(timeout)
         timeout = setTimeout(function() {loadNames(e)},400);
     }
@@ -255,6 +256,10 @@
                 list.appendChild(el)
             }
         }
+    }
+
+    function showLoading(elem) {
+        list.innerHTML = '<li class="list-group-item"><span class="placeholder w-75"></span></li><li class="list-group-item"><span class="placeholder w-75"></span></li><li class="list-group-item"><span class="placeholder w-75"></span></li>'
     }
 
 </script>
