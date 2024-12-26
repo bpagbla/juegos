@@ -55,4 +55,8 @@ class Vista
         include_once "frm/404.php";
     }
 
+    public static function showAPIGames($format, $title) {
+        include_once "frm/api/games.php";
+    }
+
 }

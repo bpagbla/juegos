@@ -6,5 +6,7 @@
             "name": "Bea y Eduardo"
         }
     ],
-    "require": {}
+    "require": {
+      "ext-curl": "*"
+    }
 }

@@ -51,10 +51,30 @@ class Controlador
             case "juegos":
                 $this->iniciaJuegos();
                 break;
+            case "api":
+                $this->fetchAPI();
+                break;
             default:
                 $this->inicia404();
         }
 
+    }
+
+    public function fetchAPI() {
+        $this->validateSession();
+        if (!isset($_GET["endpoint"])) {
+            $this->inicia404();
+            die();
+        }
+        switch ($_GET["endpoint"]) {
+            case "games":
+                $title = $_GET["title"] ?? "";
+                $format = $_GET["format"] ?? "id";
+                Vista::showAPIGames($format,$title);
+                break;
+            default:
+                $this->inicia404();
+        }
     }
 
     public function validateSession()

@@ -24,11 +24,17 @@
                         </div>
 
                         <div class="col campos">
-                            <div class="row mb-3">
-                                <label for="titulo" class="col-form-label">Título:</label>
-                                <input type="text" class="form-control" id="titulo" name="titulo" required>
-                                <!-- Aquí se mostrarán las sugerencias dinámicamente -->
-                                <div id="sugerencias-container"></div>
+                            <div class="row">
+                                <div class="col-3 ps-0 pe-3">
+                                    <label for="titulo" class="col-form-label">ID:</label>
+                                    <input type="text" class="form-control" id="titulo" name="titulo" required>
+                                </div>
+                                <div class="col-9 p-0">
+                                    <label for="titulo" class="col-form-label">Título:</label>
+                                    <input type="text" class="form-control" id="titulo" name="titulo" required>
+                                    <!-- Aquí se mostrarán las sugerencias dinámicamente -->
+                                    <div id="sugerencias-container"></div>
+                                </div>
                             </div>
 
                             <div class="row mb-3">
