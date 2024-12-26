@@ -1,4 +1,4 @@
-<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-config='{"delay":100000}'>
+<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-config='{"delay":<?php print $notification[3]; ?>}'>
     <div class="toast-header">
         <strong class="me-auto"><?php print $notification[0]; ?></strong>
         <small class="text-body-secondary">just now</small>

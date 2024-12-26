@@ -160,7 +160,7 @@ class Controlador
                     $added = Model::anadirUsuario($_POST["email"], $_POST["nick"], $_POST["firstName"], $_POST["lastName"], $random, $_POST["role"]);
 
                     if ($added) {
-                        $this->sendNotification('Usuario Creado',"Usuario registrado correctamente. Contraseña aleatoria: " . htmlentities($random));
+                        $this->sendNotification('Usuario Creado',"Usuario registrado correctamente. Contraseña aleatoria: " . htmlentities($random), 20000);
                     } else {
                         $this->sendNotification('Error Usuario',"Ha ocurrido un error al registrar el usuario. Reporta al administrador del sistema");
                     }
@@ -384,12 +384,12 @@ class Controlador
         }
     }
 
-    public function sendNotification($title, $body) {
+    public function sendNotification($title, $body, $time=5000) {
         if (!isset($_SESSION["notifications"])) {
             $_SESSION["notifications"] = array();
         }
 
-        $_SESSION["notifications"][] = array($title,$body);
+        $_SESSION["notifications"][] = array($title,$body,$time);
 
     }
 
