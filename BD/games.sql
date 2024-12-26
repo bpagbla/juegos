@@ -19,7 +19,7 @@ CREATE TABLE usuario (
   UNIQUE KEY `email` (`EMAIL`),
   UNIQUE KEY `nick` (`NICK`)
 );
--
+
 CREATE TABLE tarjeta_bancaria (
   `NUMERO` int NOT NULL,
   `CVV` int DEFAULT NULL,
