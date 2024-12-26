@@ -109,8 +109,10 @@ class Controlador
         if (isset($_POST["action"])) {
 
             if ($_POST["action"] == "user-apply") {
-
+                //se modifica el usuario en la base de datos
                 model::modifyUser($_POST["id"], $_POST["nick"], $_POST["role"], $_POST["email"], $_POST["firstName"], $_POST["lastName"]);
+                
+                //mensaje de notificacion
                 $this->sendNotification("Usuario Actualizado", "Se han actualizado los datos del usuario exitosamente!");
                 header('Location: ?page=adm-usuarios');
                 die();
@@ -119,9 +121,11 @@ class Controlador
 
             if ($_POST["action"] == "user-delete") {
 
+                //si el id del usuario que se quiere borrar es el mismo que el de la sesión sale error
                 if ($_POST["id"] === $_SESSION["id"]) {
                     $this->sendNotification("User error", "No puedes borrarte a ti mismo.");
                 } else {
+                    //Se borra el usuario
                     $this->sendNotification("Usuario borrado", "Se ha borrado el usuario exitosamente.");
                     model::deleteUser($_POST["id"]);
                 }
@@ -402,24 +406,24 @@ class Controlador
 
     public function sendNotification($title, $body, $time = 5000)
     {
-        if (!isset($_SESSION["notifications"])) {
+        if (!isset($_SESSION["notifications"])) { //si no existe notificaciones en el session se crea
             $_SESSION["notifications"] = array();
         }
 
-        $_SESSION["notifications"][] = array($title, $body, $time);
+        $_SESSION["notifications"][] = array($title, $body, $time); //se guarda un array con las notificaciones para ponerlas en el template
 
     }
 
     public function meterJuegoCarrito($idJuego, $nombreJuego){
-        if (isset($_POST["juegoCompra$idJuego"])) {
-            $_SESSION["carrito"][$idJuego] = $nombreJuego;
+        if (isset($_POST["juegoCompra$idJuego"])) { //si se ha dado a comprar en algun juego
+            $_SESSION["carrito"][$idJuego] = $nombreJuego; //Se añade el juego al carrito
             $this->sendNotification('Juego añadido al carrito', "Se ha añadido el juego al carrito correctamente" , 20000);
         }
     }
 
     public function sacarJuegoCarrito($idJuego){
         if (isset($_POST["borrar$idJuego"])) {
-            unset($_SESSION["carrito"][$idJuego]);
+            unset($_SESSION["carrito"][$idJuego]); //se elimina el juego del carrito
             $this->sendNotification('Juego eliminado del carrito', "Se ha eliminado el juego del carrito correctamente" , 20000);
         }
     }
