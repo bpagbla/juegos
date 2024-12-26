@@ -70,7 +70,8 @@ class Controlador
             case "games":
                 $title = $_GET["title"] ?? "";
                 $format = $_GET["format"] ?? "id";
-                Vista::showAPIGames($format,$title);
+                $json = model::getMobyGamebyName($format,$title);
+                Vista::showAPIGames($json);
                 break;
             default:
                 $this->inicia404();
