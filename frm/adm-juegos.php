@@ -287,6 +287,7 @@
                     el.addEventListener('click', function () {
                         const button = createButton('dis[]',json.companies[i].company_id,json.companies[i].name)
                         document.getElementById('dis-active').appendChild(button)
+                        button.addEventListener('click', function (e) {e.target.closest("div").remove()})
                     })
                 }
             } else {
@@ -344,6 +345,7 @@
                     el.addEventListener('click', function () {
                         const button = createButton('dev[]',json.companies[i].company_id,json.companies[i].name)
                         document.getElementById('dev-active').appendChild(button)
+                        button.addEventListener('click', function (e) {e.target.closest("div").remove()})
                     })
                 }
             } else {
@@ -401,6 +403,7 @@
                     el.addEventListener('click', function () {
                         const button = createButton('sist[]', json.platforms[i].platform_id ,json.platforms[i].name)
                         document.getElementById('sist-active').appendChild(button)
+                        button.addEventListener('click', function (e) {e.target.closest("div").remove()})
                     })
                 }
             } else {
@@ -458,6 +461,7 @@
                     el.addEventListener('click', function () {
                         const button = createButton('gen[]',json.genres[i].genre_id,json.genres[i].name)
                         document.getElementById('gen-active').appendChild(button)
+                        button.addEventListener('click', function (e) {e.target.closest("div").remove()})
                     })
                 }
             } else {
