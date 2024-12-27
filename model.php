@@ -17,25 +17,27 @@ class model
 
         $array = array();
         if ($role == 'admin') { //si el rol es admin
-            $consulta = $ddbb->consulta("SELECT ID,TITULO FROM juego"); //se sacan todos los juegos de la base de datos
+            $consulta = $ddbb->consulta("SELECT ID,TITULO,PORTADA FROM juego"); //se sacan todos los juegos de la base de datos
             $titulo = '';
             $id = '';
             //Se guardan el titulo y el id del juego en el array
             foreach ($consulta as $each) {
                 $titulo = $each['TITULO'];
                 $id = $each['ID'];
-                $array[] = [$id, $titulo];
+                $portada = $each['PORTADA'];
+                $array[] = [$id, $titulo, $portada];
             }
         } else { //si es usuario se sacan solo los juegos que tenga el usuario
             $consulta = $ddbb->consulta("SELECT ID_JUEGO FROM posee WHERE ID_USUARIO=?", array($id));
             foreach ($consulta as $row) {
                 $id_juego = $row['ID_JUEGO'];
-                $consulta = $ddbb->consulta("SELECT TITULO FROM juego WHERE ID=?", array($id_juego));
+                $consulta = $ddbb->consulta("SELECT TITULO, PORTADA FROM juego WHERE ID=?", array($id_juego));
                 $titulo = '';
                 foreach ($consulta as $each) {
                     $titulo = $each['TITULO'];
+                    $portada = $each['PORTADA'];
                 }
-                $array[] = [$id_juego, $titulo];
+                $array[] = [$id_juego, $titulo, $portada];
             }
         }
         $ddbb->cerrar();
