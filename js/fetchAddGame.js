@@ -68,9 +68,6 @@ async function loadNamesTitulo(e) {
                         console.log(err)
                         document.getElementById('blackout').remove()
                         document.getElementById('add-errors').innerHTML = '<div class="alert alert-danger" role="alert">Error cargando los datos! Intentalo de nuevo.</div>'
-                        setTimeout(function () {
-                            document.getElementById('add-errors').innerHTML = ''
-                        }, 15000)
                         document.getElementById('titulo').value = '';
                         document.getElementById('id').value = '';
                     }
