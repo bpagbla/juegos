@@ -2,7 +2,7 @@ function showLoading(elem) {
     elem.innerHTML = '<li class="list-group-item"><span class="placeholder w-75"></span></li><li class="list-group-item"><span class="placeholder w-75"></span></li><li class="list-group-item"><span class="placeholder w-75"></span></li>'
 }
 
-function createButton(name,value,display) {
+function createButton(name, value, display) {
     const button = document.createElement('div')
     button.classList.add('col-auto')
     button.classList.add('p-0')
@@ -10,7 +10,7 @@ function createButton(name,value,display) {
     button.innerHTML = '<button type="button" class="btn btn-sm btn-primary">' + display + '<svg class="bg-transparent" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16"> <use href="#remove"></use></svg></button><input type="hidden" name="' + name + '" value="' + value + '">'
     return button;
 }
-function createInput(name,value) {
+function createInput(name, value) {
     const input = document.createElement('input')
 }
 
@@ -30,7 +30,7 @@ titulo.addEventListener('focus', function (e) {
         loadNamesTitulo(e)
         pendingTitulo = false;
     }
-    function closeTitle (e) {
+    function closeTitle(e) {
         if (e.target !== titulo) {
             sugerenciasTitulo.classList.add('d-none')
             modal.removeEventListener('click', closeTitle)
@@ -39,14 +39,14 @@ titulo.addEventListener('focus', function (e) {
     modal.addEventListener('click', closeTitle)
 })
 titulo.addEventListener('input', startQueueTitulo)
-function startQueueTitulo (e) {
+function startQueueTitulo(e) {
     showLoading(listTitulo)
     clearTimeout(timeoutTitulo)
-    timeoutTitulo = setTimeout(function() {loadNamesTitulo(e)},400);
+    timeoutTitulo = setTimeout(function () { loadNamesTitulo(e) }, 400);
 }
 
 async function loadNamesTitulo(e) {
-    const response = await fetch('http://localhost/?page=api&endpoint=games&format=brief&title='+e.target.value)
+    const response = await fetch('http://localhost/?page=api&endpoint=games&format=brief&title=' + e.target.value)
     const json = await response.json()
     if (json.hasOwnProperty('games')) {
         let length = json.games.length
@@ -83,8 +83,8 @@ async function loadNamesTitulo(e) {
     }
 }
 
-async function setCompanies(id,platform) {
-    const companies =  await fetch('http://localhost/?page=api&endpoint=games&format=normal&id='+id+'&platform='+platform)
+async function setCompanies(id, platform) {
+    const companies = await fetch('http://localhost/?page=api&endpoint=games&format=normal&id=' + id + '&platform=' + platform)
     const companiesJson = await companies.json()
     let pub_id = ''
     let dev_id = ''
@@ -113,43 +113,48 @@ async function setCompanies(id,platform) {
 
     const placementDev = document.getElementById('dev-active')
     placementDev.innerHTML = '';
-    const buttonDev = createButton('dev',dev_id,dev_name)
+    const buttonDev = createButton('dev', dev_id, dev_name)
     placementDev.appendChild(buttonDev)
-    buttonDev.addEventListener('click', function (e) {e.target.closest("div").remove()})
+    buttonDev.addEventListener('click', function (e) { e.target.closest("div").remove() })
 
     const placement = document.getElementById('dis-active')
     placement.innerHTML = '';
-    const button = createButton('dis',pub_id,pub_name)
+    const button = createButton('dis', pub_id, pub_name)
     placement.appendChild(button)
-    button.addEventListener('click', function (e) {e.target.closest("div").remove()})
+    button.addEventListener('click', function (e) { e.target.closest("div").remove() })
 
     document.getElementById('blackout').remove()
 }
 
-async function fillForm (id) {
+async function fillForm(id) {
     const gray = document.createElement('div')
     gray.id = 'blackout'
     document.body.appendChild(gray)
     const spin = document.createElement('div')
     spin.classList.add('spinner')
     gray.appendChild(spin)
-    const response = await fetch('http://localhost/?page=api&endpoint=games&format=normal&id='+id)
+    const response = await fetch('http://localhost/?page=api&endpoint=games&format=normal&id=' + id)
     const json = await response.json()
     document.getElementById('descripcion').value = json.games[0].description.replace(/<\/?[^>]+(>|$)/g, "")
-    document.getElementById('year').value = json.games[0].platforms[0].first_release_date.slice(0,4)
+    document.getElementById('year').value = json.games[0].platforms[0].first_release_date.slice(0, 4)
+
+    document.getElementById('portada').src = json.games[0].sample_cover.image
+    console.log(json.games[0].sample_cover.image);
+
+
     document.getElementById('gen-active').innerHTML = '';
     json.games[0].genres.forEach((genre) => {
-        const button = createButton('gen[]',genre.genre_id,genre.genre_name)
+        const button = createButton('gen[]', genre.genre_id, genre.genre_name)
         document.getElementById('gen-active').appendChild(button)
-        button.addEventListener('click', function (e) {e.target.closest("div").remove()})
+        button.addEventListener('click', function (e) { e.target.closest("div").remove() })
     })
     document.getElementById('sist-active').innerHTML = '';
     json.games[0].platforms.forEach((platform) => {
-        const button = createButton('sist[]',platform.platform_id,platform.platform_name)
+        const button = createButton('sist[]', platform.platform_id, platform.platform_name)
         document.getElementById('sist-active').appendChild(button)
-        button.addEventListener('click', function (e) {e.target.closest("div").remove()})
+        button.addEventListener('click', function (e) { e.target.closest("div").remove() })
     })
-    setTimeout(function() {setCompanies(id,json.games[0].platforms[0].platform_id)},1000)
+    setTimeout(function () { setCompanies(id, json.games[0].platforms[0].platform_id) }, 1000)
 }
 
 //Distribuidores
@@ -166,7 +171,7 @@ dis.addEventListener('focus', function (e) {
         loadNamesDis(e)
         pendingDis = false;
     }
-    function closeDis (e) {
+    function closeDis(e) {
         if (e.target !== dis) {
             sugerenciasDis.classList.add('d-none')
             modal.removeEventListener('click', closeDis)
@@ -176,14 +181,14 @@ dis.addEventListener('focus', function (e) {
 })
 dis.addEventListener('input', startQueueDis)
 
-function startQueueDis (e) {
+function startQueueDis(e) {
     showLoading(listDis)
     clearTimeout(timeoutDis)
-    timeoutDis = setTimeout(function() {loadNamesDis(e)},200);
+    timeoutDis = setTimeout(function () { loadNamesDis(e) }, 200);
 }
 
 async function loadNamesDis(e) {
-    const response = await fetch('http://localhost/?page=api&endpoint=companies&name='+e.target.value)
+    const response = await fetch('http://localhost/?page=api&endpoint=companies&name=' + e.target.value)
     const json = await response.json()
     if (json.hasOwnProperty('companies')) {
         let length = json.companies.length
@@ -197,9 +202,9 @@ async function loadNamesDis(e) {
                 el.addEventListener('click', function () {
                     const placement = document.getElementById('dis-active')
                     placement.innerHTML = '';
-                    const button = createButton('dis',json.companies[i].company_id,json.companies[i].name)
+                    const button = createButton('dis', json.companies[i].company_id, json.companies[i].name)
                     placement.appendChild(button)
-                    button.addEventListener('click', function (e) {e.target.closest("div").remove()})
+                    button.addEventListener('click', function (e) { e.target.closest("div").remove() })
                 })
             }
         } else {
@@ -225,7 +230,7 @@ dev.addEventListener('focus', function (e) {
         loadNamesDev(e)
         pendingDev = false;
     }
-    function closeDev (e) {
+    function closeDev(e) {
         if (e.target !== dev) {
             sugerenciasDev.classList.add('d-none')
             modal.removeEventListener('click', closeDev)
@@ -235,14 +240,14 @@ dev.addEventListener('focus', function (e) {
 })
 dev.addEventListener('input', startQueueDev)
 
-function startQueueDev (e) {
+function startQueueDev(e) {
     showLoading(listDev)
     clearTimeout(timeoutDev)
-    timeoutDev = setTimeout(function() {loadNamesDev(e)},200);
+    timeoutDev = setTimeout(function () { loadNamesDev(e) }, 200);
 }
 
 async function loadNamesDev(e) {
-    const response = await fetch('http://localhost/?page=api&endpoint=companies&name='+e.target.value)
+    const response = await fetch('http://localhost/?page=api&endpoint=companies&name=' + e.target.value)
     const json = await response.json()
     if (json.hasOwnProperty('companies')) {
         let length = json.companies.length
@@ -256,9 +261,9 @@ async function loadNamesDev(e) {
                 el.addEventListener('click', function () {
                     const placement = document.getElementById('dev-active')
                     placement.innerHTML = '';
-                    const button = createButton('dev',json.companies[i].company_id,json.companies[i].name)
+                    const button = createButton('dev', json.companies[i].company_id, json.companies[i].name)
                     placement.appendChild(button)
-                    button.addEventListener('click', function (e) {e.target.closest("div").remove()})
+                    button.addEventListener('click', function (e) { e.target.closest("div").remove() })
                 })
             }
         } else {
@@ -284,7 +289,7 @@ sist.addEventListener('focus', function (e) {
         loadNamesSist(e)
         pendingSist = false;
     }
-    function closeSist (e) {
+    function closeSist(e) {
         if (e.target !== sist) {
             sugerenciasSist.classList.add('d-none')
             modal.removeEventListener('click', closeSist)
@@ -294,14 +299,14 @@ sist.addEventListener('focus', function (e) {
 })
 sist.addEventListener('input', startQueueSist)
 
-function startQueueSist (e) {
+function startQueueSist(e) {
     showLoading(listSist)
     clearTimeout(timeoutSist)
-    timeoutSist = setTimeout(function() {loadNamesSist(e)},200);
+    timeoutSist = setTimeout(function () { loadNamesSist(e) }, 200);
 }
 
 async function loadNamesSist(e) {
-    const response = await fetch('http://localhost/?page=api&endpoint=platforms&name='+e.target.value)
+    const response = await fetch('http://localhost/?page=api&endpoint=platforms&name=' + e.target.value)
     const json = await response.json()
     if (json.hasOwnProperty('platforms')) {
         let length = json.platforms.length
@@ -313,9 +318,9 @@ async function loadNamesSist(e) {
                 el.innerText = json.platforms[i].name
                 listSist.appendChild(el)
                 el.addEventListener('click', function () {
-                    const button = createButton('sist[]', json.platforms[i].platform_id ,json.platforms[i].name)
+                    const button = createButton('sist[]', json.platforms[i].platform_id, json.platforms[i].name)
                     document.getElementById('sist-active').appendChild(button)
-                    button.addEventListener('click', function (e) {e.target.closest("div").remove()})
+                    button.addEventListener('click', function (e) { e.target.closest("div").remove() })
                 })
             }
         } else {
@@ -341,7 +346,7 @@ gen.addEventListener('focus', function (e) {
         loadNamesGen(e)
         pendingGen = false;
     }
-    function closeGen (e) {
+    function closeGen(e) {
         if (e.target !== gen) {
             sugerenciasGen.classList.add('d-none')
             modal.removeEventListener('click', closeGen)
@@ -351,14 +356,14 @@ gen.addEventListener('focus', function (e) {
 })
 gen.addEventListener('input', startQueueGen)
 
-function startQueueGen (e) {
+function startQueueGen(e) {
     showLoading(listGen)
     clearTimeout(timeoutGen)
-    timeoutGen = setTimeout(function() {loadNamesGen(e)},100);
+    timeoutGen = setTimeout(function () { loadNamesGen(e) }, 100);
 }
 
 async function loadNamesGen(e) {
-    const response = await fetch('http://localhost/?page=api&endpoint=genres&name='+e.target.value)
+    const response = await fetch('http://localhost/?page=api&endpoint=genres&name=' + e.target.value)
     const json = await response.json()
     if (json.hasOwnProperty('genres')) {
         let length = json.genres.length
@@ -370,9 +375,9 @@ async function loadNamesGen(e) {
                 el.innerText = json.genres[i].name
                 listGen.appendChild(el)
                 el.addEventListener('click', function () {
-                    const button = createButton('gen[]',json.genres[i].genre_id,json.genres[i].name)
+                    const button = createButton('gen[]', json.genres[i].genre_id, json.genres[i].name)
                     document.getElementById('gen-active').appendChild(button)
-                    button.addEventListener('click', function (e) {e.target.closest("div").remove()})
+                    button.addEventListener('click', function (e) { e.target.closest("div").remove() })
                 })
             }
         } else {
@@ -384,3 +389,6 @@ async function loadNamesGen(e) {
         }
     }
 }
+
+
+//Portada

@@ -24,11 +24,11 @@ $(document).ready(function () {
 
 console.log("carga");
 // Seleccionar los elementos
-const fileInput = document.getElementById('file');
+const inputPortada = document.getElementById('file');
 const imgPreview = document.getElementById('portada');
 
 // Escuchar el evento change del input de archivo
-fileInput.addEventListener('change', function (event) {
+inputPortada.addEventListener('change', function (event) {
     const file = event.target.files[0]; // Obtener el archivo seleccionado
     console.log("ok?")
     // Verificar si se seleccionó un archivo y si es una imagen
