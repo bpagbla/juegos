@@ -6,6 +6,12 @@
     ?>
 </div>
 
+<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+    <symbol id="remove" viewBox="0 0 16 16">
+        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+    </symbol>
+</svg>
+
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -64,7 +70,8 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <div id="dis-active" class="row mt-2">
+                            </div>
                             <div class="row mb-1">
                                 <div class="col p-0">
                                     <label for="dis" class="col-form-label">Desarrolladores:</label>
@@ -79,6 +86,8 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div id="dev-active" class="row mt-2">
                             </div>
                             <div class="row">
                                 <div class="col p-0">
@@ -95,7 +104,8 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <div id="sist-active" class="row mt-2">
+                            </div>
                             <div class="row">
                                 <div class="col p-0">
                                     <label for="gen" class="col-form-label">Géneros:</label>
@@ -111,7 +121,8 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <div id="gen-active" class="row mt-2">
+                            </div>
                             <div class="row mb-3">
                                 <label class="col-form-label" for="year">Año</label>
                                 <input class="form-control" type="number" name="year" id="year" min="1900"
@@ -164,6 +175,15 @@
 
     function showLoading(elem) {
         elem.innerHTML = '<li class="list-group-item"><span class="placeholder w-75"></span></li><li class="list-group-item"><span class="placeholder w-75"></span></li><li class="list-group-item"><span class="placeholder w-75"></span></li>'
+    }
+
+    function createButton(name) {
+        const button = document.createElement('div')
+        button.classList.add('col-auto')
+        button.classList.add('p-0')
+        button.classList.add('m-2')
+        button.innerHTML = '<button type="button" class="btn btn-sm btn-primary">' + name + '<svg class="bg-transparent" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16"> <use href="#remove"></use></svg></button>'
+        return button;
     }
 
     const modal = document.getElementById('exampleModal')
@@ -262,7 +282,8 @@
                     el.innerText = json.companies[i].name
                     listDis.appendChild(el)
                     el.addEventListener('click', function () {
-                        console.log(json.companies[i].company_id)
+                        const button = createButton(json.companies[i].name)
+                        document.getElementById('dis-active').appendChild(button)
                     })
                 }
             } else {
@@ -317,6 +338,10 @@
                     el.classList.add('list-group-item')
                     el.innerText = json.companies[i].name
                     listDev.appendChild(el)
+                    el.addEventListener('click', function () {
+                        const button = createButton(json.companies[i].name)
+                        document.getElementById('dev-active').appendChild(button)
+                    })
                 }
             } else {
                 listDev.innerHTML = ''
@@ -370,6 +395,10 @@
                     el.classList.add('list-group-item')
                     el.innerText = json.platforms[i].name
                     listSist.appendChild(el)
+                    el.addEventListener('click', function () {
+                        const button = createButton(json.platforms[i].name)
+                        document.getElementById('sist-active').appendChild(button)
+                    })
                 }
             } else {
                 listSist.innerHTML = ''
@@ -423,6 +452,10 @@
                     el.classList.add('list-group-item')
                     el.innerText = json.genres[i].name
                     listGen.appendChild(el)
+                    el.addEventListener('click', function () {
+                        const button = createButton(json.genres[i].name)
+                        document.getElementById('gen-active').appendChild(button)
+                    })
                 }
             } else {
                 listGen.innerHTML = ''
