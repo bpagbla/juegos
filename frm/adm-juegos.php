@@ -30,7 +30,7 @@
                     <div class="row">
                         <div class="position-relative col-4 img-container d-flex align-items-center flex-column">
                             <!-- IMG PREVIEW -->
-                            <img id="portada" src="" alt="Previsualización de la imagen">
+                            <img id="portada" src="" alt="Previsualización de la portada">
                         </div>
 
                         <div class="col campos">
@@ -148,7 +148,7 @@
                             <!-- INPUT PORTADA -->
                             <label for="portada" class="col-form-label">Portada:</label>
                             <input type="file" id="file" name="portada" accept="image/*">
-                            
+                            <input type="hidden" id="fileSrc" name="fileSrc" value="">
                         </div>
                     </div>
                     <div class="modal-footer">

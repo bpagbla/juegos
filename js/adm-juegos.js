@@ -46,3 +46,5 @@ inputPortada.addEventListener('change', function (event) {
         alert('Por favor, selecciona un archivo de imagen válido.');
     }
 });
+
+

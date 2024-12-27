@@ -60,7 +60,8 @@ class Controlador
 
     }
 
-    public function fetchAPI() {
+    public function fetchAPI()
+    {
         $this->validateSession();
         if (!isset($_GET["endpoint"])) {
             $this->inicia404();
@@ -73,7 +74,7 @@ class Controlador
                 $json = '';
                 if (isset($_GET["id"])) {
                     if (isset($_GET["platform"])) {
-                        $json = model::getMobyGamebyID($format, $_GET["id"],$_GET["platform"]);
+                        $json = model::getMobyGamebyID($format, $_GET["id"], $_GET["platform"]);
                     } else {
                         $json = model::getMobyGamebyID($format, $_GET["id"]);
                     }
@@ -86,7 +87,7 @@ class Controlador
             case "companies":
                 $array = model::getComp();
                 $filter = $_GET["name"] ?? ".+";
-                $filter = '/'.$filter.'/i';
+                $filter = '/' . $filter . '/i';
                 $json["companies"] = array();
                 $quant = 0;
                 foreach ($array as $value) {
@@ -94,14 +95,16 @@ class Controlador
                         $json["companies"][] = array('company_id' => $value[0], 'name' => $value[1]);
                     }
                     $quant++;
-                    if ($quant >= 5) {break;}
+                    if ($quant >= 5) {
+                        break;
+                    }
                 }
                 Vista::showAPIGames(json_encode($json));
                 break;
             case "genres":
                 $array = model::getGeneros();
                 $filter = $_GET["name"] ?? ".+";
-                $filter = '/'.$filter.'/i';
+                $filter = '/' . $filter . '/i';
                 $json["genres"] = array();
                 $quant = 0;
                 foreach ($array as $value) {
@@ -109,14 +112,16 @@ class Controlador
                         $json["genres"][] = array('genre_id' => $value[0], 'name' => $value[1]);
                     }
                     $quant++;
-                    if ($quant >= 5) {break;}
+                    if ($quant >= 5) {
+                        break;
+                    }
                 }
                 Vista::showAPIGames(json_encode($json));
                 break;
             case "platforms":
                 $array = model::getSist();
                 $filter = $_GET["name"] ?? ".+";
-                $filter = '/'.$filter.'/i';
+                $filter = '/' . $filter . '/i';
                 $json["platforms"] = array();
                 $quant = 0;
                 foreach ($array as $value) {
@@ -124,7 +129,9 @@ class Controlador
                         $json["platforms"][] = array('platform_id' => $value[0], 'name' => $value[1]);
                     }
                     $quant++;
-                    if ($quant >= 5) {break;}
+                    if ($quant >= 5) {
+                        break;
+                    }
                 }
                 Vista::showAPIGames(json_encode($json));
                 break;
@@ -286,7 +293,7 @@ class Controlador
         $mime = $_FILES["portada"]["type"];
         $extension = explode("/", $mime); //coge la extensión (por si no es siempre la misma no se)
 
-        $ruta = "img/game-thumbnail/" . $_POST["titulo"] . "." . $extension[1]; //ESE TITULO HAY QUE CAMBIARLO POR EL ID DEL JUEGO EN LA API
+        $ruta = "img/game-thumbnail/" . $_POST["id"] . "." . $extension[1]; //ESE TITULO HAY QUE CAMBIARLO POR EL ID DEL JUEGO EN LA API
         $resultado = move_uploaded_file($_FILES["portada"]["tmp_name"], $ruta); //mueve el archivo al directorio
         if ($resultado) { //si ha salido bien que devuelva la ruta
             return $ruta;
@@ -296,26 +303,48 @@ class Controlador
 
     }
 
+    function download_image1($image_url, $image_file)
+    {
+        $fp = fopen($image_file, 'w+');              // open file handle
+
+        $ch = curl_init($image_url);
+        // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // enable if you want
+        curl_setopt($ch, CURLOPT_FILE, $fp);          // output to file
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 1000);      // some large value to allow curl to run for a long time
+        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0');
+        // curl_setopt($ch, CURLOPT_VERBOSE, true);   // Enable this line to see debug prints
+        curl_exec($ch);
+
+        curl_close($ch);                              // closing curl handle
+        fclose($fp);                                  // closing file handle
+    }
+
     public function iniciaAdminJuegos()
     {
         //Valida la sessión. Si erronea o logout envia a login.
         $this->validateAdminSession();
 
         if (isset($_POST["addGame"])) {
+
+            if (isset($_POST["fileSrc"])) {
+                $this->download_image1($_POST["fileSrc"], "img/game-thumbnail/" . $_POST['id']. ".jpg");
+            }
+
             if (isset($_POST["id"]) && isset($_POST["titulo"]) && isset($_POST["descripcion"]) && isset($_POST["dis"]) && isset($_POST["dev"]) && isset($_POST["sist"]) && isset($_POST["gen"]) && isset($_POST["year"])) { //verifica que se han rellenado los campos
 
                 $ruta = $this->thumbnailFilesUpload();
                 if ($ruta != 0) { //si se ha subido la imagen mete los datos en la bbdd
-                    model::addGame($_POST["id"], $_POST["titulo"], 'rutaJuego', $ruta, $_POST["dev"], $_POST["dis"],$_POST["sist"],$_POST["gen"], $_POST["year"]);
+                    model::addGame($_POST["id"], $_POST["titulo"], 'rutaJuego', $ruta, $_POST["dev"], $_POST["dis"], $_POST["sist"], $_POST["gen"], $_POST["year"]);
                 } else {
-                    $this->sendNotification("Error Juego","Fallo al subir la imagen");
+                    $this->sendNotification("Error Juego", "Fallo al subir la imagen");
                 }
                 header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
             } else {
-                $this->sendNotification("Error Juego","No todos los campos necesarios estan rellenos"); //OTRO MENSAJE DE ERROR?
+                $this->sendNotification("Error Juego", "No todos los campos necesarios estan rellenos"); //OTRO MENSAJE DE ERROR?
             }
 
-            
+
 
         }
         if (isset($_POST["action"])) {
@@ -331,15 +360,15 @@ class Controlador
             }
 
             if ($_POST["action"] == "game-delete") {
-               
-                    //Se borra el juego
-                    $this->sendNotification("Usuario borrado", "Se ha borrado el juego exitosamente.");
-                    model::deleteGame($_POST["idJuego"]);
-                }
-                header('Location: ?page=adm-juegos');
-                die();
 
-            
+                //Se borra el juego
+                $this->sendNotification("Usuario borrado", "Se ha borrado el juego exitosamente.");
+                model::deleteGame($_POST["idJuego"]);
+            }
+            header('Location: ?page=adm-juegos');
+            die();
+
+
 
         }
 

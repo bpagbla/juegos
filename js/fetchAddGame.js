@@ -139,6 +139,7 @@ async function fillForm(id) {
     document.getElementById('year').value = json.games[0].platforms[0].first_release_date.slice(0, 4)
 
     document.getElementById('portada').src = json.games[0].sample_cover.image
+    document.getElementById("fileSrc").value =json.games[0].sample_cover.image;
     console.log(json.games[0].sample_cover.image);
 
 
@@ -389,6 +390,3 @@ async function loadNamesGen(e) {
         }
     }
 }
-
-
-//Portada
