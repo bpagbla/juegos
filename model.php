@@ -358,9 +358,10 @@ class model
     }
 
     static private function getMoby($endpoint, $params) {
+        include_once 'api.env';
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        $params['api_key'] = 'moby_Ivjf8fphPEz3gLn9DVIcRsvNYgE';
+        $params['api_key'] = $moby_api_key;
         curl_setopt($curl, CURLOPT_URL, 'https://games.eduardojaramillo.click/v1/'.$endpoint.'?'.http_build_query($params));
         return curl_exec($curl);
     }
