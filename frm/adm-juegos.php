@@ -192,6 +192,7 @@
     const modal = document.getElementById('exampleModal')
 
     //Titulo
+    let id = document.getElementById('id')
     let timeoutTitulo = ''
     const titulo = document.getElementById('titulo')
     const sugerenciasTitulo = document.getElementById('sugerencias-titulo')
@@ -230,7 +231,12 @@
                     const el = document.createElement('li')
                     el.classList.add('list-group-item')
                     el.innerText = json.games[i].title
+                    el.value = json.games[i].game_id
                     listTitulo.appendChild(el)
+                    el.addEventListener('click', function (e) {
+                        titulo.value = e.target.innerText;
+                        id.value = e.target.value;
+                    })
                 }
             } else {
                 listTitulo.innerHTML = ''
