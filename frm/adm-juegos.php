@@ -166,6 +166,8 @@
         elem.innerHTML = '<li class="list-group-item"><span class="placeholder w-75"></span></li><li class="list-group-item"><span class="placeholder w-75"></span></li><li class="list-group-item"><span class="placeholder w-75"></span></li>'
     }
 
+    const modal = document.getElementById('exampleModal')
+
     //Titulo
     let timeoutTitulo = ''
     const titulo = document.getElementById('titulo')
@@ -179,12 +181,15 @@
             loadNamesTitulo(e)
             pendingTitulo = false;
         }
-    })
-    titulo.addEventListener('focusout', function () {
-        sugerenciasTitulo.classList.add('d-none')
+        function closeTitle (e) {
+            if (e.target !== titulo) {
+                sugerenciasTitulo.classList.add('d-none')
+                modal.removeEventListener('click', closeTitle)
+            }
+        }
+        modal.addEventListener('click', closeTitle)
     })
     titulo.addEventListener('input', startQueueTitulo)
-
     function startQueueTitulo (e) {
         showLoading(listTitulo)
         clearTimeout(timeoutTitulo)
@@ -228,9 +233,13 @@
             loadNamesDis(e)
             pendingDis = false;
         }
-    })
-    dis.addEventListener('focusout', function () {
-        sugerenciasDis.classList.add('d-none')
+        function closeDis (e) {
+            if (e.target !== dis) {
+                sugerenciasDis.classList.add('d-none')
+                modal.removeEventListener('click', closeDis)
+            }
+        }
+        modal.addEventListener('click', closeDis)
     })
     dis.addEventListener('input', startQueueDis)
 
@@ -252,6 +261,9 @@
                     el.classList.add('list-group-item')
                     el.innerText = json.companies[i].name
                     listDis.appendChild(el)
+                    el.addEventListener('click', function () {
+                        console.log(json.companies[i].company_id)
+                    })
                 }
             } else {
                 listDis.innerHTML = ''
@@ -277,9 +289,13 @@
             loadNamesDev(e)
             pendingDev = false;
         }
-    })
-    dev.addEventListener('focusout', function () {
-        sugerenciasDev.classList.add('d-none')
+        function closeDev (e) {
+            if (e.target !== dev) {
+                sugerenciasDev.classList.add('d-none')
+                modal.removeEventListener('click', closeDev)
+            }
+        }
+        modal.addEventListener('click', closeDev)
     })
     dev.addEventListener('input', startQueueDev)
 
@@ -326,9 +342,13 @@
             loadNamesSist(e)
             pendingSist = false;
         }
-    })
-    sist.addEventListener('focusout', function () {
-        sugerenciasSist.classList.add('d-none')
+        function closeSist (e) {
+            if (e.target !== sist) {
+                sugerenciasSist.classList.add('d-none')
+                modal.removeEventListener('click', closeSist)
+            }
+        }
+        modal.addEventListener('click', closeSist)
     })
     sist.addEventListener('input', startQueueSist)
 
@@ -375,9 +395,13 @@
             loadNamesGen(e)
             pendingGen = false;
         }
-    })
-    gen.addEventListener('focusout', function () {
-        sugerenciasGen.classList.add('d-none')
+        function closeGen (e) {
+            if (e.target !== gen) {
+                sugerenciasGen.classList.add('d-none')
+                modal.removeEventListener('click', closeGen)
+            }
+        }
+        modal.addEventListener('click', closeGen)
     })
     gen.addEventListener('input', startQueueGen)
 
