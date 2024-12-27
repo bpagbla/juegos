@@ -177,13 +177,16 @@
         elem.innerHTML = '<li class="list-group-item"><span class="placeholder w-75"></span></li><li class="list-group-item"><span class="placeholder w-75"></span></li><li class="list-group-item"><span class="placeholder w-75"></span></li>'
     }
 
-    function createButton(name) {
+    function createButton(name,value,display) {
         const button = document.createElement('div')
         button.classList.add('col-auto')
         button.classList.add('p-0')
         button.classList.add('m-2')
-        button.innerHTML = '<button type="button" class="btn btn-sm btn-primary">' + name + '<svg class="bg-transparent" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16"> <use href="#remove"></use></svg></button>'
+        button.innerHTML = '<button type="button" class="btn btn-sm btn-primary">' + display + '<svg class="bg-transparent" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16"> <use href="#remove"></use></svg></button><input type="hidden" name="' + name + '" value="' + value + '">'
         return button;
+    }
+    function createInput(name,value) {
+        const input = document.createElement('input')
     }
 
     const modal = document.getElementById('exampleModal')
@@ -282,7 +285,7 @@
                     el.innerText = json.companies[i].name
                     listDis.appendChild(el)
                     el.addEventListener('click', function () {
-                        const button = createButton(json.companies[i].name)
+                        const button = createButton('dis[]',json.companies[i].company_id,json.companies[i].name)
                         document.getElementById('dis-active').appendChild(button)
                     })
                 }
@@ -339,7 +342,7 @@
                     el.innerText = json.companies[i].name
                     listDev.appendChild(el)
                     el.addEventListener('click', function () {
-                        const button = createButton(json.companies[i].name)
+                        const button = createButton('dev[]',json.companies[i].company_id,json.companies[i].name)
                         document.getElementById('dev-active').appendChild(button)
                     })
                 }
@@ -396,7 +399,7 @@
                     el.innerText = json.platforms[i].name
                     listSist.appendChild(el)
                     el.addEventListener('click', function () {
-                        const button = createButton(json.platforms[i].name)
+                        const button = createButton('sist[]', json.platforms[i].platform_id ,json.platforms[i].name)
                         document.getElementById('sist-active').appendChild(button)
                     })
                 }
@@ -453,7 +456,7 @@
                     el.innerText = json.genres[i].name
                     listGen.appendChild(el)
                     el.addEventListener('click', function () {
-                        const button = createButton(json.genres[i].name)
+                        const button = createButton('gen[]',json.genres[i].genre_id,json.genres[i].name)
                         document.getElementById('gen-active').appendChild(button)
                     })
                 }
