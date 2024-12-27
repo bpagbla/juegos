@@ -44,7 +44,8 @@ class model
         return $array; //Se devuelve el array con los juegos
     }
 
-    static function getAllGames(){
+    static function getAllGames()
+    {
         include_once "BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
@@ -52,15 +53,16 @@ class model
 
         $array = array();
 
-        $consulta = $ddbb->consulta("SELECT ID,TITULO FROM juego"); //se sacan todos los generos de la base de datos
+        $consulta = $ddbb->consulta("SELECT ID,TITULO,PORTADA FROM juego"); //se sacan todos los generos de la base de datos
         $nombre = '';
         $id = '';
 
         //Se guardan el nombre y el id del genero en el array
         foreach ($consulta as $each) {
-            $nombre = $each['TITULO'];
-            $id = $each['ID'];
-            $array[] = [$id, $nombre];
+            $titulo = $each['TITULO'];
+                $id = $each['ID'];
+                $portada = $each['PORTADA'];
+                $array[] = [$id, $titulo, $portada];
         }
 
         $ddbb->cerrar();
@@ -232,7 +234,7 @@ class model
         $ddbb->cerrar();
     }
 
-    static function anadirUsuario($email, $nick, $nombre, $apel, $pass, $role='user')
+    static function anadirUsuario($email, $nick, $nombre, $apel, $pass, $role = 'user')
     {
 
         include_once "BD/baseDeDatos.php";
@@ -262,7 +264,7 @@ class model
         }
     }
 
-    static function addGame($id,$titulo, $ruta, $portada, $dev, $dis,$sist,$gen, $year)
+    static function addGame($id, $titulo, $ruta, $portada, $dev, $dis, $sist, $gen, $year)
     {
 
         include_once "BD/baseDeDatos.php";
@@ -306,7 +308,8 @@ class model
 
     }
 
-    static function changePasswd($id, $passwd) {
+    static function changePasswd($id, $passwd)
+    {
 
         if (empty($id)) {
             return false;
@@ -322,7 +325,8 @@ class model
 
     }
 
-    static function guardarCarrito($carrito,$id){
+    static function guardarCarrito($carrito, $id)
+    {
         include_once "BD/baseDeDatos.php";
 
         $ddbb = new BaseDeDatos;
@@ -331,7 +335,8 @@ class model
         return $ddbb->update("UPDATE usuario SET CARRITO=? WHERE ID = ?", [$carrito, $id]);
     }
 
-    static function deleteGame($id){
+    static function deleteGame($id)
+    {
         if (empty($id)) {
             return false;
         }
@@ -359,30 +364,46 @@ class model
 
     }
 
-    static private function getMoby($endpoint, $params) {
+    static private function getMoby($endpoint, $params)
+    {
         include_once 'api.env';
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         $params['api_key'] = $moby_api_key;
-        curl_setopt($curl, CURLOPT_URL, 'https://games.eduardojaramillo.click/v1/'.$endpoint.'?'.http_build_query($params));
+        curl_setopt($curl, CURLOPT_URL, 'https://games.eduardojaramillo.click/v1/' . $endpoint . '?' . http_build_query($params));
         return curl_exec($curl);
     }
 
-    static function getMobyGamebyName($format,$title){
+    static function getMobyGamebyName($format, $title)
+    {
         $params['limit'] = '5';
         $params['format'] = $format;
         $params['title'] = $title;
-        return model::getMoby('games',$params);
+        return model::getMoby('games', $params);
     }
 
-    static function getMobyGamebyID($format, $id, $platform=''){
+    static function getMobyGamebyID($format, $id, $platform = '')
+    {
         $params['limit'] = '5';
         $params['format'] = $format;
         if (!empty($platform)) {
-            return model::getMoby('games/'.$id.'/platforms/'.$platform,$params);
+            return model::getMoby('games/' . $id . '/platforms/' . $platform, $params);
         }
         $params['id'] = $id;
-        return model::getMoby('games',$params);
+        return model::getMoby('games', $params);
     }
+
+
+    static function existeComp($compNombre)
+    {
+        include_once "BD/baseDeDatos.php";
+
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar(); //se conecta a la base de datos
+
+
+        $consulta = $ddbb->consulta("SELECT ID ROLE FROM compania WHERE NOMBRE=?", array($compNombre));
+    }
+
 
 }

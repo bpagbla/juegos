@@ -354,18 +354,19 @@ class Controlador
                 $mime_type = explode("/", $mime_type);
                 $ruta = $ruta .".". $mime_type[1];
                 if ($mime_type) {
-                    echo "extension: " . $mime_type[1] . "<br>";
 
                     // Llamar a la función para descargar la imagen
                     $this->download_image1($image_url, $ruta);
                 } else {
-                    echo "No se pudo determinar el MIME type.";
+                    $ruta =0;
                 }
             } else {
                 $ruta = $this->thumbnailFilesUpload();
             }
 
             if (isset($_POST["id"]) && isset($_POST["titulo"]) && isset($_POST["descripcion"]) && isset($_POST["dis"]) && isset($_POST["dev"]) && isset($_POST["sist"]) && isset($_POST["gen"]) && isset($_POST["year"])) { //verifica que se han rellenado los campos
+
+
 
                 if ($ruta != 0) { //si se ha subido la imagen mete los datos en la bbdd
                     model::addGame($_POST["id"], $_POST["titulo"], 'rutaJuego', $ruta, $_POST["dev"], $_POST["dis"], $_POST["sist"], $_POST["gen"], $_POST["year"]);
