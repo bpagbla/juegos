@@ -372,9 +372,12 @@ class model
         return model::getMoby('games',$params);
     }
 
-    static function getMobyGamebyID($format, $id){
+    static function getMobyGamebyID($format, $id, $platform=''){
         $params['limit'] = '5';
         $params['format'] = $format;
+        if (!empty($platform)) {
+            return model::getMoby('games/'.$id.'/platforms/'.$platform,$params);
+        }
         $params['id'] = $id;
         return model::getMoby('games',$params);
     }

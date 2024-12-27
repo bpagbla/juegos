@@ -72,7 +72,11 @@ class Controlador
                 $format = $_GET["format"] ?? "id";
                 $json = '';
                 if (isset($_GET["id"])) {
-                    $json = model::getMobyGamebyID($format,$_GET["id"]);
+                    if (isset($_GET["platform"])) {
+                        $json = model::getMobyGamebyID($format, $_GET["id"],$_GET["platform"]);
+                    } else {
+                        $json = model::getMobyGamebyID($format, $_GET["id"]);
+                    }
                 } else {
                     $title = $_GET["title"] ?? "";
                     $json = model::getMobyGamebyName($format, $title);

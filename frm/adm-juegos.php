@@ -249,11 +249,66 @@
         }
     }
 
-    async function fillForm ($id) {
-        const response = await fetch('http://localhost/?page=api&endpoint=games&format=normal&id='+$id)
+    async function setCompanies(id,platform) {
+        const companies =  await fetch('http://localhost/?page=api&endpoint=games&format=normal&id='+id+'&platform='+platform)
+        const companiesJson = await companies.json()
+        let pub_id = ''
+        let dev_id = ''
+        let pub_name = ''
+        let dev_name = ''
+        companiesJson.releases[0].companies.forEach((company) => {
+            if (company.role === 'Published by') {
+                pub_id = company.company_id
+                pub_name = company.company_name
+            }
+            if (company.role === 'Developed by') {
+                dev_id = company.company_id
+                dev_name = company.company_name
+            }
+        })
+
+        if (pub_id === '' && dev_id !== '') {
+            pub_id = dev_id
+            pub_name = dev_name
+        }
+
+        if (dev_id === '' && pub_id !== '') {
+            dev_id = pub_id
+            dev_name = pub_name
+        }
+
+        const placementDev = document.getElementById('dev-active')
+        placementDev.innerHTML = '';
+        const buttonDev = createButton('dev',dev_id,dev_name)
+        placementDev.appendChild(buttonDev)
+        buttonDev.addEventListener('click', function (e) {e.target.closest("div").remove()})
+
+        const placement = document.getElementById('dis-active')
+        placement.innerHTML = '';
+        const button = createButton('dis',pub_id,pub_name)
+        placement.appendChild(button)
+        button.addEventListener('click', function (e) {e.target.closest("div").remove()})
+
+    }
+
+    async function fillForm (id) {
+        const response = await fetch('http://localhost/?page=api&endpoint=games&format=normal&id='+id)
         const json = await response.json()
         document.getElementById('descripcion').value = json.games[0].description.replace(/<\/?[^>]+(>|$)/g, "")
         document.getElementById('year').value = json.games[0].platforms[0].first_release_date.slice(0,4)
+        document.getElementById('gen-active').innerHTML = '';
+        json.games[0].genres.forEach((genre) => {
+            const button = createButton('gen[]',genre.genre_id,genre.genre_name)
+            document.getElementById('gen-active').appendChild(button)
+            button.addEventListener('click', function (e) {e.target.closest("div").remove()})
+        })
+        document.getElementById('sist-active').innerHTML = '';
+        json.games[0].platforms.forEach((platform) => {
+            const button = createButton('sist[]',platform.platform_id,platform.platform_name)
+            document.getElementById('sist-active').appendChild(button)
+            button.addEventListener('click', function (e) {e.target.closest("div").remove()})
+        })
+        setTimeout(function() {setCompanies(id,json.games[0].platforms[0].platform_id)},1000)
     }
 
     //Distribuidores
@@ -317,7 +372,6 @@
     }
 
     //Desarrolladores
-
     let timeoutDev = ''
     const dev = document.getElementById('dev')
     const sugerenciasDev = document.getElementById('sugerencias-dev')
@@ -377,7 +431,6 @@
     }
 
     //Sistemas
-
     let timeoutSist = ''
     const sist = document.getElementById('sist')
     const sugerenciasSist = document.getElementById('sugerencias-sist')
@@ -435,7 +488,6 @@
     }
 
     //Género
-
     let timeoutGen = ''
     const gen = document.getElementById('gen')
     const sugerenciasGen = document.getElementById('sugerencias-gen')
