@@ -58,7 +58,7 @@
                             <div class="row mb-1">
                                 <div class="col p-0">
                                     <label for="dis" class="col-form-label">Distribuidores:</label>
-                                    <input type="text" class="form-control" id="dis" name="dis" placeholder="Busca un distribuidor" required>
+                                    <input type="text" class="form-control" id="dis" placeholder="Busca un distribuidor">
                                     <div class="position-relative">
                                         <div id="sugerencias-dis" class="position-absolute bg-primary w-100 rounded z-overmodal mt-1 branded-shadow d-none">
                                             <ul id="sugerencias-list-dis" class="list-group placeholder-glow">
@@ -75,7 +75,7 @@
                             <div class="row mb-1">
                                 <div class="col p-0">
                                     <label for="dis" class="col-form-label">Desarrolladores:</label>
-                                    <input type="text" class="form-control" id="dev" name="dev" placeholder="Busca un desarrollador" required>
+                                    <input type="text" class="form-control" id="dev" placeholder="Busca un desarrollador">
                                     <div class="position-relative">
                                         <div id="sugerencias-dev" class="position-absolute bg-primary w-100 rounded z-overmodal mt-1 branded-shadow d-none">
                                             <ul id="sugerencias-list-dev" class="list-group placeholder-glow">
@@ -92,7 +92,7 @@
                             <div class="row">
                                 <div class="col p-0">
                                     <label for="sist" class="col-form-label">Sistemas:</label>
-                                    <input type="text" class="form-control" id="sist" name="sist" placeholder="Busca un Sistema" required>
+                                    <input type="text" class="form-control" id="sist" placeholder="Busca un Sistema">
                                     <div class="position-relative">
                                         <div id="sugerencias-sist" class="position-absolute bg-primary w-100 rounded z-overmodal mt-1 branded-shadow d-none">
                                             <ul id="sugerencias-list-sist" class="list-group placeholder-glow">
@@ -109,7 +109,7 @@
                             <div class="row">
                                 <div class="col p-0">
                                     <label for="gen" class="col-form-label">Géneros:</label>
-                                    <input type="text" class="form-control" id="gen" name="gen" placeholder="Busca un Género" required>
+                                    <input type="text" class="form-control" id="gen" placeholder="Busca un Género">
                                     <div class="position-relative">
                                         <div id="sugerencias-gen" class="position-absolute bg-primary w-100 rounded z-overmodal mt-1 branded-shadow d-none">
                                             <ul id="sugerencias-list-gen" class="list-group placeholder-glow">
@@ -285,8 +285,10 @@
                     el.innerText = json.companies[i].name
                     listDis.appendChild(el)
                     el.addEventListener('click', function () {
-                        const button = createButton('dis[]',json.companies[i].company_id,json.companies[i].name)
-                        document.getElementById('dis-active').appendChild(button)
+                        const placement = document.getElementById('dis-active')
+                        placement.innerHTML = '';
+                        const button = createButton('dis',json.companies[i].company_id,json.companies[i].name)
+                        placement.appendChild(button)
                         button.addEventListener('click', function (e) {e.target.closest("div").remove()})
                     })
                 }
@@ -343,8 +345,10 @@
                     el.innerText = json.companies[i].name
                     listDev.appendChild(el)
                     el.addEventListener('click', function () {
-                        const button = createButton('dev[]',json.companies[i].company_id,json.companies[i].name)
-                        document.getElementById('dev-active').appendChild(button)
+                        const placement = document.getElementById('dev-active')
+                        placement.innerHTML = '';
+                        const button = createButton('dev',json.companies[i].company_id,json.companies[i].name)
+                        placement.appendChild(button)
                         button.addEventListener('click', function (e) {e.target.closest("div").remove()})
                     })
                 }

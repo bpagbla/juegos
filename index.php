@@ -298,17 +298,17 @@ class Controlador
         $this->validateAdminSession();
 
         if (isset($_POST["addGame"])) {
-            if (isset($_POST["titulo"]) && isset($_POST["descripcion"]) && isset($_POST["dis"]) && isset($_POST["dev"]) && isset($_POST["year"])) { //verifica que se han rellenado los campos
+            if (isset($_POST["id"]) && isset($_POST["titulo"]) && isset($_POST["descripcion"]) && isset($_POST["dis"]) && isset($_POST["dev"]) && isset($_POST["sist"]) && isset($_POST["gen"]) && isset($_POST["year"])) { //verifica que se han rellenado los campos
 
                 $ruta = $this->thumbnailFilesUpload();
                 if ($ruta != 0) { //si se ha subido la imagen mete los datos en la bbdd
-                    model::addGame($_POST["titulo"], 'rutaJuego', $ruta, $_POST["dev"], $_POST["dis"], $_POST["year"]);
+                    model::addGame($_POST["id"], $_POST["titulo"], 'rutaJuego', $ruta, $_POST["dev"], $_POST["dis"],$_POST["sist"],$_POST["gen"], $_POST["year"]);
                 } else {
-                    print ("Failed to upload thumbnail."); //AÑADIR MENSAJE DE ERROR???????
+                    $this->sendNotification("Error Juego","Fallo al subir la imagen");
                 }
                 header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
             } else {
-                print "error"; //OTRO MENSAJE DE ERROR?
+                $this->sendNotification("Error Juego","No todos los campos necesarios estan rellenos"); //OTRO MENSAJE DE ERROR?
             }
 
             
