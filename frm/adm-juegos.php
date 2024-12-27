@@ -22,6 +22,11 @@
             <div class="modal-body">
                 <form action="" method="post" enctype="multipart/form-data">
                     <div class="row">
+                        <div id="add-errors" class="div">
+
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="position-relative col-4 img-container d-flex align-items-center flex-column">
                             <!-- IMG PREVIEW -->
 
@@ -233,10 +238,21 @@
                     el.innerText = json.games[i].title
                     el.value = json.games[i].game_id
                     listTitulo.appendChild(el)
-                    el.addEventListener('click', function (e) {
+                    el.addEventListener('click', async function (e) {
                         titulo.value = e.target.innerText
                         id.value = e.target.value
-                        fillForm(e.target.value)
+                        try {
+                            document.getElementById('add-errors').innerHTML = ''
+                            await fillForm(e.target.value)
+                        } catch (err) {
+                            console.log(err)
+                            document.getElementById('blackout').remove()
+                            document.getElementById('add-errors').innerHTML = '<div class="alert alert-danger" role="alert">Error cargando los datos! Intentalo de nuevo.</div>'
+                            setTimeout(function () {
+                                document.getElementById('add-errors').innerHTML = ''
+                            }, 15000)
+                            document.getElementById('titulo').value = '';
+                        }
                     })
                 }
             } else {
@@ -289,9 +305,16 @@
         placement.appendChild(button)
         button.addEventListener('click', function (e) {e.target.closest("div").remove()})
 
+        document.getElementById('blackout').remove()
     }
 
     async function fillForm (id) {
+        const gray = document.createElement('div')
+        gray.id = 'blackout'
+        document.body.appendChild(gray)
+        const spin = document.createElement('div')
+        spin.classList.add('spinner')
+        gray.appendChild(spin)
         const response = await fetch('http://localhost/?page=api&endpoint=games&format=normal&id='+id)
         const json = await response.json()
         document.getElementById('descripcion').value = json.games[0].description.replace(/<\/?[^>]+(>|$)/g, "")
