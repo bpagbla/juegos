@@ -305,7 +305,7 @@ class Controlador
 
     function download_image1($image_url, $image_file)
     {
-        $fp = fopen($image_file, 'w+');              // open file handle
+        $fp = fopen($image_file, 'w+');// open file handle
 
         $ch = curl_init($image_url);
         // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // enable if you want
@@ -319,6 +319,24 @@ class Controlador
         curl_close($ch);                              // closing curl handle
         fclose($fp);                                  // closing file handle
     }
+    function get_mime_type($url)
+    {
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_NOBODY, true); // No descargar el cuerpo
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+
+        // Ejecutar cURL
+        curl_exec($ch);
+
+        // Obtener el MIME type
+        $mime_type = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
+
+        curl_close($ch);
+
+        return $mime_type;
+    }
 
     public function iniciaAdminJuegos()
     {
@@ -326,25 +344,38 @@ class Controlador
         $this->validateAdminSession();
 
         if (isset($_POST["addGame"])) {
-
+            $ruta = "";
             if (isset($_POST["fileSrc"])) {
-                $this->download_image1($_POST["fileSrc"], "img/game-thumbnail/" . $_POST['id']. ".jpg");
+                $image_url = $_POST["fileSrc"];
+                $ruta = "img/game-thumbnail/" . $_POST['id'];
+
+                // Obtener el MIME type de la URL
+                $mime_type = $this->get_mime_type($image_url);
+                $mime_type = explode("/", $mime_type);
+                $ruta = $ruta .".". $mime_type[1];
+                if ($mime_type) {
+                    echo "extension: " . $mime_type[1] . "<br>";
+
+                    // Llamar a la función para descargar la imagen
+                    $this->download_image1($image_url, $ruta);
+                } else {
+                    echo "No se pudo determinar el MIME type.";
+                }
+            } else {
+                $ruta = $this->thumbnailFilesUpload();
             }
 
             if (isset($_POST["id"]) && isset($_POST["titulo"]) && isset($_POST["descripcion"]) && isset($_POST["dis"]) && isset($_POST["dev"]) && isset($_POST["sist"]) && isset($_POST["gen"]) && isset($_POST["year"])) { //verifica que se han rellenado los campos
 
-                $ruta = $this->thumbnailFilesUpload();
                 if ($ruta != 0) { //si se ha subido la imagen mete los datos en la bbdd
                     model::addGame($_POST["id"], $_POST["titulo"], 'rutaJuego', $ruta, $_POST["dev"], $_POST["dis"], $_POST["sist"], $_POST["gen"], $_POST["year"]);
                 } else {
                     $this->sendNotification("Error Juego", "Fallo al subir la imagen");
                 }
-                header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
+                /* header('Location: ?page=adm-juegos'); //Redirige a la misma pagina */
             } else {
                 $this->sendNotification("Error Juego", "No todos los campos necesarios estan rellenos"); //OTRO MENSAJE DE ERROR?
             }
-
-
 
         }
         if (isset($_POST["action"])) {
