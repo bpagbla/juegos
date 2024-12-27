@@ -60,9 +60,9 @@ class model
         //Se guardan el nombre y el id del genero en el array
         foreach ($consulta as $each) {
             $titulo = $each['TITULO'];
-                $id = $each['ID'];
-                $portada = $each['PORTADA'];
-                $array[] = [$id, $titulo, $portada];
+            $id = $each['ID'];
+            $portada = $each['PORTADA'];
+            $array[] = [$id, $titulo, $portada];
         }
 
         $ddbb->cerrar();
@@ -394,7 +394,7 @@ class model
     }
 
 
-    static function existeComp($compNombre)
+    static function existeComp($id)
     {
         include_once "BD/baseDeDatos.php";
 
@@ -402,8 +402,27 @@ class model
         $ddbb->conectar(); //se conecta a la base de datos
 
 
-        $consulta = $ddbb->consulta("SELECT ID ROLE FROM compania WHERE NOMBRE=?", array($compNombre));
-    }
+        $consulta = $ddbb->consulta("SELECT ID FROM compania WHERE ID=?", array($id));
+        $existe = false;
+        foreach ($consulta as $item) {
+            if (isset($item["ID"])) {
+                $existe = true;
+            }
+        }
 
+        return $existe;
+    }
+    static function addComp($id, $compNombre)
+    {
+
+        include_once "BD/baseDeDatos.php";
+
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar(); //se conecta a la base de datos
+
+        //se insertan los datos en la base de datos
+        $consulta = $ddbb->insert("INSERT INTO compania(ID, NOMBRE) VALUES(?,?)", [$id, $compNombre]);
+        return $consulta;
+    }
 
 }

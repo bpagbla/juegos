@@ -352,13 +352,13 @@ class Controlador
                 // Obtener el MIME type de la URL
                 $mime_type = $this->get_mime_type($image_url);
                 $mime_type = explode("/", $mime_type);
-                $ruta = $ruta .".". $mime_type[1];
+                $ruta = $ruta . "." . $mime_type[1];
                 if ($mime_type) {
 
                     // Llamar a la función para descargar la imagen
                     $this->download_image1($image_url, $ruta);
                 } else {
-                    $ruta =0;
+                    $ruta = 0;
                 }
             } else {
                 $ruta = $this->thumbnailFilesUpload();
@@ -368,7 +368,16 @@ class Controlador
 
 
 
+
                 if ($ruta != 0) { //si se ha subido la imagen mete los datos en la bbdd
+
+                    foreach ($_POST["dev"] as $compania){ //CREAR COMPAÑIA SI NO EXISTE
+                        /* if (!model::existeComp($_POST["dev"])) {
+                            model::addComp($_POST["dev"]);
+                        } */
+                    }
+
+                    
                     model::addGame($_POST["id"], $_POST["titulo"], 'rutaJuego', $ruta, $_POST["dev"], $_POST["dis"], $_POST["sist"], $_POST["gen"], $_POST["year"]);
                 } else {
                     $this->sendNotification("Error Juego", "Fallo al subir la imagen");
