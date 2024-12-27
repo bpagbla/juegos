@@ -234,8 +234,9 @@
                     el.value = json.games[i].game_id
                     listTitulo.appendChild(el)
                     el.addEventListener('click', function (e) {
-                        titulo.value = e.target.innerText;
-                        id.value = e.target.value;
+                        titulo.value = e.target.innerText
+                        id.value = e.target.value
+                        fillForm(e.target.value)
                     })
                 }
             } else {
@@ -246,6 +247,13 @@
                 listTitulo.appendChild(el)
             }
         }
+    }
+
+    async function fillForm ($id) {
+        const response = await fetch('http://localhost/?page=api&endpoint=games&format=normal&id='+$id)
+        const json = await response.json()
+        document.getElementById('descripcion').value = json.games[0].description.replace(/<\/?[^>]+(>|$)/g, "")
+        document.getElementById('year').value = json.games[0].platforms[0].first_release_date.slice(0,4)
     }
 
     //Distribuidores
