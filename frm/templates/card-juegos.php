@@ -9,7 +9,7 @@
                 <form action="" method="post">
                     <div class="<?php if (isset($game[3]))
                         echo " owned" ?>">
-                            <input type="submit" value="Comprar" class="btn btn-sm btn-primary <?php if (isset($game[2]))
+                            <input type="submit" value="Comprar" class="btn btn-sm btn-primary <?php if (isset($game[3]))
                         echo "disabled" ?>" name="juegoCompra<?php print $game[0] ?>">
 
                         <?php if (isset($game[3]))
