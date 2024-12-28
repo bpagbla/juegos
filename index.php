@@ -403,7 +403,7 @@ class Controlador
                     $this->sendNotification("Error Juego", "Fallo al subir la imagen");
                 }
 
-                /*  header('Location: ?page=adm-juegos'); */ //Redirige a la misma pagina
+                 header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
 
             } else {
                 $this->sendNotification("Error Juego", "No todos los campos necesarios estan rellenos"); //OTRO MENSAJE DE ERROR
