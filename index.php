@@ -453,8 +453,10 @@ class Controlador
         //Valida la sessión. Si erronea o logout envia a login.
         $this->validateAdminSession();
 
+        $generos = model::getGeneros();
+
         //se incluye la vista de principal
-        Vista::mostrarAdminGeneros();
+        Vista::mostrarAdminGeneros($generos);
     }
 
     public function iniciaAdminSistemas()

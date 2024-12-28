@@ -31,7 +31,7 @@ class Vista
         include_once "frm/templates/base.php";
     }
 
-    public static function mostrarAdminGeneros() {
+    public static function mostrarAdminGeneros($generos) {
         $page = "adm-generos";
         include_once "frm/templates/base.php";
     }
