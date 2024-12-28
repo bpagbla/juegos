@@ -409,8 +409,6 @@ class Controlador
                 }
 
 
-
-
             } else {
                 $this->sendNotification("Error Juego", "No todos los campos necesarios estan rellenos"); //OTRO MENSAJE DE ERROR
             }
