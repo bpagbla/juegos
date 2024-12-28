@@ -7,7 +7,7 @@ function createButton(name, value, display) {
     button.classList.add('col-auto')
     button.classList.add('p-0')
     button.classList.add('m-2')
-    button.innerHTML = '<button type="button" class="btn btn-sm btn-primary">' + display + '<svg class="bg-transparent" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16"> <use href="#remove"></use></svg></button><input type="hidden" name="' + name + '" value="' + value + '">'
+    button.innerHTML = '<button type="button" class="btn btn-sm btn-primary">' + display + '<svg class="bg-transparent" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16"> <use href="#remove"></use></svg></button><input type="hidden" name="' + name + '" value="' + value + '"><input type="hidden" name="' + name.replace('[]','') + value + '" value="' + display + '">'
     return button;
 }
 function createInput(name, value) {
