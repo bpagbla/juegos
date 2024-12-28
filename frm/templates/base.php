@@ -210,15 +210,17 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark text-small shadow bg-menu"
                             aria-labelledby="dropdownUser1">
-                            <li><a class="dropdown-item" href="#">Amigos</a></li>
-                            <li><a class="dropdown-item" href="#">Ajustes</a></li>
-                            <li><a class="dropdown-item" href="#">Perfil</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
+                            <li class="dropdown-item rounded-top p-0">
+                                <form method="get">
+                                    <button type="submit" value="ajustes" name="page" class="bg-transparent border-0 text-start ps-3 p-2 w-100">Ajustes</button>
+                                </form>
                             </li>
                             <li>
-                                <form action="" method="POST" class="dropdown-item ">
-                                    <input type="submit" value="Cerrar Sesión" name="logout" class="logout">
+                                <hr class="dropdown-divider p-0 m-0">
+                            </li>
+                            <li>
+                                <form method="POST" class="dropdown-item rounded-bottom p-0">
+                                    <input type="submit" value="Cerrar Sesión" name="logout" class="bg-transparent border-0 text-start ps-3 p-2">
                                 </form>
                             </li>
                         </ul>
@@ -330,15 +332,17 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark text-small shadow bg-menu"
                             aria-labelledby="dropdownUser1">
-                            <li><a class="dropdown-item" href="#">Amigos</a></li>
-                            <li><a class="dropdown-item" href="#">Ajustes</a></li>
-                            <li><a class="dropdown-item" href="#">Perfil</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
+                            <li class="dropdown-item rounded-top p-0">
+                                <form method="get">
+                                    <button type="submit" value="ajustes" name="page" class="bg-transparent border-0 text-start ps-3 p-2 w-100">Ajustes</button>
+                                </form>
                             </li>
                             <li>
-                                <form action="" method="POST" class="dropdown-item ">
-                                    <input type="submit" value="Cerrar Sesión" name="logout" class="logout">
+                                <hr class="dropdown-divider p-0 m-0">
+                            </li>
+                            <li>
+                                <form method="POST" class="dropdown-item rounded-bottom p-0">
+                                    <input type="submit" value="Cerrar Sesión" name="logout" class="bg-transparent border-0 text-start ps-3 p-2">
                                 </form>
                             </li>
                         </ul>

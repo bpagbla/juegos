@@ -54,6 +54,9 @@ class Controlador
             case "api":
                 $this->fetchAPI();
                 break;
+            case "ajustes":
+                $this->iniciaAjustes();
+                break;
             default:
                 $this->inicia404();
         }
@@ -494,6 +497,16 @@ class Controlador
         }
         //incluye la vista del login
         Vista::mostrarLogin($loginAttempt);
+    }
+
+    //Ajustes
+    public function iniciaAjustes()
+    {
+        //Valida la sessión. Si erronea o logout envia a login.
+        $this->validateSession();
+
+        //se incluye la vista de principal
+        Vista::mostrarAjustes();
     }
 
     //PRINCIPAL
