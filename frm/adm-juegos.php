@@ -1,3 +1,8 @@
+<div class="row justify-left px-2">
+    <div class="col">
+        <h2 class="mt-3">Administrar Juegos</h2>
+    </div>
+</div>
 <div class="row justify-content-around justify-content-lg-start">
     <?php
     foreach ($games as $game) {
