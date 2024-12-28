@@ -493,4 +493,24 @@ class model
         return $consulta;
     }
 
+
+    static function existeJuego($id){
+        include_once "BD/baseDeDatos.php";
+
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar(); //se conecta a la base de datos
+
+
+        $consulta = $ddbb->consulta("SELECT ID FROM juego WHERE ID=?", array($id));
+        $existe = false;
+        foreach ($consulta as $item) {
+            if (isset($item["ID"])) {
+                $existe = true;
+            }
+        }
+        
+        $ddbb->cerrar();
+        return $existe;
+    }
+
 }
