@@ -359,7 +359,7 @@ class model
 
         $ddbb = new BaseDeDatos;
         $ddbb->conectar(); //se conecta a la base de datos
-
+       
         return $ddbb->update("UPDATE juego SET TITULO = ?, PORTADA = ?, DESARROLLADOR = ?, DISTRIBUIDOR = ?, YEAR = ? WHERE ID = ?", [$titulo, $portada, $desarrollador, $distribuidor, $year, $id]);
 
     }
@@ -409,9 +409,10 @@ class model
                 $existe = true;
             }
         }
-
+        $ddbb->cerrar();
         return $existe;
     }
+
     static function addComp($id, $compNombre)
     {
 
@@ -422,6 +423,73 @@ class model
 
         //se insertan los datos en la base de datos
         $consulta = $ddbb->insert("INSERT INTO compania(ID, NOMBRE) VALUES(?,?)", [$id, $compNombre]);
+        $ddbb->cerrar();
+        return $consulta;
+    }
+
+
+    static function existeGen($id){
+        include_once "BD/baseDeDatos.php";
+
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar(); //se conecta a la base de datos
+
+
+        $consulta = $ddbb->consulta("SELECT ID FROM genero WHERE ID=?", array($id));
+        $existe = false;
+        foreach ($consulta as $item) {
+            if (isset($item["ID"])) {
+                $existe = true;
+            }
+        }
+        
+        $ddbb->cerrar();
+        return $existe;
+    }
+
+    static function addGen($id, $genNombre)
+    {
+        include_once "BD/baseDeDatos.php";
+
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar(); //se conecta a la base de datos
+
+        //se insertan los datos en la base de datos
+        $consulta = $ddbb->insert("INSERT INTO genero(ID, NOMBRE) VALUES(?,?)", [$id, $genNombre]);
+        $ddbb->cerrar();
+        return $consulta;
+    }
+
+
+    static function existeSis($id){
+        include_once "BD/baseDeDatos.php";
+
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar(); //se conecta a la base de datos
+
+
+        $consulta = $ddbb->consulta("SELECT ID FROM sistema WHERE ID=?", array($id));
+        $existe = false;
+        foreach ($consulta as $item) {
+            if (isset($item["ID"])) {
+                $existe = true;
+            }
+        }
+        
+        $ddbb->cerrar();
+        return $existe;
+    }
+
+    static function addSis($id, $sisNombre)
+    {
+        include_once "BD/baseDeDatos.php";
+
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar(); //se conecta a la base de datos
+
+        //se insertan los datos en la base de datos
+        $consulta = $ddbb->insert("INSERT INTO sistema(ID, NOMBRE) VALUES(?,?)", [$id, $sisNombre]);
+        $ddbb->cerrar();
         return $consulta;
     }
 

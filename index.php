@@ -370,22 +370,41 @@ class Controlador
             if (isset($_POST["id"]) && isset($_POST["titulo"]) && isset($_POST["descripcion"]) && isset($_POST["dis"]) && isset($_POST["dev"]) && isset($_POST["sist"]) && isset($_POST["gen"]) && isset($_POST["year"])) { //verifica que se han rellenado los campos
 
 
-
-
                 if ($ruta != 0) { //si se ha subido la imagen mete los datos en la bbdd
 
-                    foreach ($_POST["dev"] as $compania){ //CREAR COMPAÑIA SI NO EXISTE
-                        /* if (!model::existeComp($_POST["dev"])) {
-                            model::addComp($_POST["dev"]);
-                        } */
+                    //ver si existe dev y dis y si no existen crearlos
+                    if (!model::existeComp($_POST["dis"])) {
+                        model::addComp($_POST["dis"], $_POST["dis" . $_POST["dis"]]);
+                        $creadoDis = true;
+                    }
+                    if (!model::existeComp($_POST["dev"])) {
+                        model::addComp($_POST["dev"], $_POST["dev" . $_POST["dev"]]);
+                        $creadoDev = true;
                     }
 
-                    
+                    //ver si existen los generos y si no existen crearlos
+                    foreach ($_POST["gen"] as $gen) {
+                        if (!model::existeGen($gen)) {
+                            model::addGen($gen, $_POST["gen" . $gen]);
+                            $creadoGen = true;
+                        }
+                    }
+
+                    //ver si existen los sistemas y si no existen crearlos
+                    foreach ($_POST["sist"] as $sis) {
+                        if (!model::existeSis($sis)) {
+                            model::addSis($sis, $_POST["sist" . $sis]);
+                            $creadoSis = true;
+                        }
+                    }
+
                     model::addGame($_POST["id"], $_POST["titulo"], 'rutaJuego', $ruta, $_POST["dev"], $_POST["dis"], $_POST["sist"], $_POST["gen"], $_POST["year"]);
                 } else {
                     $this->sendNotification("Error Juego", "Fallo al subir la imagen");
                 }
-                header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
+
+                /*  header('Location: ?page=adm-juegos'); */ //Redirige a la misma pagina
+
             } else {
                 $this->sendNotification("Error Juego", "No todos los campos necesarios estan rellenos"); //OTRO MENSAJE DE ERROR
             }
@@ -411,8 +430,6 @@ class Controlador
             }
             header('Location: ?page=adm-juegos');
             die();
-
-
 
         }
 

@@ -89,7 +89,7 @@ CREATE TABLE posee (
 
 CREATE TABLE genero (
   `ID` int NOT NULL AUTO_INCREMENT,
-  `NOMBRE` varchar(32) COLLATE utf8mb4_general_ci NOT NULL,
+  `NOMBRE` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`ID`)
 );
 
