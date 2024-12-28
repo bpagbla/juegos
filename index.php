@@ -605,6 +605,14 @@ class Controlador
                     $_SESSION["carrito"] = unserialize($_SESSION["carrito"]);
                 }
 
+                if (!empty($_SESSION["carrito"])) {
+                    foreach ($_SESSION["carrito"] as $idJuego => $item) {
+                        if (!model::existeJuego($idJuego)){
+                            unset($_SESSION["carrito"][$idJuego]);
+                        }
+                    }
+                }
+
                 return true;
             } else {
                 return false;
