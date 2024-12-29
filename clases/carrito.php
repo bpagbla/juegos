@@ -1,7 +1,7 @@
 <?php
 class Carrito
 {
-    private $juegos = array();
+    private static $juegos = [];
 
     function __construct()
     {
@@ -9,23 +9,25 @@ class Carrito
 
     }
 
-    public function cargaCarrito($id)
+    public static function setCarrito($juegos)
     {
-
-
+        self::$juegos = $juegos;
     }
 
-    public function meterJuegoCarrito($idJuego, $nombreJuego)
+    public static function meterJuegoCarrito($idJuego, $nombreJuego)
     {
-        if (isset($_POST["juegoCompra$idJuego"])) { //si se ha dado a comprar en algun juego
-            $_SESSION["carrito"][$idJuego] = $nombreJuego; //Se añade el juego al carrito
-            
-        }
+        self::$juegos[$idJuego] = $nombreJuego; //Se añade el juego al carrito
     }
 
-    public function guardaCarrito($id)
+    public static function sacarJuegoCarrito($idJuego)
+    {
+        unset(self::$juegos[$idJuego]); //se quita el juego del array productos
+    }
+
+    public static function getCarrito()
     {
 
+        return self::$juegos;
 
     }
 

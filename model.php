@@ -228,7 +228,6 @@ class model
             $_SESSION["email"] = $row["email"];
             $_SESSION["id"] = $row["id"];
             $_SESSION["role"] = $row["role"];
-            $_SESSION["carrito"] = $row["carrito"];
         }
 
         $ddbb->cerrar();
@@ -359,7 +358,7 @@ class model
 
         $ddbb = new BaseDeDatos;
         $ddbb->conectar(); //se conecta a la base de datos
-       
+
         return $ddbb->update("UPDATE juego SET TITULO = ?, PORTADA = ?, DESARROLLADOR = ?, DISTRIBUIDOR = ?, YEAR = ? WHERE ID = ?", [$titulo, $portada, $desarrollador, $distribuidor, $year, $id]);
 
     }
@@ -428,7 +427,8 @@ class model
     }
 
 
-    static function existeGen($id){
+    static function existeGen($id)
+    {
         include_once "BD/baseDeDatos.php";
 
         $ddbb = new BaseDeDatos;
@@ -442,7 +442,7 @@ class model
                 $existe = true;
             }
         }
-        
+
         $ddbb->cerrar();
         return $existe;
     }
@@ -461,7 +461,8 @@ class model
     }
 
 
-    static function existeSis($id){
+    static function existeSis($id)
+    {
         include_once "BD/baseDeDatos.php";
 
         $ddbb = new BaseDeDatos;
@@ -475,7 +476,7 @@ class model
                 $existe = true;
             }
         }
-        
+
         $ddbb->cerrar();
         return $existe;
     }
@@ -494,7 +495,8 @@ class model
     }
 
 
-    static function existeJuego($id){
+    static function existeJuego($id)
+    {
         include_once "BD/baseDeDatos.php";
 
         $ddbb = new BaseDeDatos;
@@ -508,9 +510,39 @@ class model
                 $existe = true;
             }
         }
-        
+
         $ddbb->cerrar();
         return $existe;
+    }
+
+    public static function addCarrito($idUser, $idJuego)
+    {
+        include_once "BD/baseDeDatos.php";
+
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar(); //se conecta a la base de datos
+
+        $consulta = $ddbb->insert("INSERT INTO carrito(ID_USUARIO, ID_JUEGO) VALUES(?,?)", [$idUser, $idJuego]);
+        $ddbb->cerrar();
+
+    }
+
+    public static function getCarrito($idUser)
+    {
+        include_once "BD/baseDeDatos.php";
+
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar(); //se conecta a la base de datos
+
+        $consulta = $ddbb->consulta("SELECT carrito.ID_JUEGO, juego.NOMBRE FROM carrito JOIN juego ON carrito.ID_JUEGO = juego.ID WHERE carrito.ID_USUARIO = ?", [$idUser]);
+        
+        $juegos = [];
+        foreach ($consulta as $each) {
+            $juegos[$each['ID_JUEGO']] = $each['Nombre_JUEGO'];
+        }
+
+        $ddbb->cerrar();
+
     }
 
 }

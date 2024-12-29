@@ -8,13 +8,13 @@ ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 include_once "vista.php";
 include_once "model.php";
+include_once "clases/carrito.php";
 
 class Controlador
 {
 
     public function inicia()
     {
-
         if (!isset($_GET["page"])) {
             Vista::mostrarLanding();
             die();
@@ -148,10 +148,6 @@ class Controlador
         //si hay una sesion creada y se hace logout se destruye la sesión y se envia al landing
         if (isset($_SESSION["nick"])) {
             if (isset($_POST["logout"])) {
-                //SERIALIZAR EL CARRITO
-                $carrito = serialize($_SESSION["carrito"]);
-                //GAUARDAR EL CARRITO EN LA BASE DE DATOS
-                model::guardarCarrito($carrito, $_SESSION["id"]);
 
                 session_unset();
                 session_destroy();
@@ -493,10 +489,24 @@ class Controlador
             }
             $i++;
 
-            
+            if (isset($_POST["borrar$game[0]"])) {
+                Carrito::sacarJuegoCarrito($game[0]);
+                $this->actualizarSessionCarrito();
 
-            $this->meterJuegoCarrito($game[0], $game[1]);
-            $this->sacarJuegoCarrito($game[0]);
+                $this->sendNotification('Juego eliminado del carrito', "Se ha eliminado el juego del carrito correctamente", 20000);
+            }
+
+            if (isset($_POST["juegoCompra$game[0]"])) { //si se ha dado a comprar en algun juego
+                Carrito::meterJuegoCarrito($game[0], $game[1]);
+                //actualizar variable session
+                $this->actualizarSessionCarrito();
+                //actualizar bbdd
+                model::addCarrito($_SESSION["id"], $game[0]);
+
+                $this->sendNotification('Juego añadido al carrito', "Se ha añadido el juego al carrito correctamente", 20000);
+                
+            }
+
         }
 
         //se incluye la vista de principal
@@ -604,23 +614,21 @@ class Controlador
             //Verificamos la contraseña
             if (password_verify($_POST["passwd"], $passReal)) {
                 model::abrirSesion($id);
-                if (!empty($_SESSION["carrito"])) {
-                    $_SESSION["carrito"] = unserialize($_SESSION["carrito"]);
-                }
-
-                if (!empty($_SESSION["carrito"])) {
-                    foreach ($_SESSION["carrito"] as $idJuego => $item) {
-                        if (!model::existeJuego($idJuego)){
-                            unset($_SESSION["carrito"][$idJuego]);
-                        }
-                    }
-                }
+                //coger el carrito de la base de datos y meterlo en la clase carrito
+                Carrito::setCarrito(model::getCarrito($id));
+                //actualizar la variable sesion con el carrito
+                $this->actualizarSessionCarrito();
 
                 return true;
             } else {
                 return false;
             }
         }
+    }
+
+    public function actualizarSessionCarrito()
+    {
+        $_SESSION["carrito"] = Carrito::getCarrito();
     }
 
     public function sendNotification($title, $body, $time = 5000)
@@ -631,22 +639,6 @@ class Controlador
 
         $_SESSION["notifications"][] = array($title, $body, $time); //se guarda un array con las notificaciones para ponerlas en el template
 
-    }
-
-    public function meterJuegoCarrito($idJuego, $nombreJuego)
-    {
-        if (isset($_POST["juegoCompra$idJuego"])) { //si se ha dado a comprar en algun juego
-            $_SESSION["carrito"][$idJuego] = $nombreJuego; //Se añade el juego al carrito
-            $this->sendNotification('Juego añadido al carrito', "Se ha añadido el juego al carrito correctamente", 20000);
-        }
-    }
-
-    public function sacarJuegoCarrito($idJuego)
-    {
-        if (isset($_POST["borrar$idJuego"])) {
-            unset($_SESSION["carrito"][$idJuego]); //se elimina el juego del carrito
-            $this->sendNotification('Juego eliminado del carrito', "Se ha eliminado el juego del carrito correctamente", 20000);
-        }
     }
 
 }
