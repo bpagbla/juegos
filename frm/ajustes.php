@@ -12,25 +12,25 @@
         <div class="col-md-6 col-12">
             <div class="input-group mb-3">
                 <label for="nick" class="input-group-text">@</label>
-                <input id="nick" name="nick" type="text" class="form-control" aria-label="nick">
+                <input id="nick" name="nick" type="text" class="form-control" aria-label="nick" value="<?php print $_SESSION["nick"]?>">
             </div>
         </div>
         <div class="col-md-6 col-12">
             <div class="input-group mb-3">
                 <label for="email" class="input-group-text">Email</label>
-                <input id="email" name="email" type="email" class="form-control" aria-label="email">
+                <input id="email" name="email" type="email" class="form-control" aria-label="email" value="<?php print $userData[1]?>">
             </div>
         </div>
         <div class="col-md-6 col-12">
             <div class="input-group mb-3">
                 <label for="firstName" class="input-group-text">Nombre</label>
-                <input id="firstName" name="firstName" type="text" class="form-control" aria-label="firstName">
+                <input id="firstName" name="firstName" type="text" class="form-control" aria-label="firstName" value="<?php print $userData[2]?>">
             </div>
         </div>
         <div class="col-md-6 col-12">
             <div class="input-group mb-3">
                 <label for="lastName" class="input-group-text">Apellidos</label>
-                <input id="lastName" name="lastName" type="text" class="form-control" aria-label="lastName">
+                <input id="lastName" name="lastName" type="text" class="form-control" aria-label="lastName" value="<?php print $userData[3]?>">
             </div>
         </div>
     </div>
@@ -92,5 +92,5 @@ setTimeout(function () {
 </script>
 
 <?php
-print_r($_POST)
+print_r($_POST);
 ?>

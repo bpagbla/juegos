@@ -22,7 +22,7 @@ CREATE TABLE usuario (
 );
 
 CREATE TABLE tarjeta_bancaria (
-  `NUMERO` int NOT NULL,
+  `NUMERO` BIGINT NOT NULL,
   `CVV` int DEFAULT NULL,
   `FECHA_CADUC` date DEFAULT NULL,
   `ID_USUARIO` int DEFAULT NULL,
@@ -142,8 +142,8 @@ CREATE TABLE carrito (
 );
 
 #Users
-INSERT INTO usuario(EMAIL, NICK, NOMBRE, APELLIDOS, PASSWORD, ROLE) VALUES('user@gmail.com','user','user','user','$2a$12$/.57XI5riojUPwXeoQXX9O/ru1XsQ5MRSsj8lZAo85sJb2b0tbEsi', 'user');
-INSERT INTO usuario(EMAIL, NICK, NOMBRE, APELLIDOS, PASSWORD, ROLE) VALUES('admin@gmail.com','admin','admin','admin','$2y$10$xiAIe5dxN/fi39Jq08f1nu3BLCnuU7OBhcHoDcuDnVNJqtrOZUJzK', 'admin');
+INSERT INTO usuario(EMAIL, NICK, NOMBRE, APELLIDOS, PASSWORD, ROLE) VALUES('user@gmail.com','user','Doug','Dimmadome','$2a$12$/.57XI5riojUPwXeoQXX9O/ru1XsQ5MRSsj8lZAo85sJb2b0tbEsi', 'user');
+INSERT INTO usuario(EMAIL, NICK, NOMBRE, APELLIDOS, PASSWORD, ROLE) VALUES('admin@gmail.com','admin','John','Doe','$2y$10$xiAIe5dxN/fi39Jq08f1nu3BLCnuU7OBhcHoDcuDnVNJqtrOZUJzK', 'admin');
 
 #Empresa
 INSERT INTO compania(ID, NOMBRE) VALUES (20858, 'Plug In Digital SAS');
@@ -177,3 +177,5 @@ INSERT INTO sistema(ID, nombre) VALUES (2,'DOS');
 INSERT INTO sistema(ID, nombre) VALUES (3,'Windows');
 INSERT INTO sistema(ID, nombre) VALUES (4,'PC Booter');
 INSERT INTO sistema(ID, nombre) VALUES (5,'Windows 3.x');
+
+INSERT INTO tarjeta_bancaria(ID_USUARIO,NUMERO,CVV,FECHA_CADUC) VALUES (1,6319038988205590,722,DATE '2026-01-31');

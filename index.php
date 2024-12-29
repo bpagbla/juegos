@@ -557,7 +557,7 @@ class Controlador
         $this->validateSession();
 
         if (!isset($_POST["action"])) {
-            Vista::mostrarAjustes();
+            Vista::mostrarAjustes(model::getUserData($_SESSION["id"]));
             die();
         }
 
@@ -573,17 +573,43 @@ class Controlador
                 }
                 break;
             case "update-personal":
-                model::modifyUser($_POST["id"], $_POST["nick"], $_POST["role"], $_POST["email"], $_POST["firstName"], $_POST["lastName"]);
+                $users = model::getAllUsers();
+                $dupe = false;
+                foreach ($users as $user) {
+                    if ($user[1] == $_SESSION["nick"]) {
+                        continue;
+                    }
+                    if ($user[1] === $_POST["nick"]) {
+                        $dupe = true;
+                        $error = "El nick ya esta en uso";
+                        break;
+                    }
+                    if ($user[2] == $_SESSION["email"]) {
+                        continue;
+                    }
+                    if ($user[2] === $_POST["email"]) {
+                        $dupe = true;
+                        $error = "El email ya esta en uso";
+                        break;
+                    }
+                }
+                if (!$dupe) {
+                    //se modifica el usuario en la base de datos
+                    model::modifyUser($_SESSION["id"], $_POST["nick"], $_SESSION["role"], $_POST["email"], $_POST["firstName"], $_POST["lastName"]);
+                    $_SESSION["nick"] = $_POST["nick"];
+                    $_SESSION["email"] = $_POST["email"];
 
-                //mensaje de notificacion
-                $this->sendNotification("Usuario Actualizado", "Se han actualizado los datos del usuario exitosamente!");
-                header('Location: ?page=adm-usuarios');
-                die();
+                    //mensaje de notificacion
+                    $this->sendNotification("Usuario Actualizado", "Se han actualizado los datos del usuario exitosamente!");
+                    header('Location: ?page=ajustes');
+                    die();
+                } else {
+                    $this->sendNotification("Error en el cambio", $error);
+                }
                 break;
         }
-
         //se incluye la vista de principal
-        Vista::mostrarAjustes();
+        Vista::mostrarAjustes(model::getUserData($_SESSION["id"]));
     }
 
     //PRINCIPAL

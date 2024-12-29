@@ -51,7 +51,7 @@ class Vista
         include_once "frm/templates/base.php";
     }
 
-    public static function mostrarAjustes() {
+    public static function mostrarAjustes($userData,$cards=array()) {
         $page = "ajustes";
         include_once "frm/templates/base.php";
     }
