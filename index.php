@@ -475,8 +475,15 @@ class Controlador
 
     public function iniciaJuegos()
     {
+        $carrito = new Carrito();
+
+
         //Valida la sessión. Si erronea o logout envia a login.
         $this->validateSession();
+
+        //recuperar carrito de bbdd
+        $carrito->setCarrito(model::getCarrito($_SESSION["id"]));
+
 
         if (isset($_SESSION["addJuegoCarrito"])) {
             $this->sendNotification('Juego añadido al carrito', "Se ha añadido el juego al carrito correctamente", 20000);
@@ -501,13 +508,14 @@ class Controlador
             $i++;
 
             if (isset($_POST["borrar$game[0]"])) {
-                Carrito::sacarJuegoCarrito($game[0]);
+                $carrito->sacarJuegoCarrito($game[0]);
+                model::borrarJuegoCarrito($game[0]);
                 $_SESSION["borrarJuegoCarrito"] = true;
                 header("Location: ?page=juegos");
             }
 
             if (isset($_POST["juegoCompra$game[0]"])) { //si se ha dado a comprar en algun juego
-                Carrito::meterJuegoCarrito($game[0], $game[1]);
+                $carrito->meterJuegoCarrito($game[0], $game[1]);
 
                 //actualizar bbdd
                 model::addCarrito($_SESSION["id"], $game[0]);
@@ -633,9 +641,6 @@ class Controlador
             //Verificamos la contraseña
             if (password_verify($_POST["passwd"], $passReal)) {
                 model::abrirSesion($id);
-                //coger el carrito de la base de datos y meterlo en la clase carrito
-                Carrito::setCarrito(model::getCarrito($id));
-
 
                 return true;
             } else {
