@@ -33,13 +33,13 @@ CREATE TABLE tarjeta_bancaria (
 
 CREATE TABLE compania (
   `ID` int NOT NULL AUTO_INCREMENT,
-  `NOMBRE` varchar(32) COLLATE utf8mb4_general_ci NOT NULL,
+  `NOMBRE` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`ID`)
 );
 
 CREATE TABLE juego (
   `ID` int NOT NULL,
-  `TITULO` varchar(32) COLLATE utf8mb4_general_ci NOT NULL,
+  `TITULO` varchar(256) COLLATE utf8mb4_general_ci NOT NULL,
   `RUTA` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
   `PORTADA` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
   `DESARROLLADOR` int NOT NULL,
@@ -89,7 +89,7 @@ CREATE TABLE posee (
 
 CREATE TABLE genero (
   `ID` int NOT NULL AUTO_INCREMENT,
-  `NOMBRE` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `NOMBRE` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`ID`)
 );
 
@@ -111,7 +111,7 @@ CREATE TABLE `genero_genero` (
 
 CREATE TABLE sistema (
   `ID` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(64) COLLATE utf8mb4_general_ci NOT NULL,
+  `nombre` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`ID`)
 );
 
