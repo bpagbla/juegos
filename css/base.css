@@ -204,6 +204,24 @@ textarea:focus {
         inset 0 0 1.3rem #bc13fe !important;
 }
 
+.error-input:focus {
+    border: 0.2rem solid red !important;
+    box-shadow: none !important;
+}
+
+.error-input {
+    border: 0.1rem solid red !important;
+}
+
+.success-input {
+    border: 0.1rem solid green !important;
+}
+
+.success-input:focus {
+    border: 0.2rem solid green !important;
+    box-shadow: none !important;
+}
+
 .img-container {
     border-radius: 15px;
     border: #bc13fe solid 1px;
