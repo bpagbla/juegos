@@ -3,8 +3,12 @@ class Carrito
 {
 private $juegos=array();
 
+function __construct() {
 
-public function cargaCesta($id){
+    
+  }
+
+public function cargaCarrito($id){
 
 
 }
@@ -14,12 +18,12 @@ public function addJuego($idJuego){
 
 }
 
-public function guardaCesta($id){
+public function guardaCarrito($id){
 
 
 }
 
-public function mostrarCesta($id){
+public function mostrarCarrito($id){
 
 
 }
