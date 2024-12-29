@@ -521,8 +521,7 @@ class model
 
         $ddbb = new BaseDeDatos;
         $ddbb->conectar(); //se conecta a la base de datos
-
-        $consulta = $ddbb->insert("INSERT INTO carrito(ID_USUARIO, ID_JUEGO) VALUES(?,?)", [$idUser, $idJuego]);
+        $consulta = $ddbb->insert("INSERT INTO carrito(ID_USUARIO, ID_JUEGO) VALUES (?,?) ON DUPLICATE KEY UPDATE ID_JUEGO=ID_JUEGO", [$idUser, $idJuego]);
         $ddbb->cerrar();
 
     }
@@ -535,7 +534,7 @@ class model
         $ddbb->conectar(); //se conecta a la base de datos
 
         $consulta = $ddbb->consulta("SELECT carrito.ID_JUEGO, juego.NOMBRE FROM carrito JOIN juego ON carrito.ID_JUEGO = juego.ID WHERE carrito.ID_USUARIO = ?", [$idUser]);
-        
+
         $juegos = [];
         foreach ($consulta as $each) {
             $juegos[$each['ID_JUEGO']] = $each['Nombre_JUEGO'];

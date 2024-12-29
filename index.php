@@ -15,6 +15,7 @@ class Controlador
 
     public function inicia()
     {
+
         if (!isset($_GET["page"])) {
             Vista::mostrarLanding();
             die();
@@ -476,6 +477,16 @@ class Controlador
     {
         //Valida la sessión. Si erronea o logout envia a login.
         $this->validateSession();
+
+        if (isset($_SESSION["addJuegoCarrito"])) {
+            $this->sendNotification('Juego añadido al carrito', "Se ha añadido el juego al carrito correctamente", 20000);
+            $_SESSION["addJuegoCarrito"] = null;
+        }
+        if (isset($_SESSION["borrarJuegoCarrito"])) {
+            $this->sendNotification('Juego eliminado del carrito', "Se ha eliminado el juego del carrito correctamente", 20000);
+            $_SESSION["borrarJuegoCarrito"] = null;
+        }
+
         //se incluyen los juegos que posee el usuario
         $games = Model::getAllGames();
         $gamesOwned = model::getGames($_SESSION["id"]);
@@ -491,20 +502,17 @@ class Controlador
 
             if (isset($_POST["borrar$game[0]"])) {
                 Carrito::sacarJuegoCarrito($game[0]);
-                $this->actualizarSessionCarrito();
-
-                $this->sendNotification('Juego eliminado del carrito', "Se ha eliminado el juego del carrito correctamente", 20000);
+                $_SESSION["borrarJuegoCarrito"] = true;
+                header("Location: ?page=juegos");
             }
 
             if (isset($_POST["juegoCompra$game[0]"])) { //si se ha dado a comprar en algun juego
                 Carrito::meterJuegoCarrito($game[0], $game[1]);
-                //actualizar variable session
-                $this->actualizarSessionCarrito();
+
                 //actualizar bbdd
                 model::addCarrito($_SESSION["id"], $game[0]);
-
-                $this->sendNotification('Juego añadido al carrito', "Se ha añadido el juego al carrito correctamente", 20000);
-                
+                $_SESSION["addJuegoCarrito"] = true;
+                header("Location: ?page=juegos");
             }
 
         }
@@ -616,8 +624,7 @@ class Controlador
                 model::abrirSesion($id);
                 //coger el carrito de la base de datos y meterlo en la clase carrito
                 Carrito::setCarrito(model::getCarrito($id));
-                //actualizar la variable sesion con el carrito
-                $this->actualizarSessionCarrito();
+
 
                 return true;
             } else {
@@ -626,10 +633,6 @@ class Controlador
         }
     }
 
-    public function actualizarSessionCarrito()
-    {
-        $_SESSION["carrito"] = Carrito::getCarrito();
-    }
 
     public function sendNotification($title, $body, $time = 5000)
     {
