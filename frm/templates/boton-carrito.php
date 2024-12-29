@@ -1,4 +1,4 @@
-<div class="d-flex justify-content-end flex-column">
+<div class="d-flex justify-content-end flex-column ">
 
     <button type="button" class="btn btn-primary position-relative carrito mt-4 me-5" data-bs-toggle="collapse"
         data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
