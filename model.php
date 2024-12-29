@@ -347,7 +347,7 @@ class model
         return $ddbb->delete("DELETE FROM juego WHERE ID = ?", array($id));
     }
 
-    static function modifyGame($id, $titulo, $portada, $desarrollador, $distribuidor, $year)
+    static function modifyGame($id, $titulo, $ruta, $portada, $desarrollador, $distribuidor, $year)
     {
 
         if (empty($id)) {
@@ -359,7 +359,7 @@ class model
         $ddbb = new BaseDeDatos;
         $ddbb->conectar(); //se conecta a la base de datos
 
-        return $ddbb->update("UPDATE juego SET TITULO = ?, PORTADA = ?, DESARROLLADOR = ?, DISTRIBUIDOR = ?, YEAR = ? WHERE ID = ?", [$titulo, $portada, $desarrollador, $distribuidor, $year, $id]);
+        return $ddbb->update("UPDATE juego SET TITULO = ?, RUTA=?, PORTADA = ?, DESARROLLADOR = ?, DISTRIBUIDOR = ?, YEAR = ? WHERE ID = ?", [$titulo, $ruta, $portada, $desarrollador, $distribuidor, $year, $id]);
 
     }
 
@@ -546,13 +546,44 @@ class model
 
     }
 
-    public static function borrarJuegoCarrito($id){
+    public static function borrarJuegoCarrito($id)
+    {
         include_once "BD/baseDeDatos.php";
 
         $ddbb = new BaseDeDatos;
         $ddbb->conectar(); //se conecta a la base de datos
         return $ddbb->delete("DELETE FROM carrito WHERE ID_JUEGO = ?", array($id));
 
+    }
+
+    public static function getGame($id)
+    {
+        include_once "BD/baseDeDatos.php";
+
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar(); //se conecta a la base de datos
+
+        $consulta = $ddbb->consulta("SELECT * FROM juego WHERE ID = ?", [$id]);
+
+        $datosJuego = array();
+        $titulo = "";
+        $ruta = "";
+        $portada = "";
+        $desarrollador = "";
+        $distribuidor = "";
+        $anio = "";
+
+        foreach ($consulta as $each) {
+            $titulo = $each["TITULO"];
+            $ruta = $each["RUTA"];
+            $portada = $each["PORTADA"];
+            $desarrollador = $each["DESARROLLADOR"];
+            $distribuidor = $each["DISTRIBUIDOR"];
+            $anio = $each["ANIO"];
+        }
+        $datosJuego =[$titulo, $ruta, $portada, $desarrollador, $distribuidor, $anio, $id];
+        $ddbb->cerrar();
+        return $datosJuego;
     }
 
 }

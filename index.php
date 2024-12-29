@@ -165,10 +165,6 @@ class Controlador
         if (isset($_SESSION["nick"])) {
             if ($_SESSION["role"] === "admin") {
                 if (isset($_POST["logout"])) {
-                    //SERIALIZAR EL CARRITO
-                    $carrito = serialize($_SESSION["carrito"]);
-                    //GAUARDAR EL CARRITO EN LA BASE DE DATOS
-                    model::guardarCarrito($carrito, $_SESSION["id"]);
                     session_unset();
                     session_destroy();
                     header("location: ?page=login");
@@ -432,6 +428,24 @@ class Controlador
 
         }
 
+        if (isset($_POST["action"])) {
+
+            if ($_POST["action"] == "game-edit") {
+                $_SESSION["datosJuego"] = model::getGame($_POST["idJuego"]);
+
+                if(isset($_POST["editGame"])){
+                    model::modifyGame($_POST["id"], $_POST["titulo"], $_POST["ruta"], $_POST["portada"], $_POST["desarrollador"], $_POST["distribuidor"], $_POST["year"]);
+                }
+
+            }
+
+            if ($_POST["action"] == "game-delete") {
+
+            }
+
+
+
+        }
 
         //se incluyen los juegos que posee el usuario
         $games = Model::getGames($_SESSION['id']);
@@ -565,11 +579,11 @@ class Controlador
             case "update-passwd":
                 if (!empty($_POST["passwd1"]) && !empty($_POST["passwd2"]) && $_POST["passwd1"] === $_POST["passwd2"]) {
                     model::changePasswd($_SESSION["id"], $_POST["passwd1"]);
-                    $this->sendNotification("Contraseña Cambiada","Se ha cambiado la contraseña correctamente!");
+                    $this->sendNotification("Contraseña Cambiada", "Se ha cambiado la contraseña correctamente!");
                     header('Location: ?page=ajustes');
                     die();
                 } else {
-                    $this->sendNotification("Error Contraseña","Rellena Correctamente los campos!");
+                    $this->sendNotification("Error Contraseña", "Rellena Correctamente los campos!");
                 }
                 break;
             case "update-personal":
@@ -579,7 +593,6 @@ class Controlador
                 $this->sendNotification("Usuario Actualizado", "Se han actualizado los datos del usuario exitosamente!");
                 header('Location: ?page=adm-usuarios');
                 die();
-                break;
         }
 
         //se incluye la vista de principal
@@ -655,7 +668,6 @@ class Controlador
             //Verificamos la contraseña
             if (password_verify($_POST["passwd"], $passReal)) {
                 model::abrirSesion($id);
-
                 return true;
             } else {
                 return false;

@@ -174,8 +174,179 @@
     Añadir
 </button>
 
+
+
+<?php
+if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
+    ?>
+    <!-- MODAL -->
+    <div class="modal fade modal-lg" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="editarModal">Editar Juego</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            <div id="add-errors" class="div">
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="position-relative col-4 img-container d-flex align-items-center flex-column">
+                                <!-- IMG PREVIEW -->
+                                <img id="portada" src="<?php echo $_SESSION['datosJuego'][2] ?>"
+                                    alt="Previsualización de la portada">
+                            </div>
+
+                            <div class="col campos">
+                                <div class="row">
+                                    <div class="col-3 ps-0 pe-3">
+                                        <label for="id" class="col-form-label">ID:</label>
+                                        <input type="text" value="<?php echo $_SESSION['datosJuego'][6] ?>"
+                                            class="form-control" id="id" name="id" required>
+                                    </div>
+                                    <div class="col-9 p-0">
+                                        <label for="titulo" class="col-form-label">Título:</label>
+                                        <input type="text" class="form-control" id="titulo" name="titulo"
+                                            placeholder="Busca un Titulo" value="<?php echo $_SESSION['datosJuego'][0] ?>"
+                                            required>
+                                        <div class="position-relative">
+                                            <div id="sugerencias-titulo"
+                                                class="position-absolute bg-primary w-100 rounded z-overmodal mt-1 branded-shadow d-none">
+                                                <ul id="sugerencias-list-titulo" class="list-group placeholder-glow">
+                                                    <li class="list-group-item"><span class="placeholder w-75"></span></li>
+                                                    <li class="list-group-item"><span class="placeholder w-75"></span></li>
+                                                    <li class="list-group-item"><span class="placeholder w-75"></span></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col p-0">
+                                        <label for="descripcion" class="col-form-label">Descripción:</label>
+                                        <textarea class="form-control" id="descripcion" name="descripcion"
+                                            required></textarea>
+                                    </div>
+                                </div>
+                                <div class="row mb-1">
+                                    <div class="col p-0">
+                                        <label for="dis" class="col-form-label">Distribuidores:</label>
+                                        <input type="text" class="form-control" id="dis"
+                                            placeholder="Busca un distribuidor">
+                                        <div class="position-relative">
+                                            <div id="sugerencias-dis"
+                                                class="position-absolute bg-primary w-100 rounded z-overmodal mt-1 branded-shadow d-none">
+                                                <ul id="sugerencias-list-dis" class="list-group placeholder-glow">
+                                                    <li class="list-group-item"><span class="placeholder w-75"></span></li>
+                                                    <li class="list-group-item"><span class="placeholder w-75"></span></li>
+                                                    <li class="list-group-item"><span class="placeholder w-75"></span></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="dis-active" class="row mt-2">
+                                </div>
+                                <div class="row mb-1">
+                                    <div class="col p-0">
+                                        <label for="dis" class="col-form-label">Desarrolladores:</label>
+                                        <input type="text" class="form-control" id="dev"
+                                            placeholder="Busca un desarrollador">
+                                        <div class="position-relative">
+                                            <div id="sugerencias-dev"
+                                                class="position-absolute bg-primary w-100 rounded z-overmodal mt-1 branded-shadow d-none">
+                                                <ul id="sugerencias-list-dev" class="list-group placeholder-glow">
+                                                    <li class="list-group-item"><span class="placeholder w-75"></span></li>
+                                                    <li class="list-group-item"><span class="placeholder w-75"></span></li>
+                                                    <li class="list-group-item"><span class="placeholder w-75"></span></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="dev-active" class="row mt-2">
+                                </div>
+                                <div class="row">
+                                    <div class="col p-0">
+                                        <label for="sist" class="col-form-label">Sistemas:</label>
+                                        <input type="text" class="form-control" id="sist" placeholder="Busca un Sistema">
+                                        <div class="position-relative">
+                                            <div id="sugerencias-sist"
+                                                class="position-absolute bg-primary w-100 rounded z-overmodal mt-1 branded-shadow d-none">
+                                                <ul id="sugerencias-list-sist" class="list-group placeholder-glow">
+                                                    <li class="list-group-item"><span class="placeholder w-75"></span></li>
+                                                    <li class="list-group-item"><span class="placeholder w-75"></span></li>
+                                                    <li class="list-group-item"><span class="placeholder w-75"></span></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="sist-active" class="row mt-2">
+                                </div>
+                                <div class="row">
+                                    <div class="col p-0">
+                                        <label for="gen" class="col-form-label">Géneros:</label>
+                                        <input type="text" class="form-control" id="gen" placeholder="Busca un Género">
+                                        <div class="position-relative">
+                                            <div id="sugerencias-gen"
+                                                class="position-absolute bg-primary w-100 rounded z-overmodal mt-1 branded-shadow d-none">
+                                                <ul id="sugerencias-list-gen" class="list-group placeholder-glow">
+                                                    <li class="list-group-item"><span class="placeholder w-75"></span></li>
+                                                    <li class="list-group-item"><span class="placeholder w-75"></span></li>
+                                                    <li class="list-group-item"><span class="placeholder w-75"></span></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="gen-active" class="row mt-2">
+                                </div>
+                                <div class="row mb-3">
+                                    <label class="col-form-label" for="year">Año</label>
+                                    <input class="form-control" type="number" name="year" id="year" min="1900"
+                                        max="<?php echo date("Y"); ?>" value="<?php echo $_SESSION['datosJuego'][5] ?>"
+                                        required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4 campos">
+                                <!-- INPUT PORTADA -->
+                                <label for="portada" class="col-form-label">Portada:</label>
+                                <input type="file" id="file" name="portada" accept="image/*">
+                                <input type="hidden" id="fileSrc" name="fileSrc" value="">
+
+                                <!-- RUTA -->
+                                <label class="col-form-label" for="ruta">Ruta:</label>
+                                <input type="text" class="form-control" name="ruta" id="ruta" value="<?php echo $_SESSION['datosJuego'][1] ?>">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <input type="submit" class="btn btn-primary" value="Confirmar cambios" name="editGame">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php
+}
+?>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+    const myModal = new bootstrap.Modal('#myModal', {
+        keyboard: false
+    })
+    myModal.show();
+
+
     <?php
     if (isset($_POST["addGame"])) {
         ?>
