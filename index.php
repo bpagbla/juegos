@@ -492,6 +492,9 @@ class Controlador
                 }
             }
             $i++;
+
+            
+
             $this->meterJuegoCarrito($game[0], $game[1]);
             $this->sacarJuegoCarrito($game[0]);
         }
