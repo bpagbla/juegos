@@ -324,15 +324,7 @@ class model
 
     }
 
-    static function guardarCarrito($carrito, $id)
-    {
-        include_once "BD/baseDeDatos.php";
 
-        $ddbb = new BaseDeDatos;
-        $ddbb->conectar(); //se conecta a la base de datos
-
-        return $ddbb->update("UPDATE usuario SET CARRITO=? WHERE ID = ?", [$carrito, $id]);
-    }
 
     static function deleteGame($id)
     {
@@ -584,6 +576,26 @@ class model
         $datosJuego =[$titulo, $ruta, $portada, $desarrollador, $distribuidor, $anio, $id];
         $ddbb->cerrar();
         return $datosJuego;
+    }
+
+    public static function getCompNombre($id){
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+
+
+        $array = array();
+
+        $consulta = $ddbb->consulta("SELECT NOMBRE FROM compania WHERE ID=?", [$id]); //se sacan todas las compañias de la base de datos
+        $nombre = '';
+
+        //Se guarda el nombre 
+        foreach ($consulta as $each) {
+            $nombre = $each['NOMBRE'];
+        }
+
+        $ddbb->cerrar();
+        return $nombre; //devolver nombre
     }
 
 }

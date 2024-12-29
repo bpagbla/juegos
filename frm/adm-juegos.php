@@ -237,7 +237,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                                     <div class="col p-0">
                                         <label for="dis" class="col-form-label">Distribuidores:</label>
                                         <input type="text" class="form-control" id="dis"
-                                            placeholder="Busca un distribuidor">
+                                            placeholder="Busca un distribuidor" value="<?php echo $_SESSION['datosJuego'][4] ?>">
                                         <div class="position-relative">
                                             <div id="sugerencias-dis"
                                                 class="position-absolute bg-primary w-100 rounded z-overmodal mt-1 branded-shadow d-none">
@@ -256,7 +256,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                                     <div class="col p-0">
                                         <label for="dis" class="col-form-label">Desarrolladores:</label>
                                         <input type="text" class="form-control" id="dev"
-                                            placeholder="Busca un desarrollador">
+                                            placeholder="Busca un desarrollador" value="<?php echo $_SESSION['datosJuego'][3] ?>">
                                         <div class="position-relative">
                                             <div id="sugerencias-dev"
                                                 class="position-absolute bg-primary w-100 rounded z-overmodal mt-1 branded-shadow d-none">

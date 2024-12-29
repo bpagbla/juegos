@@ -433,7 +433,12 @@ class Controlador
             if ($_POST["action"] == "game-edit") {
                 $_SESSION["datosJuego"] = model::getGame($_POST["idJuego"]);
 
-                if(isset($_POST["editGame"])){
+                $_SESSION["datosJuego"][3] = model::getCompNombre($_SESSION["datosJuego"][3]);
+                $_SESSION["datosJuego"][4] = model::getCompNombre($_SESSION["datosJuego"][4]);
+
+                print_r($_SESSION["datosJuego"]);
+
+                if (isset($_POST["editGame"])) {
                     model::modifyGame($_POST["id"], $_POST["titulo"], $_POST["ruta"], $_POST["portada"], $_POST["desarrollador"], $_POST["distribuidor"], $_POST["year"]);
                 }
 
