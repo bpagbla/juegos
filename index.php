@@ -192,13 +192,33 @@ class Controlador
         if (isset($_POST["action"])) {
 
             if ($_POST["action"] == "user-apply") {
-                //se modifica el usuario en la base de datos
-                model::modifyUser($_POST["id"], $_POST["nick"], $_POST["role"], $_POST["email"], $_POST["firstName"], $_POST["lastName"]);
 
-                //mensaje de notificacion
-                $this->sendNotification("Usuario Actualizado", "Se han actualizado los datos del usuario exitosamente!");
-                header('Location: ?page=adm-usuarios');
-                die();
+                $users = model::getAllUsers();
+                $dupe = false;
+                foreach ($users as $user) {
+                    if ($user[1] === $_POST["nick"]) {
+                        $dupe = true;
+                        $error = "El nick ya esta en uso";
+                        break;
+                    }
+                    if ($user[2] === $_POST["email"]) {
+                        $dupe = true;
+                        $error = "El email ya esta en uso";
+                        break;
+                    }
+                }
+
+                if (!$dupe) {
+                    //se modifica el usuario en la base de datos
+                    model::modifyUser($_POST["id"], $_POST["nick"], $_POST["role"], $_POST["email"], $_POST["firstName"], $_POST["lastName"]);
+
+                    //mensaje de notificacion
+                    $this->sendNotification("Usuario Actualizado", "Se han actualizado los datos del usuario exitosamente!");
+                    header('Location: ?page=adm-usuarios');
+                    die();
+                } else {
+                    $this->sendNotification("Error en el cambio", $error);
+                }
 
             }
 
@@ -247,29 +267,29 @@ class Controlador
                     }
                 }
 
-                try {
-                    $characters = str_split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&');
-                    $random = '';
-                    for ($i = 0; $i < 16; $i++) {
-                        $random .= $characters[rand(0, sizeof($characters) - 1)];
-                    }
+                if (!$dupe) {
+                    try {
+                        $characters = str_split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&');
+                        $random = '';
+                        for ($i = 0; $i < 16; $i++) {
+                            $random .= $characters[rand(0, sizeof($characters) - 1)];
+                        }
 
-                    $added = Model::anadirUsuario($_POST["email"], $_POST["nick"], $_POST["firstName"], $_POST["lastName"], $random, $_POST["role"]);
+                        $added = Model::anadirUsuario($_POST["email"], $_POST["nick"], $_POST["firstName"], $_POST["lastName"], $random, $_POST["role"]);
 
-                    if ($added) {
-                        $this->sendNotification('Usuario Creado', "Usuario registrado correctamente. Contraseña aleatoria: " . htmlentities($random), 20000);
-                    } else {
-                        $this->sendNotification('Error Usuario', "Ha ocurrido un error al registrar el usuario. Reporta al administrador del sistema");
-                    }
-                } catch (RandomException $e) {
-                    $this->sendNotification('', "Error al generar una contraseña aletoria. Reporta al administrador del sistema");
-                } finally {
+                        if ($added) {
+                            $this->sendNotification('Usuario Creado', "Usuario registrado correctamente. Contraseña aleatoria: " . htmlentities($random), 20000);
+                        } else {
+                            $this->sendNotification('Error Usuario', "Ha ocurrido un error al registrar el usuario. Reporta al administrador del sistema");
+                        }
+                    } catch (RandomException $e) {
+                        $this->sendNotification('', "Error al generar una contraseña aletoria. Reporta al administrador del sistema");
+                    } finally {
 
-                    if (!$dupe) {
                         header('Location: ?page=adm-usuarios');
                         die();
-                    }
 
+                    }
                 }
 
             }
