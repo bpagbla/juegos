@@ -135,7 +135,11 @@ async function fillForm(id) {
     gray.appendChild(spin)
     const response = await fetch('http://localhost/?page=api&endpoint=games&format=normal&id=' + id)
     const json = await response.json()
-    document.getElementById('descripcion').value = json.games[0].description.replace(/<\/?[^>]+(>|$)/g, "")
+    if (json.games[0].description) {
+        document.getElementById('descripcion').value = json.games[0].description.replace(/<\/?[^>]+(>|$)/g, "")
+    } else {
+        document.getElementById('descripcion').value = '';
+    }
     document.getElementById('year').value = json.games[0].platforms[0].first_release_date.slice(0, 4)
 
     document.getElementById('portada').src = json.games[0].sample_cover.image

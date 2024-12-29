@@ -207,6 +207,9 @@ class Controlador
                 if (!$dupe) {
                     //se modifica el usuario en la base de datos
                     model::modifyUser($_POST["id"], $_POST["nick"], $_POST["role"], $_POST["email"], $_POST["firstName"], $_POST["lastName"]);
+                    $_SESSION["nick"] = $_POST["nick"];
+                    $_SESSION["email"] = $_POST["email"];
+                    $_SESSION["role"] = $_POST["role"];
 
                     //mensaje de notificacion
                     $this->sendNotification("Usuario Actualizado", "Se han actualizado los datos del usuario exitosamente!");
@@ -251,10 +254,16 @@ class Controlador
                 $users = model::getAllUsers();
                 $dupe = false;
                 foreach ($users as $user) {
+                    if ($user[1] == $_SESSION["nick"]) {
+                        continue;
+                    }
                     if ($user[1] === $_POST["nick"]) {
                         $dupe = true;
                         $error = "El nick ya esta en uso";
                         break;
+                    }
+                    if ($user[2] == $_SESSION["email"]) {
+                        continue;
                     }
                     if ($user[2] === $_POST["email"]) {
                         $dupe = true;
