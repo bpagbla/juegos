@@ -548,7 +548,22 @@ class Controlador
 
         switch ($_POST["action"]) {
             case "update-passwd":
+                if (!empty($_POST["passwd1"]) && !empty($_POST["passwd2"]) && $_POST["passwd1"] === $_POST["passwd2"]) {
+                    model::changePasswd($_SESSION["id"], $_POST["passwd1"]);
+                    $this->sendNotification("Contraseña Cambiada","Se ha cambiado la contraseña correctamente!");
+                    header('Location: ?page=ajustes');
+                    die();
+                } else {
+                    $this->sendNotification("Error Contraseña","Rellena Correctamente los campos!");
+                }
+                break;
+            case "update-personal":
+                model::modifyUser($_POST["id"], $_POST["nick"], $_POST["role"], $_POST["email"], $_POST["firstName"], $_POST["lastName"]);
 
+                //mensaje de notificacion
+                $this->sendNotification("Usuario Actualizado", "Se han actualizado los datos del usuario exitosamente!");
+                header('Location: ?page=adm-usuarios');
+                die();
                 break;
         }
 

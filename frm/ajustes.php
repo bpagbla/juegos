@@ -35,7 +35,7 @@
         </div>
     </div>
 </form>
-<form method="post" onsubmit="return validatePasswd()">
+<form method="post">
     <div class="row border-1 border rounded my-2 mx-1 pb-3">
         <div class="col-12 align-items-center justify-content-between d-flex mb-2 border-bottom py-2">
             <h5 class="mb-0">Cambiar Contraseña</h5>
@@ -43,11 +43,11 @@
         </div>
         <div class="col-12 mb-2">
             <label for="passwd1">Nueva Contraseña</label>
-            <input id="passwd1" name="passwd1" type="text" class="form-control" aria-label="nick">
+            <input id="passwd1" name="passwd1" type="password" class="form-control" aria-label="nick" value="<?php if (isset($_POST['passwd1'])) { echo $_POST['passwd1']; } ?>">
         </div>
         <div class="col-12">
             <label for="passwd2">Repetir Contraseña</label>
-            <input id="passwd2" name="passwd2" type="text" class="form-control" aria-label="email">
+            <input id="passwd2" name="passwd2" type="password" class="form-control" aria-label="email" value="<?php if (isset($_POST['passwd2'])) { echo $_POST['passwd2']; } ?>">
         </div>
     </div>
 </form>
@@ -77,6 +77,20 @@
     </form>
 </div>
 <script src="js/ajustes.js"></script>
+<script>
+<?php if (isset($_POST['action']) && $_POST['action'] == 'update-passwd') {
+?>
+passwd1.classList.add('shake')
+passwd2.classList.add('shake')
+setTimeout(function () {
+    passwd1.classList.remove('shake')
+            passwd2.classList.remove('shake')
+        }, 1000)
+<?php
+}
+?>
+</script>
+
 <?php
 print_r($_POST)
 ?>

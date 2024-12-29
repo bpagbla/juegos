@@ -44,16 +44,3 @@ passwd2.addEventListener('input', function() {
             passwd2.classList.remove('success-input')
         }
 })
-
-function validatePasswd() {
-    if (passwd1.value !== passwd2.value || !passwd1.value) {
-        passwd1.classList.add('shake')
-        passwd2.classList.add('shake')
-        setTimeout(function () {
-            passwd1.classList.remove('shake')
-            passwd2.classList.remove('shake')
-        }, 1000)
-        return false;
-    }
-    return true;
-}
