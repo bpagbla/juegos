@@ -549,6 +549,17 @@ class Controlador
         //Valida la sessión. Si erronea o logout envia a login.
         $this->validateSession();
 
+        if (!isset($_POST["action"])) {
+            Vista::mostrarAjustes();
+            die();
+        }
+
+        switch ($_POST["action"]) {
+            case "update-passwd":
+
+                break;
+        }
+
         //se incluye la vista de principal
         Vista::mostrarAjustes();
     }

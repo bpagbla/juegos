@@ -35,7 +35,7 @@
         </div>
     </div>
 </form>
-<form method="post">
+<form method="post" onsubmit="return validatePasswd()">
     <div class="row border-1 border rounded my-2 mx-1 pb-3">
         <div class="col-12 align-items-center justify-content-between d-flex mb-2 border-bottom py-2">
             <h5 class="mb-0">Cambiar Contraseña</h5>
@@ -76,6 +76,7 @@
         <button type="submit" name="action" value="remove-payment" class="btn btn-sm">Borrar</button>
     </form>
 </div>
+<script src="js/ajustes.js"></script>
 <?php
 print_r($_POST)
 ?>
