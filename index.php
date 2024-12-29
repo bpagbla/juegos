@@ -411,28 +411,7 @@ class Controlador
             }
 
         }
-        if (isset($_POST["action"])) {
 
-            if ($_POST["action"] == "game-apply") {
-                //se modifica el juego en la base de datos
-                /* model::modifyGame(); */
-                //mensaje de notificacion
-                $this->sendNotification("Juego Actualizado", "Se han actualizado los datos del juego exitosamente!");
-                header('Location: ?page=adm-juegos');
-                die();
-
-            }
-
-            if ($_POST["action"] == "game-delete") {
-
-                //Se borra el juego
-                $this->sendNotification("Usuario borrado", "Se ha borrado el juego exitosamente.");
-                model::deleteGame($_POST["idJuego"]);
-            }
-            header('Location: ?page=adm-juegos');
-            die();
-
-        }
 
         //se incluyen los juegos que posee el usuario
         $games = Model::getGames($_SESSION['id']);

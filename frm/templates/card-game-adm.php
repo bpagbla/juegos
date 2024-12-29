@@ -8,7 +8,8 @@
 
                 <form action="" method="post">
                 <input type="hidden" name="idJuego" value="<?php print $game[0]?>">
-                    <button class="btn btn-sm btn-primary" name="action" value="game-edit">Editar</button>
+                    <button class="btn btn-sm btn-primary" name="action" value="game-edit" data-bs-toggle="modal"
+                    data-bs-target="#modalEditar">Editar</button>
                     <button class="btn btn-sm btn-primary" name="action" value="game-delete">Borrar</button>
                 </form>
 
