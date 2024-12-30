@@ -17,7 +17,7 @@ foreach ($generos as $genero) {
 }
 ?>
 
-<!-- Modal -->
+<!-- Modal add -->
 <div class="modal fade modal-lg" id="add-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
      aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -27,21 +27,16 @@ foreach ($generos as $genero) {
                 <button type="submit" class="btn-close" form="add-cancel"></button>
             </div>
             <div class="modal-body">
-                <div class="row justify-content-center">
-                    <div id="passwd-alert" class="alert alert-danger col-11 <?php if (empty($userError)) print 'd-none';?>" role="alert">
-                        <?php if (!empty($userError)) print $userError ?>
-                    </div>
-                </div>
                 <form id="add-cancel" method="post"></form>
                 <form id="add-form" method="post">
                     <div class="row">
                         <div class="col-3 mb-3">
                             <label for="add-id" class="form-label">ID</label>
-                            <input name="id" type="number" min="0" class="form-control" id="add-id" value="<?php if (isset($_POST["firstName"])) print $_POST["firstName"] ?>" required>
+                            <input name="id" type="number" min="0" class="form-control" id="add-id" required>
                         </div>
                         <div class="col-9 mb-3">
                             <label for="add-name" class="form-label">Nombre</label>
-                            <input name="name" type="text" class="form-control" id="add-name" value="<?php if (isset($_POST["lastName"])) print $_POST["lastName"] ?>" required>
+                            <input name="name" type="text" class="form-control" id="add-name" required>
                         </div>
                     </div>
                 </form>
@@ -54,10 +49,52 @@ foreach ($generos as $genero) {
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade modal-lg" id="edit-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Editar Genero</h1>
+                <button type="submit" class="btn-close" form="edit-cancel"></button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-cancel" method="post"></form>
+                <form id="edit-form" method="post">
+                    <div class="row">
+                        <div class="col-3 mb-3">
+                            <label for="edit-id" class="form-label">ID</label>
+                            <input type="number" min="0" class="form-control" id="edit-id" value="<?php if (isset($_POST["id"])) print $_POST["id"] ?>" disabled>
+                            <input name="id" type="hidden" value="<?php if (isset($_POST["id"])) print $_POST["id"] ?>">
+                        </div>
+                        <div class="col-9 mb-3">
+                            <label for="edit-name" class="form-label">Nombre</label>
+                            <input name="name" type="text" class="form-control" id="edit-name" value="<?php if (isset($_POST["nombre"])) print $_POST["nombre"] ?>" required>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-secondary" form="edit-cancel">Cancelar</button>
+                <button type="submit" class="btn btn-primary" form="edit-form" name="action" value="genero-edit-apply">Aplicar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     const addModal = new bootstrap.Modal('#add-modal', {
         keyboard: false
     })
 
     document.getElementById('display-add-button').addEventListener('click', function () {addModal.show()})
+
+    const editModal = new bootstrap.Modal('#edit-modal', {
+        keyboard: false
+    })
+
+    <?php if (isset($_POST["action"]) && $_POST["action"] === 'genero-edit') {?>
+    editModal.show()
+    <?php } ?>
+
 </script>

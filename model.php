@@ -734,4 +734,14 @@ class model
         $ddbb->cerrar();
     }
 
+    public static function changeGeneroName($id, $name) {
+
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+
+        $consulta = $ddbb->update("UPDATE genero SET NOMBRE=? WHERE ID=?", [$name,$id]);
+        $ddbb->cerrar();
+    }
+
 }

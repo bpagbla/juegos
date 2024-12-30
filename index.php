@@ -608,6 +608,13 @@ class Controlador
             die();
         }
 
+        if (isset($_POST['action']) && $_POST['action'] == "genero-edit-apply") {
+            model::changeGeneroName($_POST['id'], $_POST['name']);
+            $this->sendNotification("Nombre Cambiado", 'Se ha cambiado el nombre del genero exitosamente!');
+            header('Location: ?page=adm-generos');
+            die();
+        }
+
         $generos = model::getGeneros();
 
         //se incluye la vista de principal
