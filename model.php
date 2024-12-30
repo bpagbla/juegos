@@ -784,4 +784,19 @@ class model
         $ddbb->cerrar();
     }
 
+    public static function getGamesForCompany($idCompany){
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+
+        $array = array();
+        $consulta = $ddbb->consulta("SELECT ID,TITULO FROM juego WHERE DESARROLLADOR=? OR DISTRIBUIDOR=?", [$idCompany,$idCompany]); //se sacan todas los numeros de tarjeta y caducidad
+        //Se pasan los ultimos 4 digitos y fecha caducidad
+        foreach ($consulta as $each) {
+            $array[] = array($each["ID"],$each["TITULO"]);
+        }
+        $ddbb->cerrar();
+        return $array;
+    }
+
 }
