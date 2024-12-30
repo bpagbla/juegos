@@ -583,9 +583,6 @@ class model
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
 
-
-        $array = array();
-
         $consulta = $ddbb->consulta("SELECT NOMBRE FROM compania WHERE ID=?", [$id]); //se sacan todas las compañias de la base de datos
         $nombre = '';
 
@@ -596,6 +593,32 @@ class model
 
         $ddbb->cerrar();
         return $nombre; //devolver nombre
+    }
+
+    public static function getTarjetas($id) {
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+
+        $array = array();
+        $consulta = $ddbb->consulta("SELECT NUMERO,FECHA_CADUC FROM tarjeta_bancaria WHERE ID_USUARIO=?", [$id]); //se sacan todas los numeros de tarjeta y caducidad
+        //Se pasan los ultimos 4 digitos y fecha caducidad
+        foreach ($consulta as $each) {
+            $array[] = array('num' => substr($each['NUMERO'],-4), 'date' => strtotime($each['FECHA_CADUC']));
+        }
+
+        return $array;
+
+    }
+
+    public static function removeTarjeta($id, $num, $exp) {
+
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+
+        $consulta = $ddbb->delete("DELETE FROM tarjeta_bancaria WHERE ID_USUARIO=? AND NUMERO LIKE ? AND FECHA_CADUC = ?", [$id,'%'.$num,date("Y-m-d",$exp)]); //se sacan todas los numeros de tarjeta y caducidad
+
     }
 
 }

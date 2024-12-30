@@ -583,7 +583,7 @@ class Controlador
         $this->validateSession();
 
         if (!isset($_POST["action"])) {
-            Vista::mostrarAjustes(model::getUserData($_SESSION["id"]));
+            Vista::mostrarAjustes(model::getUserData($_SESSION["id"]),model::getTarjetas($_SESSION["id"]));
             die();
         }
 
@@ -633,9 +633,15 @@ class Controlador
                     $this->sendNotification("Error en el cambio", $error);
                 }
                 break;
+            case "remove-payment":
+                model::removeTarjeta($_SESSION["id"],substr($_POST["card"],0,4),substr($_POST["card"],4));
+                $this->sendNotification("Metodos de Pago", "Se ha eliminado el metodo de pagoC exitosamente!");
+                header('Location: ?page=ajustes');
+                die();
+                break;
         }
         //se incluye la vista de principal
-        Vista::mostrarAjustes(model::getUserData($_SESSION["id"]));
+        Vista::mostrarAjustes(model::getUserData($_SESSION["id"]),model::getTarjetas($_SESSION["id"]));
     }
 
     //PRINCIPAL
