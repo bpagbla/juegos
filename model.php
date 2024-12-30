@@ -706,4 +706,22 @@ class model
 
     }
 
+    public static function deleteGameGenRel($idJuego){
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+
+        $consulta = $ddbb->delete("DELETE FROM juego_genero WHERE ID_JUEGO=?", [$idJuego]);
+
+    }
+
+    public static function deleteGameSistRel($idJuego){
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+
+        $consulta = $ddbb->delete("DELETE FROM juego_sistema WHERE ID_JUEGO=?", [$idJuego]);
+
+    }
+
 }

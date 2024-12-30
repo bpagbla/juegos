@@ -491,7 +491,7 @@ class Controlador
         if (isset($_SESSION["notif"])) {
             $this->sendNotification("AAAAA", "AAAAAAAAAAAAAAAAAAAAAA");
         }
-        
+
         if (isset($_POST["action"])) {
 
             if ($_POST["action"] == "game-edit") {
@@ -508,17 +508,55 @@ class Controlador
             }
             if ($_POST["action"] == "game-apply") {
                 $rutaJuego = "games/" . $_POST['idEdit'] . ".jsdos";
-                $resultado = move_uploaded_file($_FILES["rutaEdit"]["tmp_name"], $rutaJuego); //mueve el archivo al directorio
-                if ($resultado) { //si ha salido bien que devuelva la ruta
-                    $this->sendNotification("copied file", "copied file");
-                } else {
-                    $this->sendNotification("error file", "error file");
+                if (isset($_POST["rutaEdit"])) {
+                    $resultado = move_uploaded_file($_FILES["rutaEdit"]["tmp_name"], $rutaJuego); //mueve el archivo al directorio
+                    if ($resultado) { //si ha salido bien que devuelva la ruta
+                        $this->sendNotification("copied file", "copied file");
+                    } else {
+                        $this->sendNotification("error file", "error file");
+                    }
                 }
+
                 if (model::modifyGame($_POST["idEdit"], $_POST["tituloEdit"], $rutaJuego, $_POST["fileSrcEdit"], $_POST["dev"], $_POST["dis"], $_POST["yearEdit"], $_POST["descripcionEdit"])) {
-                    print_r($_POST);
+
                     $_SESSION["editGame"] = true;
-                    
-                }else{
+
+                    //borrar todas las relaciones
+                    model::deleteGameGenRel($_POST["idEdit"]);
+                    model::deleteGameSistRel($_POST["idEdit"]);
+
+                    //ver si existen los generos y si no existen crearlos
+                    //relacionarlos con el juego
+                    foreach ($_POST["gen"] as $gen) {
+                        if (!model::existeGen($gen)) {
+                            model::addGen($gen, $_POST["gen" . $gen]);
+                            $creadoGen = true;
+                        }
+                    }
+
+                    //ver si existen los sistemas y si no existen crearlos
+                    //relacionarlos con el juego
+                    foreach ($_POST["sist"] as $sis) {
+                        if (!model::existeSis($sis)) {
+                            model::addSis($sis, $_POST["sist" . $sis]);
+                            $creadoSis = true;
+                        }
+                    }
+
+                    //relacionar los GENEROS con el juego
+                    foreach ($_POST["gen"] as $gen) {
+
+                        model::GenGameRel($_POST["idEdit"], $gen);
+                    }
+
+                    //relacionar los SISTEMAS con el juego
+                    foreach ($_POST["sist"] as $sis) {
+
+                        model::SistGameRel($_POST["idEdit"], $sis);
+                    }
+
+
+                } else {
                     $_SESSION["noeditGame"] = true;
                 }
                 header('Location: ?page=adm-juegos'); //Redirige a la misma pagina   
