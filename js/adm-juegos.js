@@ -38,6 +38,7 @@ inputPortada.addEventListener('change', function (event) {
         // Leer el archivo y actualizar el src del img
         reader.onload = function (e) {
             imgPreview.src = e.target.result; // Establecer la ruta de la imagen
+            document.getElementById("fileSrc").value = null;
         };
 
         reader.readAsDataURL(file); // Leer el archivo como URL
