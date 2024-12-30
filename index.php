@@ -408,9 +408,7 @@ class Controlador
 
             $rutaJuego = "games/" . $_POST['id'] . ".jsdos";
             $resultado = move_uploaded_file($_FILES["archivoJuego"]["tmp_name"], $rutaJuego); //mueve el archivo al directorio
-            if ($resultado) { //si ha salido bien que devuelva la ruta
-                $this->sendNotification("copied file", "copied file");
-            } else {
+            if (!$resultado) { //si ha salido bien que devuelva la ruta
                 $this->sendNotification("error file", "error file");
             }
 
@@ -493,10 +491,6 @@ class Controlador
             $_SESSION["noeditGame"] = null;
         }
 
-        if (isset($_SESSION["notif"])) {
-            $this->sendNotification("AAAAA", "AAAAAAAAAAAAAAAAAAAAAA");
-        }
-
         if (isset($_POST["action"])) {
 
             if ($_POST["action"] == "game-edit") {
@@ -515,10 +509,8 @@ class Controlador
                 $rutaJuego = "games/" . $_POST['idEdit'] . ".jsdos";
                 if (isset($_FILES["rutaEdit"])) {
                     $resultado = move_uploaded_file($_FILES["rutaEdit"]["tmp_name"], $rutaJuego); //mueve el archivo al directorio
-                    if ($resultado) { //si ha salido bien que devuelva la ruta
-                        $this->sendNotification("copied file", "copied file");
-                    } else {
-                        $this->sendNotification("error file", "error file");
+                    if (!$resultado) { //si ha salido bien que devuelva la ruta
+                        $this->sendNotification("Error Archivo", "Error subiendo el archivo");
                     }
                 }
 
@@ -571,13 +563,16 @@ class Controlador
                 } else {
                     $_SESSION["noeditGame"] = true;
                 }
-                header('Location: ?page=adm-juegos'); //Redirige a la misma pagina   
+                header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
+                die();
             }
 
             if ($_POST["action"] == "game-delete") {
 
                 model::deleteGame($_POST["idJuego"]);
-                header('Location: ?page=adm-juegos'); //Redirige a la misma pagina   
+                $this->sendNotification("Juego eliminado", "Juego eliminado correctamente del inventario global");
+                header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
+                die();
 
             }
         }
