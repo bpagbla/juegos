@@ -17,7 +17,9 @@
             d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
     </symbol>
 </svg>
-
+<?php
+if (!(isset($_POST["action"]) && $_POST["action"] == "game-edit")) {
+    ?>
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -170,6 +172,8 @@
         </div>
     </div>
 </div>
+<script src="js/fetchAddGame.js"></script>
+<?php } ?>
 
 <button type="button" class="btn text-white position-fixed end-0 bottom-0 m-4" data-bs-toggle="modal"
     data-bs-target="#exampleModal">
@@ -178,8 +182,6 @@
     </svg>
     Añadir
 </button>
-
-
 
 <?php
 if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
@@ -389,6 +391,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
             </div>
         </div>
     </div>
+    <script src="js/fetchEditGame.js"></script>
     <?php
 }
 ?>
@@ -408,6 +411,5 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
     }
     ?>
 </script>
-<script src="js/fetchAddGame.js"></script>
 <script src="library/dselect.js"></script>
 <script src="js/adm-juegos.js"></script>
