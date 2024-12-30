@@ -734,6 +734,16 @@ class model
         $ddbb->cerrar();
     }
 
+    public static function deleteSistema($idSistema) {
+
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+
+        $consulta = $ddbb->delete("DELETE FROM sistema WHERE ID=?", [$idSistema]);
+        $ddbb->cerrar();
+    }
+
     public static function changeGeneroName($id, $name) {
 
         include_once "BD/baseDeDatos.php";
@@ -741,6 +751,16 @@ class model
         $ddbb->conectar();
 
         $consulta = $ddbb->update("UPDATE genero SET NOMBRE=? WHERE ID=?", [$name,$id]);
+        $ddbb->cerrar();
+    }
+
+    public static function changeSistemaName($id, $name) {
+
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+
+        $consulta = $ddbb->update("UPDATE sistema SET NOMBRE=? WHERE ID=?", [$name,$id]);
         $ddbb->cerrar();
     }
 

@@ -23,7 +23,7 @@ foreach ($sistemas as $sistema) {
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Añadir Genero</h1>
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Añadir Sistema</h1>
                 <button type="submit" class="btn-close" form="add-cancel"></button>
             </div>
             <div class="modal-body">
@@ -43,7 +43,7 @@ foreach ($sistemas as $sistema) {
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-secondary" form="add-cancel">Cancelar</button>
-                <button type="submit" class="btn btn-primary" form="add-form" name="action" value="genero-add">Aplicar</button>
+                <button type="submit" class="btn btn-primary" form="add-form" name="action" value="sistema-add">Aplicar</button>
             </div>
         </div>
     </div>
@@ -55,7 +55,7 @@ foreach ($sistemas as $sistema) {
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5">Editar Genero</h1>
+                <h1 class="modal-title fs-5">Editar Sistema</h1>
                 <button type="submit" class="btn-close" form="edit-cancel"></button>
             </div>
             <div class="modal-body">
@@ -76,7 +76,7 @@ foreach ($sistemas as $sistema) {
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-secondary" form="edit-cancel">Cancelar</button>
-                <button type="submit" class="btn btn-primary" form="edit-form" name="action" value="genero-edit-apply">Aplicar</button>
+                <button type="submit" class="btn btn-primary" form="edit-form" name="action" value="sistema-edit-apply">Aplicar</button>
             </div>
         </div>
     </div>
@@ -93,7 +93,7 @@ foreach ($sistemas as $sistema) {
         keyboard: false
     })
 
-    <?php if (isset($_POST["action"]) && $_POST["action"] === 'genero-edit') {?>
+    <?php if (isset($_POST["action"]) && $_POST["action"] === 'sistema-edit') {?>
     editModal.show()
     <?php } ?>
 

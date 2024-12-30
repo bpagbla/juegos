@@ -623,16 +623,39 @@ class Controlador
             die();
         }
 
-        $generos = model::getGeneros();
-
         //se incluye la vista de principal
-        Vista::mostrarAdminGeneros($generos);
+        Vista::mostrarAdminGeneros(model::getGeneros());
     }
 
     public function iniciaAdminSistemas()
     {
         //Valida la sessión. Si erronea o logout envia a login.
         $this->validateAdminSession();
+
+        if (isset($_POST['action']) && $_POST['action'] == "sistema-delete") {
+            model::deleteSistema($_POST['id']);
+            $this->sendNotification("Sistema Borrado", "Borrado " . $_POST['nombre'] . ' exitosamente!');
+            header('Location: ?page=adm-sistemas');
+            die();
+        }
+
+        if (isset($_POST['action']) && $_POST['action'] == "sistema-add") {
+            if (!model::existeSis($_POST['id'])) {
+                model::addSis($_POST['id'], $_POST['name']);
+                $this->sendNotification("Genero Añadido", "Añadido " . $_POST['nombre'] . ' exitosamente!');
+            } else {
+                $this->sendNotification("Error", 'Este id ya esta en uso');
+            }
+            header('Location: ?page=adm-sistemas');
+            die();
+        }
+
+        if (isset($_POST['action']) && $_POST['action'] == "sistema-edit-apply") {
+            model::changeSistemaName($_POST['id'], $_POST['name']);
+            $this->sendNotification("Nombre Cambiado", 'Se ha cambiado el nombre del genero exitosamente!');
+            header('Location: ?page=adm-sistemas');
+            die();
+        }
 
         //se incluye la vista de principal
         Vista::mostrarAdminSistemas(model::getSist());
