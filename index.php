@@ -331,15 +331,16 @@ class Controlador
 
     }
 
-    public function thumbnailFilesUpload()
+    public function thumbnailFilesUpload($file, $id)
     {
-        $mime = $_FILES["portada"]["type"];
+        $mime = $_FILES[$file]["type"];
         $extension = explode("/", $mime); //coge la extensión (por si no es siempre la misma no se)
-        $ruta = "img/game-thumbnail/" . $_POST["id"] . "." . $extension[1]; //ESE TITULO HAY QUE CAMBIARLO POR EL ID DEL JUEGO EN LA API
-        $resultado = move_uploaded_file($_FILES["portada"]["tmp_name"], $ruta); //mueve el archivo al directorio
+        $ruta = "img/game-thumbnail/" . $id. "." . $extension[1]; //ESE TITULO HAY QUE CAMBIARLO POR EL ID DEL JUEGO EN LA API
+        $resultado = move_uploaded_file($_FILES[$file]["tmp_name"], $ruta); //mueve el archivo al directorio
         if ($resultado) { //si ha salido bien que devuelva la ruta
             return $ruta;
         } else {
+            $_SESSION["notif"] = true;
             return 0; //si no se ha subido que devuelva 0
         }
 
@@ -402,7 +403,7 @@ class Controlador
                     $ruta = 0;
                 }
             } else {
-                $ruta = $this->thumbnailFilesUpload();
+                $ruta = $this->thumbnailFilesUpload("portada", $_POST["id"]);
             }
 
             $rutaJuego = "games/" . $_POST['id'] . ".jsdos";
@@ -521,7 +522,14 @@ class Controlador
                     }
                 }
 
-                if (model::modifyGame($_POST["idEdit"], $_POST["tituloEdit"], $rutaJuego, $_POST["fileSrcEdit"], $_POST["dev"], $_POST["dis"], $_POST["yearEdit"], $_POST["descripcionEdit"])) {
+                $ruta = "";
+
+                if (isset($_FILES["portadaEdit"])) {
+                    $ruta = $this->thumbnailFilesUpload("portadaEdit", $_POST["idEdit"]);
+                }
+
+
+                if (model::modifyGame($_POST["idEdit"], $_POST["tituloEdit"], $rutaJuego, $ruta, $_POST["dev"], $_POST["dis"], $_POST["yearEdit"], $_POST["descripcionEdit"])) {
 
                     $_SESSION["editGame"] = true;
 
@@ -592,14 +600,14 @@ class Controlador
 
         if (isset($_POST['action']) && $_POST['action'] == "genero-delete") {
             model::deleteGenero($_POST['id']);
-            $this->sendNotification("Genero Borrado", "Borrado ".$_POST['nombre'].' exitosamente!');
+            $this->sendNotification("Genero Borrado", "Borrado " . $_POST['nombre'] . ' exitosamente!');
             header('Location: ?page=adm-generos');
             die();
         }
 
         if (isset($_POST['action']) && $_POST['action'] == "genero-add") {
             model::addGen($_POST['id'], $_POST['name']);
-            $this->sendNotification("Genero Añadido", "Añadido ".$_POST['nombre'].' exitosamente!');
+            $this->sendNotification("Genero Añadido", "Añadido " . $_POST['nombre'] . ' exitosamente!');
             header('Location: ?page=adm-generos');
             die();
         }
