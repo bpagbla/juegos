@@ -394,3 +394,10 @@ async function loadNamesGen(e) {
         }
     }
 }
+
+const buttonsDelete = document.querySelectorAll('.removable-buttons')
+buttonsDelete.forEach((button) => {
+    button.addEventListener('click', function (e) {
+        e.target.closest("div").remove()
+    })
+})
