@@ -635,7 +635,7 @@ class Controlador
         $this->validateAdminSession();
 
         //se incluye la vista de principal
-        Vista::mostrarAdminSistemas();
+        Vista::mostrarAdminSistemas(model::getSist());
     }
     public function iniciaAdminEmpresa()
     {

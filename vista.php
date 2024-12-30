@@ -36,12 +36,12 @@ class Vista
         include_once "frm/templates/base.php";
     }
 
-    public static function mostrarAdminSistemas() {
+    public static function mostrarAdminSistemas($sistemas) {
         $page = "adm-sistemas";
         include_once "frm/templates/base.php";
     }
 
-    public static function mostrarAdminEmpresa() {
+    public static function mostrarAdminEmpresa($empresas) {
         $page = "adm-company";
         include_once "frm/templates/base.php";
     }
