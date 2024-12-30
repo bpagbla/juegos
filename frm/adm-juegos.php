@@ -44,7 +44,7 @@ if (!(isset($_POST["action"]) && $_POST["action"] == "game-edit")) {
                             <div class="row">
                                 <div class="col-3 ps-0 pe-3">
                                     <label for="id" class="col-form-label">ID:</label>
-                                    <input type="text" class="form-control" id="id" name="id" required>
+                                    <input type="number" min="0" class="form-control" id="id" name="id" required>
                                 </div>
                                 <div class="col-9 p-0">
                                     <label for="titulo" class="col-form-label">Título:</label>
@@ -215,7 +215,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                                     <div class="col-3 ps-0 pe-3">
                                         <label for="id" class="col-form-label">ID:</label>
                                         <input type="text" value="<?php echo $_SESSION['datosJuego'][6] ?>"
-                                            class="form-control" id="id" name="idEdit" required disabled>
+                                            class="form-control" id="id" name="idEdit" disabled>
                                         <input type="hidden" value="<?php echo $_SESSION['datosJuego'][6] ?>"
                                             class="form-control" id="id" name="idEdit" required>
                                     </div>

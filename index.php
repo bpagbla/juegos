@@ -523,6 +523,8 @@ class Controlador
                     $resultado = move_uploaded_file($_FILES["rutaEdit"]["tmp_name"], $rutaJuego); //mueve el archivo al directorio
                     if (!$resultado) { //si ha salido bien que devuelva la ruta
                         $this->sendNotification("Error Archivo", "Error subiendo el archivo");
+                        header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
+                        die();
                     }
                 }
 
@@ -530,6 +532,12 @@ class Controlador
 
                 if (isset($_FILES["portadaEdit"]) && $_FILES["portadaEdit"]["error"] != '4') {
                     $ruta = $this->thumbnailFilesUpload("portadaEdit", $_POST["idEdit"]);
+                }
+
+                if (!isset($_POST["dev"]) || !isset($_POST["dis"]) || !isset($_POST["idEdit"]) || !isset($_POST["tituloEdit"]) || !isset($ruta) || !isset($_POST["yearEdit"]) || !isset($_POST["descripcionEdit"])) {
+                    $this->sendNotification("Error Actualizando", "Faltan campos necesarios para proceder");
+                    header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
+                    die();
                 }
 
                 if (model::modifyGame($_POST["idEdit"], $_POST["tituloEdit"], $rutaJuego, $ruta, $_POST["dev"], $_POST["dis"], $_POST["yearEdit"], $_POST["descripcionEdit"])) {
