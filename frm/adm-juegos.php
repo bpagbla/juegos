@@ -37,7 +37,7 @@ if (!(isset($_POST["action"]) && $_POST["action"] == "game-edit")) {
                     <div class="row">
                         <div class="position-relative col-4 img-container d-flex align-items-center flex-column">
                             <!-- IMG PREVIEW -->
-                            <img id="portada" src="" alt="Previsualización de la portada">
+                            <img id="portada" src="img/black.jpg" alt="Previsualización de la portada">
                         </div>
 
                         <div class="col campos">
@@ -69,7 +69,7 @@ if (!(isset($_POST["action"]) && $_POST["action"] == "game-edit")) {
                                         required></textarea>
                                 </div>
                             </div>
-                            <div class="row mb-1">
+                            <div class="row mb-1" id="devDis">
                                 <div class="col p-0">
                                     <label for="dis" class="col-form-label">Distribuidores:</label>
                                     <input type="text" class="form-control" id="dis"
@@ -88,7 +88,7 @@ if (!(isset($_POST["action"]) && $_POST["action"] == "game-edit")) {
                             </div>
                             <div id="dis-active" class="row mt-2">
                             </div>
-                            <div class="row mb-1">
+                            <div class="row mb-1" id="devDiv">
                                 <div class="col p-0">
                                     <label for="dis" class="col-form-label">Desarrolladores:</label>
                                     <input type="text" class="form-control" id="dev"
@@ -151,13 +151,13 @@ if (!(isset($_POST["action"]) && $_POST["action"] == "game-edit")) {
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-5 campos">
+                        <div class="col-5 campos" id="divPortada">
                             <!-- INPUT PORTADA -->
                             <label for="portada" class="col-form-label">Portada:</label>
                             <input type="file" id="file" name="portada" accept="image/*">
                             <input type="hidden" id="fileSrc" name="fileSrc" value="">
                         </div>
-                        <div class="col-5 campos">
+                        <div class="col-5 campos" id="divArchivo">
                             <!-- INPUT JUEGO -->
                             <label for="archivoJuego" class="col-form-label">Juego:</label>
                             <input type="file" id="archivoJuego" name="archivoJuego" accept=".jsdos">

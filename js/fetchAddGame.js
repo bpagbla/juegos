@@ -144,7 +144,6 @@ async function fillForm(id) {
 
     document.getElementById('portada').src = json.games[0].sample_cover.image
     document.getElementById("fileSrc").value =json.games[0].sample_cover.image;
-    console.log(json.games[0].sample_cover.image);
 
 
     document.getElementById('gen-active').innerHTML = '';
@@ -401,3 +400,53 @@ buttonsDelete.forEach((button) => {
         e.target.closest("div").remove()
     })
 })
+
+function checkFilled() {
+    let valid = true;
+    const activeDis = document.getElementById('dis-active').children
+    const activeDev = document.getElementById('dev-active').children
+    const portada = document.getElementById('portada')
+    if (!activeDev[0]) {
+        const devDiv = document.getElementById('devDiv')
+        devDiv.classList.add('shake')
+        setTimeout(function () {
+            devDiv.classList.remove('shake')
+        },1000)
+        valid = false
+    }
+
+    if (!activeDis[0]) {
+        const devDis = document.getElementById('devDis')
+        devDis.classList.add('shake')
+        setTimeout(function () {
+            devDis.classList.remove('shake')
+        },1000)
+        valid = false
+    }
+
+    if (portada.src.endsWith('black.jpg')) {
+        const divPortada = document.getElementById('divPortada')
+        divPortada.classList.add('shake')
+        setTimeout(function () {
+            divPortada.classList.remove('shake')
+        },1000)
+        valid = false
+    }
+
+    if (!document.getElementById('archivoJuego').value) {
+        const divArchivo = document.getElementById('divArchivo')
+        divArchivo.classList.add('shake')
+        setTimeout(function () {
+            divArchivo.classList.remove('shake')
+        },1000)
+        valid = false
+    }
+
+    if (valid) {
+        document.getElementById('add-errors').innerHTML = ''
+    } else {
+        document.getElementById('add-errors').innerHTML = '<div class="alert alert-warning text-center" role="alert">Faltan campos por rellenar!</div>'
+    }
+
+    return valid;
+}
