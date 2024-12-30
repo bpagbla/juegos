@@ -212,13 +212,16 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                                     <div class="col-3 ps-0 pe-3">
                                         <label for="id" class="col-form-label">ID:</label>
                                         <input type="text" value="<?php echo $_SESSION['datosJuego'][6] ?>"
-                                            class="form-control" id="id" name="id" required disabled>
+                                            class="form-control" id="id" name="idEdit" required disabled>
+                                            <input type="hidden" value="<?php echo $_SESSION['datosJuego'][6] ?>"
+                                            class="form-control" id="id" name="idEdit" required>
                                     </div>
                                     <div class="col-9 p-0">
                                         <label for="titulo" class="col-form-label">Título:</label>
                                         <input type="text" class="form-control" id="titulo" name="tituloEdit"
                                             placeholder="Busca un Titulo" value="<?php echo $_SESSION['datosJuego'][0] ?>"
                                             required>
+                                            
                                         <div class="position-relative">
                                             <div id="sugerencias-titulo"
                                                 class="position-absolute bg-primary w-100 rounded z-overmodal mt-1 branded-shadow d-none">
@@ -337,8 +340,8 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                             <div class="col-4 campos">
                                 <!-- INPUT PORTADA -->
                                 <label for="portada" class="col-form-label">Portada:</label>
-                                <input type="file" id="file" name="portadaEdit" accept="image/*">
-                                <input type="hidden" id="fileSrc" name="fileSrc" value="">
+                                <input type="file" id="file" name="portadaEdit" accept="image/*" value="<?php echo $_SESSION['datosJuego'][2] ?>">
+                                <input type="hidden" id="fileSrc" name="fileSrcEdit" value="<?php echo $_SESSION['datosJuego'][2] ?>">
 
                                 <!-- RUTA -->
                                 <label class="col-form-label" for="ruta">Ruta:</label>
@@ -348,7 +351,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <input type="submit" class="btn btn-primary" value="Confirmar cambios" name="editGame">
+                            <button type="submit" class="btn btn-primary" name="action" value="game-apply">Confirmar Cambios</button>
                         </div>
                     </form>
                 </div>

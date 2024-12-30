@@ -410,7 +410,7 @@ class Controlador
             }
 
             if (isset($_POST["id"]) && isset($_POST["titulo"]) && isset($_POST["descripcion"]) && isset($_POST["dis"]) && isset($_POST["dev"]) && isset($_POST["sist"]) && isset($_POST["gen"]) && isset($_POST["year"]) && isset($_POST["descripcion"])) { //verifica que se han rellenado los campos
-            //ver si el juego existe
+                //ver si el juego existe
                 if (!model::existeJuego($_POST["id"])) {
                     if ($ruta != 0) { //si se ha subido la imagen mete los datos en la bbdd
 
@@ -443,7 +443,7 @@ class Controlador
                             }
                         }
 
-                        $inserta = model::addGame($_POST["id"], $_POST["titulo"], $rutaJuego , $ruta, $_POST["dev"], $_POST["dis"], $_POST["sist"], $_POST["gen"], $_POST["year"], $_POST["descripcion"]);
+                        $inserta = model::addGame($_POST["id"], $_POST["titulo"], $rutaJuego, $ruta, $_POST["dev"], $_POST["dis"], $_POST["sist"], $_POST["gen"], $_POST["year"], $_POST["descripcion"]);
                         $this->sendNotification("Juego creado", "Juego creado con exito!");
 
                         if ($inserta) {
@@ -482,14 +482,14 @@ class Controlador
             $this->sendNotification("Juego Editado", "Se ha editado el juego correctamente");
         }
 
-        if (isset($_SESSION["editGame"])) {
+        if (!isset($_SESSION["editGame"])) {
             $this->sendNotification("Error al editar Juego", "No se ha editado el juego");
         }
 
         if (isset($_SESSION["notif"])) {
             $this->sendNotification("AAAAA", "AAAAAAAAAAAAAAAAAAAAAA");
         }
-
+        
         if (isset($_POST["action"])) {
 
             if ($_POST["action"] == "game-edit") {
@@ -501,9 +501,13 @@ class Controlador
                 $_SESSION["generosJuego"] = model::getGenJuego($_POST["idJuego"]);
                 $_SESSION["sistemasJuego"] = model::getSistJuego($_POST["idJuego"]);
 
-                $this->editGame();
-
-
+            }
+            if ($_POST["action"] == "game-apply") {
+                if (model::modifyGame($_POST["idEdit"], $_POST["tituloEdit"], $_POST["rutaEdit"], $_POST["fileSrcEdit"], $_POST["desarrolladorEdit"], $_POST["distribuidorEdit"], $_POST["yearEdit"], $_POST["descripcionEdit"])) {
+                    print_r($_POST);
+                    /* $_SESSION["editGame"] = true;
+                    header('Location: ?page=adm-juegos'); */ //Redirige a la misma pagina   
+                }
             }
 
             if ($_POST["action"] == "game-delete") {
@@ -511,11 +515,7 @@ class Controlador
                 model::deleteGame($_POST["idJuego"]);
                 header('Location: ?page=adm-juegos'); //Redirige a la misma pagina   
 
-
             }
-
-
-
         }
 
         //se incluyen los juegos que posee el usuario
@@ -526,19 +526,6 @@ class Controlador
 
         //se incluye la vista de principal
         Vista::mostrarAdminJuegos($games, $generos, $sistemas, $companias);
-
-    }
-
-    public function editGame()
-    {
-        print ("sip");
-        if (isset($_POST["editGame"])) {
-            if (model::modifyGame($_POST["idJuego"], $_POST["tituloEdit"], $_POST["rutaEdit"], $_POST["portadaEdit"], $_POST["desarrolladorEdit"], $_POST["distribuidorEdit"], $_POST["yearEdit"], $_POST["descripcionEdit"])) {
-                $_SESSION["editGame"] = true;
-                header('Location: ?page=adm-juegos'); //Redirige a la misma pagina   
-            }
-            $_SESSION["notif"] = true;
-        }
 
     }
 
