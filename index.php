@@ -599,6 +599,13 @@ class Controlador
             die();
         }
 
+        if (isset($_POST['action']) && $_POST['action'] == "genero-add") {
+            model::addGen($_POST['id'], $_POST['name']);
+            $this->sendNotification("Genero Añadido", "Añadido ".$_POST['nombre'].' exitosamente!');
+            header('Location: ?page=adm-generos');
+            die();
+        }
+
         $generos = model::getGeneros();
 
         //se incluye la vista de principal
