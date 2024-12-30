@@ -387,7 +387,7 @@ class Controlador
         $this->validateAdminSession();
         if (isset($_POST["addGame"])) {
             $ruta = "";
-            if (isset($_POST["fileSrc"]) && !empty($_POST["fileSrc"])) {
+            if (!empty($_POST["fileSrc"])) {
                 $image_url = $_POST["fileSrc"];
                 $ruta = "img/game-thumbnail/" . $_POST['id'];
 
@@ -403,13 +403,25 @@ class Controlador
                     $ruta = 0;
                 }
             } else {
-                $ruta = $this->thumbnailFilesUpload("portada", $_POST["id"]);
+                if (isset($_FILES["portada"]) && $_FILES["portada"]["error"] != '4') {
+                    $ruta = $this->thumbnailFilesUpload("portada", $_POST["id"]);
+                } else {
+                    $this->sendNotification("Error Juego", "No todos los campos necesarios estan rellenos");
+                    header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
+                    die();
+                }
             }
 
-            $rutaJuego = "games/" . $_POST['id'] . ".jsdos";
-            $resultado = move_uploaded_file($_FILES["archivoJuego"]["tmp_name"], $rutaJuego); //mueve el archivo al directorio
-            if (!$resultado) { //si ha salido bien que devuelva la ruta
-                $this->sendNotification("error file", "error file");
+            if (isset($_FILES["archivoJuego"]) && $_FILES["archivoJuego"]["error"] != '4') {
+                $rutaJuego = "games/" . $_POST['id'] . ".jsdos";
+                $resultado = move_uploaded_file($_FILES["archivoJuego"]["tmp_name"], $rutaJuego); //mueve el archivo al directorio
+                if (!$resultado) { //si ha salido bien que devuelva la ruta
+                    $this->sendNotification("error file", "error file");
+                }
+            } else {
+                $this->sendNotification("Error Juego", "No todos los campos necesarios estan rellenos");
+                header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
+                die();
             }
 
             if (isset($_POST["id"]) && isset($_POST["titulo"]) && isset($_POST["descripcion"]) && isset($_POST["dis"]) && isset($_POST["dev"]) && isset($_POST["sist"]) && isset($_POST["gen"]) && isset($_POST["year"]) && isset($_POST["descripcion"])) { //verifica que se han rellenado los campos
