@@ -20,7 +20,7 @@
 <?php
 if (!(isset($_POST["action"]) && $_POST["action"] == "game-edit")) {
     ?>
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" onsubmit="return checkFilled()">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
@@ -394,11 +394,4 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
 }
 ?>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    const myModal = new bootstrap.Modal('#myModal', {
-        keyboard: false
-    })
-    myModal.show();
-</script>
-<script src="library/dselect.js"></script>
 <script src="js/adm-juegos.js"></script>

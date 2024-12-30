@@ -1,3 +1,8 @@
+const myModal = new bootstrap.Modal('#myModal', {
+    keyboard: false
+})
+myModal.show();
+
 function showLoading(elem) {
     elem.innerHTML = '<li class="list-group-item"><span class="placeholder w-75"></span></li><li class="list-group-item"><span class="placeholder w-75"></span></li><li class="list-group-item"><span class="placeholder w-75"></span></li>'
 }
