@@ -598,8 +598,12 @@ class Controlador
         }
 
         if (isset($_POST['action']) && $_POST['action'] == "genero-add") {
-            model::addGen($_POST['id'], $_POST['name']);
-            $this->sendNotification("Genero Añadido", "Añadido ".$_POST['nombre'].' exitosamente!');
+            if (!model::existeGen($_POST['id'])) {
+                model::addGen($_POST['id'], $_POST['name']);
+                $this->sendNotification("Genero Añadido", "Añadido " . $_POST['nombre'] . ' exitosamente!');
+            } else {
+                $this->sendNotification("Error", 'Este id ya esta en uso');
+            }
             header('Location: ?page=adm-generos');
             die();
         }
