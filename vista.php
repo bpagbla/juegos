@@ -41,7 +41,7 @@ class Vista
         include_once "frm/templates/base.php";
     }
 
-    public static function mostrarAdminEmpresa($companies) {
+    public static function mostrarAdminEmpresa($companies, $games='') {
         $page = "adm-company";
         include_once "frm/templates/base.php";
     }

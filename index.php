@@ -666,9 +666,14 @@ class Controlador
         $this->validateAdminSession();
 
         if (isset($_POST['action']) && $_POST['action'] == "company-delete") {
-            model::deleteCompany($_POST['id']);
-            $this->sendNotification("Compañía Borrado", "Borrado " . $_POST['nombre'] . ' exitosamente!');
-            header('Location: ?page=adm-company');
+            $games = model::getGamesForCompany($_POST['id']);
+            if (sizeof($games) > 0) {
+                Vista::mostrarAdminEmpresa(model::getComp(), $games);
+            } else {
+                model::deleteCompany($_POST['id']);
+                $this->sendNotification("Compañía Borrado", "Borrado " . $_POST['nombre'] . ' exitosamente!');
+                header('Location: ?page=adm-company');
+            }
             die();
         }
 
