@@ -41,7 +41,7 @@ class Vista
         include_once "frm/templates/base.php";
     }
 
-    public static function mostrarAdminEmpresa($empresas) {
+    public static function mostrarAdminEmpresa($companies) {
         $page = "adm-company";
         include_once "frm/templates/base.php";
     }

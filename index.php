@@ -666,7 +666,7 @@ class Controlador
         $this->validateAdminSession();
 
         //se incluye la vista de principal
-        Vista::mostrarAdminEmpresa();
+        Vista::mostrarAdminEmpresa(model::getComp());
     }
 
     public function iniciaJuegos()
