@@ -335,7 +335,6 @@ class Controlador
     {
         $mime = $_FILES["portada"]["type"];
         $extension = explode("/", $mime); //coge la extensión (por si no es siempre la misma no se)
-
         $ruta = "img/game-thumbnail/" . $_POST["id"] . "." . $extension[1]; //ESE TITULO HAY QUE CAMBIARLO POR EL ID DEL JUEGO EN LA API
         $resultado = move_uploaded_file($_FILES["portada"]["tmp_name"], $ruta); //mueve el archivo al directorio
         if ($resultado) { //si ha salido bien que devuelva la ruta
@@ -385,10 +384,9 @@ class Controlador
     {
         //Valida la sessión. Si erronea o logout envia a login.
         $this->validateAdminSession();
-
         if (isset($_POST["addGame"])) {
             $ruta = "";
-            if (isset($_POST["fileSrc"])) {
+            if (isset($_POST["fileSrc"]) && !empty($_POST["fileSrc"])) {
                 $image_url = $_POST["fileSrc"];
                 $ruta = "img/game-thumbnail/" . $_POST['id'];
 
