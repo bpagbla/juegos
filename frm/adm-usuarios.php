@@ -73,6 +73,33 @@ if (isset($_POST["action"]) && $_POST["action"] == "user-edit") {
                         </div>
                     </form>
                     <div class="row border-1 border rounded my-2 mx-1">
+                        <form class="col-12 align-items-center" method='post'>
+                            <div class="row">
+                                <div class="col justify-content-between d-flex align-items-center  py-2">
+                                    <h5 class="mb-0">Metodos de Pago</h5>
+                                    <button type="submit" name="subaction" value="add-payment" class="btn btn-sm">Añadir</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 mb-3">
+                                    <label for="card-num" class="form-label">Numero de Tarjeta</label>
+                                    <input name="num" type="number" class="form-control" id="card-num" placeholder="1234567891234567" value="<?php if (isset($_POST["email"])) print $_POST["email"] ?>" required>
+                                </div>
+                                <div class="col-3 mb-3">
+                                    <label for="card-cvv" class="form-label">CVV</label>
+                                    <input name="cvv" type="number" max="999" class="form-control" placeholder="123" id="card-cvv" value="<?php if (isset($_POST["firstName"])) print $_POST["firstName"] ?>" required>
+                                </div>
+                                <div class="col-3 mb-3">
+                                    <label for="card-exp" class="form-label">Fecha Caducidad</label>
+                                    <input name="exp" type="text" class="form-control" id="card-exp" placeholder="01/24" value="<?php if (isset($_POST["lastName"])) print $_POST["lastName"] ?>" required>
+                                </div>
+                            </div>
+                            <input type="hidden" name="action" value="user-edit">
+                            <input type="hidden" name="nick" value="<?php print $_POST["nick"] ?>">
+                            <input type="hidden" name="id" value="<?php print $_POST["id"] ?>">
+                        </form>
+                    </div>
+                    <div class="row border-1 border rounded my-2 mx-1">
                         <?php
                         $first = true;
                         foreach ($cards as $card) {

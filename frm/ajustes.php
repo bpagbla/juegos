@@ -104,7 +104,7 @@
                         </div>
                         <div class="col-3 mb-3">
                             <label for="card-exp" class="form-label">Fecha Caducidad</label>
-                            <input name="exp" type="text" class="form-control" id="card-exp" placeholder="01/24" value="<?php if (isset($_POST["lastName"])) print $_POST["lastName"] ?>">
+                            <input name="exp" type="text" class="form-control" id="card-exp" placeholder="01/24" value="<?php if (isset($_POST["lastName"])) print $_POST["lastName"] ?>" required>
                         </div>
                     </div>
                 </form>
