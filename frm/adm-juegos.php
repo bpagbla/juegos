@@ -196,7 +196,8 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="" method="post" enctype="multipart/form-data">
+                    <form id="cancel-edit" method="post"></form>
+                    <form id="accept-edit" method="post" enctype="multipart/form-data">
                         <div class="row">
                             <div id="add-errors" class="div">
 
@@ -380,13 +381,13 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                                     value="<?php echo $_SESSION['datosJuego'][1] ?>">
                             </div>
                         </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-primary" name="action" value="game-apply">Confirmar
-                                Cambios</button>
-                        </div>
                     </form>
+                    <div class="modal-footer">
+                        <button type="submit" form="cancel-edit" class="btn btn-secondary">Cancelar</button>
+                        <button type="submit" form="accept-edit" class="btn btn-primary" name="action" value="game-apply">Confirmar
+                            Cambios
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
