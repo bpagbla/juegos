@@ -192,10 +192,16 @@ class Controlador
                 $users = model::getAllUsers();
                 $dupe = false;
                 foreach ($users as $user) {
+                    if ($user[1] == $_SESSION["nick"]) {
+                        continue;
+                    }
                     if ($user[1] === $_POST["nick"]) {
                         $dupe = true;
                         $error = "El nick ya esta en uso";
                         break;
+                    }
+                    if ($user[2] == $_SESSION["email"]) {
+                        continue;
                     }
                     if ($user[2] === $_POST["email"]) {
                         $dupe = true;
@@ -246,6 +252,12 @@ class Controlador
                 }
                 header('Location: ?page=adm-usuarios');
                 die();
+
+            }
+
+            if (isset($_POST["subaction"]) && $_POST["subaction"] == "remove-payment") {
+
+                model::removeTarjeta($_POST["id"],substr($_POST["card"],0,4),substr($_POST["card"],4));
 
             }
 
@@ -305,7 +317,7 @@ class Controlador
         if (isset($_POST["action"]) && $_POST["action"] == "user-edit") {
             $user = model::getUserData($_POST["id"]);
             //se incluye la vista de principal con datos de usuario pedido
-            Vista::mostrarAdminUsuarios($error, $users, $user);
+            Vista::mostrarAdminUsuarios($error, $users, $user, model::getTarjetas($_POST["id"]));
         } else {
             //se incluye la vista de principal
             Vista::mostrarAdminUsuarios($error, $users);

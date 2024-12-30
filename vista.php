@@ -21,7 +21,7 @@ class Vista
         include_once "frm/registro.php";
     }
 
-    public static function mostrarAdminUsuarios($userError, $users, $reqUser=array()) {
+    public static function mostrarAdminUsuarios($userError, $users, $reqUser=array(), $cards=array()) {
         $page = "adm-usuarios";
         include_once "frm/templates/base.php";
     }
