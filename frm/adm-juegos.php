@@ -18,9 +18,6 @@
     </symbol>
 </svg>
 
-<?php
-if (!(isset($_POST["action"]) && $_POST["action"] == "game-edit")) {
-?>
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -173,8 +170,7 @@ if (!(isset($_POST["action"]) && $_POST["action"] == "game-edit")) {
         </div>
     </div>
 </div>
-<script src="js/fetchAddGame.js"></script>
-<?php } ?>
+
 <button type="button" class="btn text-white position-fixed end-0 bottom-0 m-4" data-bs-toggle="modal"
     data-bs-target="#exampleModal">
     <svg class="bi me-2" width="16" height="16">
@@ -198,8 +194,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form method="post" id="cancel-edit"></form>
-                    <form method="post" enctype="multipart/form-data" id="edit-form">
+                    <form action="" method="post" enctype="multipart/form-data">
                         <div class="row">
                             <div id="add-errors" class="div">
 
@@ -219,7 +214,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                                         <input type="text" value="<?php echo $_SESSION['datosJuego'][6] ?>"
                                             class="form-control" id="id" name="idEdit" required disabled>
                                         <input type="hidden" value="<?php echo $_SESSION['datosJuego'][6] ?>"
-                                            class="form-control" name="idEdit" required>
+                                            class="form-control" id="id" name="idEdit" required>
                                     </div>
                                     <div class="col-9 p-0">
                                         <label for="titulo" class="col-form-label">Título:</label>
@@ -249,8 +244,8 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                                 <div class="row mb-1">
                                     <div class="col p-0">
                                         <label for="dis" class="col-form-label">Distribuidores:</label>
-                                        <input type="text" class="form-control" id="dis" placeholder="Busca un distribuidor"
-                                            >
+                                        <input type="text" class="form-control" id="dis"
+                                            placeholder="Busca un distribuidor">
 
                                         <div class="position-relative">
                                             <div id="sugerencias-dis"
@@ -274,7 +269,8 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                                             </svg>
                                         </button>
 
-                                        <input type="hidden" name="distribuidorEdit" value="<?php print $_SESSION["iddis"] ?>">
+                                        <input type="hidden" name="distribuidorEdit"
+                                            value="<?php print $_SESSION["iddis"] ?>">
                                         <input type="hidden" name="dis<?php print $_SESSION["iddis"] ?>"
                                             value="<?php print $_SESSION['datosJuego'][4] ?>">
                                     </div>
@@ -306,7 +302,8 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                                             </svg>
                                         </button>
 
-                                        <input type="hidden" name="desarrolladorEdit" value="<?php print $_SESSION["iddev"] ?>">
+                                        <input type="hidden" name="desarrolladorEdit"
+                                            value="<?php print $_SESSION["iddev"] ?>">
                                         <input type="hidden" name="dis<?php print $_SESSION["iddev"] ?>"
                                             value="<?php print $_SESSION['datosJuego'][3] ?>">
                                     </div>
@@ -368,32 +365,32 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-4 campos">
+                            <div class="col-5 campos">
                                 <!-- INPUT PORTADA -->
                                 <label for="portada" class="col-form-label">Portada:</label>
                                 <input type="file" id="file" name="portadaEdit" accept="image/*"
                                     value="<?php echo $_SESSION['datosJuego'][2] ?>">
                                 <input type="hidden" id="fileSrc" name="fileSrcEdit"
                                     value="<?php echo $_SESSION['datosJuego'][2] ?>">
-
+                            </div>
+                            <div class="col-5 campos">
                                 <!-- RUTA -->
                                 <label class="col-form-label" for="ruta">Ruta:</label>
-                                <input type="text" class="form-control" name="rutaEdit" id="ruta"
+                                <input type="file" id="ruta" name="rutaEdit" accept=".jsdos"
                                     value="<?php echo $_SESSION['datosJuego'][1] ?>">
                             </div>
                         </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary" name="action" value="game-apply">Confirmar
+                                Cambios</button>
+                        </div>
                     </form>
-                    <div class="modal-footer">
-                        <button type="submit" form="cancel-edit" class="btn btn-secondary">Cancelar</button>
-                        <button type="submit" form="edit-form" class="btn btn-primary" name="action" value="game-apply">Confirmar
-                            Cambios
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <script src="js/fetchEditGame.js"></script>
     <?php
 }
 ?>
@@ -404,6 +401,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
     })
     myModal.show();
 
+    let rutaJuego = document.getElementById()
 
     <?php
     if (isset($_POST["addGame"])) {

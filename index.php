@@ -507,7 +507,14 @@ class Controlador
 
             }
             if ($_POST["action"] == "game-apply") {
-                if (model::modifyGame($_POST["idEdit"], $_POST["tituloEdit"], $_POST["rutaEdit"], $_POST["fileSrcEdit"], $_POST["dev"], $_POST["dis"], $_POST["yearEdit"], $_POST["descripcionEdit"])) {
+                $rutaJuego = "games/" . $_POST['idEdit'] . ".jsdos";
+                $resultado = move_uploaded_file($_FILES["rutaEdit"]["tmp_name"], $rutaJuego); //mueve el archivo al directorio
+                if ($resultado) { //si ha salido bien que devuelva la ruta
+                    $this->sendNotification("copied file", "copied file");
+                } else {
+                    $this->sendNotification("error file", "error file");
+                }
+                if (model::modifyGame($_POST["idEdit"], $_POST["tituloEdit"], $rutaJuego, $_POST["fileSrcEdit"], $_POST["desarrolladorEdit"], $_POST["distribuidorEdit"], $_POST["yearEdit"], $_POST["descripcionEdit"])) {
                     print_r($_POST);
                     $_SESSION["editGame"] = true;
                     
