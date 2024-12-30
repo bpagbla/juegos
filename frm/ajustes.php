@@ -52,10 +52,10 @@
     </div>
 </form>
 <div class="row border-1 border rounded my-2 mx-1">
-    <div class="col-12 align-items-center justify-content-between d-flex py-2">
+    <form class="col-12 align-items-center justify-content-between d-flex py-2" method='post'>
         <h5 class="mb-0">Metodos de Pago</h5>
-        <button type="button" class="btn btn-sm">Añadir</button>
-    </div>
+        <button type="submit" name="action" value="add-payment" class="btn btn-sm">Añadir</button>
+    </form>
 </div>
 
 <div class="row border-1 border rounded my-2 mx-1">
@@ -75,6 +75,48 @@
     </form>
     <?php } ?>
 </div>
+
+<!-- Modal -->
+<div class="modal fade modal-lg" id="payment-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Añadir Metodo de Pago</h1>
+                <button type="submit" class="btn-close" form="add-cancel"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row justify-content-center">
+                    <div id="passwd-alert" class="alert alert-danger col-11 <?php if (!isset($_POST['submit-card'])) print 'd-none';?>" role="alert">
+                        <?php if (isset($_POST['submit-card'])) print "Rellene los campos marcados en rojo correctamente" ?>
+                    </div>
+                </div>
+                <form id="add-cancel" method="post"></form>
+                <form id="add-form" method="post">
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <label for="card-num" class="form-label">Numero de Tarjeta</label>
+                            <input name="num" type="number" class="form-control" id="card-num" placeholder="1234567891234567" value="<?php if (isset($_POST["email"])) print $_POST["email"] ?>" required>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <label for="card-cvv" class="form-label">CVV</label>
+                            <input name="cvv" type="number" max="999" class="form-control" placeholder="123" id="card-cvv" value="<?php if (isset($_POST["firstName"])) print $_POST["firstName"] ?>" required>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <label for="card-exp" class="form-label">Fecha Caducidad</label>
+                            <input name="exp" type="text" class="form-control" id="card-exp" placeholder="01/24" value="<?php if (isset($_POST["lastName"])) print $_POST["lastName"] ?>">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-secondary" form="add-cancel">Cancelar</button>
+                <button type="submit" class="btn btn-primary" form="add-form" name="action" value="payment-submit">Aplicar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="js/ajustes.js"></script>
 <script>
 <?php if (isset($_POST['action']) && $_POST['action'] == 'update-passwd') {
@@ -88,4 +130,13 @@ setTimeout(function () {
 <?php
 }
 ?>
+
+const paymentModal = new bootstrap.Modal('#payment-modal', {
+    keyboard: false
+})
+
+<?php
+if (isset($_POST["action"]) && $_POST["action"] === "add-payment") print "paymentModal.show()"
+?>
+
 </script>

@@ -621,4 +621,14 @@ class model
 
     }
 
+    public static function addTarjeta($id, $num, $exp, $cvv) {
+
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+
+        $consulta = $ddbb->insert("INSERT INTO tarjeta_bancaria(ID_USUARIO,NUMERO,FECHA_CADUC,CVV) VALUES (?,?,?,?)", [$id,$num,$exp,$cvv]); //se sacan todas los numeros de tarjeta y caducidad
+
+    }
+
 }

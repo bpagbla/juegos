@@ -635,10 +635,16 @@ class Controlador
                 break;
             case "remove-payment":
                 model::removeTarjeta($_SESSION["id"],substr($_POST["card"],0,4),substr($_POST["card"],4));
-                $this->sendNotification("Metodos de Pago", "Se ha eliminado el metodo de pagoC exitosamente!");
+                $this->sendNotification("Metodos de Pago", "Se ha eliminado el metodo de pago exitosamente!");
                 header('Location: ?page=ajustes');
                 die();
                 break;
+            case "payment-submit":
+                $this->sendNotification("Metodos de Pago", "Se ha añadido el metodo de pago exitosamente!");
+                $dateTime = DateTime::createFromFormat('d/m/y', '01/'.$_POST["exp"]);
+                model::addTarjeta($_SESSION["id"],$_POST["num"],$dateTime->format("Y-m-d"),$_POST["cvv"]);
+                header('Location: ?page=ajustes');
+                die();
         }
         //se incluye la vista de principal
         Vista::mostrarAjustes(model::getUserData($_SESSION["id"]),model::getTarjetas($_SESSION["id"]));
