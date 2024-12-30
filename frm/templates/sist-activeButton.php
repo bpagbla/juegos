@@ -6,7 +6,7 @@
         </svg>
     </button>
 
-    <input type="hidden" name="gen[]" value="<?php print $sistId ?>">
+    <input type="hidden" name="sist[]" value="<?php print $sistId ?>">
 
-    <input type="hidden" name="gen<?php print $sistId ?>" value="<?php print $sist ?>">
+    <input type="hidden" name="sist<?php print $sistId ?>" value="<?php print $sist ?>">
 </div>

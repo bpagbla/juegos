@@ -480,10 +480,12 @@ class Controlador
 
         if (isset($_SESSION["editGame"])) {
             $this->sendNotification("Juego Editado", "Se ha editado el juego correctamente");
+            $_SESSION["editGame"] = null;
         }
 
-        if (!isset($_SESSION["editGame"])) {
+        if (isset($_SESSION["noeditGame"])) {
             $this->sendNotification("Error al editar Juego", "No se ha editado el juego");
+            $_SESSION["noeditGame"] = null;
         }
 
         if (isset($_SESSION["notif"])) {
@@ -494,6 +496,8 @@ class Controlador
 
             if ($_POST["action"] == "game-edit") {
                 $_SESSION["datosJuego"] = model::getGame($_POST["idJuego"]);
+                $_SESSION["iddev"] = $_SESSION["datosJuego"][3];
+                $_SESSION["iddis"] = $_SESSION["datosJuego"][4];
 
                 $_SESSION["datosJuego"][3] = model::getCompNombre($_SESSION["datosJuego"][3]);
                 $_SESSION["datosJuego"][4] = model::getCompNombre($_SESSION["datosJuego"][4]);
@@ -505,9 +509,12 @@ class Controlador
             if ($_POST["action"] == "game-apply") {
                 if (model::modifyGame($_POST["idEdit"], $_POST["tituloEdit"], $_POST["rutaEdit"], $_POST["fileSrcEdit"], $_POST["desarrolladorEdit"], $_POST["distribuidorEdit"], $_POST["yearEdit"], $_POST["descripcionEdit"])) {
                     print_r($_POST);
-                    /* $_SESSION["editGame"] = true;
-                    header('Location: ?page=adm-juegos'); */ //Redirige a la misma pagina   
+                    $_SESSION["editGame"] = true;
+                    
+                }else{
+                    $_SESSION["noeditGame"] = true;
                 }
+                header('Location: ?page=adm-juegos'); //Redirige a la misma pagina   
             }
 
             if ($_POST["action"] == "game-delete") {

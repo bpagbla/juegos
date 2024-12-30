@@ -213,7 +213,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                                         <label for="id" class="col-form-label">ID:</label>
                                         <input type="text" value="<?php echo $_SESSION['datosJuego'][6] ?>"
                                             class="form-control" id="id" name="idEdit" required disabled>
-                                            <input type="hidden" value="<?php echo $_SESSION['datosJuego'][6] ?>"
+                                        <input type="hidden" value="<?php echo $_SESSION['datosJuego'][6] ?>"
                                             class="form-control" id="id" name="idEdit" required>
                                     </div>
                                     <div class="col-9 p-0">
@@ -221,7 +221,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                                         <input type="text" class="form-control" id="titulo" name="tituloEdit"
                                             placeholder="Busca un Titulo" value="<?php echo $_SESSION['datosJuego'][0] ?>"
                                             required>
-                                            
+
                                         <div class="position-relative">
                                             <div id="sugerencias-titulo"
                                                 class="position-absolute bg-primary w-100 rounded z-overmodal mt-1 branded-shadow d-none">
@@ -238,14 +238,15 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                                     <div class="col p-0">
                                         <label for="descripcion" class="col-form-label">Descripción:</label>
                                         <textarea class="form-control" id="descripcion" name="descripcionEdit"
-                                            required > <?php echo $_SESSION['datosJuego'][7] ?></textarea>
+                                            required> <?php echo $_SESSION['datosJuego'][7] ?></textarea>
                                     </div>
                                 </div>
                                 <div class="row mb-1">
                                     <div class="col p-0">
                                         <label for="dis" class="col-form-label">Distribuidores:</label>
                                         <input type="text" class="form-control" id="dis" placeholder="Busca un distribuidor"
-                                            value="<?php echo $_SESSION['datosJuego'][4] ?>" name="distribuidorEdit">
+                                            >
+
                                         <div class="position-relative">
                                             <div id="sugerencias-dis"
                                                 class="position-absolute bg-primary w-100 rounded z-overmodal mt-1 branded-shadow d-none">
@@ -259,13 +260,25 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                                     </div>
                                 </div>
                                 <div id="dis-active" class="row mt-2">
+                                    <div class="col-auto my-1 removable-buttons">
+                                        <button type="button" class="btn btn-sm btn-primary col-auto">
+                                            <?php print $_SESSION['datosJuego'][4] ?>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-x bg-transparent" viewBox="0 0 16 16">
+                                                <use href="#remove"></use>
+                                            </svg>
+                                        </button>
+
+                                        <input type="hidden" name="distribuidorEdit" value="<?php print $_SESSION["iddis"] ?>">
+                                        <input type="hidden" name="dis<?php print $_SESSION["iddis"] ?>"
+                                            value="<?php print $_SESSION['datosJuego'][4] ?>">
+                                    </div>
                                 </div>
                                 <div class="row mb-1">
                                     <div class="col p-0">
                                         <label for="dis" class="col-form-label">Desarrolladores:</label>
                                         <input type="text" class="form-control" id="dev"
-                                            placeholder="Busca un desarrollador"
-                                            value="<?php echo $_SESSION['datosJuego'][3] ?>" name="desarrolladorEdit">
+                                            placeholder="Busca un desarrollador">
                                         <div class="position-relative">
                                             <div id="sugerencias-dev"
                                                 class="position-absolute bg-primary w-100 rounded z-overmodal mt-1 branded-shadow d-none">
@@ -279,6 +292,19 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                                     </div>
                                 </div>
                                 <div id="dev-active" class="row mt-2">
+                                    <div class="col-auto my-1 removable-buttons">
+                                        <button type="button" class="btn btn-sm btn-primary col-auto">
+                                            <?php print $_SESSION['datosJuego'][3] ?>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-x bg-transparent" viewBox="0 0 16 16">
+                                                <use href="#remove"></use>
+                                            </svg>
+                                        </button>
+
+                                        <input type="hidden" name="desarrolladorEdit" value="<?php print $_SESSION["iddev"] ?>">
+                                        <input type="hidden" name="dis<?php print $_SESSION["iddev"] ?>"
+                                            value="<?php print $_SESSION['datosJuego'][3] ?>">
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col p-0">
@@ -298,7 +324,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                                 </div>
                                 <div id="sist-active" class="row mt-2">
 
-                                <?php
+                                    <?php
                                     foreach ($_SESSION["sistemasJuego"] as $sistId => $sist) {
                                         include "frm/templates/sist-activeButton.php";
                                     }
@@ -340,8 +366,10 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                             <div class="col-4 campos">
                                 <!-- INPUT PORTADA -->
                                 <label for="portada" class="col-form-label">Portada:</label>
-                                <input type="file" id="file" name="portadaEdit" accept="image/*" value="<?php echo $_SESSION['datosJuego'][2] ?>">
-                                <input type="hidden" id="fileSrc" name="fileSrcEdit" value="<?php echo $_SESSION['datosJuego'][2] ?>">
+                                <input type="file" id="file" name="portadaEdit" accept="image/*"
+                                    value="<?php echo $_SESSION['datosJuego'][2] ?>">
+                                <input type="hidden" id="fileSrc" name="fileSrcEdit"
+                                    value="<?php echo $_SESSION['datosJuego'][2] ?>">
 
                                 <!-- RUTA -->
                                 <label class="col-form-label" for="ruta">Ruta:</label>
@@ -351,7 +379,8 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-primary" name="action" value="game-apply">Confirmar Cambios</button>
+                            <button type="submit" class="btn btn-primary" name="action" value="game-apply">Confirmar
+                                Cambios</button>
                         </div>
                     </form>
                 </div>
