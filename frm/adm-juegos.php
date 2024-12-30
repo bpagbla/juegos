@@ -370,13 +370,12 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                                 <!-- INPUT PORTADA -->
                                 <label for="portada" class="col-form-label">Portada:</label>
                                 <input type="file" id="file" name="portadaEdit" accept="image/*">
-                                <input type="hidden" id="fileSrc" name="fileSrcEdit">
+                                <input type="hidden" id="fileSrc" name="fileSrcEdit" value="<?php echo $_SESSION['datosJuego'][2] ?>">
                             </div>
                             <div class="col-5 campos">
                                 <!-- RUTA -->
                                 <label class="col-form-label" for="ruta">Ruta:</label>
-                                <input type="file" id="ruta" name="rutaEdit" accept=".jsdos"
-                                    value="<?php echo $_SESSION['datosJuego'][1] ?>">
+                                <input type="file" id="ruta" name="rutaEdit" accept=".jsdos">
                             </div>
                         </div>
                     </form>
