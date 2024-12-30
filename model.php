@@ -94,6 +94,30 @@ class model
         return $array; //devolver el array con todos los generos
     }
 
+    static function getGenJuego($id)
+    {
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+
+
+        $array = array();
+
+        $consulta = $ddbb->consulta("SELECT g.ID, g.NOMBRE 
+    FROM juego_genero jg
+    JOIN genero g ON jg.ID_GENERO = g.ID
+    WHERE jg.ID_JUEGO = ?", [$id]); //se sacan todos los generos relacionados con el juego
+        
+
+        //Se guardan los nombres de los generos
+        foreach ($consulta as $each) {
+            $array[$each['ID']] = $each['NOMBRE'];
+        }
+
+        $ddbb->cerrar();
+        return $array; //devolver el array con todos los generos de un juego
+    }
+
     static function getComp()
     {
         include_once "BD/baseDeDatos.php";
@@ -263,7 +287,7 @@ class model
         }
     }
 
-    static function addGame($id, $titulo, $ruta, $portada, $dev, $dis, $sist, $gen, $year)
+    static function addGame($id, $titulo, $ruta, $portada, $dev, $dis, $sist, $gen, $year, $descripcion)
     {
 
         include_once "BD/baseDeDatos.php";
@@ -272,7 +296,7 @@ class model
         $ddbb->conectar(); //se conecta a la base de datos
 
         //se insertan los datos en la base de datos
-        $consulta = $ddbb->insert("INSERT INTO juego(ID, TITULO, RUTA, PORTADA, DESARROLLADOR, DISTRIBUIDOR, ANIO) VALUES(?,?,?,?,?,?,?)", [$id, $titulo, $ruta, $portada, $dev, $dis, $year]);
+        $consulta = $ddbb->insert("INSERT INTO juego(ID, TITULO, RUTA, PORTADA, DESARROLLADOR, DISTRIBUIDOR, ANIO, DESCRIPCION) VALUES(?,?,?,?,?,?,?,?)", [$id, $titulo, $ruta, $portada, $dev, $dis, $year, $descripcion]);
         return $consulta;
     }
 
@@ -323,7 +347,6 @@ class model
         return $ddbb->update("UPDATE usuario SET PASSWORD = ? WHERE ID = ?", [$hash, $id]);
 
     }
-
 
 
     static function deleteGame($id)
@@ -573,12 +596,13 @@ class model
             $distribuidor = $each["DISTRIBUIDOR"];
             $anio = $each["ANIO"];
         }
-        $datosJuego =[$titulo, $ruta, $portada, $desarrollador, $distribuidor, $anio, $id];
+        $datosJuego = [$titulo, $ruta, $portada, $desarrollador, $distribuidor, $anio, $id];
         $ddbb->cerrar();
         return $datosJuego;
     }
 
-    public static function getCompNombre($id){
+    public static function getCompNombre($id)
+    {
         include_once "BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
@@ -595,7 +619,8 @@ class model
         return $nombre; //devolver nombre
     }
 
-    public static function getTarjetas($id) {
+    public static function getTarjetas($id)
+    {
         include_once "BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
@@ -604,30 +629,32 @@ class model
         $consulta = $ddbb->consulta("SELECT NUMERO,FECHA_CADUC FROM tarjeta_bancaria WHERE ID_USUARIO=?", [$id]); //se sacan todas los numeros de tarjeta y caducidad
         //Se pasan los ultimos 4 digitos y fecha caducidad
         foreach ($consulta as $each) {
-            $array[] = array('num' => substr($each['NUMERO'],-4), 'date' => strtotime($each['FECHA_CADUC']));
+            $array[] = array('num' => substr($each['NUMERO'], -4), 'date' => strtotime($each['FECHA_CADUC']));
         }
 
         return $array;
 
     }
 
-    public static function removeTarjeta($id, $num, $exp) {
+    public static function removeTarjeta($id, $num, $exp)
+    {
 
         include_once "BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
 
-        $consulta = $ddbb->delete("DELETE FROM tarjeta_bancaria WHERE ID_USUARIO=? AND NUMERO LIKE ? AND FECHA_CADUC = ?", [$id,'%'.$num,date("Y-m-d",$exp)]); //se sacan todas los numeros de tarjeta y caducidad
+        $consulta = $ddbb->delete("DELETE FROM tarjeta_bancaria WHERE ID_USUARIO=? AND NUMERO LIKE ? AND FECHA_CADUC = ?", [$id, '%' . $num, date("Y-m-d", $exp)]); //se sacan todas los numeros de tarjeta y caducidad
 
     }
 
-    public static function addTarjeta($id, $num, $exp, $cvv) {
+    public static function addTarjeta($id, $num, $exp, $cvv)
+    {
 
         include_once "BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
 
-        $consulta = $ddbb->insert("INSERT INTO tarjeta_bancaria(ID_USUARIO,NUMERO,FECHA_CADUC,CVV) VALUES (?,?,?,?)", [$id,$num,$exp,$cvv]); //se sacan todas los numeros de tarjeta y caducidad
+        $consulta = $ddbb->insert("INSERT INTO tarjeta_bancaria(ID_USUARIO,NUMERO,FECHA_CADUC,CVV) VALUES (?,?,?,?)", [$id, $num, $exp, $cvv]); //se sacan todas los numeros de tarjeta y caducidad
 
     }
 

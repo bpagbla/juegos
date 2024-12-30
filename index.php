@@ -257,7 +257,7 @@ class Controlador
 
             if (isset($_POST["subaction"]) && $_POST["subaction"] == "remove-payment") {
 
-                model::removeTarjeta($_POST["id"],substr($_POST["card"],0,4),substr($_POST["card"],4));
+                model::removeTarjeta($_POST["id"], substr($_POST["card"], 0, 4), substr($_POST["card"], 4));
 
             }
 
@@ -401,7 +401,7 @@ class Controlador
                 $ruta = $this->thumbnailFilesUpload();
             }
 
-            if (isset($_POST["id"]) && isset($_POST["titulo"]) && isset($_POST["descripcion"]) && isset($_POST["dis"]) && isset($_POST["dev"]) && isset($_POST["sist"]) && isset($_POST["gen"]) && isset($_POST["year"])) { //verifica que se han rellenado los campos
+            if (isset($_POST["id"]) && isset($_POST["titulo"]) && isset($_POST["descripcion"]) && isset($_POST["dis"]) && isset($_POST["dev"]) && isset($_POST["sist"]) && isset($_POST["gen"]) && isset($_POST["year"]) && isset($_POST["descripcion"])) { //verifica que se han rellenado los campos
 //ver si el juego existe
                 if (!model::existeJuego($_POST["id"])) {
                     if ($ruta != 0) { //si se ha subido la imagen mete los datos en la bbdd
@@ -432,7 +432,7 @@ class Controlador
                             }
                         }
 
-                        model::addGame($_POST["id"], $_POST["titulo"], 'rutaJuego', $ruta, $_POST["dev"], $_POST["dis"], $_POST["sist"], $_POST["gen"], $_POST["year"]);
+                        model::addGame($_POST["id"], $_POST["titulo"], 'rutaJuego', $ruta, $_POST["dev"], $_POST["dis"], $_POST["sist"], $_POST["gen"], $_POST["year"], $_POST["descripcion"]);
                         header('Location: ?page=adm-juegos'); //Redirige a la misma pagina    
                     } else {
                         $this->sendNotification("Error Juego", "Fallo al subir la imagen");
@@ -457,6 +457,8 @@ class Controlador
                 $_SESSION["datosJuego"][3] = model::getCompNombre($_SESSION["datosJuego"][3]);
                 $_SESSION["datosJuego"][4] = model::getCompNombre($_SESSION["datosJuego"][4]);
 
+                $_SESSION["generosJuego"] = model::getGenJuego($_POST["idJuego"]);
+                
                 if (isset($_POST["editGame"])) {
                     model::modifyGame($_POST["id"], $_POST["titulo"], $_POST["ruta"], $_POST["portada"], $_POST["desarrollador"], $_POST["distribuidor"], $_POST["year"]);
                 }
@@ -595,7 +597,7 @@ class Controlador
         $this->validateSession();
 
         if (!isset($_POST["action"])) {
-            Vista::mostrarAjustes(model::getUserData($_SESSION["id"]),model::getTarjetas($_SESSION["id"]));
+            Vista::mostrarAjustes(model::getUserData($_SESSION["id"]), model::getTarjetas($_SESSION["id"]));
             die();
         }
 
@@ -646,20 +648,19 @@ class Controlador
                 }
                 break;
             case "remove-payment":
-                model::removeTarjeta($_SESSION["id"],substr($_POST["card"],0,4),substr($_POST["card"],4));
+                model::removeTarjeta($_SESSION["id"], substr($_POST["card"], 0, 4), substr($_POST["card"], 4));
                 $this->sendNotification("Metodos de Pago", "Se ha eliminado el metodo de pago exitosamente!");
                 header('Location: ?page=ajustes');
                 die();
-                break;
             case "payment-submit":
                 $this->sendNotification("Metodos de Pago", "Se ha añadido el metodo de pago exitosamente!");
-                $dateTime = DateTime::createFromFormat('d/m/y', '01/'.$_POST["exp"]);
-                model::addTarjeta($_SESSION["id"],$_POST["num"],$dateTime->format("Y-m-d"),$_POST["cvv"]);
+                $dateTime = DateTime::createFromFormat('d/m/y', '01/' . $_POST["exp"]);
+                model::addTarjeta($_SESSION["id"], $_POST["num"], $dateTime->format("Y-m-d"), $_POST["cvv"]);
                 header('Location: ?page=ajustes');
                 die();
         }
         //se incluye la vista de principal
-        Vista::mostrarAjustes(model::getUserData($_SESSION["id"]),model::getTarjetas($_SESSION["id"]));
+        Vista::mostrarAjustes(model::getUserData($_SESSION["id"]), model::getTarjetas($_SESSION["id"]));
     }
 
     //PRINCIPAL

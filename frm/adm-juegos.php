@@ -181,7 +181,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
     ?>
     <!-- MODAL -->
     <div class="modal fade modal-lg" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
@@ -236,8 +236,8 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                                 <div class="row mb-1">
                                     <div class="col p-0">
                                         <label for="dis" class="col-form-label">Distribuidores:</label>
-                                        <input type="text" class="form-control" id="dis"
-                                            placeholder="Busca un distribuidor" value="<?php echo $_SESSION['datosJuego'][4] ?>">
+                                        <input type="text" class="form-control" id="dis" placeholder="Busca un distribuidor"
+                                            value="<?php echo $_SESSION['datosJuego'][4] ?>">
                                         <div class="position-relative">
                                             <div id="sugerencias-dis"
                                                 class="position-absolute bg-primary w-100 rounded z-overmodal mt-1 branded-shadow d-none">
@@ -256,7 +256,8 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                                     <div class="col p-0">
                                         <label for="dis" class="col-form-label">Desarrolladores:</label>
                                         <input type="text" class="form-control" id="dev"
-                                            placeholder="Busca un desarrollador" value="<?php echo $_SESSION['datosJuego'][3] ?>">
+                                            placeholder="Busca un desarrollador"
+                                            value="<?php echo $_SESSION['datosJuego'][3] ?>">
                                         <div class="position-relative">
                                             <div id="sugerencias-dev"
                                                 class="position-absolute bg-primary w-100 rounded z-overmodal mt-1 branded-shadow d-none">
@@ -306,6 +307,13 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                                     </div>
                                 </div>
                                 <div id="gen-active" class="row mt-2">
+                                    <?php
+                                    print_r($_SESSION["generosJuego"]);
+                                    foreach ($_SESSION["generosJuego"] as $genre) {
+                                        include "frm/templates/gen-activeButton.php";
+                                    }
+                                    
+                                    ?>
                                 </div>
                                 <div class="row mb-3">
                                     <label class="col-form-label" for="year">Año</label>
@@ -324,7 +332,8 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
 
                                 <!-- RUTA -->
                                 <label class="col-form-label" for="ruta">Ruta:</label>
-                                <input type="text" class="form-control" name="ruta" id="ruta" value="<?php echo $_SESSION['datosJuego'][1] ?>">
+                                <input type="text" class="form-control" name="ruta" id="ruta"
+                                    value="<?php echo $_SESSION['datosJuego'][1] ?>">
                             </div>
                         </div>
                         <div class="modal-footer">
