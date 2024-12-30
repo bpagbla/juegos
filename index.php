@@ -514,7 +514,7 @@ class Controlador
             }
             if ($_POST["action"] == "game-apply") {
                 $rutaJuego = "games/" . $_POST['idEdit'] . ".jsdos";
-                if (isset($_POST["rutaEdit"])) {
+                if (isset($_FILES["rutaEdit"])) {
                     $resultado = move_uploaded_file($_FILES["rutaEdit"]["tmp_name"], $rutaJuego); //mueve el archivo al directorio
                     if ($resultado) { //si ha salido bien que devuelva la ruta
                         $this->sendNotification("copied file", "copied file");
