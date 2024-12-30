@@ -193,7 +193,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="editarModal">Editar Juego</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="submit" form="cancel-edit" class="btn-close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="cancel-edit" method="post"></form>
