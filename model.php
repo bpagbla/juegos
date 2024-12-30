@@ -408,7 +408,7 @@ class model
         return $ddbb->delete("DELETE FROM juego WHERE ID = ?", array($id));
     }
 
-    static function modifyGame($id, $titulo, $ruta, $portada, $desarrollador, $distribuidor, $year)
+    static function modifyGame($id, $titulo, $ruta, $portada, $desarrollador, $distribuidor, $year, $descripcion)
     {
 
         if (empty($id)) {
@@ -420,7 +420,7 @@ class model
         $ddbb = new BaseDeDatos;
         $ddbb->conectar(); //se conecta a la base de datos
 
-        return $ddbb->update("UPDATE juego SET TITULO = ?, RUTA=?, PORTADA = ?, DESARROLLADOR = ?, DISTRIBUIDOR = ?, YEAR = ? WHERE ID = ?", [$titulo, $ruta, $portada, $desarrollador, $distribuidor, $year, $id]);
+        return $ddbb->update("UPDATE juego SET TITULO = ?, RUTA=?, PORTADA = ?, DESARROLLADOR = ?, DISTRIBUIDOR = ?, YEAR = ?, DESCRIPCION = ? WHERE ID = ?", [$titulo, $ruta, $portada, $desarrollador, $distribuidor, $year, $id, $descripcion]);
 
     }
 

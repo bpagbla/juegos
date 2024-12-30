@@ -423,7 +423,7 @@ class Controlador
                                 model::addGen($gen, $_POST["gen" . $gen]);
                                 $creadoGen = true;
                             }
-                            
+
                         }
 
                         //ver si existen los sistemas y si no existen crearlos
@@ -468,6 +468,18 @@ class Controlador
 
         }
 
+        if (isset($_SESSION["editGame"])) {
+            $this->sendNotification("Juego Editado", "Se ha editado el juego correctamente");
+        }
+
+        if (isset($_SESSION["editGame"])) {
+            $this->sendNotification("Error al editar Juego", "No se ha editado el juego");
+        }
+
+        if (isset($_SESSION["notif"])) {
+            $this->sendNotification("AAAAA", "AAAAAAAAAAAAAAAAAAAAAA");
+        }
+
         if (isset($_POST["action"])) {
 
             if ($_POST["action"] == "game-edit") {
@@ -479,13 +491,16 @@ class Controlador
                 $_SESSION["generosJuego"] = model::getGenJuego($_POST["idJuego"]);
                 $_SESSION["sistemasJuego"] = model::getSistJuego($_POST["idJuego"]);
 
-                if (isset($_POST["editGame"])) {
-                    model::modifyGame($_POST["id"], $_POST["titulo"], $_POST["ruta"], $_POST["portada"], $_POST["desarrollador"], $_POST["distribuidor"], $_POST["year"]);
-                }
+                $this->editGame();
+
 
             }
 
             if ($_POST["action"] == "game-delete") {
+
+                model::deleteGame($_POST["idJuego"]);
+                header('Location: ?page=adm-juegos'); //Redirige a la misma pagina   
+
 
             }
 
@@ -501,6 +516,19 @@ class Controlador
 
         //se incluye la vista de principal
         Vista::mostrarAdminJuegos($games, $generos, $sistemas, $companias);
+
+    }
+
+    public function editGame()
+    {
+        print ("sip");
+        if (isset($_POST["editGame"])) {
+            if (model::modifyGame($_POST["idJuego"], $_POST["tituloEdit"], $_POST["rutaEdit"], $_POST["portadaEdit"], $_POST["desarrolladorEdit"], $_POST["distribuidorEdit"], $_POST["yearEdit"], $_POST["descripcionEdit"])) {
+                $_SESSION["editGame"] = true;
+                header('Location: ?page=adm-juegos'); //Redirige a la misma pagina   
+            }
+            $_SESSION["notif"] = true;
+        }
 
     }
 

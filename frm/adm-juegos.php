@@ -207,11 +207,11 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                                     <div class="col-3 ps-0 pe-3">
                                         <label for="id" class="col-form-label">ID:</label>
                                         <input type="text" value="<?php echo $_SESSION['datosJuego'][6] ?>"
-                                            class="form-control" id="id" name="id" required>
+                                            class="form-control" id="id" name="id" required disabled>
                                     </div>
                                     <div class="col-9 p-0">
                                         <label for="titulo" class="col-form-label">Título:</label>
-                                        <input type="text" class="form-control" id="titulo" name="titulo"
+                                        <input type="text" class="form-control" id="titulo" name="tituloEdit"
                                             placeholder="Busca un Titulo" value="<?php echo $_SESSION['datosJuego'][0] ?>"
                                             required>
                                         <div class="position-relative">
@@ -229,7 +229,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                                 <div class="row">
                                     <div class="col p-0">
                                         <label for="descripcion" class="col-form-label">Descripción:</label>
-                                        <textarea class="form-control" id="descripcion" name="descripcion"
+                                        <textarea class="form-control" id="descripcion" name="descripcionEdit"
                                             required > <?php echo $_SESSION['datosJuego'][7] ?></textarea>
                                     </div>
                                 </div>
@@ -237,7 +237,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                                     <div class="col p-0">
                                         <label for="dis" class="col-form-label">Distribuidores:</label>
                                         <input type="text" class="form-control" id="dis" placeholder="Busca un distribuidor"
-                                            value="<?php echo $_SESSION['datosJuego'][4] ?>">
+                                            value="<?php echo $_SESSION['datosJuego'][4] ?>" name="distribuidorEdit">
                                         <div class="position-relative">
                                             <div id="sugerencias-dis"
                                                 class="position-absolute bg-primary w-100 rounded z-overmodal mt-1 branded-shadow d-none">
@@ -257,7 +257,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                                         <label for="dis" class="col-form-label">Desarrolladores:</label>
                                         <input type="text" class="form-control" id="dev"
                                             placeholder="Busca un desarrollador"
-                                            value="<?php echo $_SESSION['datosJuego'][3] ?>">
+                                            value="<?php echo $_SESSION['datosJuego'][3] ?>" name="desarrolladorEdit">
                                         <div class="position-relative">
                                             <div id="sugerencias-dev"
                                                 class="position-absolute bg-primary w-100 rounded z-overmodal mt-1 branded-shadow d-none">
@@ -322,7 +322,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                                 </div>
                                 <div class="row mb-3">
                                     <label class="col-form-label" for="year">Año</label>
-                                    <input class="form-control" type="number" name="year" id="year" min="1900"
+                                    <input class="form-control" type="number" name="yearEdit" id="year" min="1900"
                                         max="<?php echo date("Y"); ?>" value="<?php echo $_SESSION['datosJuego'][5] ?>"
                                         required>
                                 </div>
@@ -332,12 +332,12 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                             <div class="col-4 campos">
                                 <!-- INPUT PORTADA -->
                                 <label for="portada" class="col-form-label">Portada:</label>
-                                <input type="file" id="file" name="portada" accept="image/*">
+                                <input type="file" id="file" name="portadaEdit" accept="image/*">
                                 <input type="hidden" id="fileSrc" name="fileSrc" value="">
 
                                 <!-- RUTA -->
                                 <label class="col-form-label" for="ruta">Ruta:</label>
-                                <input type="text" class="form-control" name="ruta" id="ruta"
+                                <input type="text" class="form-control" name="rutaEdit" id="ruta"
                                     value="<?php echo $_SESSION['datosJuego'][1] ?>">
                             </div>
                         </div>
