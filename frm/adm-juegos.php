@@ -289,6 +289,13 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                                     </div>
                                 </div>
                                 <div id="sist-active" class="row mt-2">
+
+                                <?php
+                                    foreach ($_SESSION["sistemasJuego"] as $sistId => $sist) {
+                                        include "frm/templates/sist-activeButton.php";
+                                    }
+                                    ?>
+
                                 </div>
                                 <div class="row">
                                     <div class="col p-0">
@@ -308,11 +315,9 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                                 </div>
                                 <div id="gen-active" class="row mt-2">
                                     <?php
-                                    print_r($_SESSION["generosJuego"]);
-                                    foreach ($_SESSION["generosJuego"] as $genre) {
+                                    foreach ($_SESSION["generosJuego"] as $genreId => $genre) {
                                         include "frm/templates/gen-activeButton.php";
                                     }
-                                    
                                     ?>
                                 </div>
                                 <div class="row mb-3">

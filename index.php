@@ -417,14 +417,17 @@ class Controlador
                         }
 
                         //ver si existen los generos y si no existen crearlos
+                        //relacionarlos con el juego
                         foreach ($_POST["gen"] as $gen) {
                             if (!model::existeGen($gen)) {
                                 model::addGen($gen, $_POST["gen" . $gen]);
                                 $creadoGen = true;
                             }
+                            
                         }
 
                         //ver si existen los sistemas y si no existen crearlos
+                        //relacionarlos con el juego
                         foreach ($_POST["sist"] as $sis) {
                             if (!model::existeSis($sis)) {
                                 model::addSis($sis, $_POST["sist" . $sis]);
@@ -432,7 +435,23 @@ class Controlador
                             }
                         }
 
-                        model::addGame($_POST["id"], $_POST["titulo"], 'rutaJuego', $ruta, $_POST["dev"], $_POST["dis"], $_POST["sist"], $_POST["gen"], $_POST["year"], $_POST["descripcion"]);
+                        $inserta = model::addGame($_POST["id"], $_POST["titulo"], 'rutaJuego', $ruta, $_POST["dev"], $_POST["dis"], $_POST["sist"], $_POST["gen"], $_POST["year"], $_POST["descripcion"]);
+
+                        if ($inserta) {
+                            //relacionar los GENEROS con el juego
+                            foreach ($_POST["gen"] as $gen) {
+
+                                model::GenGameRel($_POST["id"], $gen);
+                            }
+
+                            //relacionar los SISTEMAS con el juego
+                            foreach ($_POST["sist"] as $sis) {
+
+                                model::SistGameRel($_POST["id"], $sis);
+                            }
+                        }
+
+
                         header('Location: ?page=adm-juegos'); //Redirige a la misma pagina    
                     } else {
                         $this->sendNotification("Error Juego", "Fallo al subir la imagen");
@@ -458,7 +477,8 @@ class Controlador
                 $_SESSION["datosJuego"][4] = model::getCompNombre($_SESSION["datosJuego"][4]);
 
                 $_SESSION["generosJuego"] = model::getGenJuego($_POST["idJuego"]);
-                
+                $_SESSION["sistemasJuego"] = model::getSistJuego($_POST["idJuego"]);
+
                 if (isset($_POST["editGame"])) {
                     model::modifyGame($_POST["id"], $_POST["titulo"], $_POST["ruta"], $_POST["portada"], $_POST["desarrollador"], $_POST["distribuidor"], $_POST["year"]);
                 }
