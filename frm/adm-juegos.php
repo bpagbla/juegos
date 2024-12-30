@@ -197,7 +197,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                 </div>
                 <div class="modal-body">
                     <form id="cancel-edit" method="post"></form>
-                    <form id="accept-edit" method="post" enctype="multipart/form-data">
+                    <form id="accept-edit" method="post" enctype="multipart/form-data" onsubmit="return checkFilled()">
                         <div class="row">
                             <div id="add-errors" class="div">
 
@@ -244,7 +244,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                                             required> <?php echo $_SESSION['datosJuego'][7] ?></textarea>
                                     </div>
                                 </div>
-                                <div class="row mb-1">
+                                <div class="row mb-1" id="devDis">
                                     <div class="col p-0">
                                         <label for="dis" class="col-form-label">Distribuidores:</label>
                                         <input type="text" class="form-control" id="dis"
@@ -277,7 +277,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                                             value="<?php print $_SESSION['datosJuego'][4] ?>">
                                     </div>
                                 </div>
-                                <div class="row mb-1">
+                                <div class="row mb-1" id="devDiv">
                                     <div class="col p-0">
                                         <label for="dis" class="col-form-label">Desarrolladores:</label>
                                         <input type="text" class="form-control" id="dev"

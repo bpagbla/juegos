@@ -300,3 +300,34 @@ buttonsDelete.forEach((button) => {
         e.target.closest("div").remove()
     })
 })
+
+function checkFilled() {
+    let valid = true;
+    const activeDis = document.getElementById('dis-active').children
+    const activeDev = document.getElementById('dev-active').children
+    if (!activeDev[0]) {
+        const devDiv = document.getElementById('devDiv')
+        devDiv.classList.add('shake')
+        setTimeout(function () {
+            devDiv.classList.remove('shake')
+        },1000)
+        valid = false
+    }
+
+    if (!activeDis[0]) {
+        const devDis = document.getElementById('devDis')
+        devDis.classList.add('shake')
+        setTimeout(function () {
+            devDis.classList.remove('shake')
+        },1000)
+        valid = false
+    }
+
+    if (valid) {
+        document.getElementById('add-errors').innerHTML = ''
+    } else {
+        document.getElementById('add-errors').innerHTML = '<div class="alert alert-warning text-center" role="alert">Faltan campos por rellenar!</div>'
+    }
+
+    return valid;
+}
