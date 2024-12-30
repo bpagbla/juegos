@@ -141,7 +141,7 @@
                             </div>
                             <div id="gen-active" class="row mt-2">
                             </div>
-                            <div class="row mb-3">
+                            <div class="row">
                                 <label class="col-form-label" for="year">Año</label>
                                 <input class="form-control" type="number" name="year" id="year" min="1900"
                                     max="<?php echo date("Y"); ?>" required>
@@ -149,11 +149,16 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-4 campos">
+                        <div class="col-5 campos">
                             <!-- INPUT PORTADA -->
                             <label for="portada" class="col-form-label">Portada:</label>
                             <input type="file" id="file" name="portada" accept="image/*">
                             <input type="hidden" id="fileSrc" name="fileSrc" value="">
+                        </div>
+                        <div class="col-5 campos">
+                            <!-- INPUT JUEGO -->
+                            <label for="archivoJuego" class="col-form-label">Juego:</label>
+                            <input type="file" id="archivoJuego" name="archivoJuego" accept=".jsdos">
                         </div>
                     </div>
                     <div class="modal-footer">
