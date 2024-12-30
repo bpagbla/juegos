@@ -420,7 +420,7 @@ class model
         $ddbb = new BaseDeDatos;
         $ddbb->conectar(); //se conecta a la base de datos
 
-        return $ddbb->update("UPDATE juego SET TITULO = ?, RUTA=?, PORTADA = ?, DESARROLLADOR = ?, DISTRIBUIDOR = ?, ANIO = ?, DESCRIPCION = ? WHERE ID = ?", [$titulo, $ruta, $portada, $desarrollador, $distribuidor, $year, $id, $descripcion]);
+        return $ddbb->update("UPDATE juego SET TITULO = ?, RUTA=?, PORTADA = ?, DESARROLLADOR = ?, DISTRIBUIDOR = ?, ANIO = ?, DESCRIPCION = ? WHERE ID = ?", [$titulo, $ruta, $portada, $desarrollador, $distribuidor, $year, $descripcion, $id]);
 
     }
 
