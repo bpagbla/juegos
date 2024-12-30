@@ -399,7 +399,6 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
     })
     myModal.show();
 
-    let rutaJuego = document.getElementById()
 
     <?php
     if (isset($_POST["addGame"])) {
