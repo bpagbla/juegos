@@ -1,10 +1,3 @@
-const buttons = document.querySelectorAll('.removable-buttons')
-buttons.forEach((button) => {
-    button.addEventListener('click', function (e) {
-        e.target.closest("div").remove()
-    })
-})
-
 function showLoading(elem) {
     elem.innerHTML = '<li class="list-group-item"><span class="placeholder w-75"></span></li><li class="list-group-item"><span class="placeholder w-75"></span></li><li class="list-group-item"><span class="placeholder w-75"></span></li>'
 }
@@ -401,3 +394,10 @@ async function loadNamesGen(e) {
         }
     }
 }
+
+const buttonsDelete = document.querySelectorAll('.removable-buttons')
+buttonsDelete.forEach((button) => {
+    button.addEventListener('click', function (e) {
+        e.target.closest("div").remove()
+    })
+})
