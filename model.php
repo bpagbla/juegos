@@ -118,6 +118,30 @@ class model
         return $array; //devolver el array con todos los generos de un juego
     }
 
+    static function getSistJuego($id)
+    {
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+
+
+        $array = array();
+
+        $consulta = $ddbb->consulta("SELECT s.ID, s.NOMBRE 
+    FROM juego_sistema js
+    JOIN sistema s ON js.ID_SIST = s.ID
+    WHERE js.ID_JUEGO = ?", [$id]); //se sacan todos los sistemas relacionados con el juego
+        
+
+        //Se guardan los nombres de los generos
+        foreach ($consulta as $each) {
+            $array[$each['ID']] = $each['NOMBRE'];
+        }
+
+        $ddbb->cerrar();
+        return $array; //devolver el array con todos los generos de un juego
+    }
+
     static function getComp()
     {
         include_once "BD/baseDeDatos.php";
@@ -297,6 +321,28 @@ class model
 
         //se insertan los datos en la base de datos
         $consulta = $ddbb->insert("INSERT INTO juego(ID, TITULO, RUTA, PORTADA, DESARROLLADOR, DISTRIBUIDOR, ANIO, DESCRIPCION) VALUES(?,?,?,?,?,?,?,?)", [$id, $titulo, $ruta, $portada, $dev, $dis, $year, $descripcion]);
+        return $consulta;
+    }
+
+    static function GenGameRel($idJuego, $idGen){
+        include_once "BD/baseDeDatos.php";
+
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar(); //se conecta a la base de datos
+
+        //se insertan los datos en la base de datos
+        $consulta = $ddbb->insert("INSERT INTO juego_genero(ID_JUEGO, ID_GENERO) VALUES(?,?)", [$idJuego, $idGen]);
+        return $consulta;
+    }
+
+    static function SistGameRel($idJuego, $idSist){
+        include_once "BD/baseDeDatos.php";
+
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar(); //se conecta a la base de datos
+
+        //se insertan los datos en la base de datos
+        $consulta = $ddbb->insert("INSERT INTO juego_sistema(ID_JUEGO, ID_SIST) VALUES(?,?)", [$idJuego, $idSist]);
         return $consulta;
     }
 
