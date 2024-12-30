@@ -230,7 +230,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                                     <div class="col p-0">
                                         <label for="descripcion" class="col-form-label">Descripción:</label>
                                         <textarea class="form-control" id="descripcion" name="descripcion"
-                                            required></textarea>
+                                            required > <?php echo $_SESSION['datosJuego'][7] ?></textarea>
                                     </div>
                                 </div>
                                 <div class="row mb-1">

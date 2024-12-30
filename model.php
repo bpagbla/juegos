@@ -633,6 +633,7 @@ class model
         $desarrollador = "";
         $distribuidor = "";
         $anio = "";
+        $descripcion="";
 
         foreach ($consulta as $each) {
             $titulo = $each["TITULO"];
@@ -641,8 +642,9 @@ class model
             $desarrollador = $each["DESARROLLADOR"];
             $distribuidor = $each["DISTRIBUIDOR"];
             $anio = $each["ANIO"];
+            $descripcion = $each["DESCRIPCION"];
         }
-        $datosJuego = [$titulo, $ruta, $portada, $desarrollador, $distribuidor, $anio, $id];
+        $datosJuego = [$titulo, $ruta, $portada, $desarrollador, $distribuidor, $anio, $id, $descripcion];
         $ddbb->cerrar();
         return $datosJuego;
     }
