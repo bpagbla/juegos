@@ -400,15 +400,6 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
         keyboard: false
     })
     myModal.show();
-
-
-    <?php
-    if (isset($_POST["addGame"])) {
-        ?>
-        console.log("bien bien");
-        <?php
-    }
-    ?>
 </script>
 <script src="library/dselect.js"></script>
 <script src="js/adm-juegos.js"></script>

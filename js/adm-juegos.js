@@ -1,7 +1,4 @@
-console.log("perfe");
-
 $(document).ready(function () {
-    console.log("hola")
     //buscar generos
     $("#buscarGen").on("keyup", function () {
         var value = $(this).val().toLowerCase();
@@ -22,7 +19,6 @@ $(document).ready(function () {
 
 });
 
-console.log("carga");
 // Seleccionar los elementos
 const inputPortada = document.getElementById('file');
 const imgPreview = document.getElementById('portada');
@@ -30,7 +26,6 @@ const imgPreview = document.getElementById('portada');
 // Escuchar el evento change del input de archivo
 inputPortada.addEventListener('change', function (event) {
     const file = event.target.files[0]; // Obtener el archivo seleccionado
-    console.log("ok?")
     // Verificar si se seleccionó un archivo y si es una imagen
     if (file && file.type.startsWith('image/')) {
         const reader = new FileReader();
@@ -39,9 +34,6 @@ inputPortada.addEventListener('change', function (event) {
         reader.onload = function (e) {
             imgPreview.src = e.target.result; // Establecer la ruta de la imagen
             document.getElementById("fileSrc").value = null;
-
-            console.log(inputPortada.value);
-            console.log("no?")
         };
 
         reader.readAsDataURL(file); // Leer el archivo como URL
