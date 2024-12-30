@@ -514,7 +514,7 @@ class Controlador
                 } else {
                     $this->sendNotification("error file", "error file");
                 }
-                if (model::modifyGame($_POST["idEdit"], $_POST["tituloEdit"], $rutaJuego, $_POST["fileSrcEdit"], $_POST["desarrolladorEdit"], $_POST["distribuidorEdit"], $_POST["yearEdit"], $_POST["descripcionEdit"])) {
+                if (model::modifyGame($_POST["idEdit"], $_POST["tituloEdit"], $rutaJuego, $_POST["fileSrcEdit"], $_POST["dev"], $_POST["dis"], $_POST["yearEdit"], $_POST["descripcionEdit"])) {
                     print_r($_POST);
                     $_SESSION["editGame"] = true;
                     
