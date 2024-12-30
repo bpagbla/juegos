@@ -401,8 +401,16 @@ class Controlador
                 $ruta = $this->thumbnailFilesUpload();
             }
 
+            $rutaJuego = "games/" . $_POST['id'] . ".jsdos";
+            $resultado = move_uploaded_file($_FILES["archivoJuego"]["tmp_name"], $rutaJuego); //mueve el archivo al directorio
+            if ($resultado) { //si ha salido bien que devuelva la ruta
+                $this->sendNotification("copied file", "copied file");
+            } else {
+                $this->sendNotification("error file", "error file");
+            }
+
             if (isset($_POST["id"]) && isset($_POST["titulo"]) && isset($_POST["descripcion"]) && isset($_POST["dis"]) && isset($_POST["dev"]) && isset($_POST["sist"]) && isset($_POST["gen"]) && isset($_POST["year"]) && isset($_POST["descripcion"])) { //verifica que se han rellenado los campos
-//ver si el juego existe
+            //ver si el juego existe
                 if (!model::existeJuego($_POST["id"])) {
                     if ($ruta != 0) { //si se ha subido la imagen mete los datos en la bbdd
 
@@ -435,7 +443,8 @@ class Controlador
                             }
                         }
 
-                        $inserta = model::addGame($_POST["id"], $_POST["titulo"], 'rutaJuego', $ruta, $_POST["dev"], $_POST["dis"], $_POST["sist"], $_POST["gen"], $_POST["year"], $_POST["descripcion"]);
+                        $inserta = model::addGame($_POST["id"], $_POST["titulo"], $rutaJuego , $ruta, $_POST["dev"], $_POST["dis"], $_POST["sist"], $_POST["gen"], $_POST["year"], $_POST["descripcion"]);
+                        $this->sendNotification("Juego creado", "Juego creado con exito!");
 
                         if ($inserta) {
                             //relacionar los GENEROS con el juego
@@ -452,7 +461,8 @@ class Controlador
                         }
 
 
-                        header('Location: ?page=adm-juegos'); //Redirige a la misma pagina    
+                        header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
+                        die();
                     } else {
                         $this->sendNotification("Error Juego", "Fallo al subir la imagen");
                     }
