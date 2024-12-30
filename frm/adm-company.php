@@ -129,15 +129,14 @@ foreach ($companies as $company) {
         keyboard: false
     })
 
-    const deleteModal = new bootstrap.Modal('#delete-modal', {
-        keyboard: false
-    })
-
     <?php if (isset($_POST["action"]) && $_POST["action"] === 'company-edit') {?>
     editModal.show()
     <?php } ?>
 
     <?php if (isset($_POST["action"]) && $_POST["action"] === 'company-delete') {?>
+    const deleteModal = new bootstrap.Modal('#delete-modal', {
+        keyboard: false
+    })
     deleteModal.show()
     <?php } ?>
 
