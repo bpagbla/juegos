@@ -274,7 +274,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                                             </svg>
                                         </button>
 
-                                        <input type="hidden" name="distribuidorEdit" value="<?php print $_SESSION["iddis"] ?>">
+                                        <input type="hidden" name="dis" value="<?php print $_SESSION["iddis"] ?>">
                                         <input type="hidden" name="dis<?php print $_SESSION["iddis"] ?>"
                                             value="<?php print $_SESSION['datosJuego'][4] ?>">
                                     </div>
@@ -306,7 +306,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                                             </svg>
                                         </button>
 
-                                        <input type="hidden" name="desarrolladorEdit" value="<?php print $_SESSION["iddev"] ?>">
+                                        <input type="hidden" name="dev" value="<?php print $_SESSION["iddev"] ?>">
                                         <input type="hidden" name="dis<?php print $_SESSION["iddev"] ?>"
                                             value="<?php print $_SESSION['datosJuego'][3] ?>">
                                     </div>
