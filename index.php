@@ -256,10 +256,16 @@ class Controlador
             }
 
             if (isset($_POST["subaction"]) && $_POST["subaction"] == "remove-payment") {
-
                 model::removeTarjeta($_POST["id"], substr($_POST["card"], 0, 4), substr($_POST["card"], 4));
+            }
+
+            if (isset($_POST["subaction"]) && $_POST["subaction"] == "add-payment") {
+
+                $dateTime = DateTime::createFromFormat('d/m/y', '01/' . $_POST["exp"]);
+                model::addTarjeta($_POST["id"], $_POST["num"], $dateTime->format("Y-m-d"), $_POST["cvv"]);
 
             }
+
 
             if ($_POST["action"] == "user-add") {
 

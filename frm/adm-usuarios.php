@@ -19,7 +19,6 @@ foreach ($users as $user) {
 <?php
 if (isset($_POST["action"]) && $_POST["action"] == "user-edit") {
     ?>
-
     <!-- Modal -->
     <div class="modal fade modal-lg" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
          aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -103,14 +102,13 @@ if (isset($_POST["action"]) && $_POST["action"] == "user-edit") {
                         <?php
                         $first = true;
                         foreach ($cards as $card) {
-                            $type = (str_starts_with($card["num"], '4')) ? 'Visa' : 'Mastercard';
                             if ($first) {
                                 $first = false;
                             } else { ?>
                                 <hr class="my-0">
                             <?php } ?>
                             <form method="post" class="col-12 align-items-center justify-content-between d-flex py-2">
-                                <p class="m-0"><?php print $type . ':' . $card["num"] . ' | ' . date("m/y", $card["date"]); ?></p>
+                                <p class="m-0"><?php print 'Mastercard:' . $card["num"] . ' | ' . date("m/y", $card["date"]); ?></p>
                                 <input type="hidden" name="card" value="<?php print $card['num'] . $card['date'] ?>">
                                 <input type="hidden" name="action" value="user-edit">
                                 <input type="hidden" name="nick" value="<?php print $_POST["nick"] ?>">

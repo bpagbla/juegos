@@ -62,14 +62,13 @@
     <?php
     $first = true;
     foreach ($cards as $card) {
-        $type = (str_starts_with($card["num"], '4')) ? 'Visa' : 'Mastercard';
         if ($first) {
             $first = false;
         } else { ?>
     <hr class="my-0">
     <?php } ?>
     <form method="post" class="col-12 align-items-center justify-content-between d-flex py-2">
-        <p class="m-0"><?php print $type.':'.$card["num"].' | '.date("m/y",$card["date"]); ?></p>
+        <p class="m-0"><?php print 'Mastercard:'.$card["num"].' | '.date("m/y",$card["date"]); ?></p>
         <input type="hidden" name="card" value="<?php print $card['num'].$card['date'] ?>">
         <button type="submit" name="action" value="remove-payment" class="btn btn-sm">Borrar</button>
     </form>
