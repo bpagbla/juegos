@@ -43,7 +43,7 @@ foreach ($companies as $company) {
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-secondary" form="add-cancel">Cancelar</button>
-                <button type="submit" class="btn btn-primary" form="add-form" name="action" value="sistema-add">Aplicar</button>
+                <button type="submit" class="btn btn-primary" form="add-form" name="action" value="company-add">Aplicar</button>
             </div>
         </div>
     </div>

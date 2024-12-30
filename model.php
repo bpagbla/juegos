@@ -764,4 +764,24 @@ class model
         $ddbb->cerrar();
     }
 
+    public static function deleteCompany($idCompany) {
+
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+
+        $consulta = $ddbb->delete("DELETE FROM compania WHERE ID=?", [$idCompany]);
+        $ddbb->cerrar();
+    }
+
+    public static function changeCompanyName($id, $name) {
+
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+
+        $consulta = $ddbb->update("UPDATE compania SET NOMBRE=? WHERE ID=?", [$name,$id]);
+        $ddbb->cerrar();
+    }
+
 }

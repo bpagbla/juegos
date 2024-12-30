@@ -665,6 +665,31 @@ class Controlador
         //Valida la sessión. Si erronea o logout envia a login.
         $this->validateAdminSession();
 
+        if (isset($_POST['action']) && $_POST['action'] == "company-delete") {
+            model::deleteCompany($_POST['id']);
+            $this->sendNotification("Compañía Borrado", "Borrado " . $_POST['nombre'] . ' exitosamente!');
+            header('Location: ?page=adm-company');
+            die();
+        }
+
+        if (isset($_POST['action']) && $_POST['action'] == "company-add") {
+            if (!model::existeComp($_POST['id'])) {
+                model::addComp($_POST['id'], $_POST['name']);
+                $this->sendNotification("Genero Añadido", "Añadido " . $_POST['nombre'] . ' exitosamente!');
+            } else {
+                $this->sendNotification("Error", 'Este id ya esta en uso');
+            }
+            header('Location: ?page=adm-company');
+            die();
+        }
+
+        if (isset($_POST['action']) && $_POST['action'] == "company-edit-apply") {
+            model::changeCompanyName($_POST['id'], $_POST['name']);
+            $this->sendNotification("Nombre Cambiado", 'Se ha cambiado el nombre de la compañía exitosamente!');
+            header('Location: ?page=adm-company');
+            die();
+        }
+
         //se incluye la vista de principal
         Vista::mostrarAdminEmpresa(model::getComp());
     }
