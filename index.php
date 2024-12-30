@@ -592,6 +592,13 @@ class Controlador
         //Valida la sessión. Si erronea o logout envia a login.
         $this->validateAdminSession();
 
+        if (isset($_POST['action']) && $_POST['action'] == "genero-delete") {
+            model::deleteGenero($_POST['id']);
+            $this->sendNotification("Genero Borrado", "Borrado ".$_POST['nombre'].' exitosamente!');
+            header('Location: ?page=adm-generos');
+            die();
+        }
+
         $generos = model::getGeneros();
 
         //se incluye la vista de principal
@@ -841,7 +848,6 @@ class Controlador
             }
         }
     }
-
 
     public function sendNotification($title, $body, $time = 5000)
     {

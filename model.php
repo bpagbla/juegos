@@ -679,7 +679,7 @@ class model
         foreach ($consulta as $each) {
             $array[] = array('num' => substr($each['NUMERO'], -4), 'date' => strtotime($each['FECHA_CADUC']));
         }
-
+        $ddbb->cerrar();
         return $array;
 
     }
@@ -692,7 +692,7 @@ class model
         $ddbb->conectar();
 
         $consulta = $ddbb->delete("DELETE FROM tarjeta_bancaria WHERE ID_USUARIO=? AND NUMERO LIKE ? AND FECHA_CADUC = ?", [$id, '%' . $num, date("Y-m-d", $exp)]); //se sacan todas los numeros de tarjeta y caducidad
-
+        $ddbb->cerrar();
     }
 
     public static function addTarjeta($id, $num, $exp, $cvv)
@@ -703,7 +703,7 @@ class model
         $ddbb->conectar();
 
         $consulta = $ddbb->insert("INSERT INTO tarjeta_bancaria(ID_USUARIO,NUMERO,FECHA_CADUC,CVV) VALUES (?,?,?,?)", [$id, $num, $exp, $cvv]); //se sacan todas los numeros de tarjeta y caducidad
-
+        $ddbb->cerrar();
     }
 
     public static function deleteGameGenRel($idJuego){
@@ -712,7 +712,7 @@ class model
         $ddbb->conectar();
 
         $consulta = $ddbb->delete("DELETE FROM juego_genero WHERE ID_JUEGO=?", [$idJuego]);
-
+        $ddbb->cerrar();
     }
 
     public static function deleteGameSistRel($idJuego){
@@ -721,7 +721,17 @@ class model
         $ddbb->conectar();
 
         $consulta = $ddbb->delete("DELETE FROM juego_sistema WHERE ID_JUEGO=?", [$idJuego]);
+        $ddbb->cerrar();
+    }
 
+    public static function deleteGenero($idGenero) {
+
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+
+        $consulta = $ddbb->delete("DELETE FROM genero WHERE ID=?", [$idGenero]);
+        $ddbb->cerrar();
     }
 
 }
