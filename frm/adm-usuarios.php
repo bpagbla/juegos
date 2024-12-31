@@ -11,12 +11,14 @@
 </button>
 
 <?php
+//Se procesan los usuarios pasados a la vista con el template
 foreach ($users as $user) {
     include "frm/templates/card-user-adm.php";
 }
 ?>
 
 <?php
+//Si se quiere editar usuarios se crea un modal con los datos de dicho usuario
 if (isset($_POST["action"]) && $_POST["action"] == "user-edit") {
     ?>
     <!-- Modal -->
@@ -100,6 +102,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "user-edit") {
                     </div>
                     <div class="row border-1 border rounded my-2 mx-1">
                         <?php
+                        //Si es la primera tarjeta no se pone una line que es poco estetico en esa situacion
                         $first = true;
                         foreach ($cards as $card) {
                             if ($first) {
@@ -128,6 +131,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "user-edit") {
     </div>
 
     <script>
+        //Se muesta el modal al usuario con una animacion de aparicion
         const myModal = new bootstrap.Modal('#myModal', {
             keyboard: false
         })
@@ -139,6 +143,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "user-edit") {
 ?>
 
 <?php
+//Si se desea cambiar la contraseña se muestra el modal correspondiente
 if (isset($_POST["action"]) && $_POST["action"] == "user-passwd") {
     ?>
 
@@ -194,11 +199,13 @@ if (isset($_POST["action"]) && $_POST["action"] == "user-passwd") {
     </div>
 
     <script>
+        //Se muestra el modal con animacion
         const myModal = new bootstrap.Modal('#myModal', {
             keyboard: false
         })
         myModal.show();
 
+        //Se valida visualmente si las dos contraseñas son identicas
         function validate(e) {
 
             let inputs = document.getElementById("modal-form").querySelectorAll("input")
@@ -218,6 +225,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "user-passwd") {
 
         }
 
+        //Se añaden eventos a los campos de contraseñas para visualmente ver si son identicas
         let passwd1 = document.getElementById("passwd")
         let passwd2 = document.getElementById("passwd2")
 
@@ -271,7 +279,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "user-passwd") {
 }
 ?>
 
-<!-- Modal -->
+<!-- Modal defecto de añadir usuario -->
 <div class="modal fade modal-lg" id="add-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
      aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -338,9 +346,11 @@ if (isset($_POST["action"]) && $_POST["action"] == "user-passwd") {
     })
 
     <?php
+        //Si se intento añadir usuario pero fallo muestra el modal sin dar al boton (anteriormente se han rellenado de nuevo los datos)
         if (isset($_POST["action"]) && $_POST["action"] === "user-add") print "addModal.show()"
     ?>
 
+    //Mostrar modal con click
     document.getElementById('display-add-button').addEventListener('click', function () {addModal.show()})
 </script>
 
