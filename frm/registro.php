@@ -287,10 +287,11 @@
     <script src="../js/registro.js"></script>
 
     <?php
-    //If the user tried to register but this failed, include the js to show the error toast
+    //Si se ha intentado registrar, todos los campos estan correctos y las contraseñas coinciden pero el id o correo esta duplicado se comenta al usuario
     if ($allPosts && !$added && $passwdBien) {
         print "<script src='../js/errorRegistro.js'></script>";
     }
+    //Si las contraseñas no coinicden se comenta al usuario
     if ($allPosts && !$passwdBien) {
         print "<script src='../js/errorPasswd.js'></script>";
     }
