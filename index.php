@@ -349,11 +349,7 @@ class Controlador
                         $added = Model::anadirUsuario($_POST["email"], $_POST["nick"], $_POST["firstName"], $_POST["lastName"], $random, $_POST["role"]);
 
                         //Si se añade se le pasa la contraseña por notificacion y si no se comenta el error
-                        if ($added) {
-                            $this->sendNotification('Usuario Creado', "Usuario registrado correctamente. Contraseña aleatoria: " . htmlentities($random), 20000);
-                        } else {
-                            $this->sendNotification('Error Usuario', "Ha ocurrido un error al registrar el usuario. Reporta al administrador del sistema");
-                        }
+                        $this->sendNotification('Usuario Creado', "Usuario registrado correctamente. Contraseña aleatoria: " . htmlentities($random), 20000);
                     //Si hay problema generando la contraseña aletoria se comenta al admin
                     } catch (RandomException $e) {
                         $this->sendNotification('', "Error al generar una contraseña aletoria. Reporta al administrador del sistema");
