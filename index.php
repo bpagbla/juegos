@@ -1073,7 +1073,9 @@ class Controlador
 
             //Verificamos la contraseña
             if (password_verify($_POST["passwd"], $passReal)) {
+                //Sacamos datos para la session del modelo
                 $array = model::abrirSesion($id);
+
                 //Guardar datos del usuario en la sesion
                 foreach ($array as $row) {
                     $_SESSION["nick"] = $row["nick"];
