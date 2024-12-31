@@ -195,7 +195,7 @@ class model
         include_once "BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
-        $consulta = $ddbb->consulta("SELECT ID,NICK,EMAIL FROM usuario");
+        $consulta = $ddbb->consulta("SELECT ID,NICK,EMAIL FROM usuario"); //Se sacan datos basicos de todos los usaurios
         $users = array();
         foreach ($consulta as $row) {
             $users[] = array($row['ID'], $row['NICK'], $row['EMAIL']);
@@ -210,7 +210,7 @@ class model
         include_once "BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
-        $consulta = $ddbb->consulta("SELECT EMAIL, NOMBRE, APELLIDOS, ROLE FROM usuario WHERE ID=?", array($id));
+        $consulta = $ddbb->consulta("SELECT EMAIL, NOMBRE, APELLIDOS, ROLE FROM usuario WHERE ID=?", array($id)); //Se sacan todos los datos del usuaario por id
         $user = array();
         foreach ($consulta as $row) {
             $user = array($row['ROLE'], $row['EMAIL'], $row['NOMBRE'], $row['APELLIDOS']);
@@ -230,7 +230,7 @@ class model
         $ddbb->conectar();
 
         //Check if there is any user with that email or nick
-        $consulta = $ddbb->consulta("SELECT ID FROM usuario WHERE EMAIL=? || NICK=?", array($loginID, $loginID));
+        $consulta = $ddbb->consulta("SELECT ID FROM usuario WHERE EMAIL=? || NICK=?", array($loginID, $loginID)); //Se consulta el id del nick o contraseña
         $id = "";
         foreach ($consulta as $item) {
             $id = $item["ID"];
@@ -247,7 +247,7 @@ class model
         //Open the database connection
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
-        $consPass = $ddbb->consulta("SELECT password FROM usuario WHERE ID=?", array($id));
+        $consPass = $ddbb->consulta("SELECT password FROM usuario WHERE ID=?", array($id)); //Se consulta el hash del usuario
         $passReal = "";
         foreach ($consPass as $row) {
             $passReal = $row["password"];
