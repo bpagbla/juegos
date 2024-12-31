@@ -220,11 +220,15 @@
                             </div>
 
                             <div class="col-md-5">
-                                <label for="province" class="form-label ms-1" name="provincia">Provincia</label>
-                                <select class="form-select" id="province" required>
+                                <label for="province" class="form-label ms-1">Provincia</label>
+                                <select class="form-select" id="province" name="province" required>
                                     <option value="">Elije...</option>
-                                    <option value="1">Madrid</option>
-                                    <option value="2">Barcelona</option>
+                                    <option value="1" <?php if (!empty($_POST["province"]) && $_POST["province"] == "1") {
+                                        print 'selected';
+                                    } ?>>Madrid</option>
+                                    <option value="2" <?php if (!empty($_POST["province"]) && $_POST["province"] == "2") {
+                                        print 'selected';
+                                    } ?>>Barcelona</option>
                                 </select>
                                 <div class="invalid-feedback">
                                     Selecciona una provincia valida.
