@@ -5,6 +5,7 @@
 </div>
 <div class="row justify-content-around justify-content-lg-start">
     <?php
+    //Se muestan por template los distintos juegos
     foreach ($games as $game) {
         include "frm/templates/card-game-adm.php";
     }
@@ -18,6 +19,7 @@
     </symbol>
 </svg>
 <?php
+//Si se no hay ninguna accion anterior se muestra el modal de añadir al presionar boton añadir
 if (!(isset($_POST["action"]) && $_POST["action"] == "game-edit")) {
     ?>
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" onsubmit="return checkFilled()">
@@ -172,7 +174,9 @@ if (!(isset($_POST["action"]) && $_POST["action"] == "game-edit")) {
         </div>
     </div>
 </div>
-<script src="js/fetchAddGame.js"></script>
+<script src="js/fetchAddGame.js">
+    //Api para sacar datos de juegos de mobygames y bbdd por lado cliente
+</script>
 <?php } ?>
 
 <button type="button" class="btn text-white position-fixed end-0 bottom-0 m-4" data-bs-toggle="modal"
@@ -184,6 +188,7 @@ if (!(isset($_POST["action"]) && $_POST["action"] == "game-edit")) {
 </button>
 
 <?php
+//Si se desea editar se muestra el modal de edicion siempre que la accion este mandada
 if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
     ?>
     <!-- MODAL -->
@@ -328,6 +333,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                                 <div id="sist-active" class="row mt-2">
 
                                     <?php
+                                    //Se sacan todos los sistemas en formato boton
                                     foreach ($_SESSION["sistemasJuego"] as $sistId => $sist) {
                                         include "frm/templates/sist-activeButton.php";
                                     }
@@ -352,6 +358,7 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
                                 </div>
                                 <div id="gen-active" class="row mt-2">
                                     <?php
+                                    //Se sacan todos los generos en formato boton
                                     foreach ($_SESSION["generosJuego"] as $genreId => $genre) {
                                         include "frm/templates/gen-activeButton.php";
                                     }
@@ -389,7 +396,10 @@ if (isset($_POST["action"]) && $_POST["action"] == "game-edit") {
             </div>
         </div>
     </div>
-    <script src="js/fetchEditGame.js"></script>
+
+    <script src="js/fetchEditGame.js">
+        //Script para hacer fetch a api de moby games y api servidor para mostrar datos juegos
+    </script>
     <?php
 }
 ?>
