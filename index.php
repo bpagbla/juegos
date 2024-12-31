@@ -1,7 +1,6 @@
 <?php
 
 use Random\RandomException;
-
 session_start();
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
@@ -16,11 +15,13 @@ class Controlador
     public function inicia()
     {
 
+        //Si no tiene pagina especificada mandar a landing
         if (!isset($_GET["page"])) {
             Vista::mostrarLanding();
             die();
         }
 
+        //Mandar al metodo adecuado segun pagina pedida
         switch ($_GET["page"]) {
             case "landing":
                 Vista::mostrarLanding();
@@ -58,42 +59,62 @@ class Controlador
             case "ajustes":
                 $this->iniciaAjustes();
                 break;
+            //Si no se conoce la pagina mandar a pagina de error
             default:
                 $this->inicia404();
         }
 
     }
 
+    //API para sacar informacion del lado del cliente
     public function fetchAPI()
     {
+        //Comprueba si esta autenticado
         $this->validateSession();
+        //Si no especifica que sacar de la api mandar a pagina error
         if (!isset($_GET["endpoint"])) {
             $this->inicia404();
             die();
         }
+        //Segun endpoint sacar distintos datos
         switch ($_GET["endpoint"]) {
             case "games":
+
+                //Formato API
                 //http://localhost/?page=api&endpoint=games&format=brief&title=
+
+                //Sacar formato de los datos que se mostraran segun opciones de mobygames
                 $format = $_GET["format"] ?? "id";
+
                 $json = '';
+                //Si manda id del juego que quieren
                 if (isset($_GET["id"])) {
+                    //Si especifica plataforma sacar datos plataforma
                     if (isset($_GET["platform"])) {
                         $json = model::getMobyGamebyID($format, $_GET["id"], $_GET["platform"]);
+                    //Si no solo datos generales juego
                     } else {
                         $json = model::getMobyGamebyID($format, $_GET["id"]);
                     }
+                //Si no especifica id filtar por titulo o por 5 primeras opciones
                 } else {
                     $title = $_GET["title"] ?? "";
                     $json = model::getMobyGamebyName($format, $title);
                 }
+                //Vista que mostara los datos sacados de api
                 Vista::showAPIGames($json);
                 break;
+            //Si endpoint es companies
             case "companies":
+                //Sacar de la base de datos las companias disponibles
                 $array = model::getComp();
+                //Filtrar por nombre si se especifica
                 $filter = $_GET["name"] ?? "";
+                //Regex format
                 $filter = '/.*' . $filter . '.*/i';
                 $json["companies"] = array();
                 $quant = 0;
+                //Sacar 5 primeras companias que cumplen regex
                 foreach ($array as $value) {
                     if (preg_match($filter, $value[1])) {
                         $json["companies"][] = array('company_id' => $value[0], 'name' => $value[1]);
@@ -103,14 +124,20 @@ class Controlador
                         break;
                     }
                 }
+                //Vista que mostara los datos sacados
                 Vista::showAPIGames(json_encode($json));
                 break;
+            //Si genres
             case "genres":
+                //Sacar generos disponibles de la base de datos
                 $array = model::getGeneros();
+                //Filtrar por nombre si se especifica
                 $filter = $_GET["name"] ?? "";
+                //Regex format
                 $filter = '/.*' . $filter . '.*/i';
                 $json["genres"] = array();
                 $quant = 0;
+                //Sacar 5 primeras companias que cumplen regex
                 foreach ($array as $value) {
                     if (preg_match($filter, $value[1])) {
                         $json["genres"][] = array('genre_id' => $value[0], 'name' => $value[1]);
@@ -120,14 +147,19 @@ class Controlador
                         break;
                     }
                 }
+                //Vista que mostara los datos sacados
                 Vista::showAPIGames(json_encode($json));
                 break;
             case "platforms":
+                //Sacar plataformas disponibles de la base de datos
                 $array = model::getSist();
+                //Filtrar por nombre si se especifica
                 $filter = $_GET["name"] ?? "";
+                //Regex format
                 $filter = '/.*' . $filter . '.*/i';
                 $json["platforms"] = array();
                 $quant = 0;
+                //Sacar 5 primeras companias que cumplen regex
                 foreach ($array as $value) {
                     if (preg_match($filter, $value[1])) {
                         $json["platforms"][] = array('platform_id' => $value[0], 'name' => $value[1]);
@@ -137,6 +169,7 @@ class Controlador
                         break;
                     }
                 }
+                //Vista que mostara los datos sacados
                 Vista::showAPIGames(json_encode($json));
                 break;
             default:
@@ -170,6 +203,7 @@ class Controlador
                     header("location: ?page=login");
                 }
             } else {
+                //Si hay session pero no es admin se manda a principal
                 header("location: ?page=principal");
             }
         } else { //si no hay sesion creada con el nick se devuelve al landing
@@ -183,25 +217,26 @@ class Controlador
         //Valida la sessión. Si erronea o logout envia a login.
         $this->validateAdminSession();
 
+        //variable con errores a mostar
         $error = "";
-        $notification = "";
+
+        //Si se especifica una accion a realizar
         if (isset($_POST["action"])) {
 
+            //Si accion es aplicar cambios
             if ($_POST["action"] == "user-apply") {
 
+                //Saca todos los usuarios y comprueba que no hay nick o email duplicado
                 $users = model::getAllUsers();
                 $dupe = false;
                 foreach ($users as $user) {
-                    if ($user[1] == $_SESSION["nick"]) {
+                    if ($user[0] == $_POST["id"]) {
                         continue;
                     }
                     if ($user[1] === $_POST["nick"]) {
                         $dupe = true;
                         $error = "El nick ya esta en uso";
                         break;
-                    }
-                    if ($user[2] == $_SESSION["email"]) {
-                        continue;
                     }
                     if ($user[2] === $_POST["email"]) {
                         $dupe = true;
@@ -210,12 +245,16 @@ class Controlador
                     }
                 }
 
+                //Si no hay duplicado se cambia y se actualiza la session
                 if (!$dupe) {
                     //se modifica el usuario en la base de datos
                     model::modifyUser($_POST["id"], $_POST["nick"], $_POST["role"], $_POST["email"], $_POST["firstName"], $_POST["lastName"]);
-                    $_SESSION["nick"] = $_POST["nick"];
-                    $_SESSION["email"] = $_POST["email"];
-                    $_SESSION["role"] = $_POST["role"];
+
+                    if ($_POST["id"] == $_SESSION["id"]) {
+                        $_SESSION["nick"] = $_POST["nick"];
+                        $_SESSION["email"] = $_POST["email"];
+                        $_SESSION["role"] = $_POST["role"];
+                    }
 
                     //mensaje de notificacion
                     $this->sendNotification("Usuario Actualizado", "Se han actualizado los datos del usuario exitosamente!");
@@ -721,6 +760,7 @@ class Controlador
         //recuperar carrito de bbdd
         $carrito = new Carrito();
         if (empty($_SESSION['carrito'])) {
+            $this->sendNotification("Reanudando Carrito","Sacado carrito se su session anterior en otro dispositivo");
             $carrito->setCarrito(model::getCarrito($_SESSION["id"]));
             $_SESSION['carrito'] = serialize($carrito);
         } else {
