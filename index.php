@@ -230,6 +230,7 @@ class Controlador
                 $users = model::getAllUsers();
                 $dupe = false;
                 foreach ($users as $user) {
+                    //Si el usuario es si mismo se salta
                     if ($user[0] == $_POST["id"]) {
                         continue;
                     }
@@ -250,6 +251,7 @@ class Controlador
                     //se modifica el usuario en la base de datos
                     model::modifyUser($_POST["id"], $_POST["nick"], $_POST["role"], $_POST["email"], $_POST["firstName"], $_POST["lastName"]);
 
+                    //Si se esta modificando a si mismo cambiar los datos correspondientes en la session
                     if ($_POST["id"] == $_SESSION["id"]) {
                         $_SESSION["nick"] = $_POST["nick"];
                         $_SESSION["email"] = $_POST["email"];
@@ -261,11 +263,13 @@ class Controlador
                     header('Location: ?page=adm-usuarios');
                     die();
                 } else {
+                    //Notificacion de error
                     $this->sendNotification("Error en el cambio", $error);
                 }
 
             }
 
+            //Borrar usuario
             if ($_POST["action"] == "user-delete") {
 
                 //si el id del usuario que se quiere borrar es el mismo que el de la sesión sale error
@@ -281,46 +285,48 @@ class Controlador
 
             }
 
+            //Cambio de contraseña
             if ($_POST["action"] == "user-passwd-apply") {
 
+                //Si las contraseñas son identicas se cambian
                 if ($_POST["passwd"] === $_POST["passwd2"]) {
+                    //Solicita al modelo el cambio
                     model::changePasswd($_POST["id"], $_POST["passwd"]);
                     $this->sendNotification("Contraseña cambiada", "La contraseña se ha cambiado correctamente!");
                 } else {
+                    //Si no son identicas se notifica al usuario
                     $this->sendNotification("Error Usuario", "Ha habido un error cambiando la contraseña. Contacta con el administrador del sistema.");
                 }
                 header('Location: ?page=adm-usuarios');
                 die();
-
             }
 
+            //Si se desea borrar una forma de pago
             if (isset($_POST["subaction"]) && $_POST["subaction"] == "remove-payment") {
+                //Se saca la tarjeta del string parseando sus datos
                 model::removeTarjeta($_POST["id"], substr($_POST["card"], 0, 4), substr($_POST["card"], 4));
             }
 
+            //Si se desea añadir un metodo de pago
             if (isset($_POST["subaction"]) && $_POST["subaction"] == "add-payment") {
 
+                //Se formatea para la base de datos los datos sacados del formulario y se pasa al modelo para añadir
                 $dateTime = DateTime::createFromFormat('d/m/y', '01/' . $_POST["exp"]);
                 model::addTarjeta($_POST["id"], $_POST["num"], $dateTime->format("Y-m-d"), $_POST["cvv"]);
 
             }
 
-
+            //Si se quire añadir un usuario
             if ($_POST["action"] == "user-add") {
 
+                //Sacan todos los usuarios para ver si esta duplicado
                 $users = model::getAllUsers();
                 $dupe = false;
                 foreach ($users as $user) {
-                    if ($user[1] == $_SESSION["nick"]) {
-                        continue;
-                    }
                     if ($user[1] === $_POST["nick"]) {
                         $dupe = true;
                         $error = "El nick ya esta en uso";
                         break;
-                    }
-                    if ($user[2] == $_SESSION["email"]) {
-                        continue;
                     }
                     if ($user[2] === $_POST["email"]) {
                         $dupe = true;
@@ -329,25 +335,31 @@ class Controlador
                     }
                 }
 
+                //Si no esta duplicado se prosigue
                 if (!$dupe) {
                     try {
+                        //Se crea una contraseña aletoria para que el administrador pueda pasar al usuario pertinente sin tener que pensar cada vez una.
                         $characters = str_split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&');
                         $random = '';
                         for ($i = 0; $i < 16; $i++) {
                             $random .= $characters[rand(0, sizeof($characters) - 1)];
                         }
 
+                        //Se pasa al modelo para añadir al usuario
                         $added = Model::anadirUsuario($_POST["email"], $_POST["nick"], $_POST["firstName"], $_POST["lastName"], $random, $_POST["role"]);
 
+                        //Si se añade se le pasa la contraseña por notificacion y si no se comenta el error
                         if ($added) {
                             $this->sendNotification('Usuario Creado', "Usuario registrado correctamente. Contraseña aleatoria: " . htmlentities($random), 20000);
                         } else {
                             $this->sendNotification('Error Usuario', "Ha ocurrido un error al registrar el usuario. Reporta al administrador del sistema");
                         }
+                    //Si hay problema generando la contraseña aletoria se comenta al admin
                     } catch (RandomException $e) {
                         $this->sendNotification('', "Error al generar una contraseña aletoria. Reporta al administrador del sistema");
                     } finally {
 
+                        //Se elimina el post request
                         header('Location: ?page=adm-usuarios');
                         die();
 
@@ -358,7 +370,10 @@ class Controlador
 
         }
 
+        //Se sacan todos los usuarios para mostrar por la vista
         $users = model::getAllUsers();
+
+        //Si se desean editar los usuarios se saca la informacion de dicho usuario
         if (isset($_POST["action"]) && $_POST["action"] == "user-edit") {
             $user = model::getUserData($_POST["id"]);
             //se incluye la vista de principal con datos de usuario pedido
@@ -373,8 +388,8 @@ class Controlador
     public function thumbnailFilesUpload($file, $id)
     {
         $mime = $_FILES[$file]["type"];
-        $extension = explode("/", $mime); //coge la extensión (por si no es siempre la misma no se)
-        $ruta = "img/game-thumbnail/" . $id. "." . $extension[1]; //ESE TITULO HAY QUE CAMBIARLO POR EL ID DEL JUEGO EN LA API
+        $extension = explode("/", $mime); //coge la extensión del archivo
+        $ruta = "img/game-thumbnail/" . $id. "." . $extension[1]; //Cambia el nombre por el id
         $resultado = move_uploaded_file($_FILES[$file]["tmp_name"], $ruta); //mueve el archivo al directorio
         if ($resultado) { //si ha salido bien que devuelva la ruta
             return $ruta;
@@ -385,21 +400,17 @@ class Controlador
 
     }
 
-    function download_image1($image_url, $image_file)
+
+    function download_image1($url, $destino)
     {
-        $fp = fopen($image_file, 'w+');// open file handle
+        $archivo = fopen($destino, 'w+');// open file handle
 
-        $ch = curl_init($image_url);
-        // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // enable if you want
-        curl_setopt($ch, CURLOPT_FILE, $fp);          // output to file
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 1000);      // some large value to allow curl to run for a long time
-        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0');
-        // curl_setopt($ch, CURLOPT_VERBOSE, true);   // Enable this line to see debug prints
-        curl_exec($ch);
-
-        curl_close($ch);                              // closing curl handle
-        fclose($fp);                                  // closing file handle
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_FILE, $archivo); //Guarda la salida el el archivo
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1); //Evita que saque un estado de respuesta innecesario
+        curl_exec($curl); //Saca foto
+        curl_close($curl); //cierra curl
+        fclose($archivo); // cierra gestor de escritura
     }
     function get_mime_type($url)
     {
@@ -425,7 +436,9 @@ class Controlador
         //Valida la sessión. Si erronea o logout envia a login.
         $this->validateAdminSession();
         if (isset($_POST["addGame"])) {
+
             $ruta = "";
+            //Si no hay portada subida por api se saca de input
             if (!empty($_POST["fileSrc"])) {
                 $image_url = $_POST["fileSrc"];
                 $ruta = "img/game-thumbnail/" . $_POST['id'];
@@ -442,6 +455,7 @@ class Controlador
                     $ruta = 0;
                 }
             } else {
+                //Si se ha subido la imagen por input comprobar que esta y descargar. si no dar error
                 if (isset($_FILES["portada"]) && $_FILES["portada"]["error"] != '4') {
                     $ruta = $this->thumbnailFilesUpload("portada", $_POST["id"]);
                 } else {
@@ -451,18 +465,22 @@ class Controlador
                 }
             }
 
+            //Si no se sube el juego se pasa  error si no se guarda con nombre id juego
             if (isset($_FILES["archivoJuego"]) && $_FILES["archivoJuego"]["error"] != '4') {
+                //Determina ruta
                 $rutaJuego = "games/" . $_POST['id'] . ".jsdos";
                 $resultado = move_uploaded_file($_FILES["archivoJuego"]["tmp_name"], $rutaJuego); //mueve el archivo al directorio
                 if (!$resultado) { //si ha salido bien que devuelva la ruta
                     $this->sendNotification("error file", "error file");
                 }
             } else {
+                //Error no se subio
                 $this->sendNotification("Error Juego", "No todos los campos necesarios estan rellenos");
                 header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
                 die();
             }
 
+            //Comprueba que todos los campos estan si no pasar error
             if (isset($_POST["id"]) && isset($_POST["titulo"]) && isset($_POST["descripcion"]) && isset($_POST["dis"]) && isset($_POST["dev"]) && isset($_POST["sist"]) && isset($_POST["gen"]) && isset($_POST["year"]) && isset($_POST["descripcion"])) { //verifica que se han rellenado los campos
                 //ver si el juego existe
                 if (!model::existeJuego($_POST["id"])) {
@@ -532,6 +550,7 @@ class Controlador
 
         }
 
+        //se manejan las notificaciones
         if (isset($_SESSION["editGame"])) {
             $this->sendNotification("Juego Editado", "Se ha editado el juego correctamente");
             $_SESSION["editGame"] = null;
@@ -542,9 +561,12 @@ class Controlador
             $_SESSION["noeditGame"] = null;
         }
 
+        //Si hay accion
         if (isset($_POST["action"])) {
 
+            //Accion para editar valores del juego
             if ($_POST["action"] == "game-edit") {
+                //Se guardan el la session datos del juego para mostrar
                 $_SESSION["datosJuego"] = model::getGame($_POST["idJuego"]);
                 $_SESSION["iddev"] = $_SESSION["datosJuego"][3];
                 $_SESSION["iddis"] = $_SESSION["datosJuego"][4];
@@ -557,6 +579,7 @@ class Controlador
 
             }
             if ($_POST["action"] == "game-apply") {
+                //Si se aplica una edicion del juego se crea la ruta de las imagenes y el juego y mandan erorres pertinentes
                 $rutaJuego = "games/" . $_POST['idEdit'] . ".jsdos";
                 if (isset($_FILES["rutaEdit"]) && $_FILES["rutaEdit"]["error"] != '4') {
                     $resultado = move_uploaded_file($_FILES["rutaEdit"]["tmp_name"], $rutaJuego); //mueve el archivo al directorio
@@ -567,20 +590,25 @@ class Controlador
                     }
                 }
 
+                //Se saca la ruta original
                 $ruta = $_POST['fileSrcEdit'];
 
+                //Si nueva portada se sobreescribe
                 if (isset($_FILES["portadaEdit"]) && $_FILES["portadaEdit"]["error"] != '4') {
                     $ruta = $this->thumbnailFilesUpload("portadaEdit", $_POST["idEdit"]);
                 }
 
+                //Si no hay todos los campos se pasa un error.
                 if (!isset($_POST["dev"]) || !isset($_POST["dis"]) || !isset($_POST["idEdit"]) || !isset($_POST["tituloEdit"]) || !isset($ruta) || !isset($_POST["yearEdit"]) || !isset($_POST["descripcionEdit"])) {
                     $this->sendNotification("Error Actualizando", "Faltan campos necesarios para proceder");
                     header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
                     die();
                 }
 
+                //Si no se pasa al modelo para procesar
                 if (model::modifyGame($_POST["idEdit"], $_POST["tituloEdit"], $rutaJuego, $ruta, $_POST["dev"], $_POST["dis"], $_POST["yearEdit"], $_POST["descripcionEdit"])) {
 
+                    //Si se ha editado correctamente se guarda para mostrar
                     $_SESSION["editGame"] = true;
 
                     //borrar todas las relaciones
@@ -651,14 +679,18 @@ class Controlador
         //Valida la sessión. Si erronea o logout envia a login.
         $this->validateAdminSession();
 
+        //Si la accion es para borrar el genero
         if (isset($_POST['action']) && $_POST['action'] == "genero-delete") {
+            //Se pasa al modelo la orden y se notifica al usuario
             model::deleteGenero($_POST['id']);
             $this->sendNotification("Genero Borrado", "Borrado " . $_POST['nombre'] . ' exitosamente!');
             header('Location: ?page=adm-generos');
             die();
         }
 
+        //Si se desea añadir genero
         if (isset($_POST['action']) && $_POST['action'] == "genero-add") {
+            //Se comprueba que no se este usando ese id y en ese caso se crea o se da error
             if (!model::existeGen($_POST['id'])) {
                 model::addGen($_POST['id'], $_POST['name']);
                 $this->sendNotification("Genero Añadido", "Añadido " . $_POST['nombre'] . ' exitosamente!');
@@ -669,7 +701,9 @@ class Controlador
             die();
         }
 
+        //Editar genero
         if (isset($_POST['action']) && $_POST['action'] == "genero-edit-apply") {
+            //Se cambia el nombre del genero y se notifica al usuario
             model::changeGeneroName($_POST['id'], $_POST['name']);
             $this->sendNotification("Nombre Cambiado", 'Se ha cambiado el nombre del genero exitosamente!');
             header('Location: ?page=adm-generos');
@@ -685,14 +719,18 @@ class Controlador
         //Valida la sessión. Si erronea o logout envia a login.
         $this->validateAdminSession();
 
+        //Si la accion es para borrar el sistema
         if (isset($_POST['action']) && $_POST['action'] == "sistema-delete") {
+            //Se pasa al modelo la orden y se notifica al usuario
             model::deleteSistema($_POST['id']);
             $this->sendNotification("Sistema Borrado", "Borrado " . $_POST['nombre'] . ' exitosamente!');
             header('Location: ?page=adm-sistemas');
             die();
         }
 
+        //Si se desea añadir genero
         if (isset($_POST['action']) && $_POST['action'] == "sistema-add") {
+            //Se comprueba que no se este usando ese id y en ese caso se crea o se da error
             if (!model::existeSis($_POST['id'])) {
                 model::addSis($_POST['id'], $_POST['name']);
                 $this->sendNotification("Genero Añadido", "Añadido " . $_POST['nombre'] . ' exitosamente!');
@@ -703,7 +741,9 @@ class Controlador
             die();
         }
 
+        //Editar sistema
         if (isset($_POST['action']) && $_POST['action'] == "sistema-edit-apply") {
+            //Se cambia el nombre del genero y se notifica al usuario
             model::changeSistemaName($_POST['id'], $_POST['name']);
             $this->sendNotification("Nombre Cambiado", 'Se ha cambiado el nombre del genero exitosamente!');
             header('Location: ?page=adm-sistemas');
@@ -718,8 +758,11 @@ class Controlador
         //Valida la sessión. Si erronea o logout envia a login.
         $this->validateAdminSession();
 
+        //Si la accion es para borrar la empresa
         if (isset($_POST['action']) && $_POST['action'] == "company-delete") {
+            //Se mira si esa empresa tiene algun juego asociado al mismo
             $games = model::getGamesForCompany($_POST['id']);
+            //Si no tiene juego se borra y si no se notifica al usuario que tiene juegos y se les muestran los mismos
             if (sizeof($games) > 0) {
                 Vista::mostrarAdminEmpresa(model::getComp(), $games);
             } else {
@@ -730,7 +773,9 @@ class Controlador
             die();
         }
 
+        //Si se desea añadir empresa
         if (isset($_POST['action']) && $_POST['action'] == "company-add") {
+            //Se comprueba que no se este usando ese id y en ese caso se crea o se da error
             if (!model::existeComp($_POST['id'])) {
                 model::addComp($_POST['id'], $_POST['name']);
                 $this->sendNotification("Genero Añadido", "Añadido " . $_POST['nombre'] . ' exitosamente!');
@@ -741,7 +786,9 @@ class Controlador
             die();
         }
 
+        //Editar empresa
         if (isset($_POST['action']) && $_POST['action'] == "company-edit-apply") {
+            //Se cambia el nombre al pedido y se notifica al usuario
             model::changeCompanyName($_POST['id'], $_POST['name']);
             $this->sendNotification("Nombre Cambiado", 'Se ha cambiado el nombre de la compañía exitosamente!');
             header('Location: ?page=adm-company');
@@ -757,8 +804,10 @@ class Controlador
 
         //Valida la sessión. Si erronea o logout envia a login.
         $this->validateSession();
-        //recuperar carrito de bbdd
+
+
         $carrito = new Carrito();
+        //Si el carrito no esta en la session se crea y saca de la bbddd si no se unserialize
         if (empty($_SESSION['carrito'])) {
             $this->sendNotification("Reanudando Carrito","Sacado carrito se su session anterior en otro dispositivo");
             $carrito->setCarrito(model::getCarrito($_SESSION["id"]));
@@ -767,10 +816,13 @@ class Controlador
             $carrito = unserialize($_SESSION['carrito']);
         }
 
+        //Si se añade al carrito un juego se notifica del mismo
         if (isset($_SESSION["addJuegoCarrito"])) {
             $this->sendNotification('Juego añadido al carrito', "Se ha añadido el juego al carrito correctamente", 20000);
             $_SESSION["addJuegoCarrito"] = null;
         }
+
+        //Si se borra del carrito un juego se notifica del mismo
         if (isset($_SESSION["borrarJuegoCarrito"])) {
             $this->sendNotification('Juego eliminado del carrito', "Se ha eliminado el juego del carrito correctamente", 20000);
             $_SESSION["borrarJuegoCarrito"] = null;
@@ -781,6 +833,7 @@ class Controlador
         $gamesOwned = model::getGames($_SESSION["id"]);
 
         $i = 0;
+        //Se guarda si al usuario le pertenece el juego
         foreach ($games as $game) {
             foreach ($gamesOwned as $gameOwned) {
                 if ($game[0] == $gameOwned[0]) {
@@ -789,9 +842,16 @@ class Controlador
             }
             $i++;
 
+            //Se procesa el bnorrado de un juego. Tanto en el objeto como en la bbdd
             if (isset($_POST["borrar$game[0]"])) {
+
+                //Actualizo objeto
                 $carrito->sacarJuegoCarrito($game[0]);
+
+                //Actualizo bbdd
                 model::borrarJuegoCarrito($game[0]);
+
+                //Guardo en session
                 $_SESSION['carrito'] = serialize($carrito);
 
                 $_SESSION["borrarJuegoCarrito"] = true;
@@ -799,8 +859,13 @@ class Controlador
                 die();
             }
 
-            if (isset($_POST["juegoCompra$game[0]"])) { //si se ha dado a comprar en algun juego
+            //Se procesa añadir un juego. Tanto en el objeto como en la bbdd
+            if (isset($_POST["juegoCompra$game[0]"])) {
+
+                //Actualizo objeto
                 $carrito->meterJuegoCarrito($game[0], $game[1]);
+
+                //Guardo en session
                 $_SESSION['carrito'] = serialize($carrito);
 
                 //actualizar bbdd
@@ -844,15 +909,22 @@ class Controlador
         //Valida la sessión. Si erronea o logout envia a login.
         $this->validateSession();
 
+        //Si no hay una accion se procesa la vista de forma normal con los datos del usuario
         if (!isset($_POST["action"])) {
             Vista::mostrarAjustes(model::getUserData($_SESSION["id"]), model::getTarjetas($_SESSION["id"]));
             die();
         }
 
+        //Si hay una accion
         switch ($_POST["action"]) {
+
+            //Si se desa actualizar la contraseña
             case "update-passwd":
+                //Se mira que las dos contraseñas sean iguales y no vacias
                 if (!empty($_POST["passwd1"]) && !empty($_POST["passwd2"]) && $_POST["passwd1"] === $_POST["passwd2"]) {
+                    //Se pasa al modelo el cambio de contraseña
                     model::changePasswd($_SESSION["id"], $_POST["passwd1"]);
+                    //Notifica al usuario
                     $this->sendNotification("Contraseña Cambiada", "Se ha cambiado la contraseña correctamente!");
                     header('Location: ?page=ajustes');
                     die();
@@ -860,11 +932,13 @@ class Controlador
                     $this->sendNotification("Error Contraseña", "Rellena Correctamente los campos!");
                 }
                 break;
+            //Se actualizan los datos del usuario
             case "update-personal":
+                //Se mira si hay duplicados
                 $users = model::getAllUsers();
                 $dupe = false;
                 foreach ($users as $user) {
-                    if ($user[1] == $_SESSION["nick"]) {
+                    if ($user[0] == $_SESSION["id"]) {
                         continue;
                     }
                     if ($user[1] === $_POST["nick"]) {
@@ -872,15 +946,13 @@ class Controlador
                         $error = "El nick ya esta en uso";
                         break;
                     }
-                    if ($user[2] == $_SESSION["email"]) {
-                        continue;
-                    }
                     if ($user[2] === $_POST["email"]) {
                         $dupe = true;
                         $error = "El email ya esta en uso";
                         break;
                     }
                 }
+                //Si no duplicado se cambia en bbdd y session
                 if (!$dupe) {
                     //se modifica el usuario en la base de datos
                     model::modifyUser($_SESSION["id"], $_POST["nick"], $_SESSION["role"], $_POST["email"], $_POST["firstName"], $_POST["lastName"]);
@@ -895,12 +967,16 @@ class Controlador
                     $this->sendNotification("Error en el cambio", $error);
                 }
                 break;
+            //Borrar metodo de pago
             case "remove-payment":
+                //Se pasa al modelo la tarjeta y el usuario para borrar el mismo
                 model::removeTarjeta($_SESSION["id"], substr($_POST["card"], 0, 4), substr($_POST["card"], 4));
                 $this->sendNotification("Metodos de Pago", "Se ha eliminado el metodo de pago exitosamente!");
                 header('Location: ?page=ajustes');
                 die();
+            //Añadir metodo de pago
             case "payment-submit":
+                //Se pasan los datos de la tarjeta al modelo para añadir y se notifica al usuario
                 $this->sendNotification("Metodos de Pago", "Se ha añadido el metodo de pago exitosamente!");
                 $dateTime = DateTime::createFromFormat('d/m/y', '01/' . $_POST["exp"]);
                 model::addTarjeta($_SESSION["id"], $_POST["num"], $dateTime->format("Y-m-d"), $_POST["cvv"]);
@@ -987,13 +1063,14 @@ class Controlador
         }
     }
 
+    //Funcion para mandar notificaciones
     public function sendNotification($title, $body, $time = 5000)
     {
         if (!isset($_SESSION["notifications"])) { //si no existe notificaciones en el session se crea
             $_SESSION["notifications"] = array();
         }
 
-        $_SESSION["notifications"][] = array($title, $body, $time); //se guarda un array con las notificaciones para ponerlas en el template
+        $_SESSION["notifications"][] = array($title, $body, $time); //se guarda un array con las notificaciones que vista muestra luego
 
     }
 
