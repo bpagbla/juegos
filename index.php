@@ -1008,24 +1008,42 @@ class Controlador
         $error = '';
         //se comprueba que se hayan rellenado todos los campos
         $allPosts = (isset($_POST["email"]) && isset($_POST["nick"]) && isset($_POST["nombre"]) && isset($_POST["apellidos"]) && isset($_POST["passwd"]));
-        $passwdBien = false;
+
+        //Sacan todos los usuarios para ver si esta duplicado
+        $users = model::getAllUsers();
+        $dupe = false;
+        $passwdBien = true;
+
         if ($allPosts) {
+            foreach ($users as $user) {
+                if ($user[1] === $_POST["nick"]) {
+                    $dupe = true;
+                    $error = "El nick ya esta en uso";
+                    break;
+                }
+                if ($user[2] === $_POST["email"]) {
+                    $dupe = true;
+                    $error = "El email ya esta en uso";
+                    break;
+                }
+            }
+        }
+
+        if ($allPosts && !$dupe) {
             //se comprueba que las contraseñas sean iguales
             if ($this->comprobarPasswd()) {
-                $passwdBien = true;
-                //se llama a la funcion anadirUsuario que devuelve true si se crea la nueva cuenta y false si no
-                $added = Model::anadirUsuario($_POST["email"], $_POST["nick"], $_POST["nombre"], $_POST["apellidos"], $_POST["passwd"]);
+                Model::anadirUsuario($_POST["email"], $_POST["nick"], $_POST["nombre"], $_POST["apellidos"], $_POST["passwd"]);
+                //se crea la nueva cuenta y te devuelve al login para que inicies sesion
+                header("Location: ?page=login");
+                $_SESSION["nuevaCuenta"] = true;
+            } else {
+                $passwdBien = false;
             }
 
         }
-        if ($added) {
-            //si se crea la nueva cuenta te devuelve al login para que inicies sesion
-            header("Location: ?page=login");
-            $_SESSION["nuevaCuenta"] = true;
-        }
 
         //se incluye la vista de registro
-        Vista::mostrarRegistro($allPosts, $added, $passwdBien);
+        Vista::mostrarRegistro($allPosts, !$dupe, $passwdBien);
     }
 
     public function inicia404()
@@ -1055,7 +1073,14 @@ class Controlador
 
             //Verificamos la contraseña
             if (password_verify($_POST["passwd"], $passReal)) {
-                model::abrirSesion($id);
+                $array = model::abrirSesion($id);
+                //Guardar datos del usuario en la sesion
+                foreach ($array as $row) {
+                    $_SESSION["nick"] = $row["nick"];
+                    $_SESSION["email"] = $row["email"];
+                    $_SESSION["id"] = $row["id"];
+                    $_SESSION["role"] = $row["role"];
+                }
                 return true;
             } else {
                 return false;

@@ -287,7 +287,7 @@
     if ($allPosts && !$added && $passwdBien) {
         print "<script src='../js/errorRegistro.js'></script>";
     }
-    if ($allPosts && !$added && !$passwdBien) {
+    if ($allPosts && !$passwdBien) {
         print "<script src='../js/errorPasswd.js'></script>";
     }
     ?>

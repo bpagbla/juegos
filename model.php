@@ -268,17 +268,7 @@ class model
         $ddbb->conectar();
 
         //Saco los datos del user
-        $datos = $ddbb->consulta("SELECT nick,email,id,role,carrito FROM `usuario` WHERE ID=?", array($id));
-
-        //Guardar datos del usuario en la sesion
-        foreach ($datos as $row) {
-            $_SESSION["nick"] = $row["nick"];
-            $_SESSION["email"] = $row["email"];
-            $_SESSION["id"] = $row["id"];
-            $_SESSION["role"] = $row["role"];
-        }
-
-        $ddbb->cerrar();
+        return $ddbb->consulta("SELECT nick,email,id,role,carrito FROM `usuario` WHERE ID=?", array($id)); //Sacan datos de usuario para guardar en la session
     }
 
     static function anadirUsuario($email, $nick, $nombre, $apel, $pass, $role = 'user')
@@ -289,26 +279,11 @@ class model
         $ddbb = new BaseDeDatos;
         $ddbb->conectar(); //se conecta a la base de datos
 
-        //se hace la consulta de usuario y nick para ver si están duplicados
-        $datos = $ddbb->consulta("SELECT NICK,EMAIL FROM usuario WHERE EMAIL=? || NICK=?", array($email, $nick));
+        $pass = password_hash($pass, PASSWORD_DEFAULT); //se convierte a hash la contraseña
 
-        $existe = false;
-        foreach ($datos as $row) {
-            if (isset($row["NICK"]) || isset($row["EMAIL"])) {
-                $existe = true; //si están duplicados se cambia la variable a true
-            }
-        }
+        //se insertan los datos en la base de datos
+        $consulta = $ddbb->insert("INSERT INTO usuario(EMAIL, NICK, NOMBRE, APELLIDOS, PASSWORD, ROLE) VALUES(?,?,?,?,?,?)", [$email, $nick, $nombre, $apel, $pass, $role]);
 
-        if (!$existe) { //si la variable es false se crea el usuario
-
-            $pass = password_hash($pass, PASSWORD_DEFAULT); //se convierte a hash la contraseña
-
-            //se insertan los datos en la base de datos
-            $consulta = $ddbb->insert("INSERT INTO usuario(EMAIL, NICK, NOMBRE, APELLIDOS, PASSWORD, ROLE) VALUES(?,?,?,?,?,?)", [$email, $nick, $nombre, $apel, $pass, $role]);
-            return true; //devuelve true si se ha creado
-        } else {
-            return false; //devuelve false si no se ha creado
-        }
     }
 
     static function addGame($id, $titulo, $ruta, $portada, $dev, $dis, $sist, $gen, $year, $descripcion)
@@ -319,7 +294,7 @@ class model
         $ddbb = new BaseDeDatos;
         $ddbb->conectar(); //se conecta a la base de datos
 
-        //se insertan los datos en la base de datos
+        //se crea el juego en la base de datos
         $consulta = $ddbb->insert("INSERT INTO juego(ID, TITULO, RUTA, PORTADA, DESARROLLADOR, DISTRIBUIDOR, ANIO, DESCRIPCION) VALUES(?,?,?,?,?,?,?,?)", [$id, $titulo, $ruta, $portada, $dev, $dis, $year, $descripcion]);
         return $consulta;
     }
@@ -331,7 +306,7 @@ class model
         $ddbb->conectar(); //se conecta a la base de datos
 
         //se insertan los datos en la base de datos
-        $consulta = $ddbb->insert("INSERT INTO juego_genero(ID_JUEGO, ID_GENERO) VALUES(?,?)", [$idJuego, $idGen]);
+        $consulta = $ddbb->insert("INSERT INTO juego_genero(ID_JUEGO, ID_GENERO) VALUES(?,?)", [$idJuego, $idGen]); //Se añade un juego a un genero
         return $consulta;
     }
 
@@ -358,7 +333,7 @@ class model
         $ddbb = new BaseDeDatos;
         $ddbb->conectar(); //se conecta a la base de datos
 
-        return $ddbb->update("UPDATE usuario SET NICK = ?, ROLE = ?, EMAIL = ?, NOMBRE = ?, APELLIDOS = ? WHERE ID = ?", [$nick, $rol, $email, $nombre, $apel, $id]);
+        return $ddbb->update("UPDATE usuario SET NICK = ?, ROLE = ?, EMAIL = ?, NOMBRE = ?, APELLIDOS = ? WHERE ID = ?", [$nick, $rol, $email, $nombre, $apel, $id]); //Se actualizan datos de usuario con dicho id
 
     }
 
@@ -373,7 +348,7 @@ class model
 
         $ddbb = new BaseDeDatos;
         $ddbb->conectar(); //se conecta a la base de datos
-        return $ddbb->delete("DELETE FROM usuario WHERE ID = ?", array($id));
+        return $ddbb->delete("DELETE FROM usuario WHERE ID = ?", array($id)); // Se borra usuario con dicho id
 
     }
 
@@ -390,7 +365,7 @@ class model
         $ddbb->conectar(); //se conecta a la base de datos
 
         $hash = password_hash($passwd, PASSWORD_DEFAULT);
-        return $ddbb->update("UPDATE usuario SET PASSWORD = ? WHERE ID = ?", [$hash, $id]);
+        return $ddbb->update("UPDATE usuario SET PASSWORD = ? WHERE ID = ?", [$hash, $id]); //Cambia contraseña de usuario con dicho id
 
     }
 
@@ -405,10 +380,10 @@ class model
 
         $ddbb = new BaseDeDatos;
         $ddbb->conectar(); //se conecta a la base de datos
-        return $ddbb->delete("DELETE FROM juego WHERE ID = ?", array($id));
+        return $ddbb->delete("DELETE FROM juego WHERE ID = ?", array($id)); //Borra juegos que concuerden con id
     }
 
-    static function modifyGame($id, $titulo, $ruta, $portada, $desarrollador, $distribuidor, $year, $descripcion)
+    static function modifyGame($id, $titulo, $ruta, $portada, $desarrollador, $distribuidor, $year, $descripcion) //Modifica datos de juego por id
     {
 
         if (empty($id)) {
@@ -420,18 +395,18 @@ class model
         $ddbb = new BaseDeDatos;
         $ddbb->conectar(); //se conecta a la base de datos
 
-        return $ddbb->update("UPDATE juego SET TITULO = ?, RUTA=?, PORTADA = ?, DESARROLLADOR = ?, DISTRIBUIDOR = ?, ANIO = ?, DESCRIPCION = ? WHERE ID = ?", [$titulo, $ruta, $portada, $desarrollador, $distribuidor, $year, $descripcion, $id]);
+        return $ddbb->update("UPDATE juego SET TITULO = ?, RUTA=?, PORTADA = ?, DESARROLLADOR = ?, DISTRIBUIDOR = ?, ANIO = ?, DESCRIPCION = ? WHERE ID = ?", [$titulo, $ruta, $portada, $desarrollador, $distribuidor, $year, $descripcion, $id]); //Actualiza los datos de juego por el id
 
     }
 
-    static private function getMoby($endpoint, $params)
+    static private function getMoby($endpoint, $params) //Se hace peticion a la api de mobygames
     {
-        include_once 'api.env';
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        $params['api_key'] = $moby_api_key;
-        curl_setopt($curl, CURLOPT_URL, 'https://games.eduardojaramillo.click/v1/' . $endpoint . '?' . http_build_query($params));
-        return curl_exec($curl);
+        include_once 'api.env'; //Saca api key
+        $curl = curl_init(); //Inicia curl
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1); //Quita estado de peticion
+        $params['api_key'] = $moby_api_key; //Añade api key a peticion
+        curl_setopt($curl, CURLOPT_URL, 'https://games.eduardojaramillo.click/v1/' . $endpoint . '?' . http_build_query($params)); //Se hace peticion al endpoint pedido con parametros establecidos
+        return curl_exec($curl); //Retorna resultado
     }
 
     static function getMobyGamebyName($format, $title)
@@ -439,7 +414,7 @@ class model
         $params['limit'] = '5';
         $params['format'] = $format;
         $params['title'] = $title;
-        return model::getMoby('games', $params);
+        return model::getMoby('games', $params); //Se sacan los primeros 5 titutlos que concuerden con titulo
     }
 
     static function getMobyGamebyID($format, $id, $platform = '')
@@ -447,7 +422,7 @@ class model
         $params['limit'] = '5';
         $params['format'] = $format;
         if (!empty($platform)) {
-            return model::getMoby('games/' . $id . '/platforms/' . $platform, $params);
+            return model::getMoby('games/' . $id . '/platforms/' . $platform, $params); //Se hace una peticion a la api de mobygames de todas las plataformas de ese juego
         }
         $params['id'] = $id;
         return model::getMoby('games', $params);
@@ -462,7 +437,7 @@ class model
         $ddbb->conectar(); //se conecta a la base de datos
 
 
-        $consulta = $ddbb->consulta("SELECT ID FROM compania WHERE ID=?", array($id));
+        $consulta = $ddbb->consulta("SELECT ID FROM compania WHERE ID=?", array($id)); //Se mira si existe compañía
         $existe = false;
         foreach ($consulta as $item) {
             if (isset($item["ID"])) {
@@ -482,7 +457,7 @@ class model
         $ddbb->conectar(); //se conecta a la base de datos
 
         //se insertan los datos en la base de datos
-        $consulta = $ddbb->insert("INSERT INTO compania(ID, NOMBRE) VALUES(?,?)", [$id, $compNombre]);
+        $consulta = $ddbb->insert("INSERT INTO compania(ID, NOMBRE) VALUES(?,?)", [$id, $compNombre]); //Se añade un genero
         $ddbb->cerrar();
         return $consulta;
     }
@@ -496,7 +471,7 @@ class model
         $ddbb->conectar(); //se conecta a la base de datos
 
 
-        $consulta = $ddbb->consulta("SELECT ID FROM genero WHERE ID=?", array($id));
+        $consulta = $ddbb->consulta("SELECT ID FROM genero WHERE ID=?", array($id)); //Se mira si existe un genero por id
         $existe = false;
         foreach ($consulta as $item) {
             if (isset($item["ID"])) {
@@ -516,7 +491,7 @@ class model
         $ddbb->conectar(); //se conecta a la base de datos
 
         //se insertan los datos en la base de datos
-        $consulta = $ddbb->insert("INSERT INTO genero(ID, NOMBRE) VALUES(?,?)", [$id, $genNombre]);
+        $consulta = $ddbb->insert("INSERT INTO genero(ID, NOMBRE) VALUES(?,?)", [$id, $genNombre]); //Se añade un genero
         $ddbb->cerrar();
         return $consulta;
     }
@@ -530,7 +505,7 @@ class model
         $ddbb->conectar(); //se conecta a la base de datos
 
 
-        $consulta = $ddbb->consulta("SELECT ID FROM sistema WHERE ID=?", array($id));
+        $consulta = $ddbb->consulta("SELECT ID FROM sistema WHERE ID=?", array($id)); //Se confirma o desmiente existencia de un sistema
         $existe = false;
         foreach ($consulta as $item) {
             if (isset($item["ID"])) {
@@ -550,7 +525,7 @@ class model
         $ddbb->conectar(); //se conecta a la base de datos
 
         //se insertan los datos en la base de datos
-        $consulta = $ddbb->insert("INSERT INTO sistema(ID, NOMBRE) VALUES(?,?)", [$id, $sisNombre]);
+        $consulta = $ddbb->insert("INSERT INTO sistema(ID, NOMBRE) VALUES(?,?)", [$id, $sisNombre]); //Se crea un sistema
         $ddbb->cerrar();
         return $consulta;
     }
@@ -564,7 +539,7 @@ class model
         $ddbb->conectar(); //se conecta a la base de datos
 
 
-        $consulta = $ddbb->consulta("SELECT ID FROM juego WHERE ID=?", array($id));
+        $consulta = $ddbb->consulta("SELECT ID FROM juego WHERE ID=?", array($id)); //Se confirma o desmiente existencia de un juego por id
         $existe = false;
         foreach ($consulta as $item) {
             if (isset($item["ID"])) {
@@ -582,7 +557,7 @@ class model
 
         $ddbb = new BaseDeDatos;
         $ddbb->conectar(); //se conecta a la base de datos
-        $consulta = $ddbb->insert("INSERT INTO carrito(ID_USUARIO, ID_JUEGO) VALUES (?,?) ON DUPLICATE KEY UPDATE ID_JUEGO=ID_JUEGO", [$idUser, $idJuego]);
+        $consulta = $ddbb->insert("INSERT INTO carrito(ID_USUARIO, ID_JUEGO) VALUES (?,?) ON DUPLICATE KEY UPDATE ID_JUEGO=ID_JUEGO", [$idUser, $idJuego]); //Se añade un juego al carrito a menos que ya se haya añadido
         $ddbb->cerrar();
 
     }
@@ -594,7 +569,7 @@ class model
         $ddbb = new BaseDeDatos;
         $ddbb->conectar(); //se conecta a la base de datos
 
-        $consulta = $ddbb->consulta("SELECT carrito.ID_JUEGO, juego.TITULO FROM carrito JOIN juego ON carrito.ID_JUEGO = juego.ID WHERE carrito.ID_USUARIO = ?", [$idUser]);
+        $consulta = $ddbb->consulta("SELECT carrito.ID_JUEGO, juego.TITULO FROM carrito JOIN juego ON carrito.ID_JUEGO = juego.ID WHERE carrito.ID_USUARIO = ?", [$idUser]); //Se saca el id y titulo de los juegos en el carrito
 
         $juegos = [];
         foreach ($consulta as $each) {
@@ -613,7 +588,7 @@ class model
 
         $ddbb = new BaseDeDatos;
         $ddbb->conectar(); //se conecta a la base de datos
-        return $ddbb->delete("DELETE FROM carrito WHERE ID_JUEGO = ?", array($id));
+        return $ddbb->delete("DELETE FROM carrito WHERE ID_JUEGO = ?", array($id)); //Se borra el juego con dicho id
 
     }
 
@@ -624,29 +599,15 @@ class model
         $ddbb = new BaseDeDatos;
         $ddbb->conectar(); //se conecta a la base de datos
 
-        $consulta = $ddbb->consulta("SELECT * FROM juego WHERE ID = ?", [$id]);
-
-        $datosJuego = array();
-        $titulo = "";
-        $ruta = "";
-        $portada = "";
-        $desarrollador = "";
-        $distribuidor = "";
-        $anio = "";
-        $descripcion="";
+        $consulta = $ddbb->consulta("SELECT * FROM juego WHERE ID = ?", [$id]); //Se sacan los datos del juego con dicho id
+        $ddbb->cerrar();
 
         foreach ($consulta as $each) {
-            $titulo = $each["TITULO"];
-            $ruta = $each["RUTA"];
-            $portada = $each["PORTADA"];
-            $desarrollador = $each["DESARROLLADOR"];
-            $distribuidor = $each["DISTRIBUIDOR"];
-            $anio = $each["ANIO"];
-            $descripcion = $each["DESCRIPCION"];
+            return [$each["TITULO"],$each["RUTA"],$each["PORTADA"],$each["DESARROLLADOR"],$each["DISTRIBUIDOR"],$each["ANIO"],$id,$each["DESCRIPCION"]]; //Devuelve los datos del juego en un array
         }
-        $datosJuego = [$titulo, $ruta, $portada, $desarrollador, $distribuidor, $anio, $id, $descripcion];
-        $ddbb->cerrar();
-        return $datosJuego;
+
+        return array();
+
     }
 
     public static function getCompNombre($id)
@@ -711,7 +672,7 @@ class model
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
 
-        $consulta = $ddbb->delete("DELETE FROM juego_genero WHERE ID_JUEGO=?", [$idJuego]);
+        $consulta = $ddbb->delete("DELETE FROM juego_genero WHERE ID_JUEGO=?", [$idJuego]); //Se quita un juego de un genero
         $ddbb->cerrar();
     }
 
@@ -720,7 +681,7 @@ class model
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
 
-        $consulta = $ddbb->delete("DELETE FROM juego_sistema WHERE ID_JUEGO=?", [$idJuego]);
+        $consulta = $ddbb->delete("DELETE FROM juego_sistema WHERE ID_JUEGO=?", [$idJuego]); //Se quita el juego de un sistema
         $ddbb->cerrar();
     }
 
@@ -730,7 +691,7 @@ class model
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
 
-        $consulta = $ddbb->delete("DELETE FROM genero WHERE ID=?", [$idGenero]);
+        $consulta = $ddbb->delete("DELETE FROM genero WHERE ID=?", [$idGenero]); //Se borra el genero con dicho id
         $ddbb->cerrar();
     }
 
@@ -740,7 +701,7 @@ class model
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
 
-        $consulta = $ddbb->delete("DELETE FROM sistema WHERE ID=?", [$idSistema]);
+        $consulta = $ddbb->delete("DELETE FROM sistema WHERE ID=?", [$idSistema]); //Se borra el sistema con dicho id
         $ddbb->cerrar();
     }
 
@@ -750,7 +711,7 @@ class model
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
 
-        $consulta = $ddbb->update("UPDATE genero SET NOMBRE=? WHERE ID=?", [$name,$id]);
+        $consulta = $ddbb->update("UPDATE genero SET NOMBRE=? WHERE ID=?", [$name,$id]); //Se actualiza el nombre del genero con dicho id
         $ddbb->cerrar();
     }
 
@@ -760,7 +721,7 @@ class model
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
 
-        $consulta = $ddbb->update("UPDATE sistema SET NOMBRE=? WHERE ID=?", [$name,$id]);
+        $consulta = $ddbb->update("UPDATE sistema SET NOMBRE=? WHERE ID=?", [$name,$id]); //Se actualiza el nombre del sistema con dicho id
         $ddbb->cerrar();
     }
 
@@ -770,7 +731,7 @@ class model
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
 
-        $consulta = $ddbb->delete("DELETE FROM compania WHERE ID=?", [$idCompany]);
+        $consulta = $ddbb->delete("DELETE FROM compania WHERE ID=?", [$idCompany]); //Se borra la compañía con dicho id
         $ddbb->cerrar();
     }
 
@@ -780,7 +741,7 @@ class model
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
 
-        $consulta = $ddbb->update("UPDATE compania SET NOMBRE=? WHERE ID=?", [$name,$id]);
+        $consulta = $ddbb->update("UPDATE compania SET NOMBRE=? WHERE ID=?", [$name,$id]);//Se cambia el nombre de la compañía con dicho id
         $ddbb->cerrar();
     }
 
@@ -793,7 +754,7 @@ class model
         $consulta = $ddbb->consulta("SELECT ID,TITULO FROM juego WHERE DESARROLLADOR=? OR DISTRIBUIDOR=?", [$idCompany,$idCompany]); //se sacan todas los numeros de tarjeta y caducidad
         //Se pasan los ultimos 4 digitos y fecha caducidad
         foreach ($consulta as $each) {
-            $array[] = array($each["ID"],$each["TITULO"]);
+            $array[] = array($each["ID"],$each["TITULO"]); //Guardan en un array
         }
         $ddbb->cerrar();
         return $array;
