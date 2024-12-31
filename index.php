@@ -715,15 +715,17 @@ class Controlador
 
     public function iniciaJuegos()
     {
-        $carrito = new Carrito();
-
 
         //Valida la sessión. Si erronea o logout envia a login.
         $this->validateSession();
-
         //recuperar carrito de bbdd
-        $carrito->setCarrito(model::getCarrito($_SESSION["id"]));
-
+        $carrito = new Carrito();
+        if (empty($_SESSION['carrito'])) {
+            $carrito->setCarrito(model::getCarrito($_SESSION["id"]));
+            $_SESSION['carrito'] = serialize($carrito);
+        } else {
+            $carrito = unserialize($_SESSION['carrito']);
+        }
 
         if (isset($_SESSION["addJuegoCarrito"])) {
             $this->sendNotification('Juego añadido al carrito', "Se ha añadido el juego al carrito correctamente", 20000);
@@ -750,17 +752,22 @@ class Controlador
             if (isset($_POST["borrar$game[0]"])) {
                 $carrito->sacarJuegoCarrito($game[0]);
                 model::borrarJuegoCarrito($game[0]);
+                $_SESSION['carrito'] = serialize($carrito);
+
                 $_SESSION["borrarJuegoCarrito"] = true;
                 header("Location: ?page=juegos");
+                die();
             }
 
             if (isset($_POST["juegoCompra$game[0]"])) { //si se ha dado a comprar en algun juego
                 $carrito->meterJuegoCarrito($game[0], $game[1]);
+                $_SESSION['carrito'] = serialize($carrito);
 
                 //actualizar bbdd
                 model::addCarrito($_SESSION["id"], $game[0]);
                 $_SESSION["addJuegoCarrito"] = true;
                 header("Location: ?page=juegos");
+                die();
             }
 
         }
