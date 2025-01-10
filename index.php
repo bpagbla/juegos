@@ -812,6 +812,9 @@ class Controlador
             $carrito = unserialize($_SESSION['carrito']);
         }
 
+
+        //NOTIFICACIONES
+
         //Si se añade al carrito un juego se notifica del mismo
         if (isset($_SESSION["addJuegoCarrito"])) {
             $this->sendNotification('Juego añadido al carrito', "Se ha añadido el juego al carrito correctamente", 20000);
@@ -823,6 +826,26 @@ class Controlador
             $this->sendNotification('Juego eliminado del carrito', "Se ha eliminado el juego del carrito correctamente", 20000);
             $_SESSION["borrarJuegoCarrito"] = null;
         }
+
+        //si el usuario al que se quiere regalar el juego no existe, se notifica
+        if (isset($_SESSION["regaloUsuario"])) {
+            $this->sendNotification("El usuario introducido no existe", "Comprueba que has escrito correctamente el nombre de usuario a quien quieres regalar el juego.");
+            $_SESSION["regaloUsuario"] = null;
+        }
+
+        //si el usuario al que se quiere regalar el juego ya tiene el juego se notifica
+        if (isset($_SESSION["usuarioPoseeJuegoReg"])) {
+            $this->sendNotification("El usuario seleccionado ya tiene este juego", "El usuario seleccionado ya posee este juego.");
+            $_SESSION["usuarioPoseeJuegoReg"] = null;
+        }
+
+        //si se hace el regalo se notifica
+        if (isset($_SESSION["usuarioPoseeJuegoReg"])) {
+            $this->sendNotification("Juego Regalado con éxito ", "Se ha regalado el juego correctamente.");
+            $_SESSION["usuarioPoseeJuegoReg"] = null;
+        }
+
+
 
         //se incluyen todos los juegos y los juegos que posee el usuario
         $games = Model::getAllGames();
@@ -838,7 +861,7 @@ class Controlador
             }
             $i++;
 
-            //Se procesa el bnorrado de un juego. Tanto en el objeto como en la bbdd
+            //Se procesa el borrado de un juego. Tanto en el objeto como en la bbdd
             if (isset($_POST["borrar$game[0]"])) {
 
                 //Actualizo objeto
@@ -871,30 +894,32 @@ class Controlador
                 die();
             }
 
-        }
 
-        if (isset($_POST["regaloNickname"])) {
-            //verificar si existe el usuario o no
-            $id = model::getID($_POST["regaloNickname"]);
-            if ($id != "") {
-                echo$_POST["idJuegoRegalo"];
-                //comprobar si el otro usuario ya tiene el juego
-                if (!empty(model::poseeJuego($id, $_POST["idJuegoRegalo"]))) {
-                   /*  $this->sendNotification($_POST["regaloNickname"] . " ya tiene este juego", "El usuario seleccionado ya posee este juego."); */
-                   echo"adios";
+
+            if (isset($_POST["regaloNickname$game[0]"])) {
+                echo$_POST["regaloNickname$game[0]"];
+                //verificar si existe el usuario o no
+                $id = model::getID($_POST["regaloNickname$game[0]"]);
+                if ($id != "") {
+
+                    echo $game[0];
+                    //comprobar si el otro usuario ya tiene el juego
+                    if (!empty(model::poseeJuego($id, $game[0]))) {
+                        $_SESSION["usuarioPoseeJuegoReg"] = true;
+                    } else {
+                        //si no tiene el juego, ponerselo
+                        model::ponerJuegoUsuario($id, $game[0]);
+                        $_SESSION["regalado"] = true;
+                    }
+
                 } else {
-                    echo"hola";
-                    //si no tiene el juego, ponerselo
-                    model::ponerJuegoUsuario($id, $_POST["idJuegoRegalo"]);
-                    /* $this->sendNotification("Juego Regalado a " . $_POST["regaloNickname"], "Se ha regalado el juego correctamente."); */
-
+                    $_SESSION["regaloUsuario"] = true;
                 }
-
-            } else {
-                $this->sendNotification("El usuario introducido no existe", "Comprueba que has escrito correctamente el nombre de usuario a quien quieres regalar el juego.");
+                header("Location: ?page=juegos");
+                die();
             }
-
         }
+
 
         //se incluye la vista de principal
         Vista::mostrarJuegos($games);

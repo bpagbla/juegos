@@ -36,10 +36,10 @@
                     <form action="" method="post" id="regalarJuego">
                         <div class="mb-3">
                             <label for="regaloNickname" class="form-label">¿A quién quieres regalar este juego?</label>
-                            <input type="text" class="form-control" id="regaloNickname" name="regaloNickname" required placeholder="nickname">
+                            <input type="text" class="form-control" id="regaloNickname" name="regaloNickname<?php print $game[0] ?>" required placeholder="nickname">
                         </div>
                         <div class="mb-3">
-                            <input type="hidden" name="idJuegoRegalo" value="<?php print $game[0] ?>">
+                            <input type="hidden" name="idJuegoRegalo<?php print $game[0] ?>">
                         </div>
                     </form>
                 </div>

@@ -778,7 +778,7 @@ class model
         $ddbb->conectar();
 
         $consulta = $ddbb->consulta("SELECT * FROM posee WHERE ID_USUARIO=? AND ID_JUEGO=?", [$idUser, $idJuego]);
-        
+        print_r($consulta);
         $ddbb->cerrar();
         return $consulta;
     }
