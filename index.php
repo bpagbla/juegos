@@ -840,9 +840,9 @@ class Controlador
         }
 
         //si se hace el regalo se notifica
-        if (isset($_SESSION["usuarioPoseeJuegoReg"])) {
+        if (isset($_SESSION["regalado"])) {
             $this->sendNotification("Juego Regalado con éxito ", "Se ha regalado el juego correctamente.");
-            $_SESSION["usuarioPoseeJuegoReg"] = null;
+            $_SESSION["regalado"] = null;
         }
 
 
