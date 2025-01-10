@@ -92,11 +92,11 @@ class Controlador
                     //Si especifica plataforma sacar datos plataforma
                     if (isset($_GET["platform"])) {
                         $json = model::getMobyGamebyID($format, $_GET["id"], $_GET["platform"]);
-                    //Si no solo datos generales juego
+                        //Si no solo datos generales juego
                     } else {
                         $json = model::getMobyGamebyID($format, $_GET["id"]);
                     }
-                //Si no especifica id filtar por titulo o por 5 primeras opciones
+                    //Si no especifica id filtar por titulo o por 5 primeras opciones
                 } else {
                     $title = $_GET["title"] ?? "";
                     $json = model::getMobyGamebyName($format, $title);
@@ -350,7 +350,7 @@ class Controlador
 
                         //Si se añade se le pasa la contraseña por notificacion y si no se comenta el error
                         $this->sendNotification('Usuario Creado', "Usuario registrado correctamente. Contraseña aleatoria: " . htmlentities($random), 20000);
-                    //Si hay problema generando la contraseña aletoria se comenta al admin
+                        //Si hay problema generando la contraseña aletoria se comenta al admin
                     } catch (RandomException $e) {
                         $this->sendNotification('', "Error al generar una contraseña aletoria. Reporta al administrador del sistema");
                     } finally {
@@ -385,7 +385,7 @@ class Controlador
     {
         $mime = $_FILES[$file]["type"];
         $extension = explode("/", $mime); //coge la extensión del archivo
-        $ruta = "img/game-thumbnail/" . $id. "." . $extension[1]; //Cambia el nombre por el id
+        $ruta = "img/game-thumbnail/" . $id . "." . $extension[1]; //Cambia el nombre por el id
         $resultado = move_uploaded_file($_FILES[$file]["tmp_name"], $ruta); //mueve el archivo al directorio
         if ($resultado) { //si ha salido bien que devuelva la ruta
             return $ruta;
@@ -805,7 +805,7 @@ class Controlador
         $carrito = new Carrito();
         //Si el carrito no esta en la session se crea y saca de la bbddd si no se unserialize
         if (empty($_SESSION['carrito'])) {
-            $this->sendNotification("Reanudando Carrito","Sacado carrito se su session anterior en otro dispositivo");
+            $this->sendNotification("Reanudando Carrito", "Sacado carrito se su session anterior en otro dispositivo");
             $carrito->setCarrito(model::getCarrito($_SESSION["id"]));
             $_SESSION['carrito'] = serialize($carrito);
         } else {
@@ -824,12 +824,12 @@ class Controlador
             $_SESSION["borrarJuegoCarrito"] = null;
         }
 
-        //se incluyen los juegos que posee el usuario
+        //se incluyen todos los juegos y los juegos que posee el usuario
         $games = Model::getAllGames();
         $gamesOwned = model::getGames($_SESSION["id"]);
 
         $i = 0;
-        //Se guarda si al usuario le pertenece el juego
+        //Se guarda true si al usuario le pertenece el juego
         foreach ($games as $game) {
             foreach ($gamesOwned as $gameOwned) {
                 if ($game[0] == $gameOwned[0]) {
@@ -869,6 +869,29 @@ class Controlador
                 $_SESSION["addJuegoCarrito"] = true;
                 header("Location: ?page=juegos");
                 die();
+            }
+
+        }
+
+        if (isset($_POST["regaloNickname"])) {
+            //verificar si existe el usuario o no
+            $id = model::getID($_POST["regaloNickname"]);
+            if ($id != "") {
+                echo$_POST["idJuegoRegalo"];
+                //comprobar si el otro usuario ya tiene el juego
+                if (!empty(model::poseeJuego($id, $_POST["idJuegoRegalo"]))) {
+                   /*  $this->sendNotification($_POST["regaloNickname"] . " ya tiene este juego", "El usuario seleccionado ya posee este juego."); */
+                   echo"adios";
+                } else {
+                    echo"hola";
+                    //si no tiene el juego, ponerselo
+                    model::ponerJuegoUsuario($id, $_POST["idJuegoRegalo"]);
+                    /* $this->sendNotification("Juego Regalado a " . $_POST["regaloNickname"], "Se ha regalado el juego correctamente."); */
+
+                }
+
+            } else {
+                $this->sendNotification("El usuario introducido no existe", "Comprueba que has escrito correctamente el nombre de usuario a quien quieres regalar el juego.");
             }
 
         }

@@ -107,7 +107,7 @@ class model
     FROM juego_genero jg
     JOIN genero g ON jg.ID_GENERO = g.ID
     WHERE jg.ID_JUEGO = ?", [$id]); //se sacan todos los generos relacionados con el juego
-        
+
 
         //Se guardan los nombres de los generos
         foreach ($consulta as $each) {
@@ -131,7 +131,7 @@ class model
     FROM juego_sistema js
     JOIN sistema s ON js.ID_SIST = s.ID
     WHERE js.ID_JUEGO = ?", [$id]); //se sacan todos los sistemas relacionados con el juego
-        
+
 
         //Se guardan los nombres de los generos
         foreach ($consulta as $each) {
@@ -299,7 +299,8 @@ class model
         return $consulta;
     }
 
-    static function GenGameRel($idJuego, $idGen){
+    static function GenGameRel($idJuego, $idGen)
+    {
         include_once "BD/baseDeDatos.php";
 
         $ddbb = new BaseDeDatos;
@@ -310,7 +311,8 @@ class model
         return $consulta;
     }
 
-    static function SistGameRel($idJuego, $idSist){
+    static function SistGameRel($idJuego, $idSist)
+    {
         include_once "BD/baseDeDatos.php";
 
         $ddbb = new BaseDeDatos;
@@ -603,7 +605,7 @@ class model
         $ddbb->cerrar();
 
         foreach ($consulta as $each) {
-            return [$each["TITULO"],$each["RUTA"],$each["PORTADA"],$each["DESARROLLADOR"],$each["DISTRIBUIDOR"],$each["ANIO"],$id,$each["DESCRIPCION"]]; //Devuelve los datos del juego en un array
+            return [$each["TITULO"], $each["RUTA"], $each["PORTADA"], $each["DESARROLLADOR"], $each["DISTRIBUIDOR"], $each["ANIO"], $id, $each["DESCRIPCION"]]; //Devuelve los datos del juego en un array
         }
 
         return array();
@@ -667,7 +669,8 @@ class model
         $ddbb->cerrar();
     }
 
-    public static function deleteGameGenRel($idJuego){
+    public static function deleteGameGenRel($idJuego)
+    {
         include_once "BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
@@ -676,7 +679,8 @@ class model
         $ddbb->cerrar();
     }
 
-    public static function deleteGameSistRel($idJuego){
+    public static function deleteGameSistRel($idJuego)
+    {
         include_once "BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
@@ -685,7 +689,8 @@ class model
         $ddbb->cerrar();
     }
 
-    public static function deleteGenero($idGenero) {
+    public static function deleteGenero($idGenero)
+    {
 
         include_once "BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;
@@ -695,7 +700,8 @@ class model
         $ddbb->cerrar();
     }
 
-    public static function deleteSistema($idSistema) {
+    public static function deleteSistema($idSistema)
+    {
 
         include_once "BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;
@@ -705,27 +711,30 @@ class model
         $ddbb->cerrar();
     }
 
-    public static function changeGeneroName($id, $name) {
+    public static function changeGeneroName($id, $name)
+    {
 
         include_once "BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
 
-        $consulta = $ddbb->update("UPDATE genero SET NOMBRE=? WHERE ID=?", [$name,$id]); //Se actualiza el nombre del genero con dicho id
+        $consulta = $ddbb->update("UPDATE genero SET NOMBRE=? WHERE ID=?", [$name, $id]); //Se actualiza el nombre del genero con dicho id
         $ddbb->cerrar();
     }
 
-    public static function changeSistemaName($id, $name) {
+    public static function changeSistemaName($id, $name)
+    {
 
         include_once "BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
 
-        $consulta = $ddbb->update("UPDATE sistema SET NOMBRE=? WHERE ID=?", [$name,$id]); //Se actualiza el nombre del sistema con dicho id
+        $consulta = $ddbb->update("UPDATE sistema SET NOMBRE=? WHERE ID=?", [$name, $id]); //Se actualiza el nombre del sistema con dicho id
         $ddbb->cerrar();
     }
 
-    public static function deleteCompany($idCompany) {
+    public static function deleteCompany($idCompany)
+    {
 
         include_once "BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;
@@ -735,29 +744,55 @@ class model
         $ddbb->cerrar();
     }
 
-    public static function changeCompanyName($id, $name) {
+    public static function changeCompanyName($id, $name)
+    {
 
         include_once "BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
 
-        $consulta = $ddbb->update("UPDATE compania SET NOMBRE=? WHERE ID=?", [$name,$id]);//Se cambia el nombre de la compañía con dicho id
+        $consulta = $ddbb->update("UPDATE compania SET NOMBRE=? WHERE ID=?", [$name, $id]);//Se cambia el nombre de la compañía con dicho id
         $ddbb->cerrar();
     }
 
-    public static function getGamesForCompany($idCompany){
+    public static function getGamesForCompany($idCompany)
+    {
         include_once "BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
 
         $array = array();
-        $consulta = $ddbb->consulta("SELECT ID,TITULO FROM juego WHERE DESARROLLADOR=? OR DISTRIBUIDOR=?", [$idCompany,$idCompany]); //se sacan todas los numeros de tarjeta y caducidad
+        $consulta = $ddbb->consulta("SELECT ID,TITULO FROM juego WHERE DESARROLLADOR=? OR DISTRIBUIDOR=?", [$idCompany, $idCompany]); //se sacan todas los numeros de tarjeta y caducidad
         //Se pasan los ultimos 4 digitos y fecha caducidad
         foreach ($consulta as $each) {
-            $array[] = array($each["ID"],$each["TITULO"]); //Guardan en un array
+            $array[] = array($each["ID"], $each["TITULO"]); //Guardan en un array
         }
         $ddbb->cerrar();
         return $array;
+    }
+
+    public static function poseeJuego($idUser, $idJuego)
+    {
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+
+        $consulta = $ddbb->consulta("SELECT * FROM posee WHERE ID_USUARIO=? AND ID_JUEGO=?", [$idUser, $idJuego]);
+        
+        $ddbb->cerrar();
+        return $consulta;
+    }
+
+    public static function ponerJuegoUsuario($idUser, $idJuego)
+    {
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+        $consulta = $ddbb->insert("INSERT INTO posee(ID_USUARIO, ID_JUEGO, FECHA) VALUES(?,?,date(now()))", [$idUser, $idJuego]);
+
+
+        $ddbb->cerrar();
+        return $consulta;
     }
 
 }
