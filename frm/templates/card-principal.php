@@ -36,7 +36,12 @@
                             <input type="hidden" name="idJuegoPrestar<?php print $game[0] ?>">
                         </div>
                     </form>
+
+                    <div class="bg-warning-subtle border border-warning rounded shadow">
+                        <p class="text-warning pt-3 ps-3"> No podrás jugar a este juego mientras está prestado.</p>
+                    </div>
                 </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-primary" form="prestarJuego">Prestar</button>
