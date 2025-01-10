@@ -22,7 +22,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="" method="post" id="regalarJuego">
+                    <form action="" method="post" id="prestarJuego">
                         <div class="mb-3">
                             <label for="prestarNickname" class="form-label">¿A quién quieres prestar este juego?</label>
                             <input type="text" class="form-control" id="prestarNickname" name="prestarNickname<?php print $game[0] ?>" required placeholder="nickname">
@@ -34,7 +34,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary" form="regalarJuego">Prestar</button>
+                    <button type="submit" class="btn btn-primary" form="prestarJuego">Prestar</button>
                 </div>
             </div>
         </div>
