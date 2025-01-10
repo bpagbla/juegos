@@ -18,13 +18,13 @@
                         </div>
                     </form>
                     <a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#staticBackdrop<?php print $game[0] ?>">Regalar</a>
+                        data-bs-target="#staticBackdrop">Regalar</a>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="modal fade" id="staticBackdrop<?php print $game[0] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
