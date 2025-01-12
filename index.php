@@ -346,7 +346,7 @@ class Controlador
                         }
 
                         //Se pasa al modelo para añadir al usuario
-                        $added = Model::anadirUsuario($_POST["email"], $_POST["nick"], $_POST["firstName"], $_POST["lastName"], $random, $_POST["role"]);
+                        Model::anadirUsuario($_POST["email"], $_POST["nick"], $_POST["firstName"], $_POST["lastName"], $random, $_POST["role"]);
 
                         //Si se añade se le pasa la contraseña por notificacion y si no se comenta el error
                         $this->sendNotification('Usuario Creado', "Usuario registrado correctamente. Contraseña aleatoria: " . htmlentities($random), 20000);
@@ -1038,12 +1038,12 @@ class Controlador
         $this->validateSession();
 
         //se incluyen los juegos que posee el usuario
-        $games = Model::getGames($_SESSION['id']);
+        $anio = $_GET['anio'] ?? '';
+        $games = ($_SESSION['role'] == 'admin') ? Model::getAllGames() : Model::getGames($_SESSION['id'], $anio);
 
         //se incluye la vista de principal
         Vista::mostrarPrincipal($games);
     }
-
 
     //REGISTRO
     public function iniciaRegistro()
