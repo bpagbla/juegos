@@ -5,16 +5,16 @@
         <div class="card-body"> <!--Include the title of the game in the card-->
             <h5 class="card-title text-white"><?php print $game[1] ?></h5>
             <div class="d-flex justify-content-between">
-                <a href="#" class="btn btn-sm btn-primary">Info</a>
-                <a href="#" class="btn btn-sm btn-primary">Jugar</a>
-                <a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal"
-                data-bs-target="#modalPrestar">Prestar</a>
+                <button class="btn btn-sm btn-primary">Info</button>
+                <button class="btn btn-sm btn-primary">Jugar</button>
+                <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                data-bs-target="#modalPrestar<?php print $game[0] ?>">Prestar</button>
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="modalPrestar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<div class="modal fade" id="modalPrestar<?php print $game[0] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="modalPrestarLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -24,7 +24,7 @@
                 </div>
                 <div class="modal-body">
 
-                    <form action="" method="post" id="prestarJuego">
+                    <form action="" method="post" id="prestarJuego<?php print $game[0] ?>">
                         <div class="mb-3">
                             <label for="prestarNickname" class="form-label">¿A quién quieres prestar este juego?</label>
                             <input type="text" class="form-control" id="prestarNickname" name="prestarNickname<?php print $game[0] ?>" required placeholder="nickname">
@@ -41,12 +41,12 @@
                     <div class="bg-warning-subtle border border-warning rounded shadow">
                         <p class="text-warning pt-3 ps-3"> No podrás jugar a este juego mientras está prestado.</p>
                     </div>
-                    
+
                 </div>
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary" form="prestarJuego">Prestar</button>
+                    <button type="submit" class="btn btn-primary" form="prestarJuego<?php print $game[0] ?>">Prestar</button>
                 </div>
             </div>
         </div>
