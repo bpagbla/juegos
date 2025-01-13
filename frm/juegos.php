@@ -11,7 +11,7 @@
     }
     ?>
 </div>
-<div class="position-fixed top-0 end-0">
+<div class="position-fixed top-0 end-0 mt-5 mt-md-0">
     <?php
     include "frm/templates/boton-carrito.php";
     ?>

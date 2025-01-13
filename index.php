@@ -346,7 +346,7 @@ class Controlador
                         }
 
                         //Se pasa al modelo para añadir al usuario
-                        $added = Model::anadirUsuario($_POST["email"], $_POST["nick"], $_POST["firstName"], $_POST["lastName"], $random, $_POST["role"]);
+                        Model::anadirUsuario($_POST["email"], $_POST["nick"], $_POST["firstName"], $_POST["lastName"], $random, $_POST["role"]);
 
                         //Si se añade se le pasa la contraseña por notificacion y si no se comenta el error
                         $this->sendNotification('Usuario Creado', "Usuario registrado correctamente. Contraseña aleatoria: " . htmlentities($random), 20000);
@@ -660,7 +660,7 @@ class Controlador
         }
 
         //se incluyen los juegos que posee el usuario
-        $games = Model::getGames($_SESSION['id']);
+        $games = ($_SESSION['role'] == 'admin') ? Model::getAllGames() : Model::getGames($_SESSION['id']);
         $generos = Model::getGeneros();
         $companias = model::getComp();
         $sistemas = model::getSist();
@@ -851,7 +851,7 @@ class Controlador
 
         //se incluyen todos los juegos y los juegos que posee el usuario
         $games = Model::getAllGames();
-        $gamesOwned = model::getGames($_SESSION["id"]);
+        $gamesOwned = ($_SESSION['role'] == 'admin') ? Model::getAllGames() : Model::getGames($_SESSION['id']);
 
         $i = 0;
         //Se guarda true si al usuario le pertenece el juego
@@ -1060,7 +1060,8 @@ class Controlador
         }
 
         //se incluyen los juegos que posee el usuario
-        $games = Model::getGames($_SESSION['id']);
+        $anio = $_GET['anio'] ?? '';
+        $games = ($_SESSION['role'] == 'admin') ? Model::getAllGames() : Model::getGames($_SESSION['id'], $anio);
 
         //se incluyen todos los juegos y los juegos que posee el usuario
         $games = Model::getAllGames();
@@ -1092,7 +1093,6 @@ class Controlador
         //se incluye la vista de principal
         Vista::mostrarPrincipal($games);
     }
-
 
     //REGISTRO
     public function iniciaRegistro()
