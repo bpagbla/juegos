@@ -20,9 +20,10 @@ class model
 
         $ddbb->cerrar();
         return $array; //Se devuelve el array con los juegos
+
     }
 
-    static function getAllGames()
+    static function getAllGames($anio='', $genres='',$comp='')
     {
         include_once "BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;

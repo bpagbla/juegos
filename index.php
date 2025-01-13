@@ -660,7 +660,7 @@ class Controlador
         }
 
         //se incluyen los juegos que posee el usuario
-        $games = Model::getGames($_SESSION['id']);
+        $games = ($_SESSION['role'] == 'admin') ? Model::getAllGames() : Model::getGames($_SESSION['id']);
         $generos = Model::getGeneros();
         $companias = model::getComp();
         $sistemas = model::getSist();
@@ -849,7 +849,7 @@ class Controlador
 
         //se incluyen todos los juegos y los juegos que posee el usuario
         $games = Model::getAllGames();
-        $gamesOwned = model::getGames($_SESSION["id"]);
+        $gamesOwned = ($_SESSION['role'] == 'admin') ? Model::getAllGames() : Model::getGames($_SESSION['id']);
 
         $i = 0;
         //Se guarda true si al usuario le pertenece el juego
