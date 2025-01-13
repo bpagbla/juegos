@@ -1,16 +1,33 @@
 <?php
 class model
 {
-    static function getGames($id, $anio=1995, $genres='',$comp='')
+    static function getGames($id, $anio='', $genres='',$comp='')
     {
 
         include_once "BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
+        $end = '';
+        $inputs = array('id' => $id);
+
+        if (!empty($anio)) {
+            $end .= 'AND :anio = juego.anio';
+            $inputs['anio'] = $anio;
+        }
+
+        if (!empty($genres)) {
+            $end .= 'AND :genres = juego.genres';
+            $inputs['genres'] = $genres;
+        }
+
+        if (!empty($comp)) {
+            $end .= 'AND :comp = juego.anio';
+            $inputs['anio'] = $anio;
+        }
 
         $array = array();
         //se sacan solo los juegos que tenga el usuario
-        $consulta = $ddbb->consulta("SELECT juego.ID,juego.TITULO, juego.PORTADA FROM juego INNER JOIN posee ON juego.id = posee.id_juego WHERE posee.ID_USUARIO = :id ".'AND :anio = juego.anio', array('id' => $id, 'anio' => $anio));
+        $consulta = $ddbb->consulta("SELECT juego.ID,juego.TITULO, juego.PORTADA FROM juego INNER JOIN posee ON juego.id = posee.id_juego WHERE posee.ID_USUARIO = :id ".$end, $inputs);
         foreach ($consulta as $row) {
             $id_juego = $row['ID'];
             $titulo = $row['TITULO'];
