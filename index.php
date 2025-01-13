@@ -847,8 +847,7 @@ class Controlador
 
 
 
-
-
+        
         //se incluyen todos los juegos y los juegos que posee el usuario
         $games = Model::getAllGames();
         $gamesOwned = ($_SESSION['role'] == 'admin') ? Model::getAllGames() : Model::getGames($_SESSION['id']);
@@ -895,7 +894,6 @@ class Controlador
                 header("Location: ?page=juegos");
                 die();
             }
-
 
 
             if (isset($_POST["regaloNickname$game[0]"])) {
@@ -1063,8 +1061,6 @@ class Controlador
         $anio = $_GET['anio'] ?? '';
         $games = ($_SESSION['role'] == 'admin') ? Model::getAllGames() : Model::getGames($_SESSION['id'], $anio);
 
-        //se incluyen todos los juegos y los juegos que posee el usuario
-        $games = Model::getAllGames();
         //Se guarda true si al usuario le pertenece el juego
         foreach ($games as $game) {
             if (isset($_POST["prestarNickname$game[0]"])) {

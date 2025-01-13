@@ -18,13 +18,13 @@
                         </div>
                     </form>
                     <a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#staticBackdrop">Regalar</a>
+                        data-bs-target="#staticBackdrop<?php print $game[0] ?>">Regalar</a>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade" id="staticBackdrop<?php print $game[0] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -33,7 +33,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="" method="post" id="regalarJuego">
+                    <form action="" method="post" id="regalarJuego<?php print $game[0] ?>">
                         <div class="mb-3">
                             <label for="regaloNickname" class="form-label">¿A quién quieres regalar este juego?</label>
                             <input type="text" class="form-control" id="regaloNickname" name="regaloNickname<?php print $game[0] ?>" required placeholder="nickname">
@@ -45,7 +45,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary" form="regalarJuego">Regalar</button>
+                    <button type="submit" class="btn btn-primary" form="regalarJuego<?php print $game[0] ?>">Regalar</button>
                 </div>
             </div>
         </div>
