@@ -795,4 +795,26 @@ class model
         return $consulta;
     }
 
+    public static function regalarJuegoUsuario($idUser1, $idUser2, $idJuego){
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+        $consulta = $ddbb->insert("INSERT INTO regala(ID_JUEGO, ID_US1, ID_US2, FECHA) VALUES(?,?,?,date(now()))", [$idJuego, $idUser1, $idUser2]);
+
+
+        $ddbb->cerrar();
+        return $consulta;
+    }
+
+    public static function prestarJuegoUsuario($idUser1, $idUser2, $idJuego){
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+        $consulta = $ddbb->insert("INSERT INTO presta(ID_JUEGO, ID_US1, ID_US2, FECHA) VALUES(?,?,?,date(now()))", [$idJuego, $idUser1, $idUser2]);
+
+
+        $ddbb->cerrar();
+        return $consulta;
+    }
+
 }

@@ -847,6 +847,8 @@ class Controlador
 
 
 
+
+
         //se incluyen todos los juegos y los juegos que posee el usuario
         $games = Model::getAllGames();
         $gamesOwned = model::getGames($_SESSION["id"]);
@@ -897,7 +899,7 @@ class Controlador
 
 
             if (isset($_POST["regaloNickname$game[0]"])) {
-                echo$_POST["regaloNickname$game[0]"];
+                echo $_POST["regaloNickname$game[0]"];
                 //verificar si existe el usuario o no
                 $id = model::getID($_POST["regaloNickname$game[0]"]);
                 if ($id != "") {
@@ -909,6 +911,7 @@ class Controlador
                     } else {
                         //si no tiene el juego, ponerselo
                         model::ponerJuegoUsuario($id, $game[0]);
+                        model::regalarJuegoUsuario($_SESSION["id"], $id, $game[0]);
                         $_SESSION["regalado"] = true;
                     }
 
@@ -918,6 +921,7 @@ class Controlador
                 header("Location: ?page=juegos");
                 die();
             }
+
         }
 
 
@@ -1037,9 +1041,54 @@ class Controlador
         //Valida la sessión. Si erronea o logout envia a login.
         $this->validateSession();
 
+        //si se hace el préstamo se notifica
+        if (isset($_SESSION["prestado"])) {
+            $this->sendNotification("Juego Prestado con éxito ", "Se ha prestado el juego correctamente.");
+            $_SESSION["prestado"] = null;
+        }
+
+        //si el usuario al que se quiere prestar el juego no existe, se notifica
+        if (isset($_SESSION["prestarUsuario"])) {
+            $this->sendNotification("El usuario introducido no existe", "Comprueba que has escrito correctamente el nombre de usuario a quien quieres regalar el juego.");
+            $_SESSION["prestarUsuario"] = null;
+        }
+
+        //si el usuario al que se quiere prestar el juego ya tiene el juego se notifica
+        if (isset($_SESSION["usuarioPoseeJuegoReg"])) {
+            $this->sendNotification("El usuario seleccionado ya tiene este juego", "El usuario seleccionado ya posee este juego.");
+            $_SESSION["usuarioPoseeJuegoReg"] = null;
+        }
+
         //se incluyen los juegos que posee el usuario
         $games = Model::getGames($_SESSION['id']);
 
+        //se incluyen todos los juegos y los juegos que posee el usuario
+        $games = Model::getAllGames();
+        //Se guarda true si al usuario le pertenece el juego
+        foreach ($games as $game) {
+            if (isset($_POST["prestarNickname$game[0]"])) {
+                echo $_POST["prestarNickname$game[0]"];
+                //verificar si existe el usuario o no
+                $id = model::getID($_POST["prestarNickname$game[0]"]);
+                if ($id != "") {
+
+                    echo $game[0];
+                    //comprobar si el otro usuario ya tiene el juego
+                    if (!empty(model::poseeJuego($id, $game[0]))) {
+                        $_SESSION["usuarioPoseeJuegoReg"] = true;
+                    } else {
+                        //si no tiene el juego, ponerselo
+                        model::prestarJuegoUsuario($_SESSION["id"], $id, $game[0]);
+                        $_SESSION["prestado"] = true;
+                    }
+
+                } else {
+                    $_SESSION["prestarUsuario"] = true;
+                }
+                header("Location: ?page=principal");
+                die();
+            }
+        }
         //se incluye la vista de principal
         Vista::mostrarPrincipal($games);
     }

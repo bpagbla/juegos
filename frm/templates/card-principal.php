@@ -23,6 +23,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+
                     <form action="" method="post" id="prestarJuego">
                         <div class="mb-3">
                             <label for="prestarNickname" class="form-label">¿A quién quieres prestar este juego?</label>
@@ -40,6 +41,7 @@
                     <div class="bg-warning-subtle border border-warning rounded shadow">
                         <p class="text-warning pt-3 ps-3"> No podrás jugar a este juego mientras está prestado.</p>
                     </div>
+                    
                 </div>
 
                 <div class="modal-footer">
