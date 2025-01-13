@@ -9,10 +9,8 @@ class model
         $ddbb->conectar();
 
         $array = array();
-        $consulta = '';
         //se sacan solo los juegos que tenga el usuario
-        $consulta = $ddbb->consulta("SELECT juego.id,juego.TITULO, juego.PORTADA FROM juego INNER JOIN posee ON juego.id = posee.id_juego", array($id_juego));
-
+        $consulta = $ddbb->consulta("SELECT juego.ID,juego.TITULO, juego.PORTADA FROM juego INNER JOIN posee ON juego.id = posee.id_juego WHERE posee.ID_USUARIO = ?", array($id));
         foreach ($consulta as $row) {
             $id_juego = $row['ID'];
             $titulo = $row['TITULO'];
