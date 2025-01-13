@@ -1,7 +1,7 @@
 <?php
 class model
 {
-    static function getGames($id, $anio='', $genres='',$comp='')
+    static function getGames($id, $anio=1995, $genres='',$comp='')
     {
 
         include_once "BD/baseDeDatos.php";
@@ -10,7 +10,7 @@ class model
 
         $array = array();
         //se sacan solo los juegos que tenga el usuario
-        $consulta = $ddbb->consulta("SELECT juego.ID,juego.TITULO, juego.PORTADA FROM juego INNER JOIN posee ON juego.id = posee.id_juego WHERE posee.ID_USUARIO = ?", array($id));
+        $consulta = $ddbb->consulta("SELECT juego.ID,juego.TITULO, juego.PORTADA FROM juego INNER JOIN posee ON juego.id = posee.id_juego WHERE posee.ID_USUARIO = :id ".'AND :anio = juego.anio', array('id' => $id, 'anio' => $anio));
         foreach ($consulta as $row) {
             $id_juego = $row['ID'];
             $titulo = $row['TITULO'];
