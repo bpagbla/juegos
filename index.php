@@ -1073,7 +1073,7 @@ class Controlador
         //se incluyen los juegos que posee el usuario
         $anio = $_GET['anio'] ?? '';
         $games = ($_SESSION['role'] == 'admin') ? Model::getAllGames() : Model::getGames($_SESSION['id'], $anio);
-        /* $gamesPrestados = model; */
+        $gamesPrestados = model::getJuegosPrestados($_SESSION["id"]);
         
         $i = 0;
         //Se guarda true si al usuario le pertenece el juego
@@ -1082,8 +1082,8 @@ class Controlador
                 if ($game[0] == $gamePrestado[0]) {
                     $games[$i][] = true;
                 }
-                $i++;
-            }
+                
+            }$i++;
             if (isset($_POST["prestarNickname$game[0]"])) {
                 echo $_POST["prestarNickname$game[0]"];
                 //verificar si existe el usuario o no
