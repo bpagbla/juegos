@@ -845,9 +845,15 @@ class Controlador
             $_SESSION["regalado"] = null;
         }
 
+        //si se hace el regalo se notifica
+        if (isset($_SESSION["autoregalo"])) {
+            $this->sendNotification("Error", "Si quieres el juego, compratelo.");
+            $_SESSION["autoregalo"] = null;
+        }
 
 
-        
+
+
         //se incluyen todos los juegos y los juegos que posee el usuario
         $games = Model::getAllGames();
         $gamesOwned = ($_SESSION['role'] == 'admin') ? Model::getAllGames() : Model::getGames($_SESSION['id']);
@@ -901,10 +907,11 @@ class Controlador
                 //verificar si existe el usuario o no
                 $id = model::getID($_POST["regaloNickname$game[0]"]);
                 if ($id != "") {
-
-                    echo $game[0];
+                    if ($id == $_SESSION["id"]) {
+                        $_SESSION["autoregalo"] = true;
+                    }
                     //comprobar si el otro usuario ya tiene el juego
-                    if (!empty(model::poseeJuego($id, $game[0]))) {
+                    else if (!empty(model::poseeJuego($id, $game[0]))) {
                         $_SESSION["usuarioPoseeJuegoReg"] = true;
                     } else {
                         //si no tiene el juego, ponerselo
@@ -1057,21 +1064,36 @@ class Controlador
             $_SESSION["usuarioPoseeJuegoReg"] = null;
         }
 
+        //si se hace el regalo se notifica
+        if (isset($_SESSION["autoprestar"])) {
+            $this->sendNotification("Error", "No puedes prestarte un juego a ti mismo");
+            $_SESSION["autoprestar"] = null;
+        }
+
         //se incluyen los juegos que posee el usuario
         $anio = $_GET['anio'] ?? '';
         $games = ($_SESSION['role'] == 'admin') ? Model::getAllGames() : Model::getGames($_SESSION['id'], $anio);
-
+        $gamesPrestados = model::getJuegosPrestados($_SESSION["id"]);
+        
+        $i = 0;
         //Se guarda true si al usuario le pertenece el juego
         foreach ($games as $game) {
+            foreach ($gamesPrestados as $gamePrestado) {
+                if ($game[0] == $gamePrestado[0]) {
+                    $games[$i][] = true;
+                }
+                
+            }$i++;
             if (isset($_POST["prestarNickname$game[0]"])) {
                 echo $_POST["prestarNickname$game[0]"];
                 //verificar si existe el usuario o no
                 $id = model::getID($_POST["prestarNickname$game[0]"]);
                 if ($id != "") {
-
-                    echo $game[0];
+                    if ($id == $_SESSION["id"]) {
+                        $_SESSION["autoprestar"] = true;
+                    }
                     //comprobar si el otro usuario ya tiene el juego
-                    if (!empty(model::poseeJuego($id, $game[0]))) {
+                    else if (!empty(model::poseeJuego($id, $game[0]))) {
                         $_SESSION["usuarioPoseeJuegoReg"] = true;
                     } else {
                         //si no tiene el juego, ponerselo

@@ -813,4 +813,22 @@ class model
         return $consulta;
     }
 
+    public static function getJuegosPrestados($idUser){
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+
+        $array = array();
+        //se sacan solo los juegos que tenga el usuario
+        $consulta = $ddbb->consulta("SELECT ID_JUEGO FROM presta WHERE ID_US1 = ?", array($idUser));
+        
+        foreach ($consulta as $row) {
+            $id_juego = $row["ID_JUEGO"];
+            $array[] = [$id_juego];
+        }
+
+        $ddbb->cerrar();
+        return $array;
+    }
+
 }
