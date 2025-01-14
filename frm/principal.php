@@ -1,6 +1,9 @@
-<div class="row justify-left px-2">
-    <div class="col">
-        <h2 class="mt-3">Tus Juegos</h2>
+<div class="row justify-content-between px-2">
+    <div class="col-auto">
+        <h2 class="pt-3">Tus Juegos</h2>
+    </div>
+    <div class="col-auto align-content-end">
+        <button class="btn btn-primary">Filters</button>
     </div>
 </div>
 <div class="row px-2 justify-content-around justify-content-lg-start align-items-end">
