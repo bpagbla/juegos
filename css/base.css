@@ -289,7 +289,7 @@ textarea:focus {
     cursor: default;
 }
 
-.owned, .ownedText {
+.owned .ownedText {
     visibility: hidden;
     padding: 0.25em 0.5em;
     background-color: rgba(1, 1, 3, 0.815);
@@ -308,7 +308,7 @@ textarea:focus {
     transition-delay: 0s;
 }
 
-.owned:hover, .ownedText {
+.owned:hover .ownedText {
     visibility: visible;
     transition-delay: 0.3s;
 }
