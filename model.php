@@ -1,7 +1,7 @@
 <?php
 class model
 {
-    static function getGames($id, $anio='', $genres='',$comp='')
+    static function getGames($id, $anio = '', $genres = '', $comp = '')
     {
 
         include_once "BD/baseDeDatos.php";
@@ -27,7 +27,7 @@ class model
 
         $array = array();
         //se sacan solo los juegos que tenga el usuario
-        $consulta = $ddbb->consulta("SELECT juego.ID,juego.TITULO, juego.PORTADA FROM juego INNER JOIN posee ON juego.id = posee.id_juego WHERE posee.ID_USUARIO = :id ".$end, $inputs);
+        $consulta = $ddbb->consulta("SELECT juego.ID,juego.TITULO, juego.PORTADA FROM juego INNER JOIN posee ON juego.id = posee.id_juego WHERE posee.ID_USUARIO = :id " . $end, $inputs);
         foreach ($consulta as $row) {
             $id_juego = $row['ID'];
             $titulo = $row['TITULO'];
@@ -40,7 +40,7 @@ class model
 
     }
 
-    static function getAllGames($anio='', $genres='',$comp='')
+    static function getAllGames($anio = '', $genres = '', $comp = '')
     {
         include_once "BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;
@@ -791,7 +791,8 @@ class model
         return $consulta;
     }
 
-    public static function regalarJuegoUsuario($idUser1, $idUser2, $idJuego){
+    public static function regalarJuegoUsuario($idUser1, $idUser2, $idJuego)
+    {
         include_once "BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
@@ -802,33 +803,79 @@ class model
         return $consulta;
     }
 
-    public static function prestarJuegoUsuario($idUser1, $idUser2, $idJuego){
+    public static function prestarJuegoUsuario($idUser1, $idUser2, $idJuego, $fecha)
+    {
         include_once "BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
-        $consulta = $ddbb->insert("INSERT INTO presta(ID_JUEGO, ID_US1, ID_US2, FECHA) VALUES(?,?,?,date(now()))", [$idJuego, $idUser1, $idUser2]);
+        $consulta = $ddbb->insert("INSERT INTO presta(ID_JUEGO, ID_US1, ID_US2, FECHA) VALUES(?,?,?,?)", [$idJuego, $idUser1, $idUser2, $fecha]);
 
 
         $ddbb->cerrar();
         return $consulta;
     }
 
-    public static function getJuegosPrestados($idUser){
+    public static function getJuegosPrestados($idUser)
+    {
         include_once "BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
 
         $array = array();
         //se sacan solo los juegos que tenga el usuario
-        $consulta = $ddbb->consulta("SELECT ID_JUEGO FROM presta WHERE ID_US1 = ?", array($idUser));
-        
+        $consulta = $ddbb->consulta("SELECT ID_JUEGO, FECHA FROM presta WHERE ID_US1 = ?", array($idUser));
+
         foreach ($consulta as $row) {
             $id_juego = $row["ID_JUEGO"];
-            $array[] = [$id_juego];
+            $fecha = $row["FECHA"];
+            $array[] = [$id_juego, $fecha];
         }
 
         $ddbb->cerrar();
         return $array;
+    }
+
+    public static function getJuegosRecibidos($idUser)
+    {
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+
+        $array = array();
+        //se sacan solo los juegos que tenga el usuario
+        $consulta = $ddbb->consulta("SELECT ID_JUEGO, FECHA FROM presta WHERE ID_US2 = ?", array($idUser));
+
+        foreach ($consulta as $row) {
+            $id_juego = $row["ID_JUEGO"];
+            $fecha = $row["FECHA"];
+            $array[] = [$id_juego, $fecha];
+        }
+
+        $ddbb->cerrar();
+        return $array;
+    }
+
+    public static function cancelarPrestamo($idUser, $idJuego)
+    {
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+
+        $consulta = $ddbb->update("UPDATE presta SET FECHA = (NOW() - INTERVAL 1 DAY) WHERE ID_US1=? AND ID_JUEGO=?", [$idUser, $idJuego]); //Se borra el préstamo de la base de datos
+
+        $ddbb->cerrar();
+    }
+
+
+    public static function removePrestamo($idUser, $idJuego)
+    {
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+
+        $consulta = $ddbb->delete("DELETE FROM presta WHERE ID_US2=? AND ID_JUEGO=?", [$idUser, $idJuego]); //Se borra el préstamo de la base de datos
+
+        $ddbb->cerrar();
     }
 
 }
