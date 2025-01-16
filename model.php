@@ -53,6 +53,12 @@ class model
             $inputs['maxYear'] = $maxYear;
         }
 
+        if (!empty($genres)) {
+            foreach ($genres as $genre)
+                $end .= ' AND :genre'.$genre.' = juego.genres';
+            $inputs['genre'.$genre] = $genre;
+        }
+
         $array = array();
 
         $consulta = $ddbb->consulta("SELECT ID,TITULO,PORTADA FROM juego WHERE 1=1".$end, $inputs); //se sacan todos los generos de la base de datos

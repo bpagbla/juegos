@@ -61,6 +61,22 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row px-3">
+                        <div class="col p-0">
+                            <label for="gen" class="col-form-label">Géneros:</label>
+                            <input type="text" class="form-control" id="gen" placeholder="Busca un Género">
+                            <div class="position-relative">
+                                <div id="sugerencias-gen"
+                                     class="position-absolute bg-primary w-100 rounded z-overmodal mt-1 branded-shadow d-none">
+                                    <ul id="sugerencias-list-gen" class="list-group placeholder-glow">
+                                        <li class="list-group-item"><span class="placeholder w-75"></span></li>
+                                        <li class="list-group-item"><span class="placeholder w-75"></span></li>
+                                        <li class="list-group-item"><span class="placeholder w-75"></span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
