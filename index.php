@@ -1071,8 +1071,9 @@ class Controlador
         }
 
         //se incluyen los juegos que posee el usuario
-        $anio = $_GET['anio'] ?? '';
-        $games = ($_SESSION['role'] == 'admin') ? Model::getAllGames() : Model::getGames($_SESSION['id'], $anio);
+        $minYear = $_GET['minYear'] ?? '';
+        $maxYear = $_GET['maxYear'] ?? '';
+        $games = ($_SESSION['role'] == 'admin') ? Model::getAllGames($minYear, $maxYear) : Model::getGames($_SESSION['id'], $minYear, $maxYear);
         $gamesPrestados = model::getJuegosPrestados($_SESSION["id"]);
         
         $i = 0;

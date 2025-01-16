@@ -1,7 +1,7 @@
 <?php
 class model
 {
-    static function getGames($id, $anio='', $genres='',$comp='')
+    static function getGames($id, $minYear='', $maxYear='', $genres='',$comp='')
     {
 
         include_once "BD/baseDeDatos.php";
@@ -10,29 +10,28 @@ class model
         $end = '';
         $inputs = array('id' => $id);
 
-        if (!empty($anio)) {
-            $end .= 'AND :anio = juego.anio';
-            $inputs['anio'] = $anio;
+        if (!empty($minYear) && !empty($maxYear)) {
+            $end .= ' AND :minYear <= juego.anio AND :maxYear >= juego.anio';
+            $inputs['minYear'] = $minYear;
+            $inputs['maxYear'] = $maxYear;
         }
 
         if (!empty($genres)) {
-            $end .= 'AND :genres = juego.genres';
-            $inputs['genres'] = $genres;
+            foreach ($genres as $genre)
+            $end .= ' AND :genre'.$genre.' = juego.genres';
+            $inputs['genre'.$genre] = $genre;
         }
 
         if (!empty($comp)) {
-            $end .= 'AND :comp = juego.anio';
-            $inputs['anio'] = $anio;
+            $end .= ' AND :comp = juego.anio';
+            $inputs['comp'] = $comp;
         }
 
         $array = array();
         //se sacan solo los juegos que tenga el usuario
-        $consulta = $ddbb->consulta("SELECT juego.ID,juego.TITULO, juego.PORTADA FROM juego INNER JOIN posee ON juego.id = posee.id_juego WHERE posee.ID_USUARIO = :id ".$end, $inputs);
+        $consulta = $ddbb->consulta("SELECT juego.ID,juego.TITULO, juego.PORTADA FROM juego INNER JOIN posee ON juego.id = posee.id_juego WHERE posee.ID_USUARIO = :id".$end, $inputs);
         foreach ($consulta as $row) {
-            $id_juego = $row['ID'];
-            $titulo = $row['TITULO'];
-            $portada = $row['PORTADA'];
-            $array[] = [$id_juego, $titulo, $portada];
+            $array[] = [$row['ID'], $row['TITULO'], $row['PORTADA']];
         }
 
         $ddbb->cerrar();
@@ -40,25 +39,26 @@ class model
 
     }
 
-    static function getAllGames($anio='', $genres='',$comp='')
+    static function getAllGames($minYear='', $maxYear='', $genres='',$comp='')
     {
         include_once "BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
-
-
+        $end = '';
+        $inputs = array();
         $array = array();
 
-        $consulta = $ddbb->consulta("SELECT ID,TITULO,PORTADA FROM juego"); //se sacan todos los generos de la base de datos
-        $nombre = '';
-        $id = '';
+        if (!empty($minYear) && !empty($maxYear)) {
+            $end .= ' AND :minYear <= juego.anio AND :maxYear >= juego.anio';
+            $inputs['minYear'] = $minYear;
+            $inputs['maxYear'] = $maxYear;
+        }
+
+        $consulta = $ddbb->consulta("SELECT ID,TITULO,PORTADA FROM juego WHERE 1=1".$end, $inputs); //se sacan todos los generos de la base de datos
 
         //Se guardan el nombre y el id del genero en el array
         foreach ($consulta as $each) {
-            $titulo = $each['TITULO'];
-            $id = $each['ID'];
-            $portada = $each['PORTADA'];
-            $array[] = [$id, $titulo, $portada];
+            $array[] = [$each['ID'], $each['TITULO'], $each['PORTADA']];
         }
 
         $ddbb->cerrar();
