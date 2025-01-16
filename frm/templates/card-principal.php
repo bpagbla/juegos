@@ -7,17 +7,25 @@
             <div class="d-flex justify-content-between">
                 <button class="btn btn-sm btn-primary">Info</button>
                 <div class="<?php if (isset($game[3]))
-                        echo " owned" ?>">
+                    echo " owned" ?>">
 
                         <button class="btn btn-sm btn-primary" <?php if (isset($game[3]))
                     echo "disabled" ?>>Jugar</button>
 
-                     <?php if (isset($game[3]))
-                            echo "<span class='ownedText'>Este juego está prestado</span>" ?>
+                    <?php if (isset($game[3]))
+                    echo "<span class='ownedText'>Este juego está prestado</span>" ?>
 
                     </div>
+
+                <?php if (!isset($game[3])) { ?>
                     <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
                         data-bs-target="#modalPrestar<?php print $game[0] ?>">Prestar</button>
+                <?php }else{ ?>
+                    <form action="" method="POST">
+                    <button class="btn btn-sm btn-primary" type="submit" name="cancelarPrestamo<?php print $game[0] ?>">Cancelar</button>
+                    </form>
+                    <?php
+                } ?>
             </div>
         </div>
     </div>
@@ -42,7 +50,7 @@
                     <div class="mb-3">
                         <label for="finPrestamo" class="form-label">¿Hasta cuándo?</label>
                         <input type="date" class="form-control" min="<?php echo date("Y-m-d"); ?>" required
-                            name="finPrestamo" id="finPrestamo" name="finPrestamo<?php print $game[0] ?>">
+                         id="finPrestamo" name="finPrestamo<?php print $game[0] ?>">
                     </div>
                     <div class="mb-3">
                         <input type="hidden" name="idJuegoPrestar<?php print $game[0] ?>">

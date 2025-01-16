@@ -12,7 +12,7 @@ class Vista
         include_once "frm/login.php";
     }
 
-    public static function mostrarPrincipal($games) {
+    public static function mostrarPrincipal($games,$prestados=array()) {
         $page = "principal";
         include_once "frm/templates/base.php";
     }
