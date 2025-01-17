@@ -1116,7 +1116,7 @@ class Controlador
         //Se guarda true si al usuario le pertenece el juego
         foreach ($games as $game) {
             foreach ($gamesPrestados as $gamePrestado) {
-                if ($game[0] == $gamePrestado[0]) {
+                if ($game[0] == $gamePrestado[0] && $gamePrestado[1] > date("Y-m-d")) {
                     $games[$i][] = true;
                 }
                 
@@ -1134,7 +1134,7 @@ class Controlador
                         $_SESSION["usuarioPoseeJuegoReg"] = true;
                     } else {
                         //si no tiene el juego, ponerselo
-                        model::prestarJuegoUsuario($_SESSION["id"], $id, $game[0]);
+                        model::prestarJuegoUsuario($_SESSION["id"], $id, $game[0], $_POST["finPrestamo$game[0]"]);
                         $_SESSION["prestado"] = true;
                     }
 
@@ -1156,7 +1156,7 @@ class Controlador
 
         }
         //se incluye la vista de principal
-        Vista::mostrarPrincipal($games);
+        Vista::mostrarPrincipal($games, $recibidosActivos);
     }
 
     //REGISTRO
