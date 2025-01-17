@@ -38,7 +38,8 @@
                         <?php if (isset($_POST['submit-card'])) print "Rellene los campos marcados en rojo correctamente" ?>
                     </div>
                 </div>
-                <form id="add-form" method="post">
+                <form id="add-form" method="get">
+                    <input type="hidden" name="page" value="principal">
                     <div class="row">
                         <div class="col-12">
                             <h2 class="fs-5">Año de Salida</h2>
@@ -55,8 +56,24 @@
                             </div>
                             <div class="slider-div pt-3 pb-5">
                                 <div class="slider-track"></div>
-                                <input name="minYear" type="range" min="1952" max="<?php echo date("Y"); ?>" value="1900" id="slider-1">
-                                <input name="maxYear" type="range" min="1952" max="<?php echo date("Y"); ?>" value="<?php echo date("Y"); ?>" id="slider-2">
+                                <input name="minYear" type="range" min="1952" max="<?php echo date("Y"); ?>" value="<?php echo ($_GET['minYear'] ?? '1900') ?>" id="slider-1">
+                                <input name="maxYear" type="range" min="1952" max="<?php echo date("Y"); ?>" value="<?php echo ($_GET['maxYear'] ?? date("Y")) ?>" id="slider-2">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row px-3">
+                        <div class="col p-0">
+                            <label for="gen" class="col-form-label">Géneros:</label>
+                            <input type="text" class="form-control" id="gen" placeholder="Busca un Género">
+                            <div class="position-relative">
+                                <div id="sugerencias-gen"
+                                     class="position-absolute bg-primary w-100 rounded z-overmodal mt-1 branded-shadow d-none">
+                                    <ul id="sugerencias-list-gen" class="list-group placeholder-glow">
+                                        <li class="list-group-item"><span class="placeholder w-75"></span></li>
+                                        <li class="list-group-item"><span class="placeholder w-75"></span></li>
+                                        <li class="list-group-item"><span class="placeholder w-75"></span></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -64,7 +81,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
-                <button type="submit" class="btn btn-primary" form="add-form" name="action" value="payment-submit">Aplicar</button>
+                <button type="submit" class="btn btn-primary" form="add-form">Aplicar</button>
             </div>
         </div>
     </div>

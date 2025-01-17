@@ -1082,10 +1082,9 @@ class Controlador
         }
 
         //se incluyen los juegos que posee el usuario
-        $anio = $_GET['anio'] ?? '';
-        $games = ($_SESSION['role'] == 'admin') ? Model::getAllGames() : Model::getGames($_SESSION['id'], $anio);
-
-
+        $minYear = $_GET['minYear'] ?? '';
+        $maxYear = $_GET['maxYear'] ?? '';
+        $games = ($_SESSION['role'] == 'admin') ? Model::getAllGames($minYear, $maxYear) : Model::getGames($_SESSION['id'], $minYear, $maxYear);
         $gamesPrestados = model::getJuegosPrestados($_SESSION["id"]);
 
         $gamesRecibidos = model::getJuegosRecibidos($_SESSION["id"]);
@@ -1112,15 +1111,16 @@ class Controlador
                 die();
             }
         }
+        
         $i = 0;
-        //Se guarda true si el usuario ha prestado el juego
+        //Se guarda true si al usuario le pertenece el juego
         foreach ($games as $game) {
             foreach ($gamesPrestados as $gamePrestado) {
-                if ($game[0] == $gamePrestado[0] && $gamePrestado[1] > date("Y-m-d")) { //si el préstamo sigue activo se guarda true
+                if ($game[0] == $gamePrestado[0]) {
                     $games[$i][] = true;
                 }
-            }
-            $i++;
+                
+            }$i++;
             if (isset($_POST["prestarNickname$game[0]"])) {
                 echo $_POST["prestarNickname$game[0]"];
                 //verificar si existe el usuario o no
@@ -1134,7 +1134,7 @@ class Controlador
                         $_SESSION["usuarioPoseeJuegoReg"] = true;
                     } else {
                         //si no tiene el juego, ponerselo
-                        model::prestarJuegoUsuario($_SESSION["id"], $id, $game[0], $_POST["finPrestamo$game[0]"]);
+                        model::prestarJuegoUsuario($_SESSION["id"], $id, $game[0]);
                         $_SESSION["prestado"] = true;
                     }
 
@@ -1156,7 +1156,7 @@ class Controlador
 
         }
         //se incluye la vista de principal
-        Vista::mostrarPrincipal($games, $recibidosActivos);
+        Vista::mostrarPrincipal($games);
     }
 
     //REGISTRO

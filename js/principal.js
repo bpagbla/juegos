@@ -49,3 +49,61 @@ function fillColor() {
 
 sliderOne.addEventListener('input',slideOne)
 sliderTwo.addEventListener('input',slideTwo)
+
+let timeoutGen = ''
+const gen = document.getElementById('gen')
+const sugerenciasGen = document.getElementById('sugerencias-gen')
+const listGen = document.getElementById('sugerencias-list-gen')
+let pendingGen = true;
+let filterModalElement = document.getElementById('filter-modal')
+
+function closeGen(e) {
+    if (e.target !== gen) {
+        sugerenciasGen.classList.add('d-none')
+        filterModalElement.removeEventListener('click', closeGen)
+    }
+}
+
+gen.addEventListener('focus', function (e) {
+    sugerenciasGen.classList.remove('d-none')
+    if (pendingGen) {
+        loadNamesGen(e)
+        pendingGen = false;
+    }
+    filterModalElement.addEventListener('click', closeGen)
+})
+gen.addEventListener('input', startQueueGen)
+
+async function loadNamesGen(e) {
+    const response = await fetch('http://localhost/?page=api&endpoint=genres&name=' + e.target.value)
+    const json = await response.json()
+    if (json.hasOwnProperty('genres')) {
+        let length = json.genres.length
+        if (length > 0) {
+            listGen.innerHTML = ''
+            for (let i = 0; i < length; i++) {
+                const el = document.createElement('li')
+                el.classList.add('list-group-item')
+                el.innerText = json.genres[i].name
+                listGen.appendChild(el)
+                el.addEventListener('click', function () {
+                    const button = createButton('gen[]', json.genres[i].genre_id, json.genres[i].name)
+                    document.getElementById('gen-active').appendChild(button)
+                    button.addEventListener('click', function (e) { e.target.closest("div").remove() })
+                })
+            }
+        } else {
+            listGen.innerHTML = ''
+            const el = document.createElement('li')
+            el.classList.add('list-group-item')
+            el.innerText = 'No hay resultados'
+            listGen.appendChild(el)
+        }
+    }
+}
+
+function startQueueGen(e) {
+    showLoading(listGen)
+    clearTimeout(timeoutGen)
+    timeoutGen = setTimeout(function () { loadNamesGen(e) }, 100);
+}
