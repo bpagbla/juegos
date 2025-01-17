@@ -843,12 +843,13 @@ class model
 
         $array = array();
         //se sacan solo los juegos que tenga el usuario
-        $consulta = $ddbb->consulta("SELECT ID_JUEGO, FECHA FROM presta WHERE ID_US2 = ?", array($idUser));
+        $consulta = $ddbb->consulta("SELECT ID_US1, ID_JUEGO, FECHA FROM presta WHERE ID_US2 = ?", array($idUser));
 
         foreach ($consulta as $row) {
             $id_juego = $row["ID_JUEGO"];
             $fecha = $row["FECHA"];
-            $array[] = [$id_juego, $fecha];
+            $prestador = $row["ID_US1"];
+            $array[] = [$id_juego, $fecha, $prestador];
         }
 
         $ddbb->cerrar();
@@ -861,7 +862,7 @@ class model
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
 
-        $consulta = $ddbb->update("UPDATE presta SET FECHA = (NOW() - INTERVAL 1 DAY) WHERE ID_US1=? AND ID_JUEGO=?", [$idUser, $idJuego]); //Se borra el préstamo de la base de datos
+        $consulta = $ddbb->update("UPDATE presta SET FECHA = (NOW() - INTERVAL 1 DAY) WHERE ID_US1=? AND ID_JUEGO=?", [$idUser, $idJuego]); //Se actualiza la fecha fin del préstamo en la base de datos
 
         $ddbb->cerrar();
     }

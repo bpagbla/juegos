@@ -1064,16 +1064,21 @@ class Controlador
             $_SESSION["usuarioPoseeJuegoReg"] = null;
         }
 
-        //si se hace el regalo se notifica
+        //si se intenta hacer un auto regalo se notifica
         if (isset($_SESSION["autoprestar"])) {
             $this->sendNotification("Error", "No puedes prestarte un juego a ti mismo");
             $_SESSION["autoprestar"] = null;
         }
 
-        //si se hace el regalo se notifica
+        //si se cancela el préstamo se notifica
         if (isset($_SESSION["prestamoCancelado"])) {
             $this->sendNotification("Préstamo cancelado", "Se ha cancelado el préstamo de " . $_SESSION["prestamoCancelado"]);
             $_SESSION["prestamoCancelado"] = null;
+        }
+
+        if (isset($_SESSION["prestamoDevuelto"])) {
+            $this->sendNotification("Préstamo Devuelto", "Se ha devuelto el juego " . $_SESSION["prestamoDevuelto"]);
+            $_SESSION["prestamoDevuelto"] = null;
         }
 
         //se incluyen los juegos que posee el usuario
@@ -1088,10 +1093,23 @@ class Controlador
         foreach ($gamesRecibidos as $recibido) {
             if (date("Y-m-d") < $recibido[1]) { //si el préstamo sigue activo
                 $datosJuego = model::getGame($recibido[0]);
-                $recibidosActivos[] = [$recibido[0], $datosJuego[0], $datosJuego[2], $datosJuego[1], $recibido[1]]; //se guarda el id, el título, la ruta, la ruta de la portada y la fecha de fin de prestamo
+
+                //se guarda el id, el título, la ruta, la ruta de la portada, la fecha de fin de prestamo y id del usuario que ha prestado el juego
+                $recibidosActivos[] = [$recibido[0], $datosJuego[0], $datosJuego[2], $datosJuego[1], $recibido[1], $recibido[2]];
             } else { //si ya ha caducado
                 $_SESSION["prestamosCaducados"] = [$recibido[0]]; //Se guarda el id del juego para sacar una notificacion
                 model::removePrestamo($_SESSION["id"], $recibido[0]); //se borra el préstamo de la base de datos
+            }
+
+
+            if (isset($_POST["devolver$recibido[0]"])) {
+                model::cancelarPrestamo($_POST["idUs1$recibido[0]"], $recibido[0]);
+               $juego = model::getGame($recibido[0]);
+               
+                $_SESSION["prestamoDevuelto"] = $juego[0];
+
+                header("Location: ?page=principal");
+                die();
             }
         }
         $i = 0;
@@ -1127,7 +1145,6 @@ class Controlador
                 die();
             }
 
-
             if (isset($_POST["cancelarPrestamo$game[0]"])) {
 
                 model::cancelarPrestamo($_SESSION["id"], $game[0]);
@@ -1136,6 +1153,7 @@ class Controlador
                 header("Location: ?page=principal");
                 die();
             }
+
         }
         //se incluye la vista de principal
         Vista::mostrarPrincipal($games, $recibidosActivos);
