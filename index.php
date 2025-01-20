@@ -812,7 +812,6 @@ class Controlador
             $carrito = unserialize($_SESSION['carrito']);
         }
 
-
         //NOTIFICACIONES
 
         //Si se añade al carrito un juego se notifica del mismo
@@ -855,8 +854,10 @@ class Controlador
 
 
         //se incluyen todos los juegos y los juegos que posee el usuario
-        $games = Model::getAllGames();
-        $gamesOwned = ($_SESSION['role'] == 'admin') ? Model::getAllGames() : Model::getGames($_SESSION['id']);
+        $minYear = $_GET['minYear'] ?? '';
+        $maxYear = $_GET['maxYear'] ?? '';
+        $games = Model::getAllGames($minYear,$maxYear);
+        $gamesOwned = ($_SESSION['role'] == 'admin') ? $games : Model::getGames($_SESSION['id'], $minYear, $maxYear);
 
         $i = 0;
         //Se guarda true si al usuario le pertenece el juego
