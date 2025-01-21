@@ -81,6 +81,15 @@ main {
     backdrop-filter: blur(11px) brightness(0.77) contrast(165%) saturate(98%);
     box-shadow: 0px 7px 22px 2px rgba(149, 22, 233, 0.466) !important;
 }
+.badgePrestadoUS1{
+    background-color: rgb(177, 41, 255);
+    z-index: 10;
+}
+
+.disabledImg{
+    filter: grayscale(1);
+}
+
 .badgePrestado{
     background-color: rgb(255, 162, 41);
 }
@@ -196,6 +205,13 @@ h2 {
 .dropdown-menu {
     /* background-color: transparent !important; */
     padding: 0 !important;
+}
+
+.addGameDropdown{
+    box-shadow: 0 0 .1rem #fff,
+    0 0 .1rem #fff,
+    0 0 0.8rem #bc13fe,
+    inset 0 0 1.3rem #bc13fe !important;
 }
 
 input:focus,

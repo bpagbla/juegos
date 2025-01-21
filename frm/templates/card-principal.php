@@ -1,11 +1,27 @@
 <div class="col-auto py-3">
     <div class="card bg-body-tertiary" style="width: 18rem;">
+        <?php if (isset($game[3])) { ?>
+            <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill badgePrestadoUS1 shadow">
+                Prestado hasta: <?php print $game[3] ?>
+                <span class="visually-hidden">prestado</span>
+            </span>
+
+            <?php
+        } ?>
         <!--Include the image of the game-->
-        <img src="../<?php print $game[2] ?>" class="card-img-top" alt="...">
+        <img src="../<?php print $game[2] ?>" class="card-img-top <?php if (isset($game[3]))
+                    echo " disabledImg" ?>" alt="Portada del juego <?php print $game[1] ?>">
         <div class="card-body"> <!--Include the title of the game in the card-->
             <h5 class="card-title text-white"><?php print $game[1] ?></h5>
             <div class="d-flex justify-content-between">
-                <button class="btn btn-sm btn-primary">Info</button>
+
+                <form action="" method="post">
+                    <input type="hidden" name="infoId" value="<?php print $game[0] ?>">
+                    <input type="hidden" name="infoTitulo" value="<?php print $game[1] ?>">
+                    <input type="hidden" name="infoImg" value="<?php print $game[2] ?>">
+                    <input type="submit" class="btn btn-sm btn-primary" name="info" value="Info">
+                </form>
+
                 <div class="<?php if (isset($game[3]))
                     echo " owned" ?>">
 
@@ -20,9 +36,10 @@
                 <?php if (!isset($game[3])) { ?>
                     <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
                         data-bs-target="#modalPrestar<?php print $game[0] ?>">Prestar</button>
-                <?php }else{ ?>
+                <?php } else { ?>
                     <form action="" method="POST">
-                    <button class="btn btn-sm btn-primary" type="submit" name="cancelarPrestamo<?php print $game[0] ?>">Cancelar</button>
+                        <button class="btn btn-sm btn-primary" type="submit"
+                            name="cancelarPrestamo<?php print $game[0] ?>">Cancelar</button>
                     </form>
                     <?php
                 } ?>
@@ -50,7 +67,7 @@
                     <div class="mb-3">
                         <label for="finPrestamo" class="form-label">¿Hasta cuándo?</label>
                         <input type="date" class="form-control" min="<?php echo date("Y-m-d"); ?>" required
-                         id="finPrestamo" name="finPrestamo<?php print $game[0] ?>">
+                            id="finPrestamo" name="finPrestamo<?php print $game[0] ?>">
                     </div>
                     <div class="mb-3">
                         <input type="hidden" name="idJuegoPrestar<?php print $game[0] ?>">

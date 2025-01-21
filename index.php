@@ -1117,7 +1117,7 @@ class Controlador
         foreach ($games as $game) {
             foreach ($gamesPrestados as $gamePrestado) {
                 if ($game[0] == $gamePrestado[0] && $gamePrestado[1] > date("Y-m-d")) {
-                    $games[$i][] = true;
+                    $games[$i][] = $gamePrestado[1];
                 }
                 
             }$i++;
