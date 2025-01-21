@@ -190,12 +190,6 @@ if (!(isset($_POST["action"]) && $_POST["action"] == "game-edit")) {
     </script>
 <?php } ?>
 
-<!-- <button type="button" class="btn text-white position-fixed end-0 bottom-0 m-4" data-bs-toggle="modal"
-    data-bs-target="#exampleModal">
-    
-    Añadir
-</button> -->
-
 <div class="dropdown btn text-white position-fixed end-0 bottom-0 m-4">
     <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownAddGame"
         data-bs-toggle="dropdown" aria-expanded="false">
@@ -215,7 +209,7 @@ if (!(isset($_POST["action"]) && $_POST["action"] == "game-edit")) {
         <li>
             <hr class="dropdown-divider p-0 m-0">
         </li>
-        <li class="dropdown-item rounded-top p-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <li class="dropdown-item rounded-top p-0" data-bs-toggle="modal" data-bs-target="#importarModal">
 
             <button class="bg-transparent border-0 text-start ps-3 p-2 w-100">
                 <svg class="bi me-2" width="20" height="20">
@@ -223,6 +217,27 @@ if (!(isset($_POST["action"]) && $_POST["action"] == "game-edit")) {
                 </svg>Importar</button>
         </li>
     </ul>
+</div>
+
+
+<div class="modal fade" id="importarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Importar Juegos</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="post" enctype="multipart/form-data">
+            <input type="file" name="archivoImport" id="" accept="/*">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <?php
