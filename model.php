@@ -783,9 +783,20 @@ class model
         $ddbb->conectar();
 
         $consulta = $ddbb->consulta("SELECT * FROM posee WHERE ID_USUARIO=? AND ID_JUEGO=?", [$idUser, $idJuego]);
-        print_r($consulta);
         $ddbb->cerrar();
         return $consulta;
+    }
+
+    public static function getRole($idUser)
+    {
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+
+        //se sacan solo los juegos que tenga el usuario
+        $consulta = $ddbb->consulta("SELECT role FROM usuario WHERE ID = ?", array($idUser));
+        $ddbb->cerrar();
+        return $consulta[0]["role"];
     }
 
     public static function ponerJuegoUsuario($idUser, $idJuego)

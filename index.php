@@ -390,7 +390,6 @@ class Controlador
         if ($resultado) { //si ha salido bien que devuelva la ruta
             return $ruta;
         } else {
-            $_SESSION["notif"] = true;
             return 0; //si no se ha subido que devuelva 0
         }
 
@@ -459,6 +458,10 @@ class Controlador
                     header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
                     die();
                 }
+            }
+
+            if (isset($_FILES["archivoImport"]) && $_FILES["archivoImport"]["error"] != '4') {
+
             }
 
             //Si no se sube el juego se pasa  error si no se guarda con nombre id juego
@@ -546,16 +549,6 @@ class Controlador
 
         }
 
-        //se manejan las notificaciones
-        if (isset($_SESSION["editGame"])) {
-            $this->sendNotification("Juego Editado", "Se ha editado el juego correctamente");
-            $_SESSION["editGame"] = null;
-        }
-
-        if (isset($_SESSION["noeditGame"])) {
-            $this->sendNotification("Error al editar Juego", "No se ha editado el juego");
-            $_SESSION["noeditGame"] = null;
-        }
 
         //Si hay accion
         if (isset($_POST["action"])) {
@@ -605,7 +598,8 @@ class Controlador
                 if (model::modifyGame($_POST["idEdit"], $_POST["tituloEdit"], $rutaJuego, $ruta, $_POST["dev"], $_POST["dis"], $_POST["yearEdit"], $_POST["descripcionEdit"])) {
 
                     //Si se ha editado correctamente se guarda para mostrar
-                    $_SESSION["editGame"] = true;
+                    $this->sendNotification("Juego Editado", "Se ha editado el juego correctamente");
+
 
                     //borrar todas las relaciones
                     model::deleteGameGenRel($_POST["idEdit"]);
@@ -643,7 +637,8 @@ class Controlador
 
 
                 } else {
-                    $_SESSION["noeditGame"] = true;
+                    $this->sendNotification("Error al editar Juego", "No se ha editado el juego");
+
                 }
                 header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
                 die();
@@ -653,7 +648,7 @@ class Controlador
 
                 model::deleteGame($_POST["idJuego"]);
                 $this->sendNotification("Juego eliminado", "Juego eliminado correctamente del inventario global");
-                header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
+                header(header: 'Location: ?page=adm-juegos'); //Redirige a la misma pagina
                 die();
 
             }
@@ -812,51 +807,10 @@ class Controlador
             $carrito = unserialize($_SESSION['carrito']);
         }
 
-        //NOTIFICACIONES
-
-        //Si se añade al carrito un juego se notifica del mismo
-        if (isset($_SESSION["addJuegoCarrito"])) {
-            $this->sendNotification('Juego añadido al carrito', "Se ha añadido el juego al carrito correctamente", 20000);
-            $_SESSION["addJuegoCarrito"] = null;
-        }
-
-        //Si se borra del carrito un juego se notifica del mismo
-        if (isset($_SESSION["borrarJuegoCarrito"])) {
-            $this->sendNotification('Juego eliminado del carrito', "Se ha eliminado el juego del carrito correctamente", 20000);
-            $_SESSION["borrarJuegoCarrito"] = null;
-        }
-
-        //si el usuario al que se quiere regalar el juego no existe, se notifica
-        if (isset($_SESSION["regaloUsuario"])) {
-            $this->sendNotification("El usuario introducido no existe", "Comprueba que has escrito correctamente el nombre de usuario a quien quieres regalar el juego.");
-            $_SESSION["regaloUsuario"] = null;
-        }
-
-        //si el usuario al que se quiere regalar el juego ya tiene el juego se notifica
-        if (isset($_SESSION["usuarioPoseeJuegoReg"])) {
-            $this->sendNotification("El usuario seleccionado ya tiene este juego", "El usuario seleccionado ya posee este juego.");
-            $_SESSION["usuarioPoseeJuegoReg"] = null;
-        }
-
-        //si se hace el regalo se notifica
-        if (isset($_SESSION["regalado"])) {
-            $this->sendNotification("Juego Regalado con éxito ", "Se ha regalado el juego correctamente.");
-            $_SESSION["regalado"] = null;
-        }
-
-        //si se hace el regalo se notifica
-        if (isset($_SESSION["autoregalo"])) {
-            $this->sendNotification("Error", "Si quieres el juego, compratelo.");
-            $_SESSION["autoregalo"] = null;
-        }
-
-
-
-
         //se incluyen todos los juegos y los juegos que posee el usuario
         $minYear = $_GET['minYear'] ?? '';
         $maxYear = $_GET['maxYear'] ?? '';
-        $games = Model::getAllGames($minYear,$maxYear);
+        $games = Model::getAllGames($minYear, $maxYear);
         $gamesOwned = ($_SESSION['role'] == 'admin') ? $games : Model::getGames($_SESSION['id'], $minYear, $maxYear);
 
         $i = 0;
@@ -881,7 +835,8 @@ class Controlador
                 //Guardo en session
                 $_SESSION['carrito'] = serialize($carrito);
 
-                $_SESSION["borrarJuegoCarrito"] = true;
+                $this->sendNotification('Juego eliminado del carrito', "Se ha eliminado el juego del carrito correctamente", 20000);
+
                 header("Location: ?page=juegos");
                 die();
             }
@@ -897,7 +852,7 @@ class Controlador
 
                 //actualizar bbdd
                 model::addCarrito($_SESSION["id"], $game[0]);
-                $_SESSION["addJuegoCarrito"] = true;
+                $this->sendNotification('Juego añadido al carrito', "Se ha añadido el juego al carrito correctamente", 20000);
                 header("Location: ?page=juegos");
                 die();
             }
@@ -909,20 +864,19 @@ class Controlador
                 $id = model::getID($_POST["regaloNickname$game[0]"]);
                 if ($id != "") {
                     if ($id == $_SESSION["id"]) {
-                        $_SESSION["autoregalo"] = true;
+                        $this->sendNotification("Error", "No puedes regalarte un juego a ti mismo.");
                     }
                     //comprobar si el otro usuario ya tiene el juego
-                    else if (!empty(model::poseeJuego($id, $game[0]))) {
-                        $_SESSION["usuarioPoseeJuegoReg"] = true;
+                    else if (model::getRole($id) == "admin" || !empty(model::poseeJuego($id, $game[0]))) {
+                        $this->sendNotification("El usuario seleccionado ya tiene este juego", "El usuario seleccionado ya posee este juego.");
                     } else {
                         //si no tiene el juego, ponerselo
                         model::ponerJuegoUsuario($id, $game[0]);
                         model::regalarJuegoUsuario($_SESSION["id"], $id, $game[0]);
-                        $_SESSION["regalado"] = true;
+                        $this->sendNotification("Juego Regalado con éxito ", "Se ha regalado el juego correctamente.");
                     }
-
                 } else {
-                    $_SESSION["regaloUsuario"] = true;
+                        $this->sendNotification("El usuario introducido no existe", "Comprueba que has escrito correctamente el nombre de usuario a quien quieres regalar el juego.");
                 }
                 header("Location: ?page=juegos");
                 die();
@@ -1047,41 +1001,6 @@ class Controlador
         //Valida la sessión. Si erronea o logout envia a login.
         $this->validateSession();
 
-        //si se hace el préstamo se notifica
-        if (isset($_SESSION["prestado"])) {
-            $this->sendNotification("Juego Prestado con éxito ", "Se ha prestado el juego correctamente.");
-            $_SESSION["prestado"] = null;
-        }
-
-        //si el usuario al que se quiere prestar el juego no existe, se notifica
-        if (isset($_SESSION["prestarUsuario"])) {
-            $this->sendNotification("El usuario introducido no existe", "Comprueba que has escrito correctamente el nombre de usuario a quien quieres regalar el juego.");
-            $_SESSION["prestarUsuario"] = null;
-        }
-
-        //si el usuario al que se quiere prestar el juego ya tiene el juego se notifica
-        if (isset($_SESSION["usuarioPoseeJuegoReg"])) {
-            $this->sendNotification("El usuario seleccionado ya tiene este juego", "El usuario seleccionado ya posee este juego.");
-            $_SESSION["usuarioPoseeJuegoReg"] = null;
-        }
-
-        //si se intenta hacer un auto regalo se notifica
-        if (isset($_SESSION["autoprestar"])) {
-            $this->sendNotification("Error", "No puedes prestarte un juego a ti mismo");
-            $_SESSION["autoprestar"] = null;
-        }
-
-        //si se cancela el préstamo se notifica
-        if (isset($_SESSION["prestamoCancelado"])) {
-            $this->sendNotification("Préstamo cancelado", "Se ha cancelado el préstamo de " . $_SESSION["prestamoCancelado"]);
-            $_SESSION["prestamoCancelado"] = null;
-        }
-
-        if (isset($_SESSION["prestamoDevuelto"])) {
-            $this->sendNotification("Préstamo Devuelto", "Se ha devuelto el juego " . $_SESSION["prestamoDevuelto"]);
-            $_SESSION["prestamoDevuelto"] = null;
-        }
-
         //se incluyen los juegos que posee el usuario
         $minYear = $_GET['minYear'] ?? '';
         $maxYear = $_GET['maxYear'] ?? '';
@@ -1097,22 +1016,22 @@ class Controlador
                 //se guarda el id, el título, la ruta, la ruta de la portada, la fecha de fin de prestamo y id del usuario que ha prestado el juego
                 $recibidosActivos[] = [$recibido[0], $datosJuego[0], $datosJuego[2], $datosJuego[1], $recibido[1], $recibido[2]];
             } else { //si ya ha caducado
-                $_SESSION["prestamosCaducados"] = [$recibido[0]]; //Se guarda el id del juego para sacar una notificacion
+                $this->sendNotification("Juego Caducado", "Ha caducado el juego con el id " + $datosJuego[0]);
                 model::removePrestamo($_SESSION["id"], $recibido[0]); //se borra el préstamo de la base de datos
             }
 
 
             if (isset($_POST["devolver$recibido[0]"])) {
                 model::cancelarPrestamo($_POST["idUs1$recibido[0]"], $recibido[0]);
-               $juego = model::getGame($recibido[0]);
-               
-                $_SESSION["prestamoDevuelto"] = $juego[0];
+                $juego = model::getGame($recibido[0]);
+
+                $this->sendNotification("Préstamo Devuelto", "Se ha devuelto el juego " . $juego[0]);
 
                 header("Location: ?page=principal");
                 die();
             }
         }
-        
+
         $i = 0;
         //Se guarda true si al usuario le pertenece el juego
         foreach ($games as $game) {
@@ -1120,27 +1039,31 @@ class Controlador
                 if ($game[0] == $gamePrestado[0] && $gamePrestado[1] > date("Y-m-d")) {
                     $games[$i][] = $gamePrestado[1];
                 }
-                
-            }$i++;
+
+            }
+            $i++;
             if (isset($_POST["prestarNickname$game[0]"])) {
                 echo $_POST["prestarNickname$game[0]"];
                 //verificar si existe el usuario o no
                 $id = model::getID($_POST["prestarNickname$game[0]"]);
                 if ($id != "") {
                     if ($id == $_SESSION["id"]) {
-                        $_SESSION["autoprestar"] = true;
+                        $this->sendNotification("Error", "No puedes prestarte un juego a ti mismo");
                     }
                     //comprobar si el otro usuario ya tiene el juego
                     else if (!empty(model::poseeJuego($id, $game[0]))) {
-                        $_SESSION["usuarioPoseeJuegoReg"] = true;
+                        $this->sendNotification("Error", "El usuario ya tiene el juego. Regálale otro.");
+
                     } else {
                         //si no tiene el juego, ponerselo
                         model::prestarJuegoUsuario($_SESSION["id"], $id, $game[0], $_POST["finPrestamo$game[0]"]);
-                        $_SESSION["prestado"] = true;
+                        $this->sendNotification("Juego Prestado con éxito ", "Se ha prestado el juego correctamente.");
+
                     }
 
                 } else {
-                    $_SESSION["prestarUsuario"] = true;
+                    $this->sendNotification("El usuario introducido no existe", "Comprueba que has escrito correctamente el nombre de usuario a quien quieres regalar el juego.");
+
                 }
                 header("Location: ?page=principal");
                 die();
@@ -1149,7 +1072,7 @@ class Controlador
             if (isset($_POST["cancelarPrestamo$game[0]"])) {
 
                 model::cancelarPrestamo($_SESSION["id"], $game[0]);
-                $_SESSION["prestamoCancelado"] = $game[1];
+                $this->sendNotification("Préstamo cancelado", "Se ha cancelado el préstamo de " . $game[1]);
 
                 header("Location: ?page=principal");
                 die();

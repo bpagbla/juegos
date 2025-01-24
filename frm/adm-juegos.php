@@ -198,7 +198,8 @@ if (!(isset($_POST["action"]) && $_POST["action"] == "game-edit")) {
         </svg>
         <strong>Nuevo Juego</strong>
     </a>
-    <ul class="dropdown-menu dropdown-menu-dark addGameDropdown text-small shadow bg-menu mb-2" aria-labelledby="dropdownAddGame">
+    <ul class="dropdown-menu dropdown-menu-dark addGameDropdown text-small shadow bg-menu mb-2"
+        aria-labelledby="dropdownAddGame">
         <li class="dropdown-item rounded-top p-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
 
             <button class="bg-transparent border-0 text-start ps-3 p-2 w-100">
@@ -221,23 +222,23 @@ if (!(isset($_POST["action"]) && $_POST["action"] == "game-edit")) {
 
 
 <div class="modal fade" id="importarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Importar Juegos</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form action="" method="post" enctype="multipart/form-data" id="importarForm">
-            <input type="file" name="archivoImport" id="" accept=".zip,.jsdos" required>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="submit" form="importarForm" class="btn btn-primary">Importar</button>
-      </div>
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Importar Juegos</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post" enctype="multipart/form-data" id="importarForm">
+                    <input type="file" name="archivoImport" id="" accept=".zip,.jsdos" required>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" form="importarForm" class="btn btn-primary">Importar</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <?php
