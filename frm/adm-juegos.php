@@ -228,13 +228,13 @@ if (!(isset($_POST["action"]) && $_POST["action"] == "game-edit")) {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="" method="post" enctype="multipart/form-data">
-            <input type="file" name="archivoImport" id="" accept="/*">
+        <form action="" method="post" enctype="multipart/form-data" id="importarForm">
+            <input type="file" name="archivoImport" id="" accept=".zip,.jsdos" required>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" form="importarForm" class="btn btn-primary">Importar</button>
       </div>
     </div>
   </div>
