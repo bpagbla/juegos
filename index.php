@@ -814,7 +814,6 @@ class Controlador
         $games = Model::getAllGames($minYear, $maxYear, $genres);
         $gamesOwned = ($_SESSION['role'] == 'admin') ? $games : Model::getGames($_SESSION['id'], $minYear, $maxYear, $genres);
 
-
         $i = 0;
         //Se guarda true si al usuario le pertenece el juego
         foreach ($games as $game) {

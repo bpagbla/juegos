@@ -83,6 +83,14 @@
                         </div>
                     </div>
                     <div id="gen-active" class="row m-2">
+                        <?php
+                        //Se sacan todos los generos en formato boton
+                        if (isset($_GET["gen"])) {
+                            foreach ($_GET["gen"] as $genID) {
+                                include "frm/templates/filter-gen.php";
+                            }
+                        }
+                        ?>
                     </div>
                 </form>
             </div>
