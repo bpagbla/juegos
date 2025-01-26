@@ -810,8 +810,10 @@ class Controlador
         //se incluyen todos los juegos y los juegos que posee el usuario
         $minYear = $_GET['minYear'] ?? '';
         $maxYear = $_GET['maxYear'] ?? '';
-        $games = Model::getAllGames($minYear, $maxYear);
-        $gamesOwned = ($_SESSION['role'] == 'admin') ? $games : Model::getGames($_SESSION['id'], $minYear, $maxYear);
+        $genres = $_GET['gen'] ?? '';
+        $games = Model::getAllGames($minYear, $maxYear, $genres);
+        $gamesOwned = ($_SESSION['role'] == 'admin') ? $games : Model::getGames($_SESSION['id'], $minYear, $maxYear, $genres);
+
 
         $i = 0;
         //Se guarda true si al usuario le pertenece el juego
@@ -1004,7 +1006,8 @@ class Controlador
         //se incluyen los juegos que posee el usuario
         $minYear = $_GET['minYear'] ?? '';
         $maxYear = $_GET['maxYear'] ?? '';
-        $games = ($_SESSION['role'] == 'admin') ? Model::getAllGames($minYear, $maxYear) : Model::getGames($_SESSION['id'], $minYear, $maxYear);
+        $genres = $_GET['gen'] ?? '';
+        $games = ($_SESSION['role'] == 'admin') ? Model::getAllGames($minYear, $maxYear, $genres) : Model::getGames($_SESSION['id'], $minYear, $maxYear, $genres);
         $gamesPrestados = model::getJuegosPrestados($_SESSION["id"]);
 
         $gamesRecibidos = model::getJuegosRecibidos($_SESSION["id"]);

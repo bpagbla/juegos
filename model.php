@@ -17,9 +17,10 @@ class model
         }
 
         if (!empty($genres)) {
-            foreach ($genres as $genre)
+            foreach ($genres as $genre) {
                 $end .= ' AND :genre' . $genre . ' = juego.genres';
-            $inputs['genre' . $genre] = $genre;
+                $inputs['genre' . $genre] = $genre;
+            }
         }
 
         if (!empty($comp)) {
@@ -54,16 +55,18 @@ class model
         }
 
         if (!empty($genres)) {
-            foreach ($genres as $genre)
-                $end .= ' AND :genre' . $genre . ' = juego.genres';
-            $inputs['genre' . $genre] = $genre;
+            $end .= ' AND id IN (SELECT id_juego FROM juego_genero WHERE id_genero IN (';
+            foreach ($genres as $genre) {
+                $end .= ':genre' . $genre . ',';
+                $inputs['genre' . $genre] = $genre;
+            }
+            $end = substr($end, 0, -1);
+            $end .= '))';
         }
 
         $array = array();
 
         $consulta = $ddbb->consulta("SELECT ID,TITULO,PORTADA FROM juego WHERE 1=1" . $end, $inputs); //se sacan todos los generos de la base de datos
-        $nombre = '';
-        $id = '';
 
         //Se guardan el nombre y el id del genero en el array
         foreach ($consulta as $each) {
