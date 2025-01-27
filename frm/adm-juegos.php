@@ -235,7 +235,7 @@ if (!(isset($_POST["action"]) && $_POST["action"] == "game-edit")) {
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="submit" form="importarForm" class="btn btn-primary">Importar</button>
+                <button type="submit" form="importarForm" class="btn btn-primary" name="sendImportar">Importar</button>
             </div>
         </div>
     </div>

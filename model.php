@@ -458,6 +458,25 @@ class model
         return $existe;
     }
 
+    static function existeCompNombre($nombre)
+    {
+        include_once "BD/baseDeDatos.php";
+
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar(); //se conecta a la base de datos
+
+
+        $consulta = $ddbb->consulta("SELECT NOMRBE FROM compania WHERE ID=?", array($nombre)); //Se mira si existe compañía
+        $existe = false;
+        foreach ($consulta as $item) {
+            if (isset($item["NOMBRE"])) {
+                $existe = true;
+            }
+        }
+        $ddbb->cerrar();
+        return $existe;
+    }
+
     static function addComp($id, $compNombre)
     {
 
@@ -493,6 +512,26 @@ class model
         return $existe;
     }
 
+    static function existeGenNombre($nombre)
+    {
+        include_once "BD/baseDeDatos.php";
+
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar(); //se conecta a la base de datos
+
+
+        $consulta = $ddbb->consulta("SELECT ID FROM genero WHERE NOMBRE=?", array($nombre)); //Se mira si existe un genero por nombre
+        $existe = false;
+        foreach ($consulta as $item) {
+            if (isset($item["NOMBRE"])) {
+                $existe = true;
+            }
+        }
+
+        $ddbb->cerrar();
+        return $existe;
+    }
+
     static function addGen($id, $genNombre)
     {
         include_once "BD/baseDeDatos.php";
@@ -519,6 +558,26 @@ class model
         $existe = false;
         foreach ($consulta as $item) {
             if (isset($item["ID"])) {
+                $existe = true;
+            }
+        }
+
+        $ddbb->cerrar();
+        return $existe;
+    }
+
+    static function existeSisNombre($nombre)
+    {
+        include_once "BD/baseDeDatos.php";
+
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar(); //se conecta a la base de datos
+
+
+        $consulta = $ddbb->consulta("SELECT NOMBRE FROM sistema WHERE NOMBRE=?", array($nombre)); //Se confirma o desmiente existencia de un sistema
+        $existe = false;
+        foreach ($consulta as $item) {
+            if (isset($item["NOMBRE"])) {
                 $existe = true;
             }
         }

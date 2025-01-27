@@ -430,6 +430,82 @@ class Controlador
     {
         //Valida la sessión. Si erronea o logout envia a login.
         $this->validateAdminSession();
+
+
+        //si se importa un zip con juegos que mueva el zip a la carpeta uploads
+        if (isset($_FILES["archivoImport"]) && $_FILES["archivoImport"]["error"] != '4') {
+            $rutaZip = "uploads/temp.zip";
+            $resultado = move_uploaded_file($_FILES["archivoImport"]["tmp_name"], $rutaZip);
+            if (!$resultado) {
+                return false;
+            } else {
+                $zip = new ZipArchive;
+                if ($zip->open($rutaZip) === TRUE) {
+                    $zip->extractTo('uploads/');
+                    $zip->close();
+
+                    if (file_exists("uploads/juegos.json")) {
+                        $json = file_get_contents("uploads/juegos.json");
+                        if ($json === false) {
+                            die("error");
+                        }
+
+                        $json_data = json_decode($json, true);
+
+                        if ($json_data === null) {
+                            die("Erroor");
+                        }
+
+
+                        //comprobar que existen los datos en la bbdd antes de intentar añadir el juego. Si no existen da error.
+
+                        foreach ($json_data[0]["generos"] as $genero) {
+                            if (!model::existeGenNombre($genero)) {
+                                $this->sendNotification("Género no existe", $genero . " no existe en la base de datos");
+                                header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
+                                die();
+                            }
+                        }
+
+                        foreach ($json_data[0]["sistemas"] as $sistema) {
+                            if (!model::existeSisNombre($sistema)) {
+                                $this->sendNotification("Sistema no existe", $sistema . " no existe en la base de datos");
+                                header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
+                                die();
+                            }
+                        }
+
+                        if (!model::existeCompNombre($json_data[0]["desarrollador"])) {
+                            $this->sendNotification("Compañía no existe", $json_data[0]["desarrollador"] . " no existe en la base de datos");
+                            header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
+                            die();
+                        }
+
+                        if (!model::existeCompNombre($json_data[0]["distribuidor"])) {
+                            $this->sendNotification("Compañía no existe", $json_data[0]["distribuidor"] . " no existe en la base de datos");
+                            header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
+                            die();
+                        }
+
+                        //mover los archivos
+                        $id = rand(-9999999999, -1);
+
+                    }
+                    if (file_exists("uploads/juegos.xml")) {
+
+                    }
+
+                } else {
+                    $this->sendNotification("Error al Importar", "No se ha podido abrir el ZIP");
+                    header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
+                    die();
+                }
+            }
+
+        }
+
+
+
         if (isset($_POST["addGame"])) {
 
             $ruta = "";
@@ -460,18 +536,14 @@ class Controlador
                 }
             }
 
-            if (isset($_FILES["archivoImport"]) && $_FILES["archivoImport"]["error"] != '4') {
-                $rutaZip = "uploads/temp.zip";
-                $resultado = move_uploaded_file($_FILES["archivoImport"]["tmp_name"], $rutaZip); 
-                echo $rutaZip;
-            }
+
 
             //Si no se sube el juego se pasa  error si no se guarda con nombre id juego
             if (isset($_FILES["archivoJuego"]) && $_FILES["archivoJuego"]["error"] != '4') {
                 //Determina ruta
                 $rutaJuego = "games/" . $_POST['id'] . ".jsdos";
                 $resultado = move_uploaded_file($_FILES["archivoJuego"]["tmp_name"], $rutaJuego); //mueve el archivo al directorio
-                if (!$resultado) { 
+                if (!$resultado) {
                     $this->sendNotification("error file", "error file");
                 }
             } else {
@@ -574,7 +646,7 @@ class Controlador
                 $rutaJuego = "games/" . $_POST['idEdit'] . ".jsdos";
                 if (isset($_FILES["rutaEdit"]) && $_FILES["rutaEdit"]["error"] != '4') {
                     $resultado = move_uploaded_file($_FILES["rutaEdit"]["tmp_name"], $rutaJuego); //mueve el archivo al directorio
-                    if (!$resultado) { 
+                    if (!$resultado) {
                         $this->sendNotification("Error Archivo", "Error subiendo el archivo");
                         header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
                         die();
@@ -879,7 +951,7 @@ class Controlador
                         $this->sendNotification("Juego Regalado con éxito ", "Se ha regalado el juego correctamente.");
                     }
                 } else {
-                        $this->sendNotification("El usuario introducido no existe", "Comprueba que has escrito correctamente el nombre de usuario a quien quieres regalar el juego.");
+                    $this->sendNotification("El usuario introducido no existe", "Comprueba que has escrito correctamente el nombre de usuario a quien quieres regalar el juego.");
                 }
                 header("Location: ?page=juegos");
                 die();
