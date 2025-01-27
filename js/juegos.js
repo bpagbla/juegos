@@ -111,3 +111,7 @@ function startQueueGen(e) {
     clearTimeout(timeoutGen)
     timeoutGen = setTimeout(function () { loadNamesGen(e) }, 100);
 }
+
+document.querySelectorAll('.removable-buttons').forEach( (elem) => {
+    elem.addEventListener('click', function (e) { e.target.closest("div").remove() })
+})
