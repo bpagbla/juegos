@@ -230,7 +230,7 @@ if (!(isset($_POST["action"]) && $_POST["action"] == "game-edit")) {
             </div>
             <div class="modal-body">
                 <form action="" method="post" enctype="multipart/form-data" id="importarForm">
-                    <input type="file" name="archivoImport" id="" accept=".zip,.jsdos" required>
+                    <input type="file" name="archivoImport" id="" accept=".zip" required>
                 </form>
             </div>
             <div class="modal-footer">

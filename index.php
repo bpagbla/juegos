@@ -461,7 +461,9 @@ class Controlador
             }
 
             if (isset($_FILES["archivoImport"]) && $_FILES["archivoImport"]["error"] != '4') {
-
+                $rutaZip = "uploads/temp.zip";
+                $resultado = move_uploaded_file($_FILES["archivoImport"]["tmp_name"], $rutaZip); 
+                echo $rutaZip;
             }
 
             //Si no se sube el juego se pasa  error si no se guarda con nombre id juego
@@ -469,7 +471,7 @@ class Controlador
                 //Determina ruta
                 $rutaJuego = "games/" . $_POST['id'] . ".jsdos";
                 $resultado = move_uploaded_file($_FILES["archivoJuego"]["tmp_name"], $rutaJuego); //mueve el archivo al directorio
-                if (!$resultado) { //si ha salido bien que devuelva la ruta
+                if (!$resultado) { 
                     $this->sendNotification("error file", "error file");
                 }
             } else {
@@ -572,7 +574,7 @@ class Controlador
                 $rutaJuego = "games/" . $_POST['idEdit'] . ".jsdos";
                 if (isset($_FILES["rutaEdit"]) && $_FILES["rutaEdit"]["error"] != '4') {
                     $resultado = move_uploaded_file($_FILES["rutaEdit"]["tmp_name"], $rutaJuego); //mueve el archivo al directorio
-                    if (!$resultado) { //si ha salido bien que devuelva la ruta
+                    if (!$resultado) { 
                         $this->sendNotification("Error Archivo", "Error subiendo el archivo");
                         header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
                         die();
