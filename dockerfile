@@ -6,6 +6,7 @@ RUN apt-get update && apt-get install -y php libapache2-mod-php php-mysql php8.3
 RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/apache.key -out /etc/ssl/certs/apache.crt -subj "/C=ES/ST=Madrid/L=Madrid/O=Example Inc./CN=example.com"
 RUN a2enmod ssl
 RUN a2ensite default-ssl.conf
+RUN sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 10000M/g' /etc/php/8.3/apache2/php.ini
 
 #RUN rm /var/www/html/index.html
 #COPY ./ /var/www/html/
