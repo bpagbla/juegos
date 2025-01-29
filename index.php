@@ -426,18 +426,90 @@ class Controlador
         return $mime_type;
     }
 
+    public function genIdNeg()
+    {
+        $id = rand(-9999999999, -1);
+        return $id;
+    }
+
+
+    public function importarGame($json_data)
+    {
+        foreach ($json_data as $juego) {
+            //comprobar que existen los datos en la bbdd antes de intentar añadir el juego. Si no existen da error.
+
+            foreach ($juego[0]["generos"] as $genero) {
+                if (!model::existeGenNombre($genero)) {
+                    $this->sendNotification("Género no existe", $genero . " no existe en la base de datos");
+                    header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
+                    die();
+                }
+            }
+
+            foreach ($juego[0]["sistemas"] as $sistema) {
+                if (!model::existeSisNombre($sistema)) {
+                    $this->sendNotification("Sistema no existe", $sistema . " no existe en la base de datos");
+                    header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
+                    die();
+                }
+            }
+
+            if (!model::existeCompNombre($juego[0]["desarrollador"])) {
+                $this->sendNotification("Compañía no existe", $juego[0]["desarrollador"] . " no existe en la base de datos");
+                header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
+                die();
+            }
+
+            if (!model::existeCompNombre($juego[0]["distribuidor"])) {
+                $this->sendNotification("Compañía no existe", $juego[0]["distribuidor"] . " no existe en la base de datos");
+                header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
+                die();
+            }
+
+            //mover los archivos ????
+            $moverJuego = move_uploaded_file("/uploads/" . $juego["ruta"], "/games");
+            $moverPortada = move_uploaded_file("/uploads/" . $juego["portada"], "/img/game-thumbnail");
+
+            if (!$moverJuego) {
+                $this->sendNotification("Juego no encontrado", "La ruta del juego " . $juego[0]["titulo"] . " no se ha encontrado");
+                header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
+                die();
+            }
+
+            if (!$moverPortada) {
+                $this->sendNotification("Portada no encontrada", "La portada del juego " . $juego[0]["titulo"] . " no se ha encontrado");
+                header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
+                die();
+            }
+
+            //id aleatorio negativo
+            $id = $this->genIdNeg();
+
+            //comprobar si existe el id (si existe, generar otro)
+            while (model::existeJuego($id)) {
+                $id = $this->genIdNeg();
+            }
+
+
+            //añadir el juego
+            model::addGame($id, $juego["titulo"], $juego[0]["ruta"], $juego[0]["portada"], $juego[0]["desarrollador"], $juego[0]["distribuidor"], $juego[0]["sistemas"], $juego[0]["generos"], $juego[0]["año"], "");
+        }
+    }
+
+
     public function iniciaAdminJuegos()
     {
         //Valida la sessión. Si erronea o logout envia a login.
         $this->validateAdminSession();
-
 
         //si se importa un zip con juegos que mueva el zip a la carpeta uploads
         if (isset($_FILES["archivoImport"]) && $_FILES["archivoImport"]["error"] != '4') {
             $rutaZip = "uploads/temp.zip";
             $resultado = move_uploaded_file($_FILES["archivoImport"]["tmp_name"], $rutaZip);
             if (!$resultado) {
-                return false;
+                $this->sendNotification("Error al subir archivo", "Ha ocurrido un error al subir el archivo");
+                header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
+                die();
             } else {
                 $zip = new ZipArchive;
                 if ($zip->open($rutaZip) === TRUE) {
@@ -456,42 +528,25 @@ class Controlador
                             die("Erroor");
                         }
 
-
-                        //comprobar que existen los datos en la bbdd antes de intentar añadir el juego. Si no existen da error.
-
-                        foreach ($json_data[0]["generos"] as $genero) {
-                            if (!model::existeGenNombre($genero)) {
-                                $this->sendNotification("Género no existe", $genero . " no existe en la base de datos");
-                                header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
-                                die();
-                            }
-                        }
-
-                        foreach ($json_data[0]["sistemas"] as $sistema) {
-                            if (!model::existeSisNombre($sistema)) {
-                                $this->sendNotification("Sistema no existe", $sistema . " no existe en la base de datos");
-                                header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
-                                die();
-                            }
-                        }
-
-                        if (!model::existeCompNombre($json_data[0]["desarrollador"])) {
-                            $this->sendNotification("Compañía no existe", $json_data[0]["desarrollador"] . " no existe en la base de datos");
-                            header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
-                            die();
-                        }
-
-                        if (!model::existeCompNombre($json_data[0]["distribuidor"])) {
-                            $this->sendNotification("Compañía no existe", $json_data[0]["distribuidor"] . " no existe en la base de datos");
-                            header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
-                            die();
-                        }
-
-                        //mover los archivos
-                        $id = rand(-9999999999, -1);
+                        $this->importarGame($json_data);
 
                     }
                     if (file_exists("uploads/juegos.xml")) {
+
+                        $xml = file_get_contents("uploads/juegos.xml");
+                        if ($xml === false) {
+                            die("error");
+                        }
+
+                        $xml_data = simplexml_load_string($xml, "SimpleXMLElement", LIBXML_NOCDATA);
+                        $json = json_encode($xml_data);
+                        $json_data = json_decode($json, TRUE);
+                        echo ("a");
+                        if ($json_data === null) {
+                            die("Erroor");
+                        }
+
+
 
                     }
 
