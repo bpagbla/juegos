@@ -14,6 +14,10 @@ document.getElementById('filter-button').addEventListener('click', function () {
     filterModal.show();
 })
 
+function showLoading(elem) {
+    elem.innerHTML = '<li class="list-group-item"><span class="placeholder w-75"></span></li><li class="list-group-item"><span class="placeholder w-75"></span></li><li class="list-group-item"><span class="placeholder w-75"></span></li>'
+}
+
 window.onload = function () {
     slideOne();
     slideTwo();
@@ -57,6 +61,15 @@ const listGen = document.getElementById('sugerencias-list-gen')
 let pendingGen = true;
 let filterModalElement = document.getElementById('filter-modal')
 
+function createButton(name, value, display) {
+    const button = document.createElement('div')
+    button.classList.add('col-auto')
+    button.classList.add('p-0')
+    button.classList.add('m-2')
+    button.innerHTML = '<button type="button" class="btn btn-sm btn-primary">' + display + '<svg class="bg-transparent" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16"> <use href="#remove"></use></svg></button><input type="hidden" name="' + name + '" value="' + value + '"><input type="hidden" name="' + name.replace('[]','') + value + '" value="' + display + '">'
+    return button;
+}
+
 function closeGen(e) {
     if (e.target !== gen) {
         sugerenciasGen.classList.add('d-none')
@@ -87,9 +100,17 @@ async function loadNamesGen(e) {
                 el.innerText = json.genres[i].name
                 listGen.appendChild(el)
                 el.addEventListener('click', function () {
-                    const button = createButton('gen[]', json.genres[i].genre_id, json.genres[i].name)
-                    document.getElementById('gen-active').appendChild(button)
-                    button.addEventListener('click', function (e) { e.target.closest("div").remove() })
+                    if (!gameList.includes(json.genres[i].genre_id)) {
+                        gameList.push(json.genres[i].genre_id)
+                        const button = createButton('gen[]', json.genres[i].genre_id, json.genres[i].name)
+                        document.getElementById('gen-active').appendChild(button)
+                        button.addEventListener('click', function (e) {
+                            e.target.closest("div").remove()
+                        })
+                        document.getElementById('add-errors').innerHTML = '';
+                    } else {
+                        document.getElementById('add-errors').innerHTML = '<div class="alert alert-danger" role="alert">Ese genero ya esta en los filtros</div>'
+                    }
                 })
             }
         } else {
@@ -106,4 +127,67 @@ function startQueueGen(e) {
     showLoading(listGen)
     clearTimeout(timeoutGen)
     timeoutGen = setTimeout(function () { loadNamesGen(e) }, 100);
+}
+
+document.querySelectorAll('.removable-buttons').forEach( (elem) => {
+    elem.addEventListener('click', function (e) { e.target.closest("div").remove() })
+})
+
+//Desarrolladores
+let timeoutDev = ''
+const dev = document.getElementById('dev')
+const sugerenciasDev = document.getElementById('sugerencias-dev')
+const listDev = document.getElementById('sugerencias-list-dev')
+let pendingDev = true;
+
+dev.addEventListener('focus', function (e) {
+    sugerenciasDev.classList.remove('d-none')
+    if (pendingDev) {
+        loadNamesDev(e)
+        pendingDev = false;
+    }
+    function closeDev(e) {
+        if (e.target !== dev) {
+            sugerenciasDev.classList.add('d-none')
+            filterModalElement.removeEventListener('click', closeDev)
+        }
+    }
+    filterModalElement.addEventListener('click', closeDev)
+})
+dev.addEventListener('input', startQueueDev)
+
+function startQueueDev(e) {
+    showLoading(listDev)
+    clearTimeout(timeoutDev)
+    timeoutDev = setTimeout(function () { loadNamesDev(e) }, 200);
+}
+
+async function loadNamesDev(e) {
+    const response = await fetch('http://localhost/?page=api&endpoint=companies&name=' + e.target.value)
+    const json = await response.json()
+    if (json.hasOwnProperty('companies')) {
+        let length = json.companies.length
+        if (length > 0) {
+            listDev.innerHTML = ''
+            for (let i = 0; i < length; i++) {
+                const el = document.createElement('li')
+                el.classList.add('list-group-item')
+                el.innerText = json.companies[i].name
+                listDev.appendChild(el)
+                el.addEventListener('click', function () {
+                    const placement = document.getElementById('dev-active')
+                    placement.innerHTML = '';
+                    const button = createButton('dev', json.companies[i].company_id, json.companies[i].name)
+                    placement.appendChild(button)
+                    button.addEventListener('click', function (e) { e.target.closest("div").remove() })
+                })
+            }
+        } else {
+            listDev.innerHTML = ''
+            const el = document.createElement('li')
+            el.classList.add('list-group-item')
+            el.innerText = 'No hay resultados'
+            listDev.appendChild(el)
+        }
+    }
 }

@@ -1,7 +1,7 @@
 <?php
 class model
 {
-    static function getGames($id, $minYear = '', $maxYear = '', $genres = '', $comp = '')
+    static function getGames($id, $minYear = '', $maxYear = '', $genres = '', $dev = '')
     {
 
         include_once "BD/baseDeDatos.php";
@@ -17,15 +17,18 @@ class model
         }
 
         if (!empty($genres)) {
+            $end .= ' AND id IN (SELECT id_juego FROM juego_genero WHERE id_genero IN (';
             foreach ($genres as $genre) {
-                $end .= ' AND :genre' . $genre . ' = juego.genres';
+                $end .= ':genre' . $genre . ',';
                 $inputs['genre' . $genre] = $genre;
             }
+            $end = substr($end, 0, -1);
+            $end .= '))';
         }
 
-        if (!empty($comp)) {
-            $end .= ' AND :comp = juego.anio';
-            $inputs['comp'] = $comp;
+        if (!empty($dev)) {
+            $end .= ' AND :dev = juego.desarrollador';
+            $inputs['dev'] = $dev;
         }
 
         $array = array();
