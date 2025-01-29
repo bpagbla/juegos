@@ -119,7 +119,7 @@
                                 </button>
 
                                 <input type="hidden" name="dev" value="<?php print $_GET['dev'] ?>">
-                                <input type="hidden" name="dis<?php print $_GET['dev'] ?>"
+                                <input type="hidden" name="dev<?php print $_GET['dev'] ?>"
                                        value="<?php print $_GET['dev'.$_GET['dev']] ?>">
                             </div>
                         <?php } ?>
