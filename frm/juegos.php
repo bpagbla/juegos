@@ -38,10 +38,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="row justify-content-center">
-                    <div id="passwd-alert" class="alert alert-danger col-11 <?php if (!isset($_POST['submit-card'])) print 'd-none';?>" role="alert">
-                        <?php if (isset($_POST['submit-card'])) print "Rellene los campos marcados en rojo correctamente" ?>
-                    </div>
+                <div id="add-errors" class="row justify-content-center p-2">
                 </div>
                 <form id="add-form" method="get">
                     <input type="hidden" name="page" value="juegos">
@@ -83,11 +80,15 @@
                         </div>
                     </div>
                     <div id="gen-active" class="row m-2">
+                        <script>
+                            let gameList = [];
+                        </script>
                         <?php
                         //Se sacan todos los generos en formato boton
                         if (isset($_GET["gen"])) {
                             foreach ($_GET["gen"] as $genID) {
                                 include "frm/templates/filter-gen.php";
+                                print "<script>gameList.push(".$genID.")</script>";
                             }
                         }
                         ?>

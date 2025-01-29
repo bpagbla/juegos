@@ -91,9 +91,17 @@ async function loadNamesGen(e) {
                 el.innerText = json.genres[i].name
                 listGen.appendChild(el)
                 el.addEventListener('click', function () {
-                    const button = createButton('gen[]', json.genres[i].genre_id, json.genres[i].name)
-                    document.getElementById('gen-active').appendChild(button)
-                    button.addEventListener('click', function (e) { e.target.closest("div").remove() })
+                    if (!gameList.includes(json.genres[i].genre_id)) {
+                        gameList.push(json.genres[i].genre_id)
+                        const button = createButton('gen[]', json.genres[i].genre_id, json.genres[i].name)
+                        document.getElementById('gen-active').appendChild(button)
+                        button.addEventListener('click', function (e) {
+                            e.target.closest("div").remove()
+                        })
+                        document.getElementById('add-errors').innerHTML = '';
+                    } else {
+                        document.getElementById('add-errors').innerHTML = '<div class="alert alert-danger" role="alert">Ese genero ya esta en los filtros</div>'
+                    }
                 })
             }
         } else {
