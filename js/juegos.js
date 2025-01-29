@@ -123,3 +123,62 @@ function startQueueGen(e) {
 document.querySelectorAll('.removable-buttons').forEach( (elem) => {
     elem.addEventListener('click', function (e) { e.target.closest("div").remove() })
 })
+
+//Desarrolladores
+let timeoutDev = ''
+const dev = document.getElementById('dev')
+const sugerenciasDev = document.getElementById('sugerencias-dev')
+const listDev = document.getElementById('sugerencias-list-dev')
+let pendingDev = true;
+
+dev.addEventListener('focus', function (e) {
+    sugerenciasDev.classList.remove('d-none')
+    if (pendingDev) {
+        loadNamesDev(e)
+        pendingDev = false;
+    }
+    function closeDev(e) {
+        if (e.target !== dev) {
+            sugerenciasDev.classList.add('d-none')
+            filterModalElement.removeEventListener('click', closeDev)
+        }
+    }
+    filterModalElement.addEventListener('click', closeDev)
+})
+dev.addEventListener('input', startQueueDev)
+
+function startQueueDev(e) {
+    showLoading(listDev)
+    clearTimeout(timeoutDev)
+    timeoutDev = setTimeout(function () { loadNamesDev(e) }, 200);
+}
+
+async function loadNamesDev(e) {
+    const response = await fetch('http://localhost/?page=api&endpoint=companies&name=' + e.target.value)
+    const json = await response.json()
+    if (json.hasOwnProperty('companies')) {
+        let length = json.companies.length
+        if (length > 0) {
+            listDev.innerHTML = ''
+            for (let i = 0; i < length; i++) {
+                const el = document.createElement('li')
+                el.classList.add('list-group-item')
+                el.innerText = json.companies[i].name
+                listDev.appendChild(el)
+                el.addEventListener('click', function () {
+                    const placement = document.getElementById('dev-active')
+                    placement.innerHTML = '';
+                    const button = createButton('dev', json.companies[i].company_id, json.companies[i].name)
+                    placement.appendChild(button)
+                    button.addEventListener('click', function (e) { e.target.closest("div").remove() })
+                })
+            }
+        } else {
+            listDev.innerHTML = ''
+            const el = document.createElement('li')
+            el.classList.add('list-group-item')
+            el.innerText = 'No hay resultados'
+            listDev.appendChild(el)
+        }
+    }
+}

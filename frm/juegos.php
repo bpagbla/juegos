@@ -93,6 +93,40 @@
                         }
                         ?>
                     </div>
+                    <div class="row px-3" id="devDiv">
+                        <div class="col p-0">
+                            <label for="dis" class="col-form-label">Desarrolladores:</label>
+                            <input type="text" class="form-control" id="dev"
+                                   placeholder="Busca un desarrollador">
+                            <div class="position-relative">
+                                <div id="sugerencias-dev"
+                                     class="position-absolute bg-primary w-100 rounded z-overmodal mt-1 branded-shadow d-none">
+                                    <ul id="sugerencias-list-dev" class="list-group sugerencias placeholder-glow">
+                                        <li class="list-group-item"><span class="placeholder w-75"></span></li>
+                                        <li class="list-group-item"><span class="placeholder w-75"></span></li>
+                                        <li class="list-group-item"><span class="placeholder w-75"></span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="dev-active" class="row m-1">
+                        <?php if (!empty($_GET['dev'])) { ?>
+                        <div class="col-auto my-1 removable-buttons">
+                            <button type="button" class="btn btn-sm btn-primary col-auto">
+                                <?php print $_GET['dev'.$_GET['dev']]?>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                     fill="currentColor" class="bi bi-x bg-transparent" viewBox="0 0 16 16">
+                                    <use href="#remove"></use>
+                                </svg>
+                            </button>
+
+                            <input type="hidden" name="dev" value="<?php print $_GET['dev'] ?>">
+                            <input type="hidden" name="dis<?php print $_GET['dev'] ?>"
+                                   value="<?php print $_GET['dev'.$_GET['dev']] ?>">
+                        </div>
+                        <?php } ?>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">

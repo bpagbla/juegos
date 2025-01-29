@@ -40,7 +40,7 @@ class model
 
     }
 
-    static function getAllGames($minYear = '', $maxYear = '', $genres = '', $comp = '')
+    static function getAllGames($minYear = '', $maxYear = '', $genres = '', $dev = '')
     {
         include_once "BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;
@@ -64,6 +64,11 @@ class model
             $end .= '))';
         }
 
+        if (!empty($dev)) {
+            $end .= ' AND :dev = juego.desarrollador';
+            $inputs['dev'] = $dev;
+        }
+
         $array = array();
 
         $consulta = $ddbb->consulta("SELECT ID,TITULO,PORTADA FROM juego WHERE 1=1" . $end, $inputs); //se sacan todos los generos de la base de datos
@@ -83,7 +88,6 @@ class model
         include_once "BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
-
 
         $array = array();
 
