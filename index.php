@@ -940,7 +940,8 @@ class Controlador
         $minYear = $_GET['minYear'] ?? '';
         $maxYear = $_GET['maxYear'] ?? '';
         $genres = $_GET['gen'] ?? '';
-        $games = Model::getAllGames($minYear, $maxYear, $genres);
+        $dev = $_GET['dev'] ?? '';
+        $games = Model::getAllGames($minYear, $maxYear, $genres, $dev);
         $gamesOwned = ($_SESSION['role'] == 'admin') ? $games : Model::getGames($_SESSION['id'], $minYear, $maxYear, $genres);
 
         $i = 0;

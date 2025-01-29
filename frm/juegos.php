@@ -38,10 +38,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="row justify-content-center">
-                    <div id="passwd-alert" class="alert alert-danger col-11 <?php if (!isset($_POST['submit-card'])) print 'd-none';?>" role="alert">
-                        <?php if (isset($_POST['submit-card'])) print "Rellene los campos marcados en rojo correctamente" ?>
-                    </div>
+                <div id="add-errors" class="row justify-content-center p-2">
                 </div>
                 <form id="add-form" method="get">
                     <input type="hidden" name="page" value="juegos">
@@ -83,14 +80,52 @@
                         </div>
                     </div>
                     <div id="gen-active" class="row m-2">
+                        <script>
+                            let gameList = [];
+                        </script>
                         <?php
                         //Se sacan todos los generos en formato boton
                         if (isset($_GET["gen"])) {
                             foreach ($_GET["gen"] as $genID) {
                                 include "frm/templates/filter-gen.php";
+                                print "<script>gameList.push(".$genID.")</script>";
                             }
                         }
                         ?>
+                    </div>
+                    <div class="row px-3" id="devDiv">
+                        <div class="col p-0">
+                            <label for="dis" class="col-form-label">Desarrolladores:</label>
+                            <input type="text" class="form-control" id="dev"
+                                   placeholder="Busca un desarrollador">
+                            <div class="position-relative">
+                                <div id="sugerencias-dev"
+                                     class="position-absolute bg-primary w-100 rounded z-overmodal mt-1 branded-shadow d-none">
+                                    <ul id="sugerencias-list-dev" class="list-group sugerencias placeholder-glow">
+                                        <li class="list-group-item"><span class="placeholder w-75"></span></li>
+                                        <li class="list-group-item"><span class="placeholder w-75"></span></li>
+                                        <li class="list-group-item"><span class="placeholder w-75"></span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="dev-active" class="row m-1">
+                        <?php if (!empty($_GET['dev'])) { ?>
+                        <div class="col-auto my-1 removable-buttons">
+                            <button type="button" class="btn btn-sm btn-primary col-auto">
+                                <?php print $_GET['dev'.$_GET['dev']]?>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                     fill="currentColor" class="bi bi-x bg-transparent" viewBox="0 0 16 16">
+                                    <use href="#remove"></use>
+                                </svg>
+                            </button>
+
+                            <input type="hidden" name="dev" value="<?php print $_GET['dev'] ?>">
+                            <input type="hidden" name="dis<?php print $_GET['dev'] ?>"
+                                   value="<?php print $_GET['dev'.$_GET['dev']] ?>">
+                        </div>
+                        <?php } ?>
                     </div>
                 </form>
             </div>
