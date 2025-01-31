@@ -500,7 +500,6 @@ class Controlador
 
         foreach ($xml->juego as $juego) {
             /* print_r($juego); */
-            echo "<br><br>";
 
             $generos = array();
             //comprobar que existe los generos
@@ -548,10 +547,6 @@ class Controlador
                 $distribuidor = model::getCompId($juego->distribuidor);
             }
 
-
-
-
-
             //id aleatorio negativo
             $id = $this->genIdNeg();
 
@@ -565,7 +560,7 @@ class Controlador
             }
 
             //añadir juego
-            model::addGame($id, $juego->titulo,  $id . ".zip", $id . ".jpg", $desarrollador, $distribuidor, $juego->año, "");
+            model::addGame($id, $juego->titulo,  "games/" . $id . ".zip", "img/game-thumbnail/". $id . ".jpg", $desarrollador, $distribuidor, $juego->año, "");
 
         }
 
@@ -618,6 +613,7 @@ class Controlador
                         /* print_r($xml->juego[0]); */
                         $this->importarGameXml($xml);
                     }
+
 
                 } else {
                     $this->sendNotification("Error al Importar", "No se ha podido abrir el ZIP");
