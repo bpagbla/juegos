@@ -705,7 +705,7 @@ class model
         $ddbb = new BaseDeDatos;
         $ddbb->conectar(); //se conecta a la base de datos
 
-        $consulta = $ddbb->consulta("SELECT * FROM juego WHERE ID = ?", [$id]); //Se sacan los datos del juego con dicho id
+        $consulta = $ddbb->consulta("SELECT TITULO,RUTA,PORTADA,DESARROLLADOR,DISTRIBUIDOR,ANIO,DESCRIPCION FROM juego WHERE ID = ?", [$id]); //Se sacan los datos del juego con dicho id
         $ddbb->cerrar();
 
         foreach ($consulta as $each) {

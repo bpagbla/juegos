@@ -1140,16 +1140,14 @@ class Controlador
         $recibidosActivos = array();
 
         foreach ($gamesRecibidos as $recibido) {
+            $datosJuego = model::getGame($recibido[0]);
             if (date("Y-m-d") < $recibido[1]) { //si el préstamo sigue activo
-                $datosJuego = model::getGame($recibido[0]);
-
                 //se guarda el id, el título, la ruta, la ruta de la portada, la fecha de fin de prestamo y id del usuario que ha prestado el juego
                 $recibidosActivos[] = [$recibido[0], $datosJuego[0], $datosJuego[2], $datosJuego[1], $recibido[1], $recibido[2]];
             } else { //si ya ha caducado
-                $this->sendNotification("Juego Caducado", "Ha caducado el juego con el id " + $datosJuego[0]);
+                $this->sendNotification("Juego Caducado", "Ha caducado el juego con el id " . $datosJuego[0]);
                 model::removePrestamo($_SESSION["id"], $recibido[0]); //se borra el préstamo de la base de datos
             }
-
 
             if (isset($_POST["devolver$recibido[0]"])) {
                 model::cancelarPrestamo($_POST["idUs1$recibido[0]"], $recibido[0]);
