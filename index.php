@@ -1010,8 +1010,10 @@ class Controlador
         $maxYear = $_GET['maxYear'] ?? '';
         $genres = $_GET['gen'] ?? '';
         $dev = $_GET['dev'] ?? '';
-        $games = Model::getAllGames($minYear, $maxYear, $genres, $dev);
-        $gamesOwned = ($_SESSION['role'] == 'admin') ? $games : Model::getGames($_SESSION['id'], $minYear, $maxYear, $genres);
+        $dis = $_GET['dis'] ?? '';
+        $sist = $_GET['sist'] ?? '';
+        $games = Model::getAllGames($minYear, $maxYear, $genres, $dev, $dis, $sist);
+        $gamesOwned = ($_SESSION['role'] == 'admin') ? $games : Model::getGames($_SESSION['id'], $minYear, $maxYear, $genres, $dis, $sist);
 
         $i = 0;
         //Se guarda true si al usuario le pertenece el juego
@@ -1205,11 +1207,14 @@ class Controlador
         $maxYear = $_GET['maxYear'] ?? '';
         $genres = $_GET['gen'] ?? '';
         $dev = $_GET['dev'] ?? '';
-        $games = ($_SESSION['role'] == 'admin') ? Model::getAllGames($minYear, $maxYear, $genres, $dev) : Model::getGames($_SESSION['id'], $minYear, $maxYear, $genres, $dev);
-        $gamesPrestados = model::getJuegosPrestados($_SESSION["id"]);
+        $dis = $_GET['dis'] ?? '';
+        $sist = $_GET['sist'] ?? '';
 
+        $games = ($_SESSION['role'] == 'admin') ? Model::getAllGames($minYear, $maxYear, $genres, $dev, $dis, $sist) : Model::getGames($_SESSION['id'], $minYear, $maxYear, $genres, $dev, $dis, $sist);
+        $gamesPrestados = model::getJuegosPrestados($_SESSION["id"]);
         $gamesRecibidos = model::getJuegosRecibidos($_SESSION["id"]);
         $recibidosActivos = array();
+
         foreach ($gamesRecibidos as $recibido) {
             if (date("Y-m-d") < $recibido[1]) { //si el préstamo sigue activo
                 $datosJuego = model::getGame($recibido[0]);

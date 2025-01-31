@@ -1,7 +1,7 @@
 <?php
 class model
 {
-    static function getGames($id, $minYear = '', $maxYear = '', $genres = '', $dev = '')
+    static function getGames($id, $minYear = '', $maxYear = '', $genres = '', $dev = '', $dis = '', $systems = '')
     {
 
         include_once "BD/baseDeDatos.php";
@@ -26,9 +26,24 @@ class model
             $end .= '))';
         }
 
+        if (!empty($systems)) {
+            $end .= ' AND id IN (SELECT id_juego FROM juego_sistema WHERE id_sist IN (';
+            foreach ($systems as $sist) {
+                $end .= ':sist' . $sist . ',';
+                $inputs['sist' . $sist] = $sist;
+            }
+            $end = substr($end, 0, -1);
+            $end .= '))';
+        }
+
         if (!empty($dev)) {
             $end .= ' AND :dev = juego.desarrollador';
             $inputs['dev'] = $dev;
+        }
+
+        if (!empty($dis)) {
+            $end .= ' AND :dis = juego.distribuidor';
+            $inputs['dis'] = $dis;
         }
 
         $array = array();
@@ -43,7 +58,7 @@ class model
 
     }
 
-    static function getAllGames($minYear = '', $maxYear = '', $genres = '', $dev = '')
+    static function getAllGames($minYear = '', $maxYear = '', $genres = '', $dev = '', $dis = '', $systems = '')
     {
         include_once "BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;
@@ -67,9 +82,24 @@ class model
             $end .= '))';
         }
 
+        if (!empty($systems)) {
+            $end .= ' AND id IN (SELECT id_juego FROM juego_sistema WHERE id_sist IN (';
+            foreach ($systems as $sist) {
+                $end .= ':sist' . $sist . ',';
+                $inputs['sist' . $sist] = $sist;
+            }
+            $end = substr($end, 0, -1);
+            $end .= '))';
+        }
+
         if (!empty($dev)) {
             $end .= ' AND :dev = juego.desarrollador';
             $inputs['dev'] = $dev;
+        }
+
+        if (!empty($dis)) {
+            $end .= ' AND :dis = juego.distribuidor';
+            $inputs['dis'] = $dis;
         }
 
         $array = array();
@@ -301,7 +331,7 @@ class model
 
     }
 
-    static function addGame($id, $titulo, $ruta, $portada, $dev, $dis, $year, $descripcion)
+    static function addGame($id, $titulo, $ruta, $portada, $dev, $dis, $year, $descripcion,$precio = 99999)
     {
 
         include_once "BD/baseDeDatos.php";
@@ -310,7 +340,7 @@ class model
         $ddbb->conectar(); //se conecta a la base de datos
 
         //se crea el juego en la base de datos
-        $consulta = $ddbb->insert("INSERT INTO juego(ID, TITULO, RUTA, PORTADA, DESARROLLADOR, DISTRIBUIDOR, ANIO, DESCRIPCION) VALUES(?,?,?,?,?,?,?,?)", [$id, $titulo, $ruta, $portada, $dev, $dis, $year, $descripcion]);
+        $consulta = $ddbb->insert("INSERT INTO juego(ID, TITULO, RUTA, PORTADA, DESARROLLADOR, DISTRIBUIDOR, ANIO, DESCRIPCION, PRECIO) VALUES(?,?,?,?,?,?,?,?,?)", [$id, $titulo, $ruta, $portada, $dev, $dis, $year, $descripcion, $precio]);
         return $consulta;
     }
 

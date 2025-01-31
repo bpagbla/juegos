@@ -93,6 +93,41 @@
                         }
                         ?>
                     </div>
+                    <div class="row px-3" id="devDis">
+                        <div class="col p-0">
+                            <label for="dis" class="col-form-label">Distribuidores:</label>
+                            <input type="text" class="form-control" id="dis"
+                                   placeholder="Busca un distribuidor">
+
+                            <div class="position-relative">
+                                <div id="sugerencias-dis"
+                                     class="position-absolute bg-primary w-100 rounded z-overmodal mt-1 branded-shadow d-none">
+                                    <ul id="sugerencias-list-dis" class="list-group sugerencias placeholder-glow">
+                                        <li class="list-group-item"><span class="placeholder w-75"></span></li>
+                                        <li class="list-group-item"><span class="placeholder w-75"></span></li>
+                                        <li class="list-group-item"><span class="placeholder w-75"></span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="dis-active" class="row m-1">
+                        <?php if (!empty($_GET['dis'])) { ?>
+                        <div class="col-auto my-1 removable-buttons">
+                            <button type="button" class="btn btn-sm btn-primary col-auto">
+                                <?php print $_GET['dis'.$_GET['dis']]?>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                     fill="currentColor" class="bi bi-x bg-transparent" viewBox="0 0 16 16">
+                                    <use href="#remove"></use>
+                                </svg>
+                            </button>
+
+                            <input type="hidden" name="dis" value="<?php print $_GET['dis'] ?>">
+                            <input type="hidden" name="dis<?php print $_GET['dis'] ?>"
+                                   value="<?php print $_GET['dis'.$_GET['dis']] ?>">
+                        </div>
+                        <?php } ?>
+                    </div>
                     <div class="row px-3" id="devDiv">
                         <div class="col p-0">
                             <label for="dis" class="col-form-label">Desarrolladores:</label>
@@ -122,10 +157,40 @@
                             </button>
 
                             <input type="hidden" name="dev" value="<?php print $_GET['dev'] ?>">
-                            <input type="hidden" name="dis<?php print $_GET['dev'] ?>"
+                            <input type="hidden" name="dev<?php print $_GET['dev'] ?>"
                                    value="<?php print $_GET['dev'.$_GET['dev']] ?>">
                         </div>
                         <?php } ?>
+                    </div>
+                    <div class="row">
+                        <div class="col px-3">
+                            <label for="sist" class="col-form-label">Sistemas:</label>
+                            <input type="text" class="form-control" id="sist" placeholder="Busca un Sistema">
+                            <div class="position-relative">
+                                <div id="sugerencias-sist"
+                                     class="position-absolute bg-primary w-100 rounded z-overmodal mt-1 branded-shadow d-none">
+                                    <ul id="sugerencias-list-sist" class="list-group sugerencias placeholder-glow">
+                                        <li class="list-group-item"><span class="placeholder w-75"></span></li>
+                                        <li class="list-group-item"><span class="placeholder w-75"></span></li>
+                                        <li class="list-group-item"><span class="placeholder w-75"></span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="sist-active" class="row m-1">
+                        <script>
+                            let sistList = [];
+                        </script>
+                        <?php
+                        //Se sacan todos los generos en formato boton
+                        if (isset($_GET["sist"])) {
+                            foreach ($_GET["sist"] as $sistID) {
+                                include "frm/templates/filter-sist.php";
+                                print "<script>sistList.push(".$sistID.")</script>";
+                            }
+                        }
+                        ?>
                     </div>
                 </form>
             </div>

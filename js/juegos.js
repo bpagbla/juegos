@@ -182,3 +182,124 @@ async function loadNamesDev(e) {
         }
     }
 }
+
+let timeoutDis = ''
+const dis = document.getElementById('dis')
+const sugerenciasDis = document.getElementById('sugerencias-dis')
+const listDis = document.getElementById('sugerencias-list-dis')
+let pendingDis = true;
+
+dis.addEventListener('focus', function (e) {
+    sugerenciasDis.classList.remove('d-none')
+    if (pendingDis) {
+        loadNamesDis(e)
+        pendingDis = false;
+    }
+    function closeDis(e) {
+        if (e.target !== dis) {
+            sugerenciasDis.classList.add('d-none')
+            filterModalElement.removeEventListener('click', closeDis)
+        }
+    }
+    filterModalElement.addEventListener('click', closeDis)
+})
+dis.addEventListener('input', startQueueDis)
+
+function startQueueDis(e) {
+    showLoading(listDis)
+    clearTimeout(timeoutDis)
+    timeoutDis = setTimeout(function () { loadNamesDis(e) }, 200);
+}
+
+async function loadNamesDis(e) {
+    const response = await fetch('http://localhost/?page=api&endpoint=companies&name=' + e.target.value)
+    const json = await response.json()
+    if (json.hasOwnProperty('companies')) {
+        let length = json.companies.length
+        if (length > 0) {
+            listDis.innerHTML = ''
+            for (let i = 0; i < length; i++) {
+                const el = document.createElement('li')
+                el.classList.add('list-group-item')
+                el.innerText = json.companies[i].name
+                listDis.appendChild(el)
+                el.addEventListener('click', function () {
+                    const placement = document.getElementById('dis-active')
+                    placement.innerHTML = '';
+                    const button = createButton('dis', json.companies[i].company_id, json.companies[i].name)
+                    placement.appendChild(button)
+                    button.addEventListener('click', function (e) { e.target.closest("div").remove() })
+                })
+            }
+        } else {
+            listDis.innerHTML = ''
+            const el = document.createElement('li')
+            el.classList.add('list-group-item')
+            el.innerText = 'No hay resultados'
+            listDis.appendChild(el)
+        }
+    }
+}
+
+let timeoutSist = ''
+const sist = document.getElementById('sist')
+const sugerenciasSist = document.getElementById('sugerencias-sist')
+const listSist = document.getElementById('sugerencias-list-sist')
+let pendingSist = true;
+
+sist.addEventListener('focus', function (e) {
+    sugerenciasSist.classList.remove('d-none')
+    if (pendingSist) {
+        loadNamesSist(e)
+        pendingSist = false;
+    }
+    function closeSist(e) {
+        if (e.target !== sist) {
+            sugerenciasSist.classList.add('d-none')
+            filterModalElement.removeEventListener('click', closeSist)
+        }
+    }
+    filterModalElement.addEventListener('click', closeSist)
+})
+sist.addEventListener('input', startQueueSist)
+
+function startQueueSist(e) {
+    showLoading(listSist)
+    clearTimeout(timeoutSist)
+    timeoutSist = setTimeout(function () { loadNamesSist(e) }, 200);
+}
+
+async function loadNamesSist(e) {
+    const response = await fetch('http://localhost/?page=api&endpoint=platforms&name=' + e.target.value)
+    const json = await response.json()
+    if (json.hasOwnProperty('platforms')) {
+        let length = json.platforms.length
+        if (length > 0) {
+            listSist.innerHTML = ''
+            for (let i = 0; i < length; i++) {
+                const el = document.createElement('li')
+                el.classList.add('list-group-item')
+                el.innerText = json.platforms[i].name
+                listSist.appendChild(el)
+                el.addEventListener('click', function () {
+                    if (!sistList.includes(json.platforms[i].platform_id)) {
+                        const button = createButton('sist[]', json.platforms[i].platform_id, json.platforms[i].name)
+                        document.getElementById('sist-active').appendChild(button)
+                        button.addEventListener('click', function (e) {
+                            e.target.closest("div").remove()
+                        })
+                        document.getElementById('add-errors').innerHTML = '';
+                    } else {
+                        document.getElementById('add-errors').innerHTML = '<div class="alert alert-danger" role="alert">Ese sistema ya esta en los filtros</div>'
+                    }
+                })
+            }
+        } else {
+            listSist.innerHTML = ''
+            const el = document.createElement('li')
+            el.classList.add('list-group-item')
+            el.innerText = 'No hay resultados'
+            listSist.appendChild(el)
+        }
+    }
+}
