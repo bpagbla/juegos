@@ -532,20 +532,13 @@ class Controlador
 
                     }
                     if (file_exists("uploads/juegos.xml")) {
-
-                        $xml = file_get_contents("uploads/juegos.xml");
+                        $xml = simplexml_load_file("uploads/juegos.xml");
+                        
                         if ($xml === false) {
                             die("error");
                         }
 
-                        $xml_data = simplexml_load_string($xml, "SimpleXMLElement", LIBXML_NOCDATA);
-                        $json = json_encode($xml_data);
-                        $json_data = json_decode($json, TRUE);
-                        echo ("a");
-                        if ($json_data === null) {
-                            die("Erroor");
-                        }
-
+                        echo $xml;
 
 
                     }
