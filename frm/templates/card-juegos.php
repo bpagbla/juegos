@@ -5,7 +5,8 @@
         <div class="card-body"> <!--Include the title of the game in the card-->
             <h5 class="card-title text-white"><?php print $game[1] ?></h5>
             <div class="d-flex justify-content-between">
-                <a href="#" class="btn btn-sm btn-primary">Info</a>
+                <a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                   data-bs-target="#info<?php print $game[0] ?>">Info</a>
                 <form action="" method="post">
                     <div class="<?php if (isset($game[3]))
                         echo " owned" ?>">
@@ -50,3 +51,24 @@
             </div>
         </div>
     </div>
+
+<div class="modal fade" id="info<?php print $game[0] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Regalar Juego</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary" form="regalarJuego<?php print $game[0] ?>">Regalar</button>
+            </div>
+        </div>
+    </div>
+</div>
