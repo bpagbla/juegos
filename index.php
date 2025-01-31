@@ -1129,7 +1129,8 @@ class Controlador
         $maxYear = $_GET['maxYear'] ?? '';
         $genres = $_GET['gen'] ?? '';
         $dev = $_GET['dev'] ?? '';
-        $games = ($_SESSION['role'] == 'admin') ? Model::getAllGames($minYear, $maxYear, $genres, $dev) : Model::getGames($_SESSION['id'], $minYear, $maxYear, $genres, $dev);
+        $dis = $_GET['dis'] ?? '';
+        $games = ($_SESSION['role'] == 'admin') ? Model::getAllGames($minYear, $maxYear, $genres, $dev, $dis) : Model::getGames($_SESSION['id'], $minYear, $maxYear, $genres, $dev, $dis);
         $gamesPrestados = model::getJuegosPrestados($_SESSION["id"]);
 
         $gamesRecibidos = model::getJuegosRecibidos($_SESSION["id"]);

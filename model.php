@@ -1,7 +1,7 @@
 <?php
 class model
 {
-    static function getGames($id, $minYear = '', $maxYear = '', $genres = '', $dev = '')
+    static function getGames($id, $minYear = '', $maxYear = '', $genres = '', $dev = '', $dis = '')
     {
 
         include_once "BD/baseDeDatos.php";
@@ -31,6 +31,11 @@ class model
             $inputs['dev'] = $dev;
         }
 
+        if (!empty($dis)) {
+            $end .= ' AND :dis = juego.distribuidor';
+            $inputs['dis'] = $dis;
+        }
+
         $array = array();
         //se sacan solo los juegos que tenga el usuario
         $consulta = $ddbb->consulta("SELECT juego.ID,juego.TITULO, juego.PORTADA FROM juego INNER JOIN posee ON juego.id = posee.id_juego WHERE posee.ID_USUARIO = :id " . $end, $inputs);
@@ -43,7 +48,7 @@ class model
 
     }
 
-    static function getAllGames($minYear = '', $maxYear = '', $genres = '', $dev = '')
+    static function getAllGames($minYear = '', $maxYear = '', $genres = '', $dev = '', $dis = '')
     {
         include_once "BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;
@@ -70,6 +75,11 @@ class model
         if (!empty($dev)) {
             $end .= ' AND :dev = juego.desarrollador';
             $inputs['dev'] = $dev;
+        }
+
+        if (!empty($dis)) {
+            $end .= ' AND :dis = juego.distribuidor';
+            $inputs['dis'] = $dis;
         }
 
         $array = array();
