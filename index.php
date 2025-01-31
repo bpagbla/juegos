@@ -1013,7 +1013,6 @@ class Controlador
         Vista::mostrarJuegos($games);
     }
 
-
     //LOGIN
     public function iniciaLogin()
     {
@@ -1129,7 +1128,8 @@ class Controlador
         $minYear = $_GET['minYear'] ?? '';
         $maxYear = $_GET['maxYear'] ?? '';
         $genres = $_GET['gen'] ?? '';
-        $games = ($_SESSION['role'] == 'admin') ? Model::getAllGames($minYear, $maxYear, $genres) : Model::getGames($_SESSION['id'], $minYear, $maxYear, $genres);
+        $dev = $_GET['dev'] ?? '';
+        $games = ($_SESSION['role'] == 'admin') ? Model::getAllGames($minYear, $maxYear, $genres, $dev) : Model::getGames($_SESSION['id'], $minYear, $maxYear, $genres, $dev);
         $gamesPrestados = model::getJuegosPrestados($_SESSION["id"]);
 
         $gamesRecibidos = model::getJuegosRecibidos($_SESSION["id"]);

@@ -21,8 +21,13 @@
     Filters
 </button>
 <!-- Modal Filtros -->
+<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+    <symbol id="remove" viewBox="0 0 16 16">
+        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+    </symbol>
+</svg>
 <div class="modal fade modal-lg" id="filter-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -30,37 +35,28 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="row justify-content-center">
-                    <div id="passwd-alert"
-                        class="alert alert-danger col-11 <?php if (!isset($_POST['submit-card']))
-                            print 'd-none'; ?>"
-                        role="alert">
-                        <?php if (isset($_POST['submit-card']))
-                            print "Rellene los campos marcados en rojo correctamente" ?>
+                <div id="add-errors" class="row justify-content-center p-2">
+                </div>
+                <form id="add-form" method="get">
+                    <input type="hidden" name="page" value="principal">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 class="fs-5">Año de Salida</h2>
                         </div>
-                    </div>
-                    <form id="add-form" method="get">
-                        <input type="hidden" name="page" value="principal">
-                        <div class="row">
-                            <div class="col-12">
-                                <h2 class="fs-5">Año de Salida</h2>
+                        <div class="col-12">
+                            <div>
+                                <span id="range1">
+                                    0
+                                </span>
+                                <span> &dash; </span>
+                                <span id="range2">
+                                    100
+                                 </span>
                             </div>
-                            <div class="col-12">
-                                <div>
-                                    <span id="range1">
-                                        0
-                                    </span>
-                                    <span> &dash; </span>
-                                    <span id="range2">
-                                        100
-                                    </span>
-                                </div>
-                                <div class="slider-div pt-3 pb-5">
-                                    <div class="slider-track"></div>
-                                    <input name="minYear" type="range" min="1952" max="<?php echo date("Y"); ?>"
-                                    value="<?php echo ($_GET['minYear'] ?? '1900') ?>" id="slider-1">
-                                <input name="maxYear" type="range" min="1952" max="<?php echo date("Y"); ?>"
-                                    value="<?php echo ($_GET['maxYear'] ?? date("Y")) ?>" id="slider-2">
+                            <div class="slider-div pt-3 pb-5">
+                                <div class="slider-track"></div>
+                                <input name="minYear" type="range" min="1952" max="<?php echo date("Y"); ?>" value="<?php echo ($_GET['minYear'] ?? '1900') ?>" id="slider-1">
+                                <input name="maxYear" type="range" min="1952" max="<?php echo date("Y"); ?>" value="<?php echo ($_GET['maxYear'] ?? date("Y")) ?>" id="slider-2">
                             </div>
                         </div>
                     </div>
@@ -70,8 +66,8 @@
                             <input type="text" class="form-control" id="gen" placeholder="Busca un Género">
                             <div class="position-relative">
                                 <div id="sugerencias-gen"
-                                    class="position-absolute bg-primary w-100 rounded z-overmodal mt-1 branded-shadow d-none">
-                                    <ul id="sugerencias-list-gen" class="list-group placeholder-glow">
+                                     class="position-absolute bg-primary w-100 rounded z-overmodal mt-1 branded-shadow d-none">
+                                    <ul id="sugerencias-list-gen" class="list-group sugerencias placeholder-glow">
                                         <li class="list-group-item"><span class="placeholder w-75"></span></li>
                                         <li class="list-group-item"><span class="placeholder w-75"></span></li>
                                         <li class="list-group-item"><span class="placeholder w-75"></span></li>
@@ -80,11 +76,58 @@
                             </div>
                         </div>
                     </div>
+                    <div id="gen-active" class="row m-2">
+                        <script>
+                            let gameList = [];
+                        </script>
+                        <?php
+                        //Se sacan todos los generos en formato boton
+                        if (isset($_GET["gen"])) {
+                            foreach ($_GET["gen"] as $genID) {
+                                include "frm/templates/filter-gen.php";
+                                print "<script>gameList.push(".$genID.")</script>";
+                            }
+                        }
+                        ?>
+                    </div>
+                    <div class="row px-3" id="devDiv">
+                        <div class="col p-0">
+                            <label for="dis" class="col-form-label">Desarrolladores:</label>
+                            <input type="text" class="form-control" id="dev"
+                                   placeholder="Busca un desarrollador">
+                            <div class="position-relative">
+                                <div id="sugerencias-dev"
+                                     class="position-absolute bg-primary w-100 rounded z-overmodal mt-1 branded-shadow d-none">
+                                    <ul id="sugerencias-list-dev" class="list-group sugerencias placeholder-glow">
+                                        <li class="list-group-item"><span class="placeholder w-75"></span></li>
+                                        <li class="list-group-item"><span class="placeholder w-75"></span></li>
+                                        <li class="list-group-item"><span class="placeholder w-75"></span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="dev-active" class="row m-1">
+                        <?php if (!empty($_GET['dev'])) { ?>
+                            <div class="col-auto my-1 removable-buttons">
+                                <button type="button" class="btn btn-sm btn-primary col-auto">
+                                    <?php print $_GET['dev'.$_GET['dev']]?>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                         fill="currentColor" class="bi bi-x bg-transparent" viewBox="0 0 16 16">
+                                        <use href="#remove"></use>
+                                    </svg>
+                                </button>
+
+                                <input type="hidden" name="dev" value="<?php print $_GET['dev'] ?>">
+                                <input type="hidden" name="dev<?php print $_GET['dev'] ?>"
+                                       value="<?php print $_GET['dev'.$_GET['dev']] ?>">
+                            </div>
+                        <?php } ?>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                    aria-label="Close">Cancelar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
                 <button type="submit" class="btn btn-primary" form="add-form">Aplicar</button>
             </div>
         </div>
