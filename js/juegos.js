@@ -282,9 +282,16 @@ async function loadNamesSist(e) {
                 el.innerText = json.platforms[i].name
                 listSist.appendChild(el)
                 el.addEventListener('click', function () {
-                    const button = createButton('sist[]', json.platforms[i].platform_id, json.platforms[i].name)
-                    document.getElementById('sist-active').appendChild(button)
-                    button.addEventListener('click', function (e) { e.target.closest("div").remove() })
+                    if (!sistList.includes(json.platforms[i].platform_id)) {
+                        const button = createButton('sist[]', json.platforms[i].platform_id, json.platforms[i].name)
+                        document.getElementById('sist-active').appendChild(button)
+                        button.addEventListener('click', function (e) {
+                            e.target.closest("div").remove()
+                        })
+                        document.getElementById('add-errors').innerHTML = '';
+                    } else {
+                        document.getElementById('add-errors').innerHTML = '<div class="alert alert-danger" role="alert">Ese sistema ya esta en los filtros</div>'
+                    }
                 })
             }
         } else {
