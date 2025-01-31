@@ -577,7 +577,7 @@ class Controlador
             foreach ($juego->generos as $generos) {
                 foreach ($generos as $genero) {
                         $idGen = model::getGenId($genero);
-                        model::SistGameRel($id, $idGen);
+                        model::GenGameRel($id, $idGen);
                 }
             }
 
