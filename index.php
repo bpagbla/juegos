@@ -436,6 +436,8 @@ class Controlador
     public function importarGameJson($json_data)
     {
         foreach ($json_data as $juego) {
+
+
             //comprobar que existen los datos en la bbdd antes de intentar añadir el juego. Si no existen da error.
 
             foreach ($juego["generos"] as $genero) {
@@ -443,6 +445,9 @@ class Controlador
                     $this->sendNotification("Género no existe", $genero . " no existe en la base de datos");
                     header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
                     die();
+                } else {
+                    $idGen = model::getGenId($genero);
+                    model::GenGameRel($id, $idGen);
                 }
             }
 
@@ -451,6 +456,9 @@ class Controlador
                     $this->sendNotification("Sistema no existe", $sistema . " no existe en la base de datos");
                     header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
                     die();
+                }else {
+                    $idSist = model::getSistId($sistema);
+                    model::SistGameRel($id, $idSist);
                 }
             }
             $desarrollador = 0;
@@ -458,7 +466,7 @@ class Controlador
                 $this->sendNotification("Compañía no existe", $juego["desarrollador"] . " no existe en la base de datos");
                 header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
                 die();
-            }else {
+            } else {
                 $desarrollador = model::getCompId($juego["desarrollador"]);
             }
 
@@ -470,6 +478,7 @@ class Controlador
             } else {
                 $distribuidor = model::getCompId($juego["distribuidor"]);
             }
+
 
             //id aleatorio negativo
             $id = $this->genIdNeg();
@@ -483,9 +492,22 @@ class Controlador
                 $id = $this->genIdNeg();
             }
 
-
             //añadir el juego
             model::addGame($id, $juego["titulo"], "games/" . $id . ".zip", "img/game-thumbnail/" . $id . ".jpg", $desarrollador, $distribuidor, $juego["año"], "");
+
+            foreach ($juego["generos"] as $genero) {
+               
+                    $idGen = model::getGenId($genero);
+                    model::GenGameRel($id, $idGen);
+                
+            }
+
+            foreach ($juego["sistemas"] as $sistema) {
+                
+                    $idSist = model::getSistId($sistema);
+                    model::SistGameRel($id, $idSist);
+                
+            }
         }
     }
     public function importarGameXml($xml)
@@ -494,7 +516,6 @@ class Controlador
         foreach ($xml->juego as $juego) {
             /* print_r($juego); */
 
-            $generos = array();
             //comprobar que existe los generos
             foreach ($juego->generos as $generos) {
                 foreach ($generos as $genero) {
@@ -502,12 +523,10 @@ class Controlador
                         $this->sendNotification("Género no existe", $genero . " no existe en la base de datos");
                         header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
                         die();
-                    } else {
-                    }
+                    } 
                 }
             }
 
-            $sistemas = array();
             //comprobar que existe los sistemas
             foreach ($juego->sistemas as $sistemas) {
                 foreach ($sistemas as $sistema) {
@@ -515,8 +534,7 @@ class Controlador
                         $this->sendNotification("Sistema no existe", $sistema . " no existe en la base de datos");
                         header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
                         die();
-                    } else {
-                    }
+                    } 
                 }
             }
 
@@ -543,18 +561,32 @@ class Controlador
             //id aleatorio negativo
             $id = $this->genIdNeg();
 
-            //mover los archivos ????
-            rename("./uploads/" . $juego->ruta, "games/" . $id . ".zip");
-            rename("./uploads/" . $juego->portada, "img/game-thumbnail/" . $id . ".jpg");
-
             //comprobar si existe el id (si existe, generar otro)
             while (model::existeJuego($id)) {
                 $id = $this->genIdNeg();
             }
 
+            //mover los archivos ????
+            rename("./uploads/" . $juego->ruta, "games/" . $id . ".zip");
+            rename("./uploads/" . $juego->portada, "img/game-thumbnail/" . $id . ".jpg");
+
             //añadir juego
             model::addGame($id, $juego->titulo, "games/" . $id . ".zip", "img/game-thumbnail/" . $id . ".jpg", $desarrollador, $distribuidor, $juego->año, "");
+            
 
+            foreach ($juego->generos as $generos) {
+                foreach ($generos as $genero) {
+                        $idGen = model::getGenId($genero);
+                        model::SistGameRel($id, $idGen);
+                }
+            }
+
+            foreach ($juego->sistemas as $sistemas) {
+                foreach ($sistemas as $sistema) {
+                        $idSist = model::getSistId($sistema);
+                        model::SistGameRel($id, $idSist);
+                }
+            }
         }
 
     }

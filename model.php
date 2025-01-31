@@ -331,7 +331,7 @@ class model
 
     }
 
-    static function addGame($id, $titulo, $ruta, $portada, $dev, $dis, $year, $descripcion,$precio = 99999)
+    static function addGame($id, $titulo, $ruta, $portada, $dev, $dis, $year, $descripcion, $precio = 99999)
     {
 
         include_once "BD/baseDeDatos.php";
@@ -768,6 +768,44 @@ class model
         $ddbb->cerrar();
         return $array;
 
+    }
+
+    public static function getGenId($nombre)
+    {
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+
+        $consulta = $ddbb->consulta("SELECT ID FROM genero WHERE NOMBRE=?", [$nombre]); //se saca el id de la compañía con x nombre
+        $id = "";
+
+        //Se guarda el id 
+        foreach ($consulta as $item) {
+            $id = $item["ID"];
+
+        }
+
+        $ddbb->cerrar();
+        return $id; //devolver id
+    }
+
+    public static function getSistId($nombre)
+    {
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+
+        $consulta = $ddbb->consulta("SELECT ID FROM sistema WHERE NOMBRE=?", [$nombre]); //se saca el id de la compañía con x nombre
+        $id = "";
+
+        //Se guarda el id 
+        foreach ($consulta as $item) {
+            $id = $item["ID"];
+
+        }
+
+        $ddbb->cerrar();
+        return $id; //devolver id
     }
 
     public static function removeTarjeta($id, $num, $exp)
