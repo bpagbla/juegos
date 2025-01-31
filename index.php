@@ -428,12 +428,12 @@ class Controlador
 
     public function genIdNeg()
     {
-        $id = rand(-9999999999, -1);
+        $id = rand(-9999999, -1);
         return $id;
     }
 
 
-    public function importarGame($json_data)
+    public function importarGameJson($json_data)
     {
         foreach ($json_data as $juego) {
             //comprobar que existen los datos en la bbdd antes de intentar añadir el juego. Si no existen da error.
@@ -492,10 +492,84 @@ class Controlador
 
 
             //añadir el juego
-            model::addGame($id, $juego["titulo"], $juego[0]["ruta"], $juego[0]["portada"], $juego[0]["desarrollador"], $juego[0]["distribuidor"], $juego[0]["sistemas"], $juego[0]["generos"], $juego[0]["año"], "");
+            model::addGame($id, $juego["titulo"], $juego[0]["ruta"], $juego[0]["portada"], $juego[0]["desarrollador"], $juego[0]["distribuidor"], $juego[0]["año"], "");
         }
     }
+    public function importarGameXml($xml)
+    {
 
+        foreach ($xml->juego as $juego) {
+            /* print_r($juego); */
+            echo "<br><br>";
+
+            $generos = array();
+            //comprobar que existe los generos
+            foreach ($juego->generos as $generos) {
+                foreach ($generos as $genero) {
+                    if (!model::existeGenNombre($genero)) {
+                        $this->sendNotification("Género no existe", $genero . " no existe en la base de datos");
+                        header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
+                        die();
+                    } else {
+                    }
+                }
+            }
+
+            $sistemas = array();
+            //comprobar que existe los sistemas
+            foreach ($juego->sistemas as $sistemas) {
+                foreach ($sistemas as $sistema) {
+                    if (!model::existeSisNombre($sistema)) {
+                        $this->sendNotification("Sistema no existe", $sistema . " no existe en la base de datos");
+                        header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
+                        die();
+                    } else {
+                    }
+                }
+            }
+
+            //comprobar que existe las compañias
+            $desarrollador = 0;
+            if (!model::existeCompNombre($juego->desarrollador)) {
+                $this->sendNotification("Compañía no existe", $juego->desarrollador . " no existe en la base de datos");
+                header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
+                die();
+            } else {
+                $desarrollador = model::getCompId($juego->desarrollador);
+            }
+
+
+            $distribuidor = 0;
+            if (!model::existeCompNombre($juego->distribuidor)) {
+                $this->sendNotification("Compañía no existe", $juego->distribuidor . " no existe en la base de datos");
+                header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
+                die();
+            } else {
+                $distribuidor = model::getCompId($juego->distribuidor);
+            }
+
+
+
+
+
+            //id aleatorio negativo
+            $id = $this->genIdNeg();
+
+            //mover los archivos ????
+            rename("./uploads/" . $juego->ruta, "games/" . $id . ".zip");
+            rename("./uploads/" . $juego->portada, "img/game-thumbnail/". $id . ".jpg");
+
+            //comprobar si existe el id (si existe, generar otro)
+            while (model::existeJuego($id)) {
+                $id = $this->genIdNeg();
+            }
+
+            //añadir juego
+            model::addGame($id, $juego->titulo,  $id . ".zip", $id . ".jpg", $desarrollador, $distribuidor, $juego->año, "");
+
+        }
+
+    }
 
     public function iniciaAdminJuegos()
     {
@@ -528,19 +602,21 @@ class Controlador
                             die("Erroor");
                         }
 
-                        $this->importarGame($json_data);
+                        $this->importarGameJson($json_data);
 
                     }
                     if (file_exists("uploads/juegos.xml")) {
+
                         $xml = simplexml_load_file("uploads/juegos.xml");
-                        
+
                         if ($xml === false) {
-                            die("error");
+                            $this->sendNotification("Error al leer el xml", "Ha ocurrido un error al leer el archivo");
+                            header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
+                            die();
                         }
 
-                        echo $xml;
-
-
+                        /* print_r($xml->juego[0]); */
+                        $this->importarGameXml($xml);
                     }
 
                 } else {
@@ -636,7 +712,7 @@ class Controlador
                             }
                         }
 
-                        $inserta = model::addGame($_POST["id"], $_POST["titulo"], $rutaJuego, $ruta, $_POST["dev"], $_POST["dis"], $_POST["sist"], $_POST["gen"], $_POST["year"], $_POST["descripcion"]);
+                        $inserta = model::addGame($_POST["id"], $_POST["titulo"], $rutaJuego, $ruta, $_POST["dev"], $_POST["dis"], $_POST["year"], $_POST["descripcion"]);
                         $this->sendNotification("Juego creado", "Juego creado con exito!");
 
                         if ($inserta) {
