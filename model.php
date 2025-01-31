@@ -503,7 +503,7 @@ class model
         $ddbb->conectar(); //se conecta a la base de datos
 
 
-        $consulta = $ddbb->consulta("SELECT NOMRBE FROM compania WHERE ID=?", array($nombre)); //Se mira si existe compañía
+        $consulta = $ddbb->consulta("SELECT NOMBRE FROM compania WHERE NOMBRE=?", array($nombre)); //Se mira si existe compañía
         $existe = false;
         foreach ($consulta as $item) {
             if (isset($item["NOMBRE"])) {
@@ -557,7 +557,7 @@ class model
         $ddbb->conectar(); //se conecta a la base de datos
 
 
-        $consulta = $ddbb->consulta("SELECT ID FROM genero WHERE NOMBRE=?", array($nombre)); //Se mira si existe un genero por nombre
+        $consulta = $ddbb->consulta("SELECT NOMBRE FROM genero WHERE NOMBRE=?", array($nombre)); //Se mira si existe un genero por nombre
         $existe = false;
         foreach ($consulta as $item) {
             if (isset($item["NOMBRE"])) {
@@ -732,6 +732,25 @@ class model
 
         $ddbb->cerrar();
         return $nombre; //devolver nombre
+    }
+
+    public static function getCompId($nombre)
+    {
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+
+        $consulta = $ddbb->consulta("SELECT ID FROM compania WHERE NOMBRE=?", [$nombre]); //se saca el id de la compañía con x nombre
+        $id = "";
+
+        //Se guarda el id 
+        foreach ($consulta as $item) {
+            $id = $item["ID"];
+
+        }
+
+        $ddbb->cerrar();
+        return $id; //devolver id
     }
 
     public static function getTarjetas($id)
