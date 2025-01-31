@@ -1,7 +1,7 @@
 <?php
 class model
 {
-    static function getGames($id, $minYear = '', $maxYear = '', $genres = '', $dev = '', $dis = '')
+    static function getGames($id, $minYear = '', $maxYear = '', $genres = '', $dev = '', $dis = '', $systems = '')
     {
 
         include_once "BD/baseDeDatos.php";
@@ -21,6 +21,16 @@ class model
             foreach ($genres as $genre) {
                 $end .= ':genre' . $genre . ',';
                 $inputs['genre' . $genre] = $genre;
+            }
+            $end = substr($end, 0, -1);
+            $end .= '))';
+        }
+
+        if (!empty($systems)) {
+            $end .= ' AND id IN (SELECT id_juego FROM juego_sistema WHERE id_sist IN (';
+            foreach ($systems as $sist) {
+                $end .= ':sist' . $sist . ',';
+                $inputs['sist' . $sist] = $sist;
             }
             $end = substr($end, 0, -1);
             $end .= '))';
@@ -48,7 +58,7 @@ class model
 
     }
 
-    static function getAllGames($minYear = '', $maxYear = '', $genres = '', $dev = '', $dis = '')
+    static function getAllGames($minYear = '', $maxYear = '', $genres = '', $dev = '', $dis = '', $systems = '')
     {
         include_once "BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;
@@ -67,6 +77,16 @@ class model
             foreach ($genres as $genre) {
                 $end .= ':genre' . $genre . ',';
                 $inputs['genre' . $genre] = $genre;
+            }
+            $end = substr($end, 0, -1);
+            $end .= '))';
+        }
+
+        if (!empty($systems)) {
+            $end .= ' AND id IN (SELECT id_juego FROM juego_sistema WHERE id_sist IN (';
+            foreach ($systems as $sist) {
+                $end .= ':sist' . $sist . ',';
+                $inputs['sist' . $sist] = $sist;
             }
             $end = substr($end, 0, -1);
             $end .= '))';
