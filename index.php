@@ -442,27 +442,24 @@ class Controlador
 
             foreach ($juego["generos"] as $genero) {
                 if (!model::existeGenNombre($genero)) {
+                    $this->vaciarUploads();
                     $this->sendNotification("Género no existe", $genero . " no existe en la base de datos");
                     header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
                     die();
-                } else {
-                    $idGen = model::getGenId($genero);
-                    model::GenGameRel($id, $idGen);
-                }
+                } 
             }
 
             foreach ($juego["sistemas"] as $sistema) {
                 if (!model::existeSisNombre($sistema)) {
+                    $this->vaciarUploads();
                     $this->sendNotification("Sistema no existe", $sistema . " no existe en la base de datos");
                     header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
                     die();
-                }else {
-                    $idSist = model::getSistId($sistema);
-                    model::SistGameRel($id, $idSist);
-                }
+                } 
             }
             $desarrollador = 0;
             if (!model::existeCompNombre($juego["desarrollador"])) {
+                $this->vaciarUploads();
                 $this->sendNotification("Compañía no existe", $juego["desarrollador"] . " no existe en la base de datos");
                 header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
                 die();
@@ -472,6 +469,7 @@ class Controlador
 
             $distribuidor = 0;
             if (!model::existeCompNombre($juego["distribuidor"])) {
+                $this->vaciarUploads();
                 $this->sendNotification("Compañía no existe", $juego["distribuidor"] . " no existe en la base de datos");
                 header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
                 die();
@@ -482,31 +480,27 @@ class Controlador
 
             //id aleatorio negativo
             $id = $this->genIdNeg();
-
-            //mover los archivos ????
-            rename("./uploads/" . $juego["ruta"], "games/" . $id . ".zip");
-            rename("./uploads/" . $juego["portada"], "img/game-thumbnail/" . $id . ".jpg");
-
             //comprobar si existe el id (si existe, generar otro)
             while (model::existeJuego($id)) {
                 $id = $this->genIdNeg();
             }
 
+            //mover los archivos ????
+            rename("./uploads/" . $juego["ruta"], "games/" . $id . ".zip");
+            rename("./uploads/" . $juego["portada"], "img/game-thumbnail/" . $id . ".jpg");
+
+
             //añadir el juego
             model::addGame($id, $juego["titulo"], "games/" . $id . ".zip", "img/game-thumbnail/" . $id . ".jpg", $desarrollador, $distribuidor, $juego["año"], "");
 
             foreach ($juego["generos"] as $genero) {
-               
-                    $idGen = model::getGenId($genero);
-                    model::GenGameRel($id, $idGen);
-                
+                $idGen = model::getGenId($genero);
+                model::GenGameRel($id, $idGen);
             }
 
             foreach ($juego["sistemas"] as $sistema) {
-                
-                    $idSist = model::getSistId($sistema);
-                    model::SistGameRel($id, $idSist);
-                
+                $idSist = model::getSistId($sistema);
+                model::SistGameRel($id, $idSist);
             }
         }
     }
@@ -520,27 +514,31 @@ class Controlador
             foreach ($juego->generos as $generos) {
                 foreach ($generos as $genero) {
                     if (!model::existeGenNombre($genero)) {
+                        $this->vaciarUploads();
                         $this->sendNotification("Género no existe", $genero . " no existe en la base de datos");
                         header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
                         die();
-                    } 
+                    }
                 }
             }
 
             //comprobar que existe los sistemas
             foreach ($juego->sistemas as $sistemas) {
                 foreach ($sistemas as $sistema) {
+
                     if (!model::existeSisNombre($sistema)) {
+                        $this->vaciarUploads();
                         $this->sendNotification("Sistema no existe", $sistema . " no existe en la base de datos");
                         header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
                         die();
-                    } 
+                    }
                 }
             }
 
             //comprobar que existe las compañias
             $desarrollador = 0;
             if (!model::existeCompNombre($juego->desarrollador)) {
+                $this->vaciarUploads();
                 $this->sendNotification("Compañía no existe", $juego->desarrollador . " no existe en la base de datos");
                 header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
                 die();
@@ -551,6 +549,7 @@ class Controlador
 
             $distribuidor = 0;
             if (!model::existeCompNombre($juego->distribuidor)) {
+                $this->vaciarUploads();
                 $this->sendNotification("Compañía no existe", $juego->distribuidor . " no existe en la base de datos");
                 header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
                 die();
@@ -572,23 +571,33 @@ class Controlador
 
             //añadir juego
             model::addGame($id, $juego->titulo, "games/" . $id . ".zip", "img/game-thumbnail/" . $id . ".jpg", $desarrollador, $distribuidor, $juego->año, "");
-            
+
 
             foreach ($juego->generos as $generos) {
                 foreach ($generos as $genero) {
-                        $idGen = model::getGenId($genero);
-                        model::GenGameRel($id, $idGen);
+                    $idGen = model::getGenId($genero);
+                    model::GenGameRel($id, $idGen);
                 }
             }
 
             foreach ($juego->sistemas as $sistemas) {
                 foreach ($sistemas as $sistema) {
-                        $idSist = model::getSistId($sistema);
-                        model::SistGameRel($id, $idSist);
+                    $idSist = model::getSistId($sistema);
+                    model::SistGameRel($id, $idSist);
                 }
             }
         }
 
+    }
+
+    public function vaciarUploads()
+    {
+        $files = glob('uploads/*'); // get all file names
+        foreach ($files as $file) { // iterate files
+            if (is_file($file)) {
+                unlink($file); // delete file
+            }
+        }
     }
 
     public function iniciaAdminJuegos()
@@ -630,6 +639,7 @@ class Controlador
                         $xml = simplexml_load_file("uploads/juegos.xml");
 
                         if ($xml === false) {
+                            $this->vaciarUploads();
                             $this->sendNotification("Error al leer el xml", "Ha ocurrido un error al leer el archivo");
                             header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
                             die();
@@ -639,8 +649,15 @@ class Controlador
                         $this->importarGameXml($xml);
                     }
 
+                    $this->vaciarUploads();
+
+                    $this->sendNotification("Archivo Importado", "Se han importado los juegos del archivo subido");
+                    header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
+                    die();
 
                 } else {
+
+
                     $this->sendNotification("Error al Importar", "No se ha podido abrir el ZIP");
                     header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
                     die();
