@@ -149,6 +149,9 @@
                 </svg>
                 <h2>Registro</h2>
             </div>
+            <div class="row text-center">
+                <p>Registrate para poder acceder a nuestro inmenso catalogo a precios inbatibles</p>
+            </div>
             <div class="row g-5 justify-content-center">
                 <div class="col-md-7 col-lg-8">
                     <form class="needs-validation" method="post" action="#" novalidate>
