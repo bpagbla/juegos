@@ -331,7 +331,7 @@ class model
 
     }
 
-    static function addGame($id, $titulo, $ruta, $portada, $dev, $dis, $sist, $gen, $year, $descripcion)
+    static function addGame($id, $titulo, $ruta, $portada, $dev, $dis, $year, $descripcion,$precio = 99999)
     {
 
         include_once "BD/baseDeDatos.php";
@@ -340,7 +340,7 @@ class model
         $ddbb->conectar(); //se conecta a la base de datos
 
         //se crea el juego en la base de datos
-        $consulta = $ddbb->insert("INSERT INTO juego(ID, TITULO, RUTA, PORTADA, DESARROLLADOR, DISTRIBUIDOR, ANIO, DESCRIPCION) VALUES(?,?,?,?,?,?,?,?)", [$id, $titulo, $ruta, $portada, $dev, $dis, $year, $descripcion]);
+        $consulta = $ddbb->insert("INSERT INTO juego(ID, TITULO, RUTA, PORTADA, DESARROLLADOR, DISTRIBUIDOR, ANIO, DESCRIPCION, PRECIO) VALUES(?,?,?,?,?,?,?,?,?)", [$id, $titulo, $ruta, $portada, $dev, $dis, $year, $descripcion, $precio]);
         return $consulta;
     }
 

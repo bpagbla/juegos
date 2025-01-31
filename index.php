@@ -636,7 +636,7 @@ class Controlador
                             }
                         }
 
-                        $inserta = model::addGame($_POST["id"], $_POST["titulo"], $rutaJuego, $ruta, $_POST["dev"], $_POST["dis"], $_POST["sist"], $_POST["gen"], $_POST["year"], $_POST["descripcion"]);
+                        $inserta = model::addGame($_POST["id"], $_POST["titulo"], $rutaJuego, $ruta, $_POST["dev"], $_POST["dis"], $_POST["year"], $_POST["descripcion"]);
                         $this->sendNotification("Juego creado", "Juego creado con exito!");
 
                         if ($inserta) {
