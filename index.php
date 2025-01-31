@@ -438,7 +438,7 @@ class Controlador
         foreach ($json_data as $juego) {
             //comprobar que existen los datos en la bbdd antes de intentar añadir el juego. Si no existen da error.
 
-            foreach ($juego[0]["generos"] as $genero) {
+            foreach ($juego["generos"] as $genero) {
                 if (!model::existeGenNombre($genero)) {
                     $this->sendNotification("Género no existe", $genero . " no existe en la base de datos");
                     header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
@@ -446,44 +446,37 @@ class Controlador
                 }
             }
 
-            foreach ($juego[0]["sistemas"] as $sistema) {
+            foreach ($juego["sistemas"] as $sistema) {
                 if (!model::existeSisNombre($sistema)) {
                     $this->sendNotification("Sistema no existe", $sistema . " no existe en la base de datos");
                     header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
                     die();
                 }
             }
-
-            if (!model::existeCompNombre($juego[0]["desarrollador"])) {
-                $this->sendNotification("Compañía no existe", $juego[0]["desarrollador"] . " no existe en la base de datos");
+            $desarrollador = 0;
+            if (!model::existeCompNombre($juego["desarrollador"])) {
+                $this->sendNotification("Compañía no existe", $juego["desarrollador"] . " no existe en la base de datos");
                 header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
                 die();
+            }else {
+                $desarrollador = model::getCompId($juego["desarrollador"]);
             }
 
-            if (!model::existeCompNombre($juego[0]["distribuidor"])) {
-                $this->sendNotification("Compañía no existe", $juego[0]["distribuidor"] . " no existe en la base de datos");
+            $distribuidor = 0;
+            if (!model::existeCompNombre($juego["distribuidor"])) {
+                $this->sendNotification("Compañía no existe", $juego["distribuidor"] . " no existe en la base de datos");
                 header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
                 die();
-            }
-
-            //mover los archivos ????
-            $moverJuego = move_uploaded_file("/uploads/" . $juego["ruta"], "/games");
-            $moverPortada = move_uploaded_file("/uploads/" . $juego["portada"], "/img/game-thumbnail");
-
-            if (!$moverJuego) {
-                $this->sendNotification("Juego no encontrado", "La ruta del juego " . $juego[0]["titulo"] . " no se ha encontrado");
-                header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
-                die();
-            }
-
-            if (!$moverPortada) {
-                $this->sendNotification("Portada no encontrada", "La portada del juego " . $juego[0]["titulo"] . " no se ha encontrado");
-                header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
-                die();
+            } else {
+                $distribuidor = model::getCompId($juego["distribuidor"]);
             }
 
             //id aleatorio negativo
             $id = $this->genIdNeg();
+
+            //mover los archivos ????
+            rename("./uploads/" . $juego["ruta"], "games/" . $id . ".zip");
+            rename("./uploads/" . $juego["portada"], "img/game-thumbnail/" . $id . ".jpg");
 
             //comprobar si existe el id (si existe, generar otro)
             while (model::existeJuego($id)) {
@@ -492,7 +485,7 @@ class Controlador
 
 
             //añadir el juego
-            model::addGame($id, $juego["titulo"], $juego[0]["ruta"], $juego[0]["portada"], $juego[0]["desarrollador"], $juego[0]["distribuidor"], $juego[0]["año"], "");
+            model::addGame($id, $juego["titulo"], "games/" . $id . ".zip", "img/game-thumbnail/" . $id . ".jpg", $desarrollador, $distribuidor, $juego["año"], "");
         }
     }
     public function importarGameXml($xml)
@@ -552,7 +545,7 @@ class Controlador
 
             //mover los archivos ????
             rename("./uploads/" . $juego->ruta, "games/" . $id . ".zip");
-            rename("./uploads/" . $juego->portada, "img/game-thumbnail/". $id . ".jpg");
+            rename("./uploads/" . $juego->portada, "img/game-thumbnail/" . $id . ".jpg");
 
             //comprobar si existe el id (si existe, generar otro)
             while (model::existeJuego($id)) {
@@ -560,7 +553,7 @@ class Controlador
             }
 
             //añadir juego
-            model::addGame($id, $juego->titulo,  "games/" . $id . ".zip", "img/game-thumbnail/". $id . ".jpg", $desarrollador, $distribuidor, $juego->año, "");
+            model::addGame($id, $juego->titulo, "games/" . $id . ".zip", "img/game-thumbnail/" . $id . ".jpg", $desarrollador, $distribuidor, $juego->año, "");
 
         }
 
