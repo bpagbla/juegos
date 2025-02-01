@@ -206,11 +206,12 @@ if (!empty($show)) {
     <div class="modal fade modal-lg" id="infoModal" data-bs-backdrop="static" data-bs-keyboard="false"
          tabindex="-1"
          aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <form id="close" method="get"></form>
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Info</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="submit" name="page" value="juegos" form="close" class="btn-close" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -263,7 +264,7 @@ if (!empty($show)) {
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" name="page" value="juegos" form="close" class="btn btn-secondary">Cerrar</button>
                 </div>
             </div>
         </div>
