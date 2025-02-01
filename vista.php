@@ -46,7 +46,7 @@ class Vista
         include_once "frm/templates/base.php";
     }
 
-    public static function mostrarJuegos($games, $show=array()) {
+    public static function mostrarJuegos($games, $show=array(), $gen=array(), $sist=array()) {
         $page = "juegos";
         include_once "frm/templates/base.php";
     }

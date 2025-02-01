@@ -1127,7 +1127,9 @@ class Controlador
             $display = Model::getGame($_GET["display"]);
             $display[3] = Model::getCompNombre($display[3]);
             $display[4] = Model::getCompNombre($display[4]);
-            Vista::mostrarJuegos($games,$display);
+            $sist = Model::getSistJuego($_GET["display"]);
+            $gen = Model::getGenJuego($_GET["display"]);
+            Vista::mostrarJuegos($games,$display, $gen, $sist);
             die();
         }
 
