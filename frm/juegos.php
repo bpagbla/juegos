@@ -202,4 +202,54 @@
     </div>
 </div>
 
+<?php
+if (!empty($show)) {
+?>
+
+    <div class="modal fade modal-lg" id="infoModal" data-bs-backdrop="static" data-bs-keyboard="false"
+         tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Info</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="position-relative col-5 img-container d-flex align-items-center flex-column">
+                            <!-- IMG PREVIEW -->
+                            <img id="portada" src="<?php echo $show[2] ?>"
+                                 alt="Previsualización de la portada">
+                        </div>
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h1 class="fs-3"><?php echo $show[0] ?></h1>
+                                    <hr>
+                                </div>
+                                <div class="col-12">
+                                    <h2 class="fs-4">Descripcion:</h2>
+                                </div>
+                                <div class="col-12 overflow-hidden position-relative closed-description" id="desc">
+                                    <p style="line-height: 1.5em;"><?php echo $show[7] ?></p>
+                                    <p id="desc-button" class="position-absolute bottom-0 end-0 bg-dark m-0 expand-button ps-1">...mas</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const infoModal = new bootstrap.Modal('#infoModal', {
+            keyboard: false
+        })
+        infoModal.show();
+    </script>
+<?php } ?>
 <script src="js/juegos.js"></script>

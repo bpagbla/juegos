@@ -303,3 +303,18 @@ async function loadNamesSist(e) {
         }
     }
 }
+
+const desc = document.getElementById('desc')
+const descButton = document.getElementById('desc-button')
+
+descButton.addEventListener('click', function () {
+    if (desc.classList.contains('closed-description')) {
+        desc.classList.remove('closed-description')
+        desc.classList.add('pb-2')
+        descButton.textContent = '...menos'
+    } else {
+        desc.classList.add('closed-description')
+        desc.classList.remove('pb-2')
+        descButton.textContent = '...mas'
+    }
+})

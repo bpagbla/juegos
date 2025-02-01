@@ -3,7 +3,7 @@
         <h2 class="mt-3">Administrar Sistemas</h2>
     </div>
 </div>
-<button id="display-add-button" type="button" class="btn text-white position-fixed end-0 bottom-0 m-4">
+<button id="display-add-button" type="button" class="btn text-white position-fixed end-0 bottom-0 m-4 z-3">
     <svg class="bi me-2" width="16" height="16">
         <use xlink:href="#plus" />
     </svg>

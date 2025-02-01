@@ -1032,7 +1032,6 @@ class Controlador
         //Valida la sessión. Si erronea o logout envia a login.
         $this->validateSession();
 
-
         $carrito = new Carrito();
         //Si el carrito no esta en la session se crea y saca de la bbddd si no se unserialize
         if (empty($_SESSION['carrito'])) {
@@ -1124,6 +1123,10 @@ class Controlador
 
         }
 
+        if (isset($_GET["display"])) {
+            Vista::mostrarJuegos($games, Model::getGame($_GET["display"]));
+            die();
+        }
 
         //se incluye la vista de principal
         Vista::mostrarJuegos($games);

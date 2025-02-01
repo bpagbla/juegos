@@ -466,3 +466,16 @@ input[type="range"]::-ms-thumb {
 input[type="range"]:active::-webkit-slider-thumb {
     background-color: #ffffff;
 }
+
+.expand-button {
+    box-shadow: -2.4em 0 1em -0.2em var(--bs-modal-bg); !important;
+}
+
+.expand-button:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.closed-description {
+    height: 4.5em
+}
