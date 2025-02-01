@@ -15,11 +15,9 @@
             <h5 class="card-title text-white"><?php print $game[1] ?></h5>
             <div class="d-flex justify-content-between">
 
-                <form action="" method="post">
-                    <input type="hidden" name="infoId" value="<?php print $game[0] ?>">
-                    <input type="hidden" name="infoTitulo" value="<?php print $game[1] ?>">
-                    <input type="hidden" name="infoImg" value="<?php print $game[2] ?>">
-                    <input type="submit" class="btn btn-sm btn-primary" name="info" value="Info">
+                <form method="get">
+                    <button type="submit" class="btn btn-sm btn-primary" name="page" value="principal">Info</button>
+                    <input type="hidden" name="display" value="<?php print $game[0] ?>">
                 </form>
 
                 <div class="<?php if (isset($game[3]))
