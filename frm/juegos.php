@@ -235,6 +235,14 @@ if (!empty($show)) {
                                     <p style="line-height: 1.5em;"><?php echo $show[7] ?></p>
                                     <p id="desc-button" class="position-absolute bottom-0 end-0 bg-dark m-0 expand-button ps-1">...mas</p>
                                 </div>
+                                <div class="col-12 mt-3 d-flex justify-content-between">
+                                    <h2 class="fs-5 d-inline-block m-0">Desarrollador:</h2>
+                                    <button class="btn btn-sm w-50"><?php echo $show[3] ?></button>
+                                </div>
+                                <div class="col-12 mt-3 d-flex justify-content-between">
+                                    <h2 class="fs-5 d-inline-block m-0">Distribuidor:</h2>
+                                    <button class="btn btn-sm w-50 text-break"><?php echo $show[4] ?></button>
+                                </div>
                             </div>
                         </div>
                     </div>

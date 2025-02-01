@@ -1124,12 +1124,16 @@ class Controlador
         }
 
         if (isset($_GET["display"])) {
-            Vista::mostrarJuegos($games, Model::getGame($_GET["display"]));
+            $display = Model::getGame($_GET["display"]);
+            $display[3] = Model::getCompNombre($display[3]);
+            $display[4] = Model::getCompNombre($display[4]);
+            Vista::mostrarJuegos($games,$display);
             die();
         }
 
         //se incluye la vista de principal
         Vista::mostrarJuegos($games);
+
     }
 
     //LOGIN
