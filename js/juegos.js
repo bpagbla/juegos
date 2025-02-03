@@ -187,7 +187,7 @@ let timeoutDis = ''
 const dis = document.getElementById('dis')
 const sugerenciasDis = document.getElementById('sugerencias-dis')
 const listDis = document.getElementById('sugerencias-list-dis')
-let pendingDis = true;
+let pendingDis = true
 
 dis.addEventListener('focus', function (e) {
     sugerenciasDis.classList.remove('d-none')
