@@ -1,15 +1,15 @@
 <div class="col-auto py-3">
     <div class="card bg-body-tertiary" style="width: 18rem;">
-        <?php if (isset($game[3])) { ?>
+        <?php if (isset($game[4])) { ?>
             <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill badgePrestadoUS1 shadow">
-                Prestado hasta: <?php print $game[3] ?>
+                Prestado hasta: <?php print $game[4] ?>
                 <span class="visually-hidden">prestado</span>
             </span>
 
             <?php
         } ?>
         <!--Include the image of the game-->
-        <img src="../<?php print $game[2] ?>" class="card-img-top <?php if (isset($game[3]))
+        <img src="../<?php print $game[2] ?>" class="card-img-top <?php if (isset($game[4]))
                     echo " disabledImg" ?>" alt="Portada del juego <?php print $game[1] ?>">
         <div class="card-body"> <!--Include the title of the game in the card-->
             <h5 class="card-title text-white"><?php print $game[1] ?></h5>
@@ -20,18 +20,18 @@
                     <input type="hidden" name="display" value="<?php print $game[0] ?>">
                 </form>
 
-                <div class="<?php if (isset($game[3]))
+                <div class="<?php if (isset($game[4]))
                     echo " owned" ?>">
 
-                        <button class="btn btn-sm btn-primary" <?php if (isset($game[3]))
+                        <button class="btn btn-sm btn-primary" <?php if (isset($game[4]))
                     echo "disabled" ?>>Jugar</button>
 
-                    <?php if (isset($game[3]))
+                    <?php if (isset($game[4]))
                     echo "<span class='ownedText'>Este juego está prestado</span>" ?>
 
                     </div>
 
-                <?php if (!isset($game[3])) { ?>
+                <?php if (!isset($game[4])) { ?>
                     <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
                         data-bs-target="#modalPrestar<?php print $game[0] ?>">Prestar</button>
                 <?php } else { ?>
