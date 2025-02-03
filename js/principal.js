@@ -328,3 +328,10 @@ descButton.addEventListener('click', function () {
         descButton.textContent = '...mas'
     }
 })
+
+const close = document.querySelectorAll('.modal-close');
+close.forEach((e) => {
+    e.addEventListener('click', function () {
+        window.history.back();
+    })
+})

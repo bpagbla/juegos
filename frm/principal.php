@@ -206,12 +206,11 @@ if (!empty($show)) {
     <div class="modal fade modal-lg" id="infoModal" data-bs-backdrop="static" data-bs-keyboard="false"
          tabindex="-1"
          aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <form id="close" method="get"></form>
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Info</h1>
-                    <button type="submit" name="page" value="juegos" form="close" class="btn-close" aria-label="Close"></button>
+                    <button type="button" class="btn-close modal-close" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -236,12 +235,12 @@ if (!empty($show)) {
                                     </div>
                                 <?php } ?>
                                 <div class="col-12 mt-3 d-flex justify-content-between">
-                                    <h2 class="fs-5 d-inline-block m-0">Desarrollador:</h2>
-                                    <button class="btn btn-sm w-50"><?php echo $show[3] ?></button>
-                                </div>
-                                <div class="col-12 mt-3 d-flex justify-content-between">
                                     <h2 class="fs-5 d-inline-block m-0">Distribuidor:</h2>
                                     <button class="btn btn-sm w-50 text-break"><?php echo $show[4] ?></button>
+                                </div>
+                                <div class="col-12 mt-3 d-flex justify-content-between">
+                                    <h2 class="fs-5 d-inline-block m-0">Desarrollador:</h2>
+                                    <button class="btn btn-sm w-50"><?php echo $show[3] ?></button>
                                 </div>
                                 <div class="col-12 my-2">
                                     <h2 class="fs-5 m-0 mb-2">Generos:</h2>
@@ -264,7 +263,7 @@ if (!empty($show)) {
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" name="page" value="juegos" form="close" class="btn btn-secondary">Cerrar</button>
+                    <button type="button" class="btn btn-secondary modal-close">Cerrar</button>
                 </div>
             </div>
         </div>
