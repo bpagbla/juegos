@@ -104,11 +104,11 @@ class model
 
         $array = array();
 
-        $consulta = $ddbb->consulta("SELECT ID,TITULO,PORTADA FROM juego WHERE 1=1" . $end, $inputs); //se sacan todos los generos de la base de datos
+        $consulta = $ddbb->consulta("SELECT ID,TITULO,PORTADA,PRECIO FROM juego WHERE 1=1" . $end, $inputs); //se sacan todos los generos de la base de datos
 
         //Se guardan el nombre y el id del genero en el array
         foreach ($consulta as $each) {
-            $array[] = [$each['ID'], $each['TITULO'], $each['PORTADA']];
+            $array[] = [$each['ID'], $each['TITULO'], $each['PORTADA'], $each['PRECIO']];
         }
 
         $ddbb->cerrar();
@@ -705,11 +705,11 @@ class model
         $ddbb = new BaseDeDatos;
         $ddbb->conectar(); //se conecta a la base de datos
 
-        $consulta = $ddbb->consulta("SELECT TITULO,RUTA,PORTADA,DESARROLLADOR,DISTRIBUIDOR,ANIO,DESCRIPCION FROM juego WHERE ID = ?", [$id]); //Se sacan los datos del juego con dicho id
+        $consulta = $ddbb->consulta("SELECT TITULO,RUTA,PORTADA,DESARROLLADOR,DISTRIBUIDOR,ANIO,DESCRIPCION,PRECIO FROM juego WHERE ID = ?", [$id]); //Se sacan los datos del juego con dicho id
         $ddbb->cerrar();
 
         foreach ($consulta as $each) {
-            return [$each["TITULO"], $each["RUTA"], $each["PORTADA"], $each["DESARROLLADOR"], $each["DISTRIBUIDOR"], $each["ANIO"], $id, $each["DESCRIPCION"]]; //Devuelve los datos del juego en un array
+            return [$each["TITULO"], $each["RUTA"], $each["PORTADA"], $each["DESARROLLADOR"], $each["DISTRIBUIDOR"], $each["ANIO"], $id, $each["DESCRIPCION"], $each["PRECIO"]]; //Devuelve los datos del juego en un array
         }
 
         return array();

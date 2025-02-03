@@ -4,32 +4,32 @@
         <img src="../<?php print $game[2] ?>" class="card-img-top" alt="...">
         <div class="card-body"> <!--Include the title of the game in the card-->
             <h5 class="card-title text-white"><?php print $game[1] ?></h5>
+            <p class="card-text"><?php print $game[3]/100 ?>€</p>
             <div class="d-flex justify-content-between">
                 <form method="get">
                     <input type="hidden" name="page" value="juegos">
                     <button class="btn btn-sm" name="display" value="<?php print $game[0] ?>">Info</button>
                 </form>
                 <form action="" method="post">
-                    <div class="<?php if (isset($game[3]))
+                    <div class="<?php if (isset($game[4]))
                         echo " owned" ?>">
-                        <input type="submit" value="Comprar" class="btn btn-sm btn-primary <?php if (isset($game[3]))
-                            echo "disabled" ?>" name="juegoCompra<?php print $game[0] ?>">
+                            <input type="submit" value="Comprar" class="btn btn-sm btn-primary <?php if (isset($game[3]))
+                        echo "disabled" ?>" name="juegoCompra<?php print $game[0] ?>">
 
-                        <?php if (isset($game[3]))
+                        <?php if (isset($game[4]))
                             echo "<span class='ownedText'>Ya tienes este juego</span>" ?>
 
-                    </div>
-                </form>
-                <a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal"
-                   data-bs-target="#staticBackdrop<?php print $game[0] ?>">Regalar</a>
+                        </div>
+                    </form>
+                    <a href="#" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop<?php print $game[0] ?>">Regalar</a>
             </div>
         </div>
     </div>
 </div>
 
 <div class="modal fade" id="staticBackdrop<?php print $game[0] ?>" data-bs-backdrop="static" data-bs-keyboard="false"
-     tabindex="-1"
-     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -41,7 +41,7 @@
                     <div class="mb-3">
                         <label for="regaloNickname" class="form-label">¿A quién quieres regalar este juego?</label>
                         <input type="text" class="form-control" id="regaloNickname"
-                               name="regaloNickname<?php print $game[0] ?>" required placeholder="nickname">
+                            name="regaloNickname<?php print $game[0] ?>" required placeholder="nickname">
                     </div>
                     <div class="mb-3">
                         <input type="hidden" name="idJuegoRegalo<?php print $game[0] ?>">

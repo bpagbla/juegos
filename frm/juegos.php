@@ -262,6 +262,10 @@ if (!empty($show)) {
                                     }
                                     ?>
                                 </div>
+                                <div class="col-12">
+                                <h2 class="fs-5 m-0 mb-2">Precio:</h2>
+                                <p style="line-height: 1.5em;"><?php echo $show[8]/100 ?>€</p>
+                                </div>
                             </div>
                         </div>
                     </div>
