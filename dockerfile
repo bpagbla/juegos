@@ -1,7 +1,7 @@
 FROM ubuntu:24.04
 # Install and run apache
 RUN apt-get update && apt-get upgrade -y && apt-get install -y openssl && apt-get install -y apache2
-RUN apt-get update && apt-get install -y php libapache2-mod-php php-mysql php8.3-curl php-zip php-xml
+RUN apt-get update && apt-get install -y php libapache2-mod-php php-mysql php8.3-curl php-zip php-xml php-soap
 
 RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/apache.key -out /etc/ssl/certs/apache.crt -subj "/C=ES/ST=Madrid/L=Madrid/O=Example Inc./CN=example.com"
 RUN a2enmod ssl
