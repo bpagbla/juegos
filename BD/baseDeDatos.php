@@ -17,7 +17,12 @@ class BaseDeDatos
     }
 
     //funcion para hacer consultas con un query sql
-    public function consulta($sql,$array=array())
+    /**
+     * @param String $sql
+     * @param array $array
+     * @return null
+     */
+    public function consulta(string $sql, array $array=array())
     {
         try {
             $consulta = $this->db->prepare($sql);
