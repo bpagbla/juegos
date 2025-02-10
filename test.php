@@ -16,9 +16,13 @@ error_reporting(E_ALL);
     <?php
     // initialize SOAP client and call web service function
     $client=new SoapClient(null,array('uri'=>'https://localhost/','location'=>'https://localhost/cardChecker.php'));
-    $resp=$client->resolve($_GET['num']);
-    // dump response
-    print_r($resp);
+    if (isset($_GET['num'])) {
+        $resp = $client->resolve($_GET['num']);
+        // dump response
+        print_r($resp);
+    } else {
+        print_r('Introduce parametro ?num=xxxxx');
+    }
     ?>
 </body>
 </html>
