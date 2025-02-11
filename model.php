@@ -828,6 +828,7 @@ class model
 
         $consulta = $ddbb->insert("INSERT INTO tarjeta_bancaria(ID_USUARIO,NUMERO,FECHA_CADUC,CVV) VALUES (?,?,?,?)", [$id, $num, $exp, $cvv]); //se sacan todas los numeros de tarjeta y caducidad
         $ddbb->cerrar();
+
     }
 
     public static function deleteGameGenRel($idJuego)
@@ -1043,6 +1044,17 @@ class model
         $ddbb->cerrar();
     }
 
+    public static function cardDuplicate($num) {
+
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+
+        $consulta = $ddbb->consulta("SELECT NUMERO FROM tarjeta_bancaria WHERE NUMERO = ?", array($num));
+        $ddbb->cerrar();
+        return $consulta;
+
+    }
 
     public static function removePrestamo($idUser, $idJuego)
     {

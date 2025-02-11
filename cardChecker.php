@@ -11,7 +11,7 @@ function resolve($number) {
             $total += $number[$i];
         }
     }
-    return ($number[sizeof($number)-1] == fmod($total*9,10)) ? 'yes' : 'no';
+    return $number[sizeof($number)-1] == fmod($total*9,10) ? '1' : '0';
 }
 
 $uri = "https://localhost/cardChecker.php";
