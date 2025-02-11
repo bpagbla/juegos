@@ -1241,9 +1241,16 @@ class Controlador
                     die();
                 }
 
+                $dateTime = DateTime::createFromFormat('d/m/y', '01/' . $_POST["exp"]);
+
+                if ($dateTime < new DateTime()) {
+                    $this->sendNotification("Metodos de Pago", "Esta tarjeta ya esta caducada");
+                    header('Location: ?page=ajustes');
+                    die();
+                }
+
                 if ($client->resolve($_POST["num"]) == '1') {
                     $this->sendNotification("Metodos de Pago", "Se ha añadido el metodo de pago exitosamente!");
-                    $dateTime = DateTime::createFromFormat('d/m/y', '01/' . $_POST["exp"]);
                     model::addTarjeta($_SESSION["id"], $_POST["num"], $dateTime->format("Y-m-d"), $_POST["cvv"]);
                 } else {
                     $this->sendNotification("Metodos de Pago", "El numero de tarjeta es erroneo");
