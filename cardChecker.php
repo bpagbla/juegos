@@ -2,16 +2,24 @@
 function resolve($number) {
     $number = str_split($number);
     $total = 0;
-    for ($i = 0; $i < sizeof($number)-1; $i++) {
-        if ($i % 2 == 1) {
-            foreach (str_split($number[$i]*2) as $num) {
+    $length = sizeof($number)-2;
+
+    for ($i = 0; $i <= $length; $i++) {
+        if ($i % 2 == 0) {
+            $num = $number[$length - $i] * 2;
+            if ($num >= 10) {
+                $total += floor($num / 10);
+                $total += $num % 10;
+            } else {
                 $total += $num;
-            };
+            }
         } else {
-            $total += $number[$i];
+            $total += $number[$length-$i];
         }
     }
-    return $number[sizeof($number)-1] == fmod($total*9,10) ? '1' : '0';
+
+    return (10 - ($total % 10)) % 10;
+    return $number[sizeof($number)-1] == (10 - ($total % 10)) % 10 ? '1' : '0';
 }
 
 $uri = "https://localhost/cardChecker.php";
