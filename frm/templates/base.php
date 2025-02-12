@@ -212,7 +212,8 @@
                             aria-labelledby="dropdownUser1">
                             <li class="dropdown-item rounded-top p-0">
                                 <form method="get">
-                                    <button type="submit" value="ajustes" name="page" class="bg-transparent border-0 text-start ps-3 p-2 w-100">Ajustes</button>
+                                    <button type="submit" value="ajustes" name="page"
+                                        class="bg-transparent border-0 text-start ps-3 p-2 w-100">Ajustes</button>
                                 </form>
                             </li>
                             <li>
@@ -220,7 +221,8 @@
                             </li>
                             <li>
                                 <form method="POST" class="dropdown-item rounded-bottom p-0">
-                                    <input type="submit" value="Cerrar Sesión" name="logout" class="bg-transparent border-0 text-start ps-3 p-2">
+                                    <input type="submit" value="Cerrar Sesión" name="logout"
+                                        class="bg-transparent border-0 text-start ps-3 p-2">
                                 </form>
                             </li>
                         </ul>
@@ -334,7 +336,8 @@
                             aria-labelledby="dropdownUser1">
                             <li class="dropdown-item rounded-top p-0">
                                 <form method="get">
-                                    <button type="submit" value="ajustes" name="page" class="bg-transparent border-0 text-start ps-3 p-2 w-100">Ajustes</button>
+                                    <button type="submit" value="ajustes" name="page"
+                                        class="bg-transparent border-0 text-start ps-3 p-2 w-100">Ajustes</button>
                                 </form>
                             </li>
                             <li>
@@ -342,7 +345,8 @@
                             </li>
                             <li>
                                 <form method="POST" class="dropdown-item rounded-bottom p-0">
-                                    <input type="submit" value="Cerrar Sesión" name="logout" class="bg-transparent border-0 text-start ps-3 p-2">
+                                    <input type="submit" value="Cerrar Sesión" name="logout"
+                                        class="bg-transparent border-0 text-start ps-3 p-2">
                                 </form>
                             </li>
                         </ul>
@@ -367,6 +371,29 @@
             </div>
         </div>
     </div>
+
+
+    <script>
+        function loadDoc() {
+            var xhttp = new XMLHttpRequest(); //crear variable de ese tipo
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    // Acción cuando el documento esté listo:
+                    if (xhttp.responseText == true) {
+                        let respuesta = JSON.parse(xhttp.responseText);
+
+                        if (Object.keys(respuesta).length > 0) {
+                            // Si hay promociones activas
+                        }
+                    }
+                }
+            };
+
+            xhttp.open("GET", "ajax.php", true);
+            xhttp.send();
+        }
+        setInterval(loadDoc, 300000);
+    </script>
 
     <script async src="js/base.js"></script>
 

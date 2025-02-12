@@ -1055,4 +1055,15 @@ class model
         $ddbb->cerrar();
     }
 
+    public static function cambiarPrecios($descuento)
+    {
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+
+        $consulta = $ddbb->update("UPDATE juego SET PRECIO = PRECIO * (1 - ? / 100)", [$descuento]);
+
+        $ddbb->cerrar();
+    }
+
 }

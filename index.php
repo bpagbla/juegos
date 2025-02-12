@@ -446,7 +446,7 @@ class Controlador
                     $this->sendNotification("Género no existe", $genero . " no existe en la base de datos");
                     header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
                     die();
-                } 
+                }
             }
 
             foreach ($juego["sistemas"] as $sistema) {
@@ -455,7 +455,7 @@ class Controlador
                     $this->sendNotification("Sistema no existe", $sistema . " no existe en la base de datos");
                     header('Location: ?page=adm-juegos'); //Redirige a la misma pagina
                     die();
-                } 
+                }
             }
             $desarrollador = 0;
             if (!model::existeCompNombre($juego["desarrollador"])) {
@@ -1129,7 +1129,7 @@ class Controlador
             $display[4] = Model::getCompNombre($display[4]);
             $sist = Model::getSistJuego($_GET["display"]);
             $gen = Model::getGenJuego($_GET["display"]);
-            Vista::mostrarJuegos($games,$display, $gen, $sist);
+            Vista::mostrarJuegos($games, $display, $gen, $sist);
             die();
         }
 
@@ -1337,13 +1337,36 @@ class Controlador
             $display[4] = Model::getCompNombre($display[4]);
             $sist = Model::getSistJuego($_GET["display"]);
             $gen = Model::getGenJuego($_GET["display"]);
-            Vista::mostrarPrincipal($games, $recibidosActivos,$display, $gen, $sist);
+            Vista::mostrarPrincipal($games, $recibidosActivos, $display, $gen, $sist);
             die();
         }
+
+
 
         //se incluye la vista de principal
         Vista::mostrarPrincipal($games, $recibidosActivos);
     }
+
+    public function promociones()
+    {
+        $promociones = ["2025-02-12" => ['Prueba', 50, 3], "2025-04-29" => ['chaopescao', 22, 5]];
+
+
+        $hoy = new DateTimeImmutable();
+
+        foreach ($promociones as $fecha => $valores) {
+            $fechaPromo = new DateTimeImmutable($fecha);
+            $interval = $fechaPromo->diff($hoy);
+            $diasDif = (int) $interval->format('%R%a');
+
+            if ($diasDif  >= 0 && $diasDif <= $valores[2]) {
+                //si está dentro del tiempo de la promoción
+                model::cambiarPrecios($valores[1]);
+                $this->sendNotification("¡Nueva promoción disponible! 🎉", $valores[0]);
+            } 
+        }
+    }
+
 
     //REGISTRO
     public function iniciaRegistro()
@@ -1433,6 +1456,8 @@ class Controlador
             }
         }
     }
+
+
 
     //Funcion para mandar notificaciones
     public function sendNotification($title, $body, $time = 5000)
