@@ -344,7 +344,6 @@
                     if (xhttp.responseText == true) {
                         console.log("si");
                         location.reload();
-
                     }
                 }
             };
@@ -361,6 +360,8 @@
                             confettiNumber: 100,
                         })
                             .then(() => console.log('Confetti animation completed!'));";
+            $_SESSION['confetti'] = null;
+            
         }
         ?>
 

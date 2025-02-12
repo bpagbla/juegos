@@ -1026,14 +1026,30 @@ class Controlador
         Vista::mostrarAdminEmpresa(model::getComp());
     }
 
-    public function promociones(){
-        
-        if (isset($_SESSION["promocionesActivas"]) && !empty($_SESSION["promocionesActivas"])) {
-            echo "hola";
-            foreach ($_SESSION["promocionesActivas"] as $fecha => $valores) {
+    public function promociones()
+    {
+
+        $promociones = $_SESSION["promos"];
+
+        $hoy = new DateTimeImmutable();
+        $activas = array();
+
+        foreach ($promociones as $fecha => $valores) {
+            $fechaPromo = new DateTimeImmutable($fecha);
+            $interval = $fechaPromo->diff($hoy);
+            $diasDif = (int) $interval->format('%R%a');
+
+            if ($diasDif >= 0 && $diasDif <= $valores[2]) {
+                //si está dentro del tiempo de la promoción
+                $activas[$fecha] = $valores;
                 $this->sendNotification("🎉¡Nueva promoción!🎉", "Disfruta de un " . $valores[1] . "% de descuento en todos los juegos por " . $valores[0] . " hasta el día " . date('Y-m-d', strtotime($fecha . ' + ' . $valores[2] . ' days')));
-                $_SESSION["confetti"]=true;
+                $_SESSION["confetti"] = true;
+                unset($_SESSION["promos"][$fecha]);
             }
+        }
+
+        if (!empty($activas)) {
+            $_SESSION["promocionesActivas"] = $activas;
         }
 
     }
@@ -1159,7 +1175,10 @@ class Controlador
         if (isset($_POST["user"]) && isset($_POST["passwd"])) {
             //se llama a la funcion existe usuario del model/login.php
             if ($this->verificaUsuario(Model::getID($_POST["user"]))) {
-
+                //SACAR PROMOCIONES DE LA BBDD
+                if (!isset($_SESSION["promos"])) {
+                    $_SESSION["promos"] = model::sacarPromociones();
+                }
                 //si se verifica el usuario se llama a la funcion iniciaSesion
                 header("location: ?page=principal");
                 die();
@@ -1280,12 +1299,6 @@ class Controlador
     {
         //Valida la sessión. Si erronea o logout envia a login.
         $this->validateSession();
-
-        //SACAR PROMOCIONES DE LA BBDD
-        if(!isset($_SESSION["promos"])){
-            $_SESSION["promos"]=model::sacarPromociones();
-        }
-
         $this->promociones();
 
         //se incluyen los juegos que posee el usuario
