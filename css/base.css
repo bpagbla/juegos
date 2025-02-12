@@ -214,6 +214,15 @@ h2 {
     inset 0 0 1.3rem #bc13fe !important;
 }
 
+.tachado{
+    text-decoration: line-through;
+}
+
+.nuevoPrecio{
+    color: #f0b520;
+    font-weight: 700;
+}
+
 input:focus,
 select:focus,
 textarea:focus {
@@ -468,7 +477,7 @@ input[type="range"]:active::-webkit-slider-thumb {
 }
 
 .expand-button {
-    box-shadow: -2.4em 0 1em -0.2em var(--bs-modal-bg); !important;
+    box-shadow: -2.4em 0 1em -0.2em var(--bs-modal-bg) !important;
 }
 
 .expand-button:hover {

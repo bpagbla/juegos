@@ -4,7 +4,28 @@
         <img src="../<?php print $game[2] ?>" class="card-img-top" alt="...">
         <div class="card-body"> <!--Include the title of the game in the card-->
             <h5 class="card-title text-white"><?php print $game[1] ?></h5>
-            <p class="card-text"><?php print $game[3]/100 ?>€</p>
+
+            <!-- PRECIO -->
+            <?php
+            $precioOriginal = $game[3] / 100;
+            if (isset($_SESSION["promocionesActivas"])) {
+                foreach ($_SESSION["promocionesActivas"] as $fecha => $valores) {
+                    $precioNuevo = $precioOriginal * (1 - $valores[1] / 100);
+                }
+            }
+            ?>
+
+
+            <p class="card-text"><?php if (isset($_SESSION["promocionesActivas"])) {
+                print "<span class='tachado'>";
+            }
+            print $precioOriginal . "€";
+            if (isset($_SESSION["promocionesActivas"])) {
+                print "</span> ";
+                print "<span class='nuevoPrecio'>" . $precioNuevo."€</span>";
+            } ?></p>
+
+
             <div class="d-flex justify-content-between">
                 <form method="get">
                     <input type="hidden" name="page" value="juegos">

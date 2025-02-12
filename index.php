@@ -1034,7 +1034,6 @@ class Controlador
 
         if (isset($_SESSION["promocionesActivas"])) {
             foreach ($_SESSION["promocionesActivas"] as $fecha => $valores) {
-                model::cambiarPrecios($valores[1]);
                 $this->sendNotification("🎉¡Nueva promoción!🎉", "Disfruta de un " . $valores[1] . "% de descuento en todos los juegos por " . $valores[0] . " hasta el día " . date('Y-m-d', strtotime($fecha . ' + ' . $valores[2] . ' days')));
             }
         } 
