@@ -12,7 +12,9 @@
         <div class="col-md-6 col-12">
             <div class="input-group mb-3">
                 <label for="nick" class="input-group-text">@</label>
-                <input id="nick" name="nick" type="text" class="form-control" aria-label="nick" value="<?php print $_SESSION["nick"]?>">
+                <input id="nick" name="nick" type="text" class="form-control" aria-label="nick" value="<?php use Cassandra\Date;
+
+                print $_SESSION["nick"]?>">
             </div>
         </div>
         <div class="col-md-6 col-12">
@@ -68,7 +70,7 @@
     <hr class="my-0">
     <?php } ?>
     <form method="post" class="col-12 align-items-center justify-content-between d-flex py-2">
-        <p class="m-0"><?php print 'Mastercard:'.$card["num"].' | '.date("m/y",$card["date"]); ?></p>
+        <p class="m-0"><?php print 'Mastercard:'.$card["num"].' | '.date("m/y",$card["date"]); print (print $card['date'] > time()) ? ' | <span class="text-danger">Caducado</span>' : ''; ?></p>
         <input type="hidden" name="card" value="<?php print $card['num'].$card['date'] ?>">
         <button type="submit" name="action" value="remove-payment" class="btn btn-sm">Borrar</button>
     </form>

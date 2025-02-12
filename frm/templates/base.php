@@ -144,37 +144,13 @@
                             </li>
                             <li class="nav-item">
                                 <form method="get">
-                                    <button class="nav-link text-white ps-2 <?php if ($page === "novedades")
-                                    echo 'active' ?>" type="submit" name="page" value="novedades" <?php if ($page === "novedades")
-                                    echo 'aria-current="page"' ?>>
-                                        <svg class="bi me-2" width="16" height="16">
-                                            <use xlink:href="#speedometer2" />
-                                        </svg>
-                                        Novedades
-                                    </button>
-                                </form>
-                            </li>
-                            <li class="nav-item">
-                                <form method="get">
-                                    <button class="nav-link text-white ps-2 <?php if ($page === "ofertas")
-                                    echo 'active' ?>" type="submit" name="page" value="ofertas" <?php if ($page === "ofertas")
-                                    echo 'aria-current="page"' ?>>
-                                        <svg class="bi me-2" width="16" height="16">
-                                            <use xlink:href="#table" />
-                                        </svg>
-                                        Ofertas
-                                    </button>
-                                </form>
-                            </li>
-                            <li class="nav-item">
-                                <form method="get">
                                     <button class="nav-link text-white ps-2 <?php if ($page === "juegos")
                                     echo 'active' ?>" type="submit" name="page" value="juegos" <?php if ($page === "juegos")
                                     echo 'aria-current="page"' ?>>
                                         <svg class="bi me-2" width="16" height="16">
                                             <use xlink:href="#grid" />
                                         </svg>
-                                        Todos los juegos
+                                        Tienda
                                     </button>
                                 </form>
                             </li>
@@ -270,37 +246,13 @@
                             </li>
                             <li class="nav-item">
                                 <form method="get">
-                                    <button class="nav-link text-white <?php if ($page === "novedades")
-                                    echo 'active' ?>" type="submit" name="page" value="novedades" <?php if ($page === "novedades")
-                                    echo 'aria-current="page"' ?>>
-                                        <svg class="bi me-2" width="16" height="16">
-                                            <use xlink:href="#speedometer2" />
-                                        </svg>
-                                        Novedades
-                                    </button>
-                                </form>
-                            </li>
-                            <li class="nav-item">
-                                <form method="get">
-                                    <button class="nav-link text-white <?php if ($page === "ofertas")
-                                    echo 'active' ?>" type="submit" name="page" value="ofertas" <?php if ($page === "ofertas")
-                                    echo 'aria-current="page"' ?>>
-                                        <svg class="bi me-2" width="16" height="16">
-                                            <use xlink:href="#table" />
-                                        </svg>
-                                        Ofertas
-                                    </button>
-                                </form>
-                            </li>
-                            <li class="nav-item">
-                                <form method="get">
                                     <button class="nav-link text-white <?php if ($page === "juegos")
                                     echo 'active' ?>" type="submit" name="page" value="juegos" <?php if ($page === "juegos")
                                     echo 'aria-current="page"' ?>>
                                         <svg class="bi me-2" width="16" height="16">
                                             <use xlink:href="#grid" />
                                         </svg>
-                                        Todos los juegos
+                                        Tienda
                                     </button>
                                 </form>
                             </li>
