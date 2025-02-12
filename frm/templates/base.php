@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="../css/general.css">
 
 
+
 </head>
 
 <body>
@@ -324,30 +325,10 @@
         </div>
     </div>
 
-
-    <script>
-        function loadDoc() {
-            var xhttp = new XMLHttpRequest(); //crear variable de ese tipo
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    // Acción cuando el documento esté listo:
-                    if (xhttp.responseText == true) {
-                        let respuesta = JSON.parse(xhttp.responseText);
-
-                        if (Object.keys(respuesta).length > 0) {
-                            // Si hay promociones activas
-                        }
-                    }
-                }
-            };
-
-            xhttp.open("GET", "ajax.php", true);
-            xhttp.send();
-        }
-        setInterval(loadDoc, 300000);
-    </script>
+ 
 
     <script async src="js/base.js"></script>
+
 
 </body>
 

@@ -283,3 +283,33 @@ if (!empty($show)) {
     </script>
 <?php } ?>
 <script src="js/juegos.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+    <script>
+        const jsConfetti = new JSConfetti();
+
+        function loadDoc() {
+            var xhttp = new XMLHttpRequest(); //crear variable de ese tipo
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+
+                    console.log("perfe")
+                    // Acción cuando el documento esté listo:
+                    if (xhttp.responseText == true) {
+
+                        console.log("si");
+                        jsConfetti.addConfetti()
+                            .then(() => console.log('Confetti animation completed!'))
+
+                    }
+                }
+            };
+
+            xhttp.open("GET", "ajax.php", true);
+            xhttp.send();
+        }
+
+        
+
+        loadDoc();
+    </script>

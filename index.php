@@ -1032,10 +1032,17 @@ class Controlador
         //Valida la sessión. Si erronea o logout envia a login.
         $this->validateSession();
 
+        if (isset($_SESSION["promocionesActivas"])) {
+            foreach ($_SESSION["promocionesActivas"] as $fecha => $valores) {
+                model::cambiarPrecios($valores[1]);
+                $this->sendNotification("🎉¡Nueva promoción!🎉", "Disfruta de un " . $valores[1] . "% de descuento en todos los juegos por " . $valores[0] . " hasta el día " . date('Y-m-d', strtotime($fecha . ' + ' . $valores[2] . ' days')));
+            }
+        } 
+
         $carrito = new Carrito();
         //Si el carrito no esta en la session se crea y saca de la bbddd si no se unserialize
         if (empty($_SESSION['carrito'])) {
-            $this->sendNotification("Reanudando Carrito", "Sacado carrito se su session anterior en otro dispositivo");
+            $this->sendNotification("Reanudando Carrito", "Sacado carrito de su session anterior en otro dispositivo");
             $carrito->setCarrito(model::getCarrito($_SESSION["id"]));
             $_SESSION['carrito'] = serialize($carrito);
         } else {
@@ -1233,7 +1240,7 @@ class Controlador
             //Añadir metodo de pago
             case "payment-submit":
                 //Se pasan los datos de la tarjeta al modelo para añadir y se notifica al usuario
-                $client=new SoapClient(null,array('uri'=>'https://localhost/','location'=>'https://localhost/cardChecker.php'));
+                $client = new SoapClient(null, array('uri' => 'https://localhost/', 'location' => 'https://localhost/cardChecker.php'));
 
                 if (!empty(model::cardDuplicate($_POST["num"]))) {
                     $this->sendNotification("Metodos de Pago", "Ya has introducido ese metodo de pago!");
@@ -1362,6 +1369,7 @@ class Controlador
 
 
 
+
         //se incluye la vista de principal
         Vista::mostrarPrincipal($games, $recibidosActivos);
     }
@@ -1378,11 +1386,11 @@ class Controlador
             $interval = $fechaPromo->diff($hoy);
             $diasDif = (int) $interval->format('%R%a');
 
-            if ($diasDif  >= 0 && $diasDif <= $valores[2]) {
+            if ($diasDif >= 0 && $diasDif <= $valores[2]) {
                 //si está dentro del tiempo de la promoción
                 model::cambiarPrecios($valores[1]);
                 $this->sendNotification("¡Nueva promoción disponible! 🎉", $valores[0]);
-            } 
+            }
         }
     }
 
