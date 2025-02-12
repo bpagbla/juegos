@@ -1059,7 +1059,8 @@ class Controlador
 
         //Valida la sessión. Si erronea o logout envia a login.
         $this->validateSession();
-
+        //ver si hay promociones nuevas
+        $this->promociones();
 
         $carrito = new Carrito();
         //Si el carrito no esta en la session se crea y saca de la bbdd si no se unserialize
