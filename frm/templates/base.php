@@ -343,12 +343,7 @@
                     // Acción cuando el documento esté listo:
                     if (xhttp.responseText == true) {
                         console.log("si");
-                        jsConfetti.addConfetti({
-                            emojis: ['🎉', '🎮', '💥', '🕹️', '💫', '🥳'],
-                            emojiSize: 50,
-                            confettiNumber: 100,
-                        })
-                            .then(() => console.log('Confetti animation completed!'));
+                        location.reload();
 
                     }
                 }
@@ -357,6 +352,17 @@
             xhttp.open("GET", "ajax.php", true);
             xhttp.send();
         }
+
+        <?php
+        if (isset($_SESSION['confetti']) && !empty($_SESSION["confetti"])) {
+            print "jsConfetti.addConfetti({
+                            emojis: ['🎉', '🎮', '💥', '🕹️', '💫', '🥳'],
+                            emojiSize: 50,
+                            confettiNumber: 100,
+                        })
+                            .then(() => console.log('Confetti animation completed!'));";
+        }
+        ?>
 
         loadDoc();
     </script>

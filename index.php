@@ -1032,9 +1032,10 @@ class Controlador
             echo "hola";
             foreach ($_SESSION["promocionesActivas"] as $fecha => $valores) {
                 $this->sendNotification("🎉¡Nueva promoción!🎉", "Disfruta de un " . $valores[1] . "% de descuento en todos los juegos por " . $valores[0] . " hasta el día " . date('Y-m-d', strtotime($fecha . ' + ' . $valores[2] . ' days')));
+                $_SESSION["confetti"]=true;
             }
         }
-        
+
     }
 
     public function iniciaJuegos()
