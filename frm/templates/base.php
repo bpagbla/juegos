@@ -151,6 +151,7 @@
                                         <svg class="bi me-2" width="16" height="16">
                                             <use xlink:href="#grid" />
                                         </svg>
+
                                         Tienda
                                     </button>
                                 </form>
@@ -325,11 +326,40 @@
         </div>
     </div>
 
- 
+
 
     <script async src="js/base.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+    <script>
+        const jsConfetti = new JSConfetti();
 
+        function loadDoc() {
+            var xhttp = new XMLHttpRequest(); //crear variable de ese tipo
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+
+                    console.log("perfe")
+                    // Acción cuando el documento esté listo:
+                    if (xhttp.responseText == true) {
+                        console.log("si");
+                        jsConfetti.addConfetti({
+                            emojis: ['🎉', '🎮', '💥', '🕹️', '💫', '🥳'],
+                            emojiSize: 50,
+                            confettiNumber: 100,
+                        })
+                            .then(() => console.log('Confetti animation completed!'));
+
+                    }
+                }
+            };
+
+            xhttp.open("GET", "ajax.php", true);
+            xhttp.send();
+        }
+
+        loadDoc();
+    </script>
 </body>
 
 </html>

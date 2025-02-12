@@ -8,9 +8,11 @@
             <!-- PRECIO -->
             <?php
             $precioOriginal = $game[3] / 100;
+            $precioNuevo =$precioOriginal;
             if (isset($_SESSION["promocionesActivas"])) {
+                
                 foreach ($_SESSION["promocionesActivas"] as $fecha => $valores) {
-                    $precioNuevo = $precioOriginal * (1 - $valores[1] / 100);
+                    $precioNuevo = $precioNuevo * (1 - $valores[1] / 100);
                 }
             }
             ?>

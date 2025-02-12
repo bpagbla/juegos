@@ -1026,20 +1026,26 @@ class Controlador
         Vista::mostrarAdminEmpresa(model::getComp());
     }
 
+    public function promociones(){
+        
+        if (isset($_SESSION["promocionesActivas"]) && !empty($_SESSION["promocionesActivas"])) {
+            echo "hola";
+            foreach ($_SESSION["promocionesActivas"] as $fecha => $valores) {
+                $this->sendNotification("🎉¡Nueva promoción!🎉", "Disfruta de un " . $valores[1] . "% de descuento en todos los juegos por " . $valores[0] . " hasta el día " . date('Y-m-d', strtotime($fecha . ' + ' . $valores[2] . ' days')));
+            }
+        }
+        
+    }
+
     public function iniciaJuegos()
     {
 
         //Valida la sessión. Si erronea o logout envia a login.
         $this->validateSession();
 
-        if (isset($_SESSION["promocionesActivas"])) {
-            foreach ($_SESSION["promocionesActivas"] as $fecha => $valores) {
-                $this->sendNotification("🎉¡Nueva promoción!🎉", "Disfruta de un " . $valores[1] . "% de descuento en todos los juegos por " . $valores[0] . " hasta el día " . date('Y-m-d', strtotime($fecha . ' + ' . $valores[2] . ' days')));
-            }
-        } 
 
         $carrito = new Carrito();
-        //Si el carrito no esta en la session se crea y saca de la bbddd si no se unserialize
+        //Si el carrito no esta en la session se crea y saca de la bbdd si no se unserialize
         if (empty($_SESSION['carrito'])) {
             $this->sendNotification("Reanudando Carrito", "Sacado carrito de su session anterior en otro dispositivo");
             $carrito->setCarrito(model::getCarrito($_SESSION["id"]));
@@ -1274,6 +1280,13 @@ class Controlador
         //Valida la sessión. Si erronea o logout envia a login.
         $this->validateSession();
 
+        //SACAR PROMOCIONES DE LA BBDD
+        if(!isset($_SESSION["promos"])){
+            $_SESSION["promos"]=model::sacarPromociones();
+        }
+
+        $this->promociones();
+
         //se incluyen los juegos que posee el usuario
         $minYear = $_GET['minYear'] ?? '';
         $maxYear = $_GET['maxYear'] ?? '';
@@ -1373,25 +1386,6 @@ class Controlador
         Vista::mostrarPrincipal($games, $recibidosActivos);
     }
 
-    public function promociones()
-    {
-        $promociones = ["2025-02-12" => ['Prueba', 50, 3], "2025-04-29" => ['chaopescao', 22, 5]];
-
-
-        $hoy = new DateTimeImmutable();
-
-        foreach ($promociones as $fecha => $valores) {
-            $fechaPromo = new DateTimeImmutable($fecha);
-            $interval = $fechaPromo->diff($hoy);
-            $diasDif = (int) $interval->format('%R%a');
-
-            if ($diasDif >= 0 && $diasDif <= $valores[2]) {
-                //si está dentro del tiempo de la promoción
-                model::cambiarPrecios($valores[1]);
-                $this->sendNotification("¡Nueva promoción disponible! 🎉", $valores[0]);
-            }
-        }
-    }
 
 
     //REGISTRO

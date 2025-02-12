@@ -1044,7 +1044,8 @@ class model
         $ddbb->cerrar();
     }
 
-    public static function cardDuplicate($num) {
+    public static function cardDuplicate($num)
+    {
 
         include_once "BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;
@@ -1065,6 +1066,28 @@ class model
         $consulta = $ddbb->delete("DELETE FROM presta WHERE ID_US2=? AND ID_JUEGO=?", [$idUser, $idJuego]); //Se borra el préstamo de la base de datos
 
         $ddbb->cerrar();
+    }
+
+    public static function sacarPromociones()
+    {
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+
+        $consulta = $ddbb->consulta("SELECT * FROM promocion");
+        $array = array();
+
+        foreach ($consulta as $each) {
+
+            $fecha = $each['FECHA'];
+            $nombre = $each['NOMBRE'];
+            $descuento = $each['DESCUENTO'];
+            $dias = $each['DIAS'];
+
+            $array[$fecha] = [$nombre, $descuento, $dias];
+        }
+        $ddbb->cerrar();
+        return $array;
     }
 
 }
