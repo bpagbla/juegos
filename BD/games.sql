@@ -144,13 +144,13 @@ CREATE TABLE carrito (
 );
 
 CREATE TABLE promocion (
-  'ID' int NOT NULL,
-  'NOMBRE' varchar(128) NOT NULL,
-  'FECHA' date NOT NULL,
-  'DESCUENTO' int NOT NULL,
-  'DIAS' int NOT NULL,
+  `ID` int NOT NULL,
+  `NOMBRE` varchar(128) NOT NULL,
+  `FECHA` date NOT NULL,
+  `DESCUENTO` int NOT NULL,
+  `DIAS` int NOT NULL,
   PRIMARY KEY (`ID`)
-)
+);
 
 #Users
 INSERT INTO usuario(EMAIL, NICK, NOMBRE, APELLIDOS, PASSWORD, ROLE) VALUES('user@gmail.com','user','Doug','Dimmadome','$2a$12$/.57XI5riojUPwXeoQXX9O/ru1XsQ5MRSsj8lZAo85sJb2b0tbEsi', 'user');
