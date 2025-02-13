@@ -338,13 +338,16 @@
             var xhttp = new XMLHttpRequest(); //crear variable de ese tipo
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
-
-                    console.log("perfe")
                     // Acción cuando el documento esté listo:
-                    if (xhttp.responseText == true) {
-                        console.log("si");
-                        location.reload();
+                    console.log("perfe")
+                    console.log(this.responseText);
+                    if(this.responseText==true){
+                        console.log("yep");
                     }
+
+
+                } else {
+                    console.log("????");
                 }
             };
 
@@ -361,11 +364,10 @@
                         })
                             .then(() => console.log('Confetti animation completed!'));";
             $_SESSION['confetti'] = null;
-            
+
         }
         ?>
-
-        loadDoc();
+        setInterval(loadDoc, 5000);
     </script>
 </body>
 

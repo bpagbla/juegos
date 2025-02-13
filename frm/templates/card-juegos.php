@@ -8,24 +8,12 @@
             <!-- PRECIO -->
             <?php
             $precioOriginal = $game[3] / 100;
-            $precioNuevo =$precioOriginal;
-            if (isset($_SESSION["promocionesActivas"])) {
-                
-                foreach ($_SESSION["promocionesActivas"] as $fecha => $valores) {
-                    $precioNuevo = $precioNuevo * (1 - $valores[1] / 100);
-                }
-            }
             ?>
 
 
-            <p class="card-text"><?php if (isset($_SESSION["promocionesActivas"])) {
-                print "<span class='tachado'>";
-            }
+            <p class="card-text"><?php
             print $precioOriginal . "€";
-            if (isset($_SESSION["promocionesActivas"])) {
-                print "</span> ";
-                print "<span class='nuevoPrecio'>" . $precioNuevo."€</span>";
-            } ?></p>
+            ?></p>
 
 
             <div class="d-flex justify-content-between">

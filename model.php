@@ -1078,13 +1078,13 @@ class model
         $array = array();
 
         foreach ($consulta as $each) {
-
+            $id = $each['ID'];
             $fecha = $each['FECHA'];
             $nombre = $each['NOMBRE'];
             $descuento = $each['DESCUENTO'];
             $dias = $each['DIAS'];
 
-            $array[$fecha] = [$nombre, $descuento, $dias];
+            $array[$id] = [$fecha, $nombre, $descuento, $dias];
         }
         $ddbb->cerrar();
         return $array;
