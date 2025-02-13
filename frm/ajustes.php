@@ -70,7 +70,7 @@
     <hr class="my-0">
     <?php } ?>
     <form method="post" class="col-12 align-items-center justify-content-between d-flex py-2">
-        <p class="m-0"><?php print 'Mastercard:'.$card["num"].' | '.date("m/y",$card["date"]); print (print $card['date'] > time()) ? ' | <span class="text-danger">Caducado</span>' : ''; ?></p>
+        <p class="m-0"><?php print 'Mastercard:'.$card["num"].' | '.date("m/y",$card["date"]); if ($card['date'] < time()) print ' | <span class="text-danger">Caducado</span>'; ?></p>
         <input type="hidden" name="card" value="<?php print $card['num'].$card['date'] ?>">
         <button type="submit" name="action" value="remove-payment" class="btn btn-sm">Borrar</button>
     </form>

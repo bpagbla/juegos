@@ -18,7 +18,6 @@ function resolve($number) {
         }
     }
 
-    return (10 - ($total % 10)) % 10;
     return $number[sizeof($number)-1] == (10 - ($total % 10)) % 10 ? '1' : '0';
 }
 
