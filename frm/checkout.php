@@ -1,3 +1,6 @@
+<?php
+    $items = unserialize($_SESSION["carrito"])->getCarrito() ?? array()
+?>
 <!doctype html>
 <html lang="en" data-bs-theme="dark">
 <head>
@@ -28,7 +31,7 @@
 
 <div class="container">
     <main>
-        <div class="py-5 text-center">
+        <div class="py-4 text-center">
             <h2>Checkout</h2>
         </div>
 
@@ -36,17 +39,17 @@
             <div class="col-md-5 col-lg-4 order-md-last">
                 <h4 class="d-flex justify-content-between align-items-center mb-3">
                     <span class="text-primary">Tu carrito</span>
-                    <span class="badge bg-primary rounded-pill">3</span>
+                    <span class="badge bg-primary rounded-pill"><?php print sizeof($items); ?></span>
                 </h4>
                 <ul class="list-group mb-3">
                     <?php
-                        foreach (unserialize($_SESSION["carrito"])->getCarrito() ?? array() as $item) {
+                        foreach ($items as $item) {
                             include "frm/templates/checkout-product.php";
                         }
                     ?>
                     <li class="list-group-item d-flex justify-content-between">
-                        <span>Total (USD)</span>
-                        <strong>$20</strong>
+                        <span>Total</span>
+                        <strong>20€</strong>
                     </li>
                 </ul>
             </div>
@@ -129,14 +132,14 @@
                             <?php } ?>
                             <div class="col-12 align-items-center justify-content-between d-flex py-2">
                                 <p class="m-0"><?php print 'Mastercard:'.$card["num"].' | '.date("m/y",$card["date"]); if ($card['date'] < time()) print ' | <span class="text-danger">Caducado</span>'; ?></p>
-                                <input type="radio" name="card" value="<?php print $card['num'].$card['date'] ?>">
+                                <input type="radio" name="card" value="<?php print $card['num'].$card['date'] ?>" required>
                             </div>
                         <?php } ?>
                     </div>
 
                     <hr class="my-4">
 
-                    <button class="w-100 btn btn-primary btn-lg" type="submit">Pagar</button>
+                    <button class="w-100 btn btn-primary btn-lg mb-4" type="submit">Pagar</button>
                 </form>
             </div>
         </div>

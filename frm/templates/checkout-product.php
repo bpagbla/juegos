@@ -4,5 +4,5 @@
         <h6 class="my-0">Product name</h6>
         <small class="text-body-secondary">Brief description</small>
     </div>
-    <span class="text-body-secondary">$12</span>
+    <span class="text-body-secondary">12€</span>
 </li>
