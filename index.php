@@ -1035,7 +1035,7 @@ class Controlador
         //Valida la sessión. Si erronea o logout envia a login.
         $this->validateSession();
         //se incluye la vista de principal
-        Vista::mostrarCheckout();
+        Vista::mostrarCheckout(model::getTarjetas($_SESSION["id"]));
 
     }
 

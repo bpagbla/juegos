@@ -56,7 +56,7 @@ class Vista
         include_once "frm/templates/base.php";
     }
 
-    public static function mostrarCheckout() {
+    public static function mostrarCheckout($cards=array()) {
         include_once "frm/checkout.php";
     }
 
