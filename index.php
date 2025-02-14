@@ -177,7 +177,18 @@ class Controlador
                 break;
             case "precio":
                 if (isset($_GET["juego"])) {
-                    Vista::showAPIGames(json_encode(model::getPrice($_GET["juego"])[0]));
+                    $descuento = '';
+                    $promociones = model::sacarPromociones();
+                    if (!empty($promociones)) {
+                        foreach ($promociones as $promocion) {
+                            $descuento = $promocion[2];
+                        }
+                    }
+                    if (empty($descuento)) {
+                        Vista::showAPIGames(json_encode(['precio' => model::getPrice($_GET["juego"])[0]['PRECIO']]));
+                    } else {
+                        Vista::showAPIGames(json_encode(['precio' => model::getPrice($_GET["juego"])[0]['PRECIO'],'descuento' => $descuento]));
+                    }
                 } else {
                     Vista::showAPIGames(json_encode(['error'=>'No Game Input']));
                 }
