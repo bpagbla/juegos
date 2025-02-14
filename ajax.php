@@ -6,9 +6,14 @@ $promociones = model::sacarPromociones();
 
 $hoy = new DateTimeImmutable();
 
-foreach ($_SESSION["promoAct"] as $key => $value) {
-    if (!array_key_exists($key, $promociones)) {
+$idsPromociones = array_keys($promociones);
+
+// ELIMINAR PROMOCIONES QUE YA NO EXISTEN EN LA BASE DE DATOS
+foreach ($_SESSION["promoAct"] as $key => $valores) {
+    if (!in_array($key, $idsPromociones)) {
         unset($_SESSION["promoAct"][$key]);
+        echo true;
+
     }
 }
 
@@ -23,20 +28,18 @@ foreach ($promociones as $key => $valores) {
             //si está dentro del tiempo de la promoción
             $_SESSION["promoAct"][$key] = $valores;
             $_SESSION["confetti"] = true;
-$title = "🎉¡Nueva promoción!🎉";
-$body = "Disfruta de un " . $valores[2] . "% de descuento en todos los juegos por " . $valores[1] . " hasta el día " . date('Y-m-d', strtotime($valores[0] . ' + ' . $valores[3] . ' days'));
+            $title = "🎉¡Nueva promoción!🎉";
+            $body = "Disfruta de un " . $valores[2] . "% de descuento en todos los juegos por " . $valores[1] . " hasta el día " . date('Y-m-d', strtotime($valores[0] . ' + ' . $valores[3] . ' days'));
 
             $_SESSION["notifications"][] = array($title, $body, 5000);
-echo true;
-            /* controlador::sendNotification("🎉¡Nueva promoción!🎉", "Disfruta de un " . $valores[1] . "% de descuento en todos los juegos por " . $valores[0] . " hasta el día " . date('Y-m-d', strtotime($valores[0] . ' + ' . $valores[3] . ' days'))); */
+            echo true;
+
         }
     } else {
         //si está activada se comprueba que siga activa
         if ($diasDif > $valores[3]) {
             unset($_SESSION["promoAct"][$key]);
         }/*  */
-echo false;
+        echo false;
     }
 }
-
-/* echo json_encode(["promociones" => $promociones, "confetti" => $_SESSION["confetti"] ?? false]); */

@@ -8,12 +8,25 @@
             <!-- PRECIO -->
             <?php
             $precioOriginal = $game[3] / 100;
+            $precioDesc = $precioOriginal;
+
+            if (!empty($_SESSION["promoAct"])) {
+                foreach ($_SESSION["promoAct"] as $key => $value) {
+                    $precioDesc = $precioDesc * (1 - $value[2] / 100);
+                }
+            }
+
             ?>
 
 
-            <p class="card-text"><?php
+            <p class="card-text"><?php if (!empty($_SESSION["promoAct"])) {
+                print "<span class='tachado'>";
+            }
             print $precioOriginal . "€";
-            ?></p>
+            if (!empty($_SESSION["promoAct"])) {
+                print "</span> ";
+                print "<span class='nuevoPrecio'>" . $precioDesc . "€</span>";
+            } ?></p>
 
 
             <div class="d-flex justify-content-between">
