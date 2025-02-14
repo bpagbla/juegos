@@ -27,7 +27,7 @@ $title = "🎉¡Nueva promoción!🎉";
 $body = "Disfruta de un " . $valores[2] . "% de descuento en todos los juegos por " . $valores[1] . " hasta el día " . date('Y-m-d', strtotime($valores[0] . ' + ' . $valores[3] . ' days'));
 
             $_SESSION["notifications"][] = array($title, $body, 5000);
-
+echo true;
             /* controlador::sendNotification("🎉¡Nueva promoción!🎉", "Disfruta de un " . $valores[1] . "% de descuento en todos los juegos por " . $valores[0] . " hasta el día " . date('Y-m-d', strtotime($valores[0] . ' + ' . $valores[3] . ' days'))); */
         }
     } else {
@@ -35,8 +35,8 @@ $body = "Disfruta de un " . $valores[2] . "% de descuento en todos los juegos po
         if ($diasDif > $valores[3]) {
             unset($_SESSION["promoAct"][$key]);
         }/*  */
-
+echo false;
     }
 }
 
-echo json_encode(["promociones" => $promociones, "confetti" => $_SESSION["confetti"] ?? false]);
+/* echo json_encode(["promociones" => $promociones, "confetti" => $_SESSION["confetti"] ?? false]); */
