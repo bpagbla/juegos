@@ -181,7 +181,9 @@ class Controlador
                     $promociones = model::sacarPromociones();
                     if (!empty($promociones)) {
                         foreach ($promociones as $promocion) {
-                            $descuento = $promocion[2];
+                            if ($descuento < $promocion[2]) {
+                                $descuento = $promocion[2];
+                            }
                         }
                     }
                     if (empty($descuento)) {
