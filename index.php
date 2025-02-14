@@ -62,6 +62,9 @@ class Controlador
             case "checkout":
                 $this->iniciaCheckout();
                 break;
+            case "jugar":
+                $this->iniciaJugar();
+                break;
             //Si no se conoce la pagina mandar a pagina de error
             default:
                 $this->inicia404();
@@ -1057,6 +1060,27 @@ class Controlador
 
         //se incluye la vista de principal
         Vista::mostrarCheckout(model::getTarjetas($_SESSION["id"]));
+
+    }
+
+    public function iniciaJugar()
+    {
+
+        //Valida la sessión. Si erronea o logout envia a login.
+        $this->validateSession();
+
+        if (empty($_GET['juego'])) {
+            Vista::mostrar404();
+            die();
+        }
+
+        if ($_SESSION["role"] !== 'admin' && empty(model::isOwned($_SESSION['id'], $_GET['juego']))) {
+            Vista::mostrar404();
+            die();
+        }
+
+        //se incluye la vista de principal
+        Vista::mostrarJugar(model::getRuta($_GET['juego'])[0]['RUTA']);
 
     }
 
