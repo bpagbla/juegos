@@ -175,6 +175,13 @@ class Controlador
                 //Vista que mostara los datos sacados
                 Vista::showAPIGames(json_encode($json));
                 break;
+            case "precio":
+                if (isset($_GET["juego"])) {
+                    Vista::showAPIGames(json_encode(model::getPrice($_GET["juego"])[0]));
+                } else {
+                    Vista::showAPIGames(json_encode(['error'=>'No Game Input']));
+                }
+                break;
             default:
                 $this->inicia404();
         }

@@ -7,7 +7,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Glitched Pixel | Checkout</title>
-    <script src="/docs/5.3/assets/js/color-modes.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/checkout.css">
     <meta name="theme-color" content="#712cf9">
@@ -55,7 +54,7 @@
             </div>
             <div class="col-md-7 col-lg-8">
                 <h4 class="mb-3">Dirección de Facturación</h4>
-                <form class="needs-validation" novalidate>
+                <form method="post" class="needs-validation" novalidate>
                     <div class="row g-3">
                         <div class="col-sm-6">
                             <label for="firstName" class="form-label">First name</label>
@@ -119,7 +118,14 @@
 
                     <hr class="my-4">
 
-                    <h4 class="mb-3">Tarjeta de Credito</h4>
+                    <div class="row justify-content-between mb-4">
+                        <div class="col-auto align-content-center">
+                            <h4 class="m-0">Tarjeta de Credito</h4>
+                        </div>
+                        <div class="col-auto">
+                            <button form="adm-payment" type="submit" name="page" value="ajustes" class="btn btn-primary btn">Administrar</button>
+                        </div>
+                    </div>
 
                     <div class="row border-1 border rounded my-2 mx-1">
                         <?php
@@ -141,6 +147,7 @@
 
                     <button class="w-100 btn btn-primary btn-lg mb-4" type="submit">Pagar</button>
                 </form>
+                <form type="get" id="adm-payment"></form>
             </div>
         </div>
     </main>

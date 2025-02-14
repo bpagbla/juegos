@@ -1090,4 +1090,14 @@ class model
         return $array;
     }
 
+    public static function getPrice($id) {
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+
+        $consulta = $ddbb->consulta("SELECT PRECIO FROM juego WHERE ID = ?", array($id));
+        $ddbb->cerrar();
+        return $consulta;
+    }
+
 }
