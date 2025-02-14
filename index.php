@@ -59,6 +59,9 @@ class Controlador
             case "ajustes":
                 $this->iniciaAjustes();
                 break;
+            case "checkout":
+                $this->iniciaCheckout();
+                break;
             //Si no se conoce la pagina mandar a pagina de error
             default:
                 $this->inicia404();
@@ -1026,7 +1029,16 @@ class Controlador
         Vista::mostrarAdminEmpresa(model::getComp());
     }
 
-    
+    public function iniciaCheckout()
+    {
+
+        //Valida la sessión. Si erronea o logout envia a login.
+        $this->validateSession();
+        //se incluye la vista de principal
+        Vista::mostrarCheckout();
+
+    }
+
     public function iniciaJuegos()
     {
 

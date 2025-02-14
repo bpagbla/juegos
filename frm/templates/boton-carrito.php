@@ -37,6 +37,9 @@ $arrayCarrito = unserialize($_SESSION["carrito"])->getCarrito() ?? "";
                 }
                 ?>
             </ul>
+            <button form="checkout" class="btn" name="page" value="checkout">Checkout</button>
+            <form method="get" id="checkout">
+            </form>
         </div>
     </div>
 </div>
