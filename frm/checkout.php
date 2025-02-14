@@ -40,7 +40,9 @@
                 </h4>
                 <ul class="list-group mb-3">
                     <?php
-                        include "frm/templates/checkout-product.php"
+                        foreach (unserialize($_SESSION["carrito"])->getCarrito() ?? array() as $item) {
+                            include "frm/templates/checkout-product.php";
+                        }
                     ?>
                     <li class="list-group-item d-flex justify-content-between">
                         <span>Total (USD)</span>
