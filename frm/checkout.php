@@ -138,7 +138,7 @@
                             <?php } ?>
                             <div class="col-12 align-items-center justify-content-between d-flex py-2">
                                 <p class="m-0"><?php print 'Mastercard:'.$card["num"].' | '.date("m/y",$card["date"]); if ($card['date'] < time()) print ' | <span class="text-danger">Caducado</span>'; ?></p>
-                                <input type="radio" name="card" value="<?php print $card['num'].$card['date'] ?>" required>
+                                <input class="form-check-input" type="radio" name="card" value="<?php print $card['num'].$card['date'] ?>" required>
                             </div>
                         <?php } ?>
                     </div>
