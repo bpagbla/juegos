@@ -341,8 +341,8 @@
                     // Acción cuando el documento esté listo:
                     console.log("perfe")
                     console.log(this.responseText);
-                    if(this.responseText==true){
-                        console.log("yep");
+                    if(this.responseText!=false){
+                        location.reload();
                     }
 
 
@@ -367,7 +367,7 @@
 
         }
         ?>
-        setInterval(loadDoc, 5000);
+        setInterval(loadDoc, 10000);
     </script>
 </body>
 

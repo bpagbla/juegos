@@ -1462,7 +1462,7 @@ class Controlador
 
 
     //Funcion para mandar notificaciones
-    public static function sendNotification($title, $body, $time = 5000)
+    public function sendNotification($title, $body, $time = 5000)
     {
         if (!isset($_SESSION["notifications"])) { //si no existe notificaciones en el session se crea
             $_SESSION["notifications"] = array();
