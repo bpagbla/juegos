@@ -212,8 +212,9 @@ if (!empty($show)) {
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Info</h1>
-                    <button type="button" class="btn-close modal-close" aria-label="Close"></button>
+                    <button type="submit" class="btn-close modal-close" name="page" value="principal" form="close-form" aria-label="Close"></button>
                 </div>
+                <form id="close-form" method="get"></form>
                 <div class="modal-body">
                     <div class="row">
                         <div class="position-relative col-5 img-container d-flex align-items-center flex-column">
@@ -265,7 +266,7 @@ if (!empty($show)) {
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary modal-close">Cerrar</button>
+                    <button name="page" value="principal" form="close-form" type="submit" class="btn btn-secondary modal-close">Cerrar</button>
                 </div>
             </div>
         </div>
