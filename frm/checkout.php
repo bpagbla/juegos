@@ -163,7 +163,7 @@
                         if (sizeof($cards) < 1) { ?>
                             <div class="col-12 align-items-center justify-content-between d-flex py-2">
                                 <a class="link" href="/?page=ajustes&redirect=checkout">
-                                    <p class="m-0">Añade antes una tarjeta para continar</p>
+                                    <p class="m-0">Añade antes una tarjeta para continuar</p>
                                 </a>
                             </div>
                         <?php }
@@ -172,7 +172,7 @@
 
                     <hr class="my-4">
 
-                    <button class="w-100 btn btn-primary btn-lg mb-4" type="submit" <?php if (sizeof($items) < 1) print 'disabled'; ?>>Pagar</button>
+                    <button class="w-100 btn btn-primary btn-lg mb-4" type="submit" name="formPago" <?php if (sizeof($items) < 1) print 'disabled'; ?>>Pagar</button>
                 </form>
                 <form type="get" id="adm-payment"></form>
                 <form type="get" id="return-form"></form>
