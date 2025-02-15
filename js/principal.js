@@ -155,7 +155,7 @@ function startQueueDev(e) {
 }
 
 async function loadNamesDev(e) {
-    const response = await fetch('http://localhost/?page=api&endpoint=filter&filter=companies&name=' + e.target.value + getFilters())
+    const response = await fetch('http://localhost/?page=api&endpoint=filter&filter=dev&name=' + e.target.value + getFilters())
     const json = await response.json()
     if (json.hasOwnProperty('companies')) {
         let length = json.companies.length
@@ -213,7 +213,7 @@ function startQueueDis(e) {
 }
 
 async function loadNamesDis(e) {
-    const response = await fetch('http://localhost/?page=api&endpoint=filter&filter=companies&name=' + e.target.value + getFilters())
+    const response = await fetch('http://localhost/?page=api&endpoint=filter&filter=dis&name=' + e.target.value + getFilters())
     const json = await response.json()
     if (json.hasOwnProperty('companies')) {
         let length = json.companies.length
@@ -331,6 +331,9 @@ close.forEach((e) => {
     })
 })
 
+const minYear = document.getElementById('slider-1')
+const maxYear = document.getElementById('slider-2')
+
 function getFilters() {
     let options = '';
     devList.forEach(dev => {
@@ -345,6 +348,8 @@ function getFilters() {
     gameList.forEach(sist => {
         options += '&gen[]='+sist
     })
+    options+= '&minYear='+minYear.value
+    options+= '&maxYear='+maxYear.value
 
     return options;
 }
