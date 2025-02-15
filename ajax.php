@@ -3,9 +3,6 @@ session_start();
 include_once "model.php";
 include_once "clases/carrito.php";
 
-
-recalcPrecios();
-
 $promociones = model::sacarPromociones();
 
 $hoy = new DateTimeImmutable();
