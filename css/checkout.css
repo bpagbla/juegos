@@ -118,3 +118,12 @@ textarea:focus {
 .bd-mode-toggle .dropdown-menu .active .bi {
     display: block !important;
 }
+
+.tachado{
+    text-decoration: line-through;
+}
+
+.nuevoPrecio{
+    color: #f0b520;
+    font-weight: 700;
+}

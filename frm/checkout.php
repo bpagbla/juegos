@@ -59,7 +59,7 @@
                     <?php } ?>
                     <li class="list-group-item d-flex justify-content-between">
                         <span>Total</span>
-                        <strong>20€</strong>
+                        <strong><?php echo $_SESSION["totalPrecio"]?></strong>
                     </li>
                 </ul>
             </div>
