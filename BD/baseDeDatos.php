@@ -20,7 +20,7 @@ class BaseDeDatos
     /**
      * @param string $sql
      * @param array $array
-     * @return null
+     * @return array|null
      */
     public function consulta(string $sql, array $array=array())
     {

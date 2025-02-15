@@ -1551,6 +1551,9 @@ class Controlador
     }
 
     //comprobar contraseñas iguales del registro
+   /**
+    * @return bool
+    */
     static function comprobarPasswd()
     {
         if (isset($_POST["passwd"]) && isset($_POST["passwd2"])) {
@@ -1563,6 +1566,11 @@ class Controlador
 
 
     //funcion para verificar usuario
+    /**
+     * @param int $id
+     * 
+     * @return bool
+     */
     public function verificaUsuario($id)
     {
         //If someone with that nick/email
@@ -1587,11 +1595,19 @@ class Controlador
                 return false;
             }
         }
+        return false;
     }
 
 
 
     //Funcion para mandar notificaciones
+    /**
+     * @param string $title
+     * @param string $body
+     * @param int $time
+     * 
+     * @return void
+     */
     public function sendNotification($title, $body, $time = 5000)
     {
         if (!isset($_SESSION["notifications"])) { //si no existe notificaciones en el session se crea
