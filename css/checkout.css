@@ -9,6 +9,10 @@
     --color-pastel-yellow: #FAE55B;
 }
 
+.link {
+    color: rgb(170, 65, 255) !important;
+}
+
 input:focus,
 select:focus,
 textarea:focus {

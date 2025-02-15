@@ -159,7 +159,15 @@
                                 <p class="m-0"><?php print 'Mastercard:'.$card["num"].' | '.date("m/y",$card["date"]); if ($card['date'] < time()) print ' | <span class="text-danger">Caducado</span>'; ?></p>
                                 <input class="form-check-input" type="radio" name="card" value="<?php print $card['num'].$card['date'] ?>" required <?php if ($card['date'] < time()) print 'disabled' ?>>
                             </div>
-                        <?php } ?>
+                        <?php }
+                        if (sizeof($cards) < 1) { ?>
+                            <div class="col-12 align-items-center justify-content-between d-flex py-2">
+                                <a class="link" href="/?page=ajustes&redirect=checkout">
+                                    <p class="m-0">Añade antes una tarjeta para continar</p>
+                                </a>
+                            </div>
+                        <?php }
+                        ?>
                     </div>
 
                     <hr class="my-4">

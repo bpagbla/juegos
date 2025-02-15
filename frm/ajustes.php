@@ -84,7 +84,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="staticBackdropLabel">Añadir Metodo de Pago</h1>
-                <button type="submit" class="btn-close" form="add-cancel"></button>
+                <button type="submit" name="page" value="ajustes" class="btn-close" form="add-cancel"></button>
             </div>
             <div class="modal-body">
                 <div class="row justify-content-center">
@@ -92,7 +92,7 @@
                         <?php if (isset($_POST['submit-card'])) print "Rellene los campos marcados en rojo correctamente" ?>
                     </div>
                 </div>
-                <form id="add-cancel" method="post"></form>
+                <form id="add-cancel" method="get"></form>
                 <form id="add-form" method="post">
                     <div class="row">
                         <div class="col-6 mb-3">
@@ -111,7 +111,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-secondary" form="add-cancel">Cancelar</button>
+                <button type="submit" name="page" value="ajustes" class="btn btn-secondary" form="add-cancel">Cancelar</button>
                 <button type="submit" class="btn btn-primary" form="add-form" name="action" value="payment-submit">Aplicar</button>
             </div>
         </div>
@@ -138,6 +138,12 @@ const paymentModal = new bootstrap.Modal('#payment-modal', {
 
 <?php
 if (isset($_POST["action"]) && $_POST["action"] === "add-payment") print "paymentModal.show()"
+?>
+
+<?php
+if (isset($_GET['redirect'])) {
+    print "paymentModal.show()";
+}
 ?>
 
 </script>
