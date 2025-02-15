@@ -213,7 +213,8 @@ class Controlador
                         $dev = $_GET['dev'] ?? '';
                         $dis = $_GET['dis'] ?? '';
                         $sist = $_GET['sist'] ?? '';
-                        $array = model::getFilterGeneros($minYear, $maxYear, $genres, $dev, $dis, $sist);
+                        $id = $_GET['id'] ?? '';
+                        $array = model::getFilterGeneros($minYear, $maxYear, $genres, $dev, $dis, $sist,$id);
                         //Filtrar por nombre si se especifica
                         $filter = $_GET["name"] ?? "";
                         //Regex format
@@ -240,7 +241,8 @@ class Controlador
                         $dev = $_GET['dev'] ?? '';
                         $dis = $_GET['dis'] ?? '';
                         $sist = $_GET['sist'] ?? '';
-                        $array = model::getFilterDis($minYear, $maxYear, $genres, $dev, $dis, $sist);
+                        $id = $_GET['id'] ?? '';
+                        $array = model::getFilterDis($minYear, $maxYear, $genres, $dev, $dis, $sist,$id);
                         //Filtrar por nombre si se especifica
                         $filter = $_GET["name"] ?? "";
                         //Regex format
@@ -268,7 +270,8 @@ class Controlador
                         $dev = $_GET['dev'] ?? '';
                         $dis = $_GET['dis'] ?? '';
                         $sist = $_GET['sist'] ?? '';
-                        $array = model::getFilterDev($minYear, $maxYear, $genres, $dev, $dis, $sist);
+                        $id = $_GET['id'] ?? '';
+                        $array = model::getFilterDev($minYear, $maxYear, $genres, $dev, $dis, $sist,$id);
                         //Filtrar por nombre si se especifica
                         $filter = $_GET["name"] ?? "";
                         //Regex format
@@ -296,7 +299,8 @@ class Controlador
                         $dev = $_GET['dev'] ?? '';
                         $dis = $_GET['dis'] ?? '';
                         $sist = $_GET['sist'] ?? '';
-                        $array = model::getFilterSist($minYear, $maxYear, $genres, $dev, $dis, $sist);
+                        $id = $_GET['id'] ?? '';
+                        $array = model::getFilterSist($minYear, $maxYear, $genres, $dev, $dis, $sist,$id);
                         //Filtrar por nombre si se especifica
                         $filter = $_GET["name"] ?? "";
                         //Regex format

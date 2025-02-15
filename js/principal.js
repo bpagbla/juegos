@@ -350,6 +350,9 @@ function getFilters() {
     })
     options+= '&minYear='+minYear.value
     options+= '&maxYear='+maxYear.value
+    if (typeof id !== 'undefined') {
+        options += '&id=' + id;
+    }
 
     return options;
 }

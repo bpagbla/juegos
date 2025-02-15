@@ -172,13 +172,70 @@ class model
         return $array; //devolver el array con todos los juegos
     }
 
-    static function getFilterSist($minYear,$maxYear,$genres,$dev,$dis,$systems)
+    static function getGamesID($id, $minYear = '', $maxYear = '', $genres = '', $dev = '', $dis = '', $systems = '')
+    {
+
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+        $end = '';
+        $inputs = array('id' => $id);
+
+        if (!empty($minYear) && !empty($maxYear)) {
+            $end .= ' AND :minYear <= juego.anio AND :maxYear >= juego.anio';
+            $inputs['minYear'] = $minYear;
+            $inputs['maxYear'] = $maxYear;
+        }
+
+        if (!empty($genres)) {
+            $end .= ' AND id IN (SELECT id_juego FROM juego_genero WHERE id_genero IN (';
+            foreach ($genres as $genre) {
+                $end .= ':genre' . $genre . ',';
+                $inputs['genre' . $genre] = $genre;
+            }
+            $end = substr($end, 0, -1);
+            $end .= '))';
+        }
+
+        if (!empty($systems)) {
+            $end .= ' AND id IN (SELECT id_juego FROM juego_sistema WHERE id_sist IN (';
+            foreach ($systems as $sist) {
+                $end .= ':sist' . $sist . ',';
+                $inputs['sist' . $sist] = $sist;
+            }
+            $end = substr($end, 0, -1);
+            $end .= '))';
+        }
+
+        if (!empty($dev)) {
+            $end .= ' AND :dev = juego.desarrollador';
+            $inputs['dev'] = $dev;
+        }
+
+        if (!empty($dis)) {
+            $end .= ' AND :dis = juego.distribuidor';
+            $inputs['dis'] = $dis;
+        }
+
+        $array = array();
+        //se sacan solo los juegos que tenga el usuario
+        $consulta = $ddbb->consulta("SELECT juego.ID FROM juego INNER JOIN posee ON juego.id = posee.id_juego WHERE posee.ID_USUARIO = :id " . $end, $inputs);
+        foreach ($consulta as $row) {
+            $array[] = $row['ID'];
+        }
+
+        $ddbb->cerrar();
+        return $array; //Se devuelve el array con los juegos
+
+    }
+
+    static function getFilterSist($minYear,$maxYear,$genres,$dev,$dis,$systems, $id='')
     {
         include_once "BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
 
-        $games = model::getAllGamesID($minYear,$maxYear,$genres,$dev,$dis,$systems);
+        $games = (empty($id)) ? model::getAllGamesID($minYear,$maxYear,$genres,$dev,$dis,$systems) : model::getGamesID($id,$minYear,$maxYear,$genres,$dev,$dis,$systems);
         $array = array();
         $inputs = array();
         $end = '';
@@ -208,12 +265,12 @@ class model
         return $array; //devolver el array con todos los sistemas
     }
 
-    static function getFilterGeneros($minYear,$maxYear,$genres,$dev,$dis,$systems)
+    static function getFilterGeneros($minYear,$maxYear,$genres,$dev,$dis,$systems,$id)
     {
         include_once "BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
-        $games = model::getAllGamesID($minYear,$maxYear,$genres,$dev,$dis,$systems);
+        $games = (empty($id)) ? model::getAllGamesID($minYear,$maxYear,$genres,$dev,$dis,$systems) : model::getGamesID($id,$minYear,$maxYear,$genres,$dev,$dis,$systems);
         $array = array();
         $inputs = array();
         $end = '';
@@ -231,8 +288,6 @@ class model
         }
 
         $consulta = $ddbb->consulta("SELECT DISTINCT genero.ID,genero.NOMBRE FROM juego_genero INNER JOIN genero ON juego_genero.ID_GENERO = genero.id".$end,$inputs); //se sacan todos los generos de la base de datos
-        $nombre = '';
-        $id = '';
 
         //Se guardan el nombre y el id del genero en el array
         foreach ($consulta as $each) {
@@ -316,59 +371,102 @@ class model
         return $array; //devolver el array con todos los generos de un juego
     }
 
-    static function getFilterDis($minYear,$maxYear,$genres,$dev,$dis,$systems)
+    static function getFilterDis($minYear,$maxYear,$genres,$dev,$dis,$systems,$id)
     {
         include_once "BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
         $end = '';
         $inputs = array();
-
-        if (!empty($minYear) && !empty($maxYear)) {
-            $end .= ' AND :minYear <= juego.anio AND :maxYear >= juego.anio';
-            $inputs['minYear'] = $minYear;
-            $inputs['maxYear'] = $maxYear;
-        }
-
-        if (!empty($genres)) {
-            $end .= ' AND id IN (SELECT id_juego FROM juego_genero WHERE id_genero IN (';
-            foreach ($genres as $genre) {
-                $end .= ':genre' . $genre . ',';
-                $inputs['genre' . $genre] = $genre;
-            }
-            $end = substr($end, 0, -1);
-            $end .= '))';
-        }
-
-        if (!empty($systems)) {
-            $end .= ' AND id IN (SELECT id_juego FROM juego_sistema WHERE id_sist IN (';
-            foreach ($systems as $sist) {
-                $end .= ':sist' . $sist . ',';
-                $inputs['sist' . $sist] = $sist;
-            }
-            $end = substr($end, 0, -1);
-            $end .= '))';
-        }
-
-        if (!empty($dev)) {
-            $end .= ' AND :dev = juego.desarrollador';
-            $inputs['dev'] = $dev;
-        }
-
-        if (!empty($dis)) {
-            $end .= ' AND :dis = juego.distribuidor';
-            $inputs['dis'] = $dis;
-        }
-
         $array = array();
+        if (empty($id)) {
+            if (!empty($minYear) && !empty($maxYear)) {
+                $end .= ' AND :minYear <= juego.anio AND :maxYear >= juego.anio';
+                $inputs['minYear'] = $minYear;
+                $inputs['maxYear'] = $maxYear;
+            }
 
-        $consulta = $ddbb->consulta("SELECT DESARROLLADOR,DISTRIBUIDOR FROM juego WHERE 1=1" . $end, $inputs); //se sacan todos los generos de la base de datos
+            if (!empty($genres)) {
+                $end .= ' AND id IN (SELECT id_juego FROM juego_genero WHERE id_genero IN (';
+                foreach ($genres as $genre) {
+                    $end .= ':genre' . $genre . ',';
+                    $inputs['genre' . $genre] = $genre;
+                }
+                $end = substr($end, 0, -1);
+                $end .= '))';
+            }
 
-        //Se guardan el nombre y el id del genero en el array
-        foreach ($consulta as $each) {
-            $array[] = $each['DISTRIBUIDOR'];
+            if (!empty($systems)) {
+                $end .= ' AND id IN (SELECT id_juego FROM juego_sistema WHERE id_sist IN (';
+                foreach ($systems as $sist) {
+                    $end .= ':sist' . $sist . ',';
+                    $inputs['sist' . $sist] = $sist;
+                }
+                $end = substr($end, 0, -1);
+                $end .= '))';
+            }
+
+            if (!empty($dev)) {
+                $end .= ' AND :dev = juego.desarrollador';
+                $inputs['dev'] = $dev;
+            }
+
+            if (!empty($dis)) {
+                $end .= ' AND :dis = juego.distribuidor';
+                $inputs['dis'] = $dis;
+            }
+
+            $consulta = $ddbb->consulta("SELECT DESARROLLADOR,DISTRIBUIDOR FROM juego WHERE 1=1" . $end, $inputs); //se sacan todos los generos de la base de datos
+
+            //Se guardan el nombre y el id del genero en el array
+            foreach ($consulta as $each) {
+                $array[] = $each['DISTRIBUIDOR'];
+            }
+
+        } else {
+            $inputs = array('id' => $id);
+
+            if (!empty($minYear) && !empty($maxYear)) {
+                $end .= ' AND :minYear <= juego.anio AND :maxYear >= juego.anio';
+                $inputs['minYear'] = $minYear;
+                $inputs['maxYear'] = $maxYear;
+            }
+
+            if (!empty($genres)) {
+                $end .= ' AND id IN (SELECT id_juego FROM juego_genero WHERE id_genero IN (';
+                foreach ($genres as $genre) {
+                    $end .= ':genre' . $genre . ',';
+                    $inputs['genre' . $genre] = $genre;
+                }
+                $end = substr($end, 0, -1);
+                $end .= '))';
+            }
+
+            if (!empty($systems)) {
+                $end .= ' AND id IN (SELECT id_juego FROM juego_sistema WHERE id_sist IN (';
+                foreach ($systems as $sist) {
+                    $end .= ':sist' . $sist . ',';
+                    $inputs['sist' . $sist] = $sist;
+                }
+                $end = substr($end, 0, -1);
+                $end .= '))';
+            }
+
+            if (!empty($dev)) {
+                $end .= ' AND :dev = juego.desarrollador';
+                $inputs['dev'] = $dev;
+            }
+
+            if (!empty($dis)) {
+                $end .= ' AND :dis = juego.distribuidor';
+                $inputs['dis'] = $dis;
+            }
+            //se sacan solo los juegos que tenga el usuario
+            $consulta = $ddbb->consulta("SELECT juego.DISTRIBUIDOR FROM juego INNER JOIN posee ON juego.id = posee.id_juego WHERE posee.ID_USUARIO = :id " . $end, $inputs);
+            foreach ($consulta as $row) {
+                $array[] = $row['DISTRIBUIDOR'];
+            }
         }
-
         $array2 = array();
         $end = '';
         $inputs = [];
@@ -399,59 +497,102 @@ class model
 
     }
 
-    static function getFilterDev($minYear,$maxYear,$genres,$dev,$dis,$systems)
+    static function getFilterDev($minYear,$maxYear,$genres,$dev,$dis,$systems,$id)
     {
         include_once "BD/baseDeDatos.php";
         $ddbb = new BaseDeDatos;
         $ddbb->conectar();
         $end = '';
         $inputs = array();
-
-        if (!empty($minYear) && !empty($maxYear)) {
-            $end .= ' AND :minYear <= juego.anio AND :maxYear >= juego.anio';
-            $inputs['minYear'] = $minYear;
-            $inputs['maxYear'] = $maxYear;
-        }
-
-        if (!empty($genres)) {
-            $end .= ' AND id IN (SELECT id_juego FROM juego_genero WHERE id_genero IN (';
-            foreach ($genres as $genre) {
-                $end .= ':genre' . $genre . ',';
-                $inputs['genre' . $genre] = $genre;
-            }
-            $end = substr($end, 0, -1);
-            $end .= '))';
-        }
-
-        if (!empty($systems)) {
-            $end .= ' AND id IN (SELECT id_juego FROM juego_sistema WHERE id_sist IN (';
-            foreach ($systems as $sist) {
-                $end .= ':sist' . $sist . ',';
-                $inputs['sist' . $sist] = $sist;
-            }
-            $end = substr($end, 0, -1);
-            $end .= '))';
-        }
-
-        if (!empty($dev)) {
-            $end .= ' AND :dev = juego.desarrollador';
-            $inputs['dev'] = $dev;
-        }
-
-        if (!empty($dis)) {
-            $end .= ' AND :dis = juego.distribuidor';
-            $inputs['dis'] = $dis;
-        }
-
         $array = array();
+        if (empty($id)) {
+            if (!empty($minYear) && !empty($maxYear)) {
+                $end .= ' AND :minYear <= juego.anio AND :maxYear >= juego.anio';
+                $inputs['minYear'] = $minYear;
+                $inputs['maxYear'] = $maxYear;
+            }
 
-        $consulta = $ddbb->consulta("SELECT DESARROLLADOR,DISTRIBUIDOR FROM juego WHERE 1=1" . $end, $inputs); //se sacan todos los generos de la base de datos
+            if (!empty($genres)) {
+                $end .= ' AND id IN (SELECT id_juego FROM juego_genero WHERE id_genero IN (';
+                foreach ($genres as $genre) {
+                    $end .= ':genre' . $genre . ',';
+                    $inputs['genre' . $genre] = $genre;
+                }
+                $end = substr($end, 0, -1);
+                $end .= '))';
+            }
 
-        //Se guardan el nombre y el id del genero en el array
-        foreach ($consulta as $each) {
-            $array[] = $each['DESARROLLADOR'];
+            if (!empty($systems)) {
+                $end .= ' AND id IN (SELECT id_juego FROM juego_sistema WHERE id_sist IN (';
+                foreach ($systems as $sist) {
+                    $end .= ':sist' . $sist . ',';
+                    $inputs['sist' . $sist] = $sist;
+                }
+                $end = substr($end, 0, -1);
+                $end .= '))';
+            }
+
+            if (!empty($dev)) {
+                $end .= ' AND :dev = juego.desarrollador';
+                $inputs['dev'] = $dev;
+            }
+
+            if (!empty($dis)) {
+                $end .= ' AND :dis = juego.distribuidor';
+                $inputs['dis'] = $dis;
+            }
+
+            $consulta = $ddbb->consulta("SELECT DESARROLLADOR,DISTRIBUIDOR FROM juego WHERE 1=1" . $end, $inputs); //se sacan todos los generos de la base de datos
+
+            //Se guardan el nombre y el id del genero en el array
+            foreach ($consulta as $each) {
+                $array[] = $each['DISTRIBUIDOR'];
+            }
+
+        } else {
+            $inputs = array('id' => $id);
+
+            if (!empty($minYear) && !empty($maxYear)) {
+                $end .= ' AND :minYear <= juego.anio AND :maxYear >= juego.anio';
+                $inputs['minYear'] = $minYear;
+                $inputs['maxYear'] = $maxYear;
+            }
+
+            if (!empty($genres)) {
+                $end .= ' AND id IN (SELECT id_juego FROM juego_genero WHERE id_genero IN (';
+                foreach ($genres as $genre) {
+                    $end .= ':genre' . $genre . ',';
+                    $inputs['genre' . $genre] = $genre;
+                }
+                $end = substr($end, 0, -1);
+                $end .= '))';
+            }
+
+            if (!empty($systems)) {
+                $end .= ' AND id IN (SELECT id_juego FROM juego_sistema WHERE id_sist IN (';
+                foreach ($systems as $sist) {
+                    $end .= ':sist' . $sist . ',';
+                    $inputs['sist' . $sist] = $sist;
+                }
+                $end = substr($end, 0, -1);
+                $end .= '))';
+            }
+
+            if (!empty($dev)) {
+                $end .= ' AND :dev = juego.desarrollador';
+                $inputs['dev'] = $dev;
+            }
+
+            if (!empty($dis)) {
+                $end .= ' AND :dis = juego.distribuidor';
+                $inputs['dis'] = $dis;
+            }
+            //se sacan solo los juegos que tenga el usuario
+            $consulta = $ddbb->consulta("SELECT juego.DISTRIBUIDOR FROM juego INNER JOIN posee ON juego.id = posee.id_juego WHERE posee.ID_USUARIO = :id " . $end, $inputs);
+            foreach ($consulta as $row) {
+                $array[] = $row['DISTRIBUIDOR'];
+            }
         }
-
         $array2 = array();
         $end = '';
         $inputs = [];

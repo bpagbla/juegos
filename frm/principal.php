@@ -86,6 +86,9 @@
                         </script>
                         <?php
                         //Se sacan todos los generos en formato boton
+                        if ($_SESSION['role'] !== 'admin') {
+                            print '<script> let id =' . $_SESSION['id'] . '</script>';
+                        }
                         if (isset($_GET["gen"])) {
                             foreach ($_GET["gen"] as $genID) {
                                 include "frm/templates/filter-gen.php";
