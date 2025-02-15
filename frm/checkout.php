@@ -49,6 +49,14 @@
                             include "frm/templates/checkout-product.php";
                         }
                     ?>
+                    <?php if (sizeof($items) < 1) { ?>
+                        <li class="list-group-item d-flex justify-content-between lh-sm">
+                            <div>
+                                <h6 class="my-0">No tienes Nada!</h6>
+                                <small class="text-body-secondary">Vuelve a la tienda y añade algo antes.</small>
+                            </div>
+                        </li>
+                    <?php } ?>
                     <li class="list-group-item d-flex justify-content-between">
                         <span>Total</span>
                         <strong>20€</strong>
@@ -56,7 +64,14 @@
                 </ul>
             </div>
             <div class="col-md-7 col-lg-8">
-                <h4 class="mb-3">Dirección de Facturación</h4>
+                <div class="row justify-content-between">
+                    <div class="col-auto">
+                        <h4 class="mb-3">Dirección de Facturación</h4>
+                    </div>
+                    <div class="col-auto">
+                        <button form="return-form" name="page" value="juegos" type="submit" class="btn btn-primary">Volver</button>
+                    </div>
+                </div>
                 <form method="post" class="needs-validation" novalidate>
                     <div class="row g-3">
                         <div class="col-sm-6">
@@ -148,9 +163,10 @@
 
                     <hr class="my-4">
 
-                    <button class="w-100 btn btn-primary btn-lg mb-4" type="submit">Pagar</button>
+                    <button class="w-100 btn btn-primary btn-lg mb-4" type="submit" <?php if (sizeof($items) < 1) print 'disabled'; ?>>Pagar</button>
                 </form>
                 <form type="get" id="adm-payment"></form>
+                <form type="get" id="return-form"></form>
             </div>
         </div>
     </main>
