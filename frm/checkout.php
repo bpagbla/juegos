@@ -75,50 +75,51 @@
                 <form method="post" class="needs-validation" novalidate>
                     <div class="row g-3">
                         <div class="col-sm-6">
-                            <label for="firstName" class="form-label">First name</label>
+                            <label for="firstName" class="form-label">Nombre</label>
                             <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
                             <div class="invalid-feedback">
-                                Valid first name is required.
+                                Hay que introducir el nombre.
                             </div>
                         </div>
 
                         <div class="col-sm-6">
-                            <label for="lastName" class="form-label">Last name</label>
+                            <label for="lastName" class="form-label">Apellidos</label>
                             <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
                             <div class="invalid-feedback">
-                                Valid last name is required.
+                                Hay que introducir un apellido.
                             </div>
                         </div>
 
                         <div class="col-12">
-                            <label for="address" class="form-label">Address</label>
+                            <label for="address" class="form-label">Dirección</label>
                             <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
                             <div class="invalid-feedback">
-                                Please enter your shipping address.
+                                Hay que especificar una dirección de facturación.
                             </div>
                         </div>
 
                         <div class="col-12">
-                            <label for="address2" class="form-label">Address 2 <span class="text-body-secondary">(Optional)</span></label>
+                            <label for="address2" class="form-label">Dirección 2 2 <span class="text-body-secondary">(Optional)</span></label>
                             <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
                         </div>
 
                         <div class="col-md-5">
-                            <label for="country" class="form-label">Country</label>
+                            <label for="country" class="form-label">Pais</label>
                             <select class="form-select" id="country" required>
-                                <option value="">Choose...</option>
-                                <option>United States</option>
+                                <option value="">Elige...</option>
+                                <option>España</option>
                             </select>
                             <div class="invalid-feedback">
-                                Please select a valid country.
+                                Elige un Pais.
                             </div>
                         </div>
 
                         <div class="col-md-4">
-                            <label for="state" class="form-label">State</label>
+                            <label for="state" class="form-label">Comunidad Autonoma</label>
                             <select class="form-select" id="state" required>
                                 <option value="">Choose...</option>
-                                <option>California</option>
+                                <option>Communidad de Madrid</option>
+                                <option>Catalunya</option>
                             </select>
                             <div class="invalid-feedback">
                                 Please provide a valid state.
@@ -126,10 +127,10 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label for="zip" class="form-label">Zip</label>
+                            <label for="zip" class="form-label">Codigo Postal</label>
                             <input type="text" class="form-control" id="zip" placeholder="" required>
                             <div class="invalid-feedback">
-                                Zip code required.
+                                Hay que introducir el codigo postal.
                             </div>
                         </div>
                     </div>
