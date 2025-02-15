@@ -115,6 +115,99 @@ class model
         return $array; //devolver el array con todos los juegos
     }
 
+    static function getAllGamesID($minYear = '', $maxYear = '', $genres = '', $dev = '', $dis = '', $systems = '')
+    {
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+        $end = '';
+        $inputs = array();
+
+        if (!empty($minYear) && !empty($maxYear)) {
+            $end .= ' AND :minYear <= juego.anio AND :maxYear >= juego.anio';
+            $inputs['minYear'] = $minYear;
+            $inputs['maxYear'] = $maxYear;
+        }
+
+        if (!empty($genres)) {
+            $end .= ' AND id IN (SELECT id_juego FROM juego_genero WHERE id_genero IN (';
+            foreach ($genres as $genre) {
+                $end .= ':genre' . $genre . ',';
+                $inputs['genre' . $genre] = $genre;
+            }
+            $end = substr($end, 0, -1);
+            $end .= '))';
+        }
+
+        if (!empty($systems)) {
+            $end .= ' AND id IN (SELECT id_juego FROM juego_sistema WHERE id_sist IN (';
+            foreach ($systems as $sist) {
+                $end .= ':sist' . $sist . ',';
+                $inputs['sist' . $sist] = $sist;
+            }
+            $end = substr($end, 0, -1);
+            $end .= '))';
+        }
+
+        if (!empty($dev)) {
+            $end .= ' AND :dev = juego.desarrollador';
+            $inputs['dev'] = $dev;
+        }
+
+        if (!empty($dis)) {
+            $end .= ' AND :dis = juego.distribuidor';
+            $inputs['dis'] = $dis;
+        }
+
+        $array = array();
+
+        $consulta = $ddbb->consulta("SELECT ID,TITULO,PORTADA,PRECIO FROM juego WHERE 1=1" . $end, $inputs); //se sacan todos los generos de la base de datos
+
+        //Se guardan el nombre y el id del genero en el array
+        foreach ($consulta as $each) {
+            $array[] = $each['ID'];
+        }
+
+        $ddbb->cerrar();
+        return $array; //devolver el array con todos los juegos
+    }
+
+    static function getFilterGeneros($minYear,$maxYear,$genres,$dev,$dis, $systems)
+    {
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+        $games = model::getAllGamesID($minYear,$maxYear,$genres,$dev,$dis, $systems);
+        $array = array();
+        $inputs = array();
+        $end = '';
+
+        if (!empty($games)) {
+            $end .= ' WHERE juego_genero.ID_JUEGO IN (';
+            foreach ($games as $game) {
+                $end .= '?,';
+                $inputs[] = $game;
+            }
+            $end = substr($end, 0, -1);
+            $end .= ')';
+        } else {
+            return array();
+        }
+
+        $consulta = $ddbb->consulta("SELECT DISTINCT genero.ID,genero.NOMBRE FROM juego_genero INNER JOIN genero ON juego_genero.ID_GENERO = genero.id".$end,$inputs); //se sacan todos los generos de la base de datos
+        $nombre = '';
+        $id = '';
+
+        //Se guardan el nombre y el id del genero en el array
+        foreach ($consulta as $each) {
+            $nombre = $each['NOMBRE'];
+            $id = $each['ID'];
+            $array[] = [$id, $nombre];
+        }
+
+        $ddbb->cerrar();
+        return $array; //devolver el array con todos los generos
+    }
 
     static function getGeneros()
     {
