@@ -161,18 +161,6 @@
                             </li>
                             <li class="nav-item">
                                 <form method="get">
-                                    <button class="nav-link text-white ps-2 <?php if ($page === "soporte")
-                                    echo 'active' ?>" type="submit" name="page" value="soporte" <?php if ($page === "soporte")
-                                    echo 'aria-current="page"' ?>>
-                                        <svg class="bi me-2" width="16" height="16">
-                                            <use xlink:href="#question" />
-                                        </svg>
-                                        Soporte
-                                    </button>
-                                </form>
-                            </li>
-                            <li class="nav-item">
-                                <form method="get">
                                     <button class="nav-link text-white ps-2" type="submit" name="page" value="checkout">
                                         <svg class="bi me-2" width="16" height="16">
                                             <use xlink:href="#checkout" />
@@ -268,18 +256,6 @@
                                             <use xlink:href="#grid" />
                                         </svg>
                                         Tienda
-                                    </button>
-                                </form>
-                            </li>
-                            <li class="nav-item">
-                                <form method="get">
-                                    <button class="nav-link text-white <?php if ($page === "soporte")
-                                    echo 'active' ?>" type="submit" name="page" value="soporte" <?php if ($page === "soporte")
-                                    echo 'aria-current="page"' ?>>
-                                        <svg class="bi me-2" width="16" height="16">
-                                            <use xlink:href="#question" />
-                                        </svg>
-                                        Soporte
                                     </button>
                                 </form>
                             </li>

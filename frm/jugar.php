@@ -9,10 +9,15 @@
     <link rel="stylesheet" href="css/js-dos.css">
     <!-- js-dos -->
     <script src="js/js-dos.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/base.css">
 </head>
 <body>
-<div id="dos" style="width: 100vw; height: 60vw;"></div>
-
+<form id="return-form" method="get"></form>
+<header style="height: 5vh;background-color: #0F0F1AFF;align-items: center; display: flex; justify-content: end">
+    <button class="btn btn-primary btn-sm me-3" form="return-form" type="submit" name="page" value="principal">Volver</button>
+</header>
+<div id="dos" style="width: 100vw; height: 95vh;"></div>
 <script>
     Dos(document.getElementById("dos"), {
         url: "<?php print $ruta;?>",
