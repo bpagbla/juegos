@@ -155,7 +155,7 @@ function startQueueDev(e) {
 }
 
 async function loadNamesDev(e) {
-    const response = await fetch('http://localhost/?page=api&endpoint=companies&name=' + e.target.value)
+    const response = await fetch('http://localhost/?page=api&endpoint=filter&filter=companies&name=' + e.target.value + getFilters())
     const json = await response.json()
     if (json.hasOwnProperty('companies')) {
         let length = json.companies.length
@@ -213,7 +213,7 @@ function startQueueDis(e) {
 }
 
 async function loadNamesDis(e) {
-    const response = await fetch('http://localhost/?page=api&endpoint=companies&name=' + e.target.value)
+    const response = await fetch('http://localhost/?page=api&endpoint=filter&filter=companies&name=' + e.target.value + getFilters())
     const json = await response.json()
     if (json.hasOwnProperty('companies')) {
         let length = json.companies.length
@@ -272,7 +272,7 @@ function startQueueSist(e) {
 }
 
 async function loadNamesSist(e) {
-    const response = await fetch('http://localhost/?page=api&endpoint=platforms&name=' + e.target.value)
+    const response = await fetch('http://localhost/?page=api&endpoint=filter&filter=platforms&name=' + e.target.value + getFilters())
     const json = await response.json()
     if (json.hasOwnProperty('platforms')) {
         let length = json.platforms.length

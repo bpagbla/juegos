@@ -232,6 +232,62 @@ class Controlador
                         }
                         Vista::showAPIGames(json_encode($json));
                         break;
+                    case "companies":
+                        //Sacar de la base de datos las companias disponibles
+                        $minYear = $_GET['minYear'] ?? '';
+                        $maxYear = $_GET['maxYear'] ?? '';
+                        $genres = $_GET['gen'] ?? '';
+                        $dev = $_GET['dev'] ?? '';
+                        $dis = $_GET['dis'] ?? '';
+                        $sist = $_GET['sist'] ?? '';
+                        $array = model::getFilterComp($minYear, $maxYear, $genres, $dev, $dis, $sist);
+                        //Filtrar por nombre si se especifica
+                        $filter = $_GET["name"] ?? "";
+                        //Regex format
+                        $filter = '/.*' . $filter . '.*/i';
+                        $json["companies"] = array();
+                        $quant = 0;
+                        //Sacar 5 primeras companias que cumplen regex
+                        foreach ($array as $value) {
+                            if (preg_match($filter, $value[1])) {
+                                $json["companies"][] = array('company_id' => $value[0], 'name' => $value[1]);
+                                $quant++;
+                            }
+                            if ($quant >= 5) {
+                                break;
+                            }
+                        }
+                        //Vista que mostara los datos sacados
+                        Vista::showAPIGames(json_encode($json));
+                        break;
+                    case "platforms":
+                        //Sacar plataformas disponibles de la base de datos
+                        $minYear = $_GET['minYear'] ?? '';
+                        $maxYear = $_GET['maxYear'] ?? '';
+                        $genres = $_GET['gen'] ?? '';
+                        $dev = $_GET['dev'] ?? '';
+                        $dis = $_GET['dis'] ?? '';
+                        $sist = $_GET['sist'] ?? '';
+                        $array = model::getFilterSist($minYear, $maxYear, $genres, $dev, $dis, $sist);
+                        //Filtrar por nombre si se especifica
+                        $filter = $_GET["name"] ?? "";
+                        //Regex format
+                        $filter = '/.*' . $filter . '.*/i';
+                        $json["platforms"] = array();
+                        $quant = 0;
+                        //Sacar 5 primeras companias que cumplen regex
+                        foreach ($array as $value) {
+                            if (preg_match($filter, $value[1])) {
+                                $json["platforms"][] = array('platform_id' => $value[0], 'name' => $value[1]);
+                                $quant++;
+                            }
+                            if ($quant >= 5) {
+                                break;
+                            }
+                        }
+                        //Vista que mostara los datos sacados
+                        Vista::showAPIGames(json_encode($json));
+                        break;
                     default:
                         $this->inicia404();
                 }
