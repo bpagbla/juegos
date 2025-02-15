@@ -9,6 +9,18 @@
     --color-pastel-yellow: #FAE55B;
 }
 
+input:focus,
+select:focus,
+textarea:focus {
+    border: 0.2rem solid #fff !important;
+    box-shadow: 0 0 .1rem #fff,
+    0 0 .1rem #fff,
+    0 0 1rem #bc13fe,
+    0 0 0.8rem #bc13fe,
+    0 0 2.8rem #bc13fe,
+    inset 0 0 1.3rem #bc13fe !important;
+}
+
 .bg-primary {
     background-color: rgb(170, 65, 255) !important;
 }
