@@ -18,9 +18,9 @@ class BaseDeDatos
 
     //funcion para hacer consultas con un query sql
     /**
-     * @param String $sql
+     * @param string $sql
      * @param array $array
-     * @return null
+     * @return array|null
      */
     public function consulta(string $sql, array $array=array())
     {
@@ -36,6 +36,12 @@ class BaseDeDatos
     }
 
     //funcion para insertar datos en la base de daots
+    /**
+     * @param string $sql
+     * @param array $array
+     * 
+     * @return bool
+     */
     public function insert($sql,$array) {
         $stmt= $this->db->prepare($sql);
         return $stmt->execute($array);

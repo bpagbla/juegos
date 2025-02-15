@@ -1061,28 +1061,28 @@ class Controlador
         if (isset($_POST["formPago"])) {
             $items = array();
             if (isset($_SESSION["carrito"])) {
+                $carrito = unserialize($_SESSION['carrito']);
                 $items = unserialize($_SESSION["carrito"])->getCarrito();
                 foreach ($items as $item => $valores) {
                     model::ponerJuegoUsuario($_SESSION["id"], $item);
+
+                    //Actualizo objeto
+                    $carrito->sacarJuegoCarrito($item);
+
+                    //Actualizo bbdd
+                    model::borrarJuegoCarrito($item);
                 }
 
-                $carrito = unserialize($_SESSION['carrito']);
-                //Actualizo objeto
-                $carrito->sacarJuegoCarrito($item);
 
                 //borrar precio total del carrito
                 unset($_SESSION["totalPrecio"]);
-                //Actualizo bbdd
-                model::borrarJuegoCarrito($item);
-
-                //Guardo en session
-                $_SESSION['carrito'] = serialize($carrito);
-
-                $this->sendNotification('Compra realizada', "Se ha realizado la compra", 20000);
-
-                header("Location: ?page=principal");
-                die();
             }
+            //Guardo en session
+            $_SESSION['carrito'] = serialize($carrito);
+            $this->sendNotification('Compra realizada', "Se ha realizado la compra", 20000);
+
+            header("Location: ?page=principal");
+            die();
         }
 
         //se incluye la vista de principal
@@ -1551,6 +1551,9 @@ class Controlador
     }
 
     //comprobar contraseñas iguales del registro
+   /**
+    * @return bool
+    */
     static function comprobarPasswd()
     {
         if (isset($_POST["passwd"]) && isset($_POST["passwd2"])) {
@@ -1563,6 +1566,11 @@ class Controlador
 
 
     //funcion para verificar usuario
+    /**
+     * @param int $id
+     * 
+     * @return bool
+     */
     public function verificaUsuario($id)
     {
         //If someone with that nick/email
@@ -1587,11 +1595,19 @@ class Controlador
                 return false;
             }
         }
+        return false;
     }
 
 
 
     //Funcion para mandar notificaciones
+    /**
+     * @param string $title
+     * @param string $body
+     * @param int $time
+     * 
+     * @return void
+     */
     public function sendNotification($title, $body, $time = 5000)
     {
         if (!isset($_SESSION["notifications"])) { //si no existe notificaciones en el session se crea
