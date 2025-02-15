@@ -38,8 +38,8 @@ if (isset($_SESSION['carrito'])) {
                     }
                     ?>
                 </ul>
-                <button form="checkout" class="btn" name="page" value="checkout">Checkout</button>
-                <form method="get" id="checkout">
+                <button type="submit" class="btn" name="page" value="checkout" form="checkout-form">Checkout</button>
+                <form method="get" id="checkout-form">
                 </form>
             </div>
         </div>
