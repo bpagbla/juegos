@@ -1061,28 +1061,28 @@ class Controlador
         if (isset($_POST["formPago"])) {
             $items = array();
             if (isset($_SESSION["carrito"])) {
+                $carrito = unserialize($_SESSION['carrito']);
                 $items = unserialize($_SESSION["carrito"])->getCarrito();
                 foreach ($items as $item => $valores) {
                     model::ponerJuegoUsuario($_SESSION["id"], $item);
+
+                    //Actualizo objeto
+                    $carrito->sacarJuegoCarrito($item);
+
+                    //Actualizo bbdd
+                    model::borrarJuegoCarrito($item);
                 }
 
-                $carrito = unserialize($_SESSION['carrito']);
-                //Actualizo objeto
-                $carrito->sacarJuegoCarrito($item);
 
                 //borrar precio total del carrito
                 unset($_SESSION["totalPrecio"]);
-                //Actualizo bbdd
-                model::borrarJuegoCarrito($item);
-
-                //Guardo en session
-                $_SESSION['carrito'] = serialize($carrito);
-
-                $this->sendNotification('Compra realizada', "Se ha realizado la compra", 20000);
-
-                header("Location: ?page=principal");
-                die();
             }
+            //Guardo en session
+            $_SESSION['carrito'] = serialize($carrito);
+            $this->sendNotification('Compra realizada', "Se ha realizado la compra", 20000);
+
+            header("Location: ?page=principal");
+            die();
         }
 
         //se incluye la vista de principal
