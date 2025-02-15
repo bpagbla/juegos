@@ -198,6 +198,44 @@ class Controlador
                     Vista::showAPIGames(json_encode(['error' => 'No Game Input']));
                 }
                 break;
+                break;
+            case "filter":
+                if (!isset($_GET['filter'])) {
+                    $this->inicia404();
+                    die();
+                }
+                switch ($_GET['filter']) {
+                    case 'generos':
+                        //Sacar generos disponibles de la base de datos
+                        $minYear = $_GET['minYear'] ?? '';
+                        $maxYear = $_GET['maxYear'] ?? '';
+                        $genres = $_GET['gen'] ?? '';
+                        $dev = $_GET['dev'] ?? '';
+                        $dis = $_GET['dis'] ?? '';
+                        $sist = $_GET['sist'] ?? '';
+                        $array = model::getFilterGeneros($minYear, $maxYear, $genres, $dev, $dis, $sist);
+                        //Filtrar por nombre si se especifica
+                        $filter = $_GET["name"] ?? "";
+                        //Regex format
+                        $filter = '/.*' . $filter . '.*/i';
+                        $json["genres"] = array();
+                        $quant = 0;
+                        //Sacar 5 primeras companias que cumplen regex
+                        foreach ($array as $value) {
+                            if (preg_match($filter, $value[1])) {
+                                $json["genres"][] = array('genre_id' => $value[0], 'name' => $value[1]);
+                                $quant++;
+                            }
+                            if ($quant >= 5) {
+                                break;
+                            }
+                        }
+                        Vista::showAPIGames(json_encode($json));
+                        break;
+                    default:
+                        $this->inicia404();
+                }
+                break;
             default:
                 $this->inicia404();
         }
