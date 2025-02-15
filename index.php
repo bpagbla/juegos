@@ -62,6 +62,9 @@ class Controlador
             case "checkout":
                 $this->iniciaCheckout();
                 break;
+            case "jugar":
+                $this->iniciaJugar();
+                break;
             //Si no se conoce la pagina mandar a pagina de error
             default:
                 $this->inicia404();
@@ -177,7 +180,20 @@ class Controlador
                 break;
             case "precio":
                 if (isset($_GET["juego"])) {
-                    Vista::showAPIGames(json_encode(model::getPrice($_GET["juego"])[0]));
+                    $descuento = '';
+                    $promociones = model::sacarPromociones();
+                    if (!empty($promociones)) {
+                        foreach ($promociones as $promocion) {
+                            if ($descuento < $promocion[2]) {
+                                $descuento = $promocion[2];
+                            }
+                        }
+                    }
+                    if (empty($descuento)) {
+                        Vista::showAPIGames(json_encode(['precio' => model::getPrice($_GET["juego"])[0]['PRECIO']]));
+                    } else {
+                        Vista::showAPIGames(json_encode(['precio' => model::getPrice($_GET["juego"])[0]['PRECIO'], 'descuento' => $descuento]));
+                    }
                 } else {
                     Vista::showAPIGames(json_encode(['error' => 'No Game Input']));
                 }
@@ -1041,6 +1057,7 @@ class Controlador
 
         //Valida la sessión. Si erronea o logout envia a login.
         $this->validateSession();
+
         //se incluye la vista de principal
         Vista::mostrarCheckout(model::getTarjetas($_SESSION["id"]));
 
@@ -1064,6 +1081,26 @@ class Controlador
                 $_SESSION["totalPrecio"] += $precio;
             }
         }
+    }
+    public function iniciaJugar()
+    {
+
+        //Valida la sessión. Si erronea o logout envia a login.
+        $this->validateSession();
+
+        if (empty($_GET['juego'])) {
+            Vista::mostrar404();
+            die();
+        }
+
+        if ($_SESSION["role"] !== 'admin' && empty(model::isOwned($_SESSION['id'], $_GET['juego']))) {
+            Vista::mostrar404();
+            die();
+        }
+
+        //se incluye la vista de principal
+        Vista::mostrarJugar(model::getRuta($_GET['juego'])[0]['RUTA']);
+
     }
 
     public function iniciaJuegos()

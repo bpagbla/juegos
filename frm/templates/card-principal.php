@@ -23,7 +23,7 @@
                 <div class="<?php if (isset($game[4]))
                     echo " owned" ?>">
 
-                        <button class="btn btn-sm btn-primary" <?php if (isset($game[4]))
+                        <button type="submit" form="play-form" name="juego" value="<?php print $game[0] ?>" class="btn btn-sm btn-primary" <?php if (isset($game[4]))
                     echo "disabled" ?>>Jugar</button>
 
                     <?php if (isset($game[4]))
@@ -45,6 +45,9 @@
         </div>
     </div>
 </div>
+<form class="d-none" id="play-form">
+    <input value="jugar" name="page">
+</form>
 
 <div class="modal fade" id="modalPrestar<?php print $game[0] ?>" data-bs-backdrop="static" data-bs-keyboard="false"
     tabindex="-1" aria-labelledby="modalPrestarLabel" aria-hidden="true">

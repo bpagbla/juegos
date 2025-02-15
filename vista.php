@@ -68,4 +68,9 @@ class Vista
         include_once "frm/api.php";
     }
 
+    public static function mostrarJugar($ruta) {
+        include_once "frm/jugar.php";
+    }
+
+
 }

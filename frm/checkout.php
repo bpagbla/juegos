@@ -1,5 +1,8 @@
 <?php
-    $items = unserialize($_SESSION["carrito"])->getCarrito() ?? array()
+    $items = array();
+    if (isset($_SESSION["carrito"])) {
+        $items = unserialize($_SESSION["carrito"])->getCarrito();
+    }
 ?>
 <!doctype html>
 <html lang="en" data-bs-theme="dark">
@@ -46,6 +49,14 @@
                             include "frm/templates/checkout-product.php";
                         }
                     ?>
+                    <?php if (sizeof($items) < 1) { ?>
+                        <li class="list-group-item d-flex justify-content-between lh-sm">
+                            <div>
+                                <h6 class="my-0">No tienes Nada!</h6>
+                                <small class="text-body-secondary">Vuelve a la tienda y añade algo antes.</small>
+                            </div>
+                        </li>
+                    <?php } ?>
                     <li class="list-group-item d-flex justify-content-between">
                         <span>Total</span>
                         <strong>20€</strong>
@@ -53,54 +64,62 @@
                 </ul>
             </div>
             <div class="col-md-7 col-lg-8">
-                <h4 class="mb-3">Dirección de Facturación</h4>
+                <div class="row justify-content-between">
+                    <div class="col-auto">
+                        <h4 class="mb-3">Dirección de Facturación</h4>
+                    </div>
+                    <div class="col-auto">
+                        <button form="return-form" name="page" value="juegos" type="submit" class="btn btn-primary">Volver</button>
+                    </div>
+                </div>
                 <form method="post" class="needs-validation" novalidate>
                     <div class="row g-3">
                         <div class="col-sm-6">
-                            <label for="firstName" class="form-label">First name</label>
+                            <label for="firstName" class="form-label">Nombre</label>
                             <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
                             <div class="invalid-feedback">
-                                Valid first name is required.
+                                Hay que introducir el nombre.
                             </div>
                         </div>
 
                         <div class="col-sm-6">
-                            <label for="lastName" class="form-label">Last name</label>
+                            <label for="lastName" class="form-label">Apellidos</label>
                             <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
                             <div class="invalid-feedback">
-                                Valid last name is required.
+                                Hay que introducir un apellido.
                             </div>
                         </div>
 
                         <div class="col-12">
-                            <label for="address" class="form-label">Address</label>
+                            <label for="address" class="form-label">Dirección</label>
                             <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
                             <div class="invalid-feedback">
-                                Please enter your shipping address.
+                                Hay que especificar una dirección de facturación.
                             </div>
                         </div>
 
                         <div class="col-12">
-                            <label for="address2" class="form-label">Address 2 <span class="text-body-secondary">(Optional)</span></label>
+                            <label for="address2" class="form-label">Dirección 2 2 <span class="text-body-secondary">(Optional)</span></label>
                             <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
                         </div>
 
                         <div class="col-md-5">
-                            <label for="country" class="form-label">Country</label>
+                            <label for="country" class="form-label">Pais</label>
                             <select class="form-select" id="country" required>
-                                <option value="">Choose...</option>
-                                <option>United States</option>
+                                <option value="">Elige...</option>
+                                <option>España</option>
                             </select>
                             <div class="invalid-feedback">
-                                Please select a valid country.
+                                Elige un Pais.
                             </div>
                         </div>
 
                         <div class="col-md-4">
-                            <label for="state" class="form-label">State</label>
+                            <label for="state" class="form-label">Comunidad Autonoma</label>
                             <select class="form-select" id="state" required>
                                 <option value="">Choose...</option>
-                                <option>California</option>
+                                <option>Communidad de Madrid</option>
+                                <option>Catalunya</option>
                             </select>
                             <div class="invalid-feedback">
                                 Please provide a valid state.
@@ -108,10 +127,10 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label for="zip" class="form-label">Zip</label>
+                            <label for="zip" class="form-label">Codigo Postal</label>
                             <input type="text" class="form-control" id="zip" placeholder="" required>
                             <div class="invalid-feedback">
-                                Zip code required.
+                                Hay que introducir el codigo postal.
                             </div>
                         </div>
                     </div>
@@ -138,16 +157,17 @@
                             <?php } ?>
                             <div class="col-12 align-items-center justify-content-between d-flex py-2">
                                 <p class="m-0"><?php print 'Mastercard:'.$card["num"].' | '.date("m/y",$card["date"]); if ($card['date'] < time()) print ' | <span class="text-danger">Caducado</span>'; ?></p>
-                                <input type="radio" name="card" value="<?php print $card['num'].$card['date'] ?>" required>
+                                <input class="form-check-input" type="radio" name="card" value="<?php print $card['num'].$card['date'] ?>" required <?php if ($card['date'] < time()) print 'disabled' ?>>
                             </div>
                         <?php } ?>
                     </div>
 
                     <hr class="my-4">
 
-                    <button class="w-100 btn btn-primary btn-lg mb-4" type="submit">Pagar</button>
+                    <button class="w-100 btn btn-primary btn-lg mb-4" type="submit" <?php if (sizeof($items) < 1) print 'disabled'; ?>>Pagar</button>
                 </form>
                 <form type="get" id="adm-payment"></form>
+                <form type="get" id="return-form"></form>
             </div>
         </div>
     </main>

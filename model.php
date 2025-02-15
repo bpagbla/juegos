@@ -1100,4 +1100,23 @@ class model
         return $consulta;
     }
 
+    public static function getRuta($id) {
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+
+        $consulta = $ddbb->consulta("SELECT RUTA FROM juego WHERE ID = ?", array($id));
+        $ddbb->cerrar();
+        return $consulta;
+    }
+
+    public static function isOwned($user, $game) {
+        include_once "BD/baseDeDatos.php";
+        $ddbb = new BaseDeDatos;
+        $ddbb->conectar();
+        $consulta = $ddbb->consulta("SELECT ID_JUEGO FROM posee WHERE ID_USUARIO = ? AND ID_JUEGO = ?", array($user, $game));
+        $ddbb->cerrar();
+        return $consulta;
+    }
+
 }

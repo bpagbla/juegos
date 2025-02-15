@@ -1,3 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Tiny5&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sono:wght@200..800&family=Tiny5&display=swap');
+
+:root {
+    --color-dark: #010103;
+    --color-hot-pink: #D11F8D;
+    --color-bright-pink: #FB0CBB;
+    --color-vivid-orange: #F75639;
+    --color-pastel-yellow: #FAE55B;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border: 0.2rem solid #fff !important;
+    box-shadow: 0 0 .1rem #fff,
+    0 0 .1rem #fff,
+    0 0 1rem #bc13fe,
+    0 0 0.8rem #bc13fe,
+    0 0 2.8rem #bc13fe,
+    inset 0 0 1.3rem #bc13fe !important;
+}
+
+.bg-primary {
+    background-color: rgb(170, 65, 255) !important;
+}
+
+.btn {
+    background-color: rgb(170, 65, 255) !important;
+    border: 1px solid rgba(177, 41, 255) !important;
+}
+
+.btn:hover {
+    background-color: rgba(137, 0, 250, 0.822) !important;
+}
+
+.text-primary {
+    color: rgb(170, 65, 255) !important;
+}
+
+* {
+    font-family: "Sono", monospace;
+}
+
 .bd-placeholder-img {
     font-size: 1.125rem;
     text-anchor: middle;

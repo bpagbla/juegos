@@ -110,6 +110,9 @@
                 fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="40" />
             <circle cx="248" cy="399.99" r="32" />
         </symbol>
+        <symbol id="checkout" viewBox="0 -960 960 960">
+            <path d="M240-80q-33 0-56.5-23.5T160-160v-480q0-33 23.5-56.5T240-720h80q0-66 47-113t113-47q66 0 113 47t47 113h80q33 0 56.5 23.5T800-640v480q0 33-23.5 56.5T720-80H240Zm0-80h480v-480h-80v80q0 17-11.5 28.5T600-520q-17 0-28.5-11.5T560-560v-80H400v80q0 17-11.5 28.5T360-520q-17 0-28.5-11.5T320-560v-80h-80v480Zm160-560h160q0-33-23.5-56.5T480-800q-33 0-56.5 23.5T400-720ZM240-160v-480 480Z"/>
+        </symbol>
     </svg>
 
 
@@ -158,13 +161,11 @@
                             </li>
                             <li class="nav-item">
                                 <form method="get">
-                                    <button class="nav-link text-white ps-2 <?php if ($page === "soporte")
-                                    echo 'active' ?>" type="submit" name="page" value="soporte" <?php if ($page === "soporte")
-                                    echo 'aria-current="page"' ?>>
+                                    <button class="nav-link text-white ps-2" type="submit" name="page" value="checkout">
                                         <svg class="bi me-2" width="16" height="16">
-                                            <use xlink:href="#question" />
+                                            <use xlink:href="#checkout" />
                                         </svg>
-                                        Soporte
+                                        Checkout
                                     </button>
                                 </form>
                             </li>
@@ -260,13 +261,11 @@
                             </li>
                             <li class="nav-item">
                                 <form method="get">
-                                    <button class="nav-link text-white <?php if ($page === "soporte")
-                                    echo 'active' ?>" type="submit" name="page" value="soporte" <?php if ($page === "soporte")
-                                    echo 'aria-current="page"' ?>>
+                                    <button class="nav-link text-white" type="submit" name="page" value="checkout">
                                         <svg class="bi me-2" width="16" height="16">
-                                            <use xlink:href="#question" />
+                                            <use xlink:href="#checkout" />
                                         </svg>
-                                        Soporte
+                                        Checkout
                                     </button>
                                 </form>
                             </li>
