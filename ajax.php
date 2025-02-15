@@ -1,18 +1,21 @@
 <?php
 session_start();
 include_once "model.php";
-/* include_once "index.php"; */
+include_once "clases/carrito.php";
+
+
+recalcPrecios();
+
 $promociones = model::sacarPromociones();
 
 $hoy = new DateTimeImmutable();
 
 $idsPromociones = array_keys($promociones);
-
 // ELIMINAR PROMOCIONES QUE YA NO EXISTEN EN LA BASE DE DATOS
 foreach ($_SESSION["promoAct"] as $key => $valores) {
     if (!in_array($key, $idsPromociones)) {
         unset($_SESSION["promoAct"][$key]);
-        echo true;
+        recalcPrecios();
 
     }
 }
@@ -32,14 +35,37 @@ foreach ($promociones as $key => $valores) {
             $body = "Disfruta de un " . $valores[2] . "% de descuento en todos los juegos por " . $valores[1] . " hasta el día " . date('Y-m-d', strtotime($valores[0] . ' + ' . $valores[3] . ' days'));
 
             $_SESSION["notifications"][] = array($title, $body, 5000);
-            echo true;
+            recalcPrecios();
 
         }
     } else {
         //si está activada se comprueba que siga activa
         if ($diasDif > $valores[3]) {
             unset($_SESSION["promoAct"][$key]);
+            recalcPrecios();
         }/*  */
         echo false;
     }
+}
+
+
+function recalcPrecios(){
+    $_SESSION["totalPrecio"]=0;
+    $carrito = new Carrito();
+    $carrito = unserialize($_SESSION['carrito']);
+
+    $juegos = $carrito->getCarrito() ;
+
+
+    foreach ($juegos as $key => $value) {
+        $precio = $value[1] / 100;
+
+        if (!empty($_SESSION["promoAct"])) {
+            foreach ($_SESSION["promoAct"] as $promo => $valores) {
+                $precio = $precio * (1 - $valores[2] / 100);
+            }
+        }
+        $_SESSION["totalPrecio"] += $precio;
+    }
+    echo true;
 }

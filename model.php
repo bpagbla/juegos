@@ -675,11 +675,11 @@ class model
         $ddbb = new BaseDeDatos;
         $ddbb->conectar(); //se conecta a la base de datos
 
-        $consulta = $ddbb->consulta("SELECT carrito.ID_JUEGO, juego.TITULO FROM carrito JOIN juego ON carrito.ID_JUEGO = juego.ID WHERE carrito.ID_USUARIO = ?", [$idUser]); //Se saca el id y titulo de los juegos en el carrito
+        $consulta = $ddbb->consulta("SELECT carrito.ID_JUEGO, juego.TITULO, juego.PRECIO FROM carrito JOIN juego ON carrito.ID_JUEGO = juego.ID WHERE carrito.ID_USUARIO = ?", [$idUser]); //Se saca el id y titulo de los juegos en el carrito
 
         $juegos = [];
         foreach ($consulta as $each) {
-            $juegos[$each['ID_JUEGO']] = $each['TITULO'];
+            $juegos[$each['ID_JUEGO']] = [$each['TITULO'], $each["PRECIO"]];
         }
 
         $ddbb->cerrar();

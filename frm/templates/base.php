@@ -341,7 +341,7 @@
                     // Acción cuando el documento esté listo:
                     console.log("perfe")
                     console.log(this.responseText);
-                    if(this.responseText!=false){
+                    if (this.responseText != false) {
                         location.reload();
                     }
 

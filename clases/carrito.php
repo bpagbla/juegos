@@ -20,9 +20,9 @@ class Carrito
     }
 
     // Add a game to the carrito
-    public function meterJuegoCarrito($idJuego, $nombreJuego)
+    public function meterJuegoCarrito($idJuego, $nombreJuego, $precio)
     {
-        $this->juegos[$idJuego] = $nombreJuego; // Add the game to the carrito
+        $this->juegos[$idJuego] = [$nombreJuego, $precio]; // Add the game to the carrito
         $_SESSION['carrito'] = $this->juegos;  // Save the updated carrito to session
     }
 

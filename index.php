@@ -179,7 +179,7 @@ class Controlador
                 if (isset($_GET["juego"])) {
                     Vista::showAPIGames(json_encode(model::getPrice($_GET["juego"])[0]));
                 } else {
-                    Vista::showAPIGames(json_encode(['error'=>'No Game Input']));
+                    Vista::showAPIGames(json_encode(['error' => 'No Game Input']));
                 }
                 break;
             default:
@@ -1046,6 +1046,26 @@ class Controlador
 
     }
 
+    public function recalcPrecios()
+    {
+        $_SESSION["totalPrecio"] = 0;
+
+        foreach ($_SESSION['carrito'] as $key => $value) {
+            $precio = $value[1] / 100;
+
+            if (!empty($_SESSION["promoAct"])) {
+                foreach ($_SESSION["promoAct"] as $promo => $valores) {
+                    $precio = $precio * (1 - $valores[2] / 100);
+                }
+            }
+            if (!isset($_SESSION["totalPrecio"])) {
+                $_SESSION["totalPrecio"] = $precio;
+            } else {
+                $_SESSION["totalPrecio"] += $precio;
+            }
+        }
+    }
+
     public function iniciaJuegos()
     {
 
@@ -1057,6 +1077,24 @@ class Controlador
         if (empty($_SESSION['carrito'])) {
             $this->sendNotification("Reanudando Carrito", "Sacado carrito de su session anterior en otro dispositivo");
             $carrito->setCarrito(model::getCarrito($_SESSION["id"]));
+
+            foreach ($_SESSION['carrito'] as $key => $value) {
+                $precio = $value[1] / 100;
+
+                if (!empty($_SESSION["promoAct"])) {
+                    foreach ($_SESSION["promoAct"] as $key => $value) {
+                        $precio = $precio * (1 - $value[2] / 100);
+                    }
+                }
+
+                if (!isset($_SESSION["totalPrecio"])) {
+                    $_SESSION["totalPrecio"] = $precio;
+                } else {
+                    $_SESSION["totalPrecio"] += $precio;
+                }
+
+            }
+
             $_SESSION['carrito'] = serialize($carrito);
         } else {
             $carrito = unserialize($_SESSION['carrito']);
@@ -1087,7 +1125,14 @@ class Controlador
 
                 //Actualizo objeto
                 $carrito->sacarJuegoCarrito($game[0]);
+                $precio = $game[3] / 100;
+                if (!empty($_SESSION["promoAct"])) {
+                    foreach ($_SESSION["promoAct"] as $key => $value) {
+                        $precio = $precio * (1 - $value[2] / 100);
+                    }
+                }
 
+                $_SESSION["totalPrecio"] -= $precio;
                 //Actualizo bbdd
                 model::borrarJuegoCarrito($game[0]);
 
@@ -1104,7 +1149,9 @@ class Controlador
             if (isset($_POST["juegoCompra$game[0]"])) {
 
                 //Actualizo objeto
-                $carrito->meterJuegoCarrito($game[0], $game[1]);
+                $carrito->meterJuegoCarrito($game[0], $game[1], $game[3]);
+
+                $this->recalcPrecios();
 
                 //Guardo en session
                 $_SESSION['carrito'] = serialize($carrito);
@@ -1166,7 +1213,7 @@ class Controlador
         if (isset($_POST["user"]) && isset($_POST["passwd"])) {
             //se llama a la funcion existe usuario del model/login.php
             if ($this->verificaUsuario(Model::getID($_POST["user"]))) {
-                
+
                 //si se verifica el usuario se llama a la funcion iniciaSesion
                 header("location: ?page=principal");
                 die();
