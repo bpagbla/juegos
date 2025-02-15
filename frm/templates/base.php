@@ -338,15 +338,11 @@
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     // Acción cuando el documento esté listo:
-                    console.log("perfe")
-                    console.log(this.responseText);
                     if (this.responseText != false) {
                         location.reload();
                     }
 
 
-                } else {
-                    console.log("????");
                 }
             };
 

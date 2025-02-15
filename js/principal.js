@@ -58,7 +58,6 @@ let timeoutGen = ''
 const gen = document.getElementById('gen')
 const sugerenciasGen = document.getElementById('sugerencias-gen')
 const listGen = document.getElementById('sugerencias-list-gen')
-let pendingGen = true;
 let filterModalElement = document.getElementById('filter-modal')
 
 function createButton(name, value, display) {
@@ -79,16 +78,13 @@ function closeGen(e) {
 
 gen.addEventListener('focus', function (e) {
     sugerenciasGen.classList.remove('d-none')
-    if (pendingGen) {
-        loadNamesGen(e)
-        pendingGen = false;
-    }
+    loadNamesGen(e)
     filterModalElement.addEventListener('click', closeGen)
 })
 gen.addEventListener('input', startQueueGen)
 
 async function loadNamesGen(e) {
-    const response = await fetch('http://localhost/?page=api&endpoint=genres&name=' + e.target.value)
+    const response = await fetch('http://localhost/?page=api&endpoint=filter&filter=generos&name=' + e.target.value + getFilters())
     const json = await response.json()
     if (json.hasOwnProperty('genres')) {
         let length = json.genres.length
@@ -106,6 +102,7 @@ async function loadNamesGen(e) {
                         document.getElementById('gen-active').appendChild(button)
                         button.addEventListener('click', function (e) {
                             e.target.closest("div").remove()
+                            gameList.pop(json.genres[i].genre_id)
                         })
                         document.getElementById('add-errors').innerHTML = '';
                     } else {
@@ -138,14 +135,9 @@ let timeoutDev = ''
 const dev = document.getElementById('dev')
 const sugerenciasDev = document.getElementById('sugerencias-dev')
 const listDev = document.getElementById('sugerencias-list-dev')
-let pendingDev = true;
-
 dev.addEventListener('focus', function (e) {
     sugerenciasDev.classList.remove('d-none')
-    if (pendingDev) {
-        loadNamesDev(e)
-        pendingDev = false;
-    }
+    loadNamesDev(e)
     function closeDev(e) {
         if (e.target !== dev) {
             sugerenciasDev.classList.add('d-none')
@@ -179,7 +171,11 @@ async function loadNamesDev(e) {
                     placement.innerHTML = '';
                     const button = createButton('dev', json.companies[i].company_id, json.companies[i].name)
                     placement.appendChild(button)
-                    button.addEventListener('click', function (e) { e.target.closest("div").remove() })
+                    devList = [json.companies[i].company_id]
+                    button.addEventListener('click', function (e) {
+                        e.target.closest("div").remove()
+                        devList.pop(json.companies[i].company_id);
+                    })
                 })
             }
         } else {
@@ -196,14 +192,10 @@ let timeoutDis = ''
 const dis = document.getElementById('dis')
 const sugerenciasDis = document.getElementById('sugerencias-dis')
 const listDis = document.getElementById('sugerencias-list-dis')
-let pendingDis = true;
 
 dis.addEventListener('focus', function (e) {
     sugerenciasDis.classList.remove('d-none')
-    if (pendingDis) {
-        loadNamesDis(e)
-        pendingDis = false;
-    }
+    loadNamesDis(e)
     function closeDis(e) {
         if (e.target !== dis) {
             sugerenciasDis.classList.add('d-none')
@@ -237,7 +229,11 @@ async function loadNamesDis(e) {
                     placement.innerHTML = '';
                     const button = createButton('dis', json.companies[i].company_id, json.companies[i].name)
                     placement.appendChild(button)
-                    button.addEventListener('click', function (e) { e.target.closest("div").remove() })
+                    disList = [json.companies[i].company_id]
+                    button.addEventListener('click', function (e) {
+                        e.target.closest("div").remove()
+                        disList.pop(json.companies[i].company_id);
+                    })
                 })
             }
         } else {
@@ -254,14 +250,11 @@ let timeoutSist = ''
 const sist = document.getElementById('sist')
 const sugerenciasSist = document.getElementById('sugerencias-sist')
 const listSist = document.getElementById('sugerencias-list-sist')
-let pendingSist = true;
 
 sist.addEventListener('focus', function (e) {
     sugerenciasSist.classList.remove('d-none')
-    if (pendingSist) {
-        loadNamesSist(e)
-        pendingSist = false;
-    }
+    loadNamesSist(e)
+
     function closeSist(e) {
         if (e.target !== sist) {
             sugerenciasSist.classList.add('d-none')
@@ -297,6 +290,7 @@ async function loadNamesSist(e) {
                         document.getElementById('sist-active').appendChild(button)
                         button.addEventListener('click', function (e) {
                             e.target.closest("div").remove()
+                            sistList.pop(json.platforms[i].platform_id)
                         })
                         document.getElementById('add-errors').innerHTML = '';
                     } else {
@@ -316,18 +310,19 @@ async function loadNamesSist(e) {
 
 const desc = document.getElementById('desc')
 const descButton = document.getElementById('desc-button')
-
-descButton.addEventListener('click', function () {
-    if (desc.classList.contains('closed-description')) {
-        desc.classList.remove('closed-description')
-        desc.classList.add('pb-2')
-        descButton.textContent = '...menos'
-    } else {
-        desc.classList.add('closed-description')
-        desc.classList.remove('pb-2')
-        descButton.textContent = '...mas'
-    }
-})
+if (descButton !== null) {
+    descButton.addEventListener('click', function () {
+        if (desc.classList.contains('closed-description')) {
+            desc.classList.remove('closed-description')
+            desc.classList.add('pb-2')
+            descButton.textContent = '...menos'
+        } else {
+            desc.classList.add('closed-description')
+            desc.classList.remove('pb-2')
+            descButton.textContent = '...mas'
+        }
+    })
+}
 
 const close = document.querySelectorAll('.modal-close');
 close.forEach((e) => {
@@ -335,3 +330,21 @@ close.forEach((e) => {
         window.history.back();
     })
 })
+
+function getFilters() {
+    let options = '';
+    devList.forEach(dev => {
+        options += '&dev='+dev
+    })
+    disList.forEach(dis => {
+        options += '&dis='+dis
+    })
+    sistList.forEach(sist => {
+        options += '&sist[]='+sist
+    })
+    gameList.forEach(sist => {
+        options += '&gen[]='+sist
+    })
+
+    return options;
+}
