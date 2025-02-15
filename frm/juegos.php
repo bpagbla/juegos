@@ -115,6 +115,9 @@
                         </div>
                     </div>
                     <div id="dis-active" class="row m-1">
+                        <script>
+                            let disList = [];
+                        </script>
                         <?php if (!empty($_GET['dis'])) { ?>
                             <div class="col-auto my-1 removable-buttons">
                                 <button type="button" class="btn btn-sm btn-primary col-auto">
@@ -148,6 +151,9 @@
                         </div>
                     </div>
                     <div id="dev-active" class="row m-1">
+                        <script>
+                            let devList = [];
+                        </script>
                         <?php if (!empty($_GET['dev'])) { ?>
                             <div class="col-auto my-1 removable-buttons">
                                 <button type="button" class="btn btn-sm btn-primary col-auto">

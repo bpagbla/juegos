@@ -49,7 +49,6 @@ let timeoutGen = ''
 const gen = document.getElementById('gen')
 const sugerenciasGen = document.getElementById('sugerencias-gen')
 const listGen = document.getElementById('sugerencias-list-gen')
-let pendingGen = true;
 let filterModalElement = document.getElementById('filter-modal')
 
 function createButton(name, value, display) {
@@ -70,16 +69,13 @@ function closeGen(e) {
 
 gen.addEventListener('focus', function (e) {
     sugerenciasGen.classList.remove('d-none')
-    if (pendingGen) {
-        loadNamesGen(e)
-        pendingGen = false;
-    }
+    loadNamesGen(e)
     filterModalElement.addEventListener('click', closeGen)
 })
 gen.addEventListener('input', startQueueGen)
 
 async function loadNamesGen(e) {
-    const response = await fetch('http://localhost/?page=api&endpoint=genres&name=' + e.target.value)
+    const response = await fetch('http://localhost/?page=api&endpoint=filter&filter=generos&name=' + e.target.value + getFilters())
     const json = await response.json()
     if (json.hasOwnProperty('genres')) {
         let length = json.genres.length
@@ -97,6 +93,7 @@ async function loadNamesGen(e) {
                         document.getElementById('gen-active').appendChild(button)
                         button.addEventListener('click', function (e) {
                             e.target.closest("div").remove()
+                            gameList.pop(json.genres[i].genre_id)
                         })
                         document.getElementById('add-errors').innerHTML = '';
                     } else {
@@ -154,7 +151,7 @@ function startQueueDev(e) {
 }
 
 async function loadNamesDev(e) {
-    const response = await fetch('http://localhost/?page=api&endpoint=companies&name=' + e.target.value)
+    const response = await fetch('http://localhost/?page=api&endpoint=filter&filter=dev&name=' + e.target.value + getFilters())
     const json = await response.json()
     if (json.hasOwnProperty('companies')) {
         let length = json.companies.length
@@ -170,7 +167,11 @@ async function loadNamesDev(e) {
                     placement.innerHTML = '';
                     const button = createButton('dev', json.companies[i].company_id, json.companies[i].name)
                     placement.appendChild(button)
-                    button.addEventListener('click', function (e) { e.target.closest("div").remove() })
+                    devList = [json.companies[i].company_id]
+                    button.addEventListener('click', function (e) {
+                        e.target.closest("div").remove()
+                        devList.pop(json.companies[i].company_id);
+                    })
                 })
             }
         } else {
@@ -187,14 +188,10 @@ let timeoutDis = ''
 const dis = document.getElementById('dis')
 const sugerenciasDis = document.getElementById('sugerencias-dis')
 const listDis = document.getElementById('sugerencias-list-dis')
-let pendingDis = true
 
 dis.addEventListener('focus', function (e) {
     sugerenciasDis.classList.remove('d-none')
-    if (pendingDis) {
-        loadNamesDis(e)
-        pendingDis = false;
-    }
+    loadNamesDis(e)
     function closeDis(e) {
         if (e.target !== dis) {
             sugerenciasDis.classList.add('d-none')
@@ -212,7 +209,7 @@ function startQueueDis(e) {
 }
 
 async function loadNamesDis(e) {
-    const response = await fetch('http://localhost/?page=api&endpoint=companies&name=' + e.target.value)
+    const response = await fetch('http://localhost/?page=api&endpoint=filter&filter=dis&name=' + e.target.value + getFilters())
     const json = await response.json()
     if (json.hasOwnProperty('companies')) {
         let length = json.companies.length
@@ -228,7 +225,11 @@ async function loadNamesDis(e) {
                     placement.innerHTML = '';
                     const button = createButton('dis', json.companies[i].company_id, json.companies[i].name)
                     placement.appendChild(button)
-                    button.addEventListener('click', function (e) { e.target.closest("div").remove() })
+                    disList = [json.companies[i].company_id]
+                    button.addEventListener('click', function (e) {
+                        e.target.closest("div").remove()
+                        disList.pop(json.companies[i].company_id);
+                    })
                 })
             }
         } else {
@@ -245,14 +246,10 @@ let timeoutSist = ''
 const sist = document.getElementById('sist')
 const sugerenciasSist = document.getElementById('sugerencias-sist')
 const listSist = document.getElementById('sugerencias-list-sist')
-let pendingSist = true;
 
 sist.addEventListener('focus', function (e) {
     sugerenciasSist.classList.remove('d-none')
-    if (pendingSist) {
-        loadNamesSist(e)
-        pendingSist = false;
-    }
+    loadNamesSist(e)
     function closeSist(e) {
         if (e.target !== sist) {
             sugerenciasSist.classList.add('d-none')
@@ -270,7 +267,7 @@ function startQueueSist(e) {
 }
 
 async function loadNamesSist(e) {
-    const response = await fetch('http://localhost/?page=api&endpoint=platforms&name=' + e.target.value)
+    const response = await fetch('http://localhost/?page=api&endpoint=filter&filter=platforms&name=' + e.target.value + getFilters())
     const json = await response.json()
     if (json.hasOwnProperty('platforms')) {
         let length = json.platforms.length
@@ -283,10 +280,12 @@ async function loadNamesSist(e) {
                 listSist.appendChild(el)
                 el.addEventListener('click', function () {
                     if (!sistList.includes(json.platforms[i].platform_id)) {
+                        sistList.push(json.platforms[i].platform_id)
                         const button = createButton('sist[]', json.platforms[i].platform_id, json.platforms[i].name)
                         document.getElementById('sist-active').appendChild(button)
                         button.addEventListener('click', function (e) {
                             e.target.closest("div").remove()
+                            sistList.pop(json.platforms[i].platform_id)
                         })
                         document.getElementById('add-errors').innerHTML = '';
                     } else {
@@ -327,3 +326,26 @@ close.forEach((e) => {
         window.history.back();
     })
 })
+
+const minYear = document.getElementById('slider-1')
+const maxYear = document.getElementById('slider-2')
+
+function getFilters() {
+    let options = '';
+    devList.forEach(dev => {
+        options += '&dev='+dev
+    })
+    disList.forEach(dis => {
+        options += '&dis='+dis
+    })
+    sistList.forEach(sist => {
+        options += '&sist[]='+sist
+    })
+    gameList.forEach(sist => {
+        options += '&gen[]='+sist
+    })
+    options+= '&minYear='+minYear.value
+    options+= '&maxYear='+maxYear.value
+
+    return options;
+}
