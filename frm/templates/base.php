@@ -140,6 +140,7 @@
                                     echo 'active' ?>" type="submit" name="page" value="principal" <?php if ($page === "principal")
                                     echo 'aria-current="page"' ?>>
                                         <svg class="bi me-2" width="16" height="16">
+                                            <title>Icono de Casa</title>
                                             <use xlink:href="#home" />
                                         </svg>
                                         Biblioteca
@@ -152,6 +153,7 @@
                                     echo 'active' ?>" type="submit" name="page" value="juegos" <?php if ($page === "juegos")
                                     echo 'aria-current="page"' ?>>
                                         <svg class="bi me-2" width="16" height="16">
+                                            <title>Icono de cuatro cuadrados dispuestos en grid cuadrado</title>
                                             <use xlink:href="#grid" />
                                         </svg>
 
@@ -163,6 +165,7 @@
                                 <form method="get">
                                     <button class="nav-link text-white ps-2" type="submit" name="page" value="checkout">
                                         <svg class="bi me-2" width="16" height="16">
+                                            <title>Icono de Bolsa de la compra</title>
                                             <use xlink:href="#checkout" />
                                         </svg>
                                         Checkout
@@ -182,6 +185,7 @@
                         <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                             id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                             <svg class="bi me-2" width="32" height="32">
+                                <title>Silueta de una persona</title>
                                 <use xlink:href="#people-circle" />
                             </svg>
                             <!--Add the nick of the user to the menu-->
@@ -221,6 +225,7 @@
                             class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none border-0 bg-transparent">
                             <svg width="40" height="32" viewBox="0 0 79 80" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
+                                <title>Logo de la Compañía</title>
                                 <path
                                     d="M16.7071 24.2629V16.2629H40.7071V24.2629H16.7071ZM16.7071 56.2629V48.2629H8.7071V24.2629H16.7071V48.2629H32.7071V40.2629H24.7071V32.2629H40.7071V56.2629H16.7071Z"
                                     fill="whitesmoke" />
@@ -241,6 +246,7 @@
                                     echo 'active' ?>" type="submit" name="page" value="principal" <?php if ($page === "principal")
                                     echo 'aria-current="page"' ?>>
                                         <svg class="bi me-2" width="16" height="16">
+                                            <title>Icono de una casa</title>
                                             <use xlink:href="#home" />
                                         </svg>
                                         Biblioteca
@@ -253,6 +259,7 @@
                                     echo 'active' ?>" type="submit" name="page" value="juegos" <?php if ($page === "juegos")
                                     echo 'aria-current="page"' ?>>
                                         <svg class="bi me-2" width="16" height="16">
+                                            <title>4 cuadrados distribuidos en un cuadrado mas grande</title>
                                             <use xlink:href="#grid" />
                                         </svg>
                                         Tienda
@@ -263,6 +270,7 @@
                                 <form method="get">
                                     <button class="nav-link text-white" type="submit" name="page" value="checkout">
                                         <svg class="bi me-2" width="16" height="16">
+                                            <title>Bolsa de Compra</title>
                                             <use xlink:href="#checkout" />
                                         </svg>
                                         Checkout
@@ -281,6 +289,7 @@
                         <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                             id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                             <svg class="bi me-2" width="32" height="32">
+                                <title>Silueta de persona</title>
                                 <use xlink:href="#people-circle" />
                             </svg>
                             <strong><?php echo $_SESSION["nick"] ?></strong>
