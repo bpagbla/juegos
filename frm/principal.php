@@ -180,11 +180,11 @@
                             <div class="position-relative">
                                 <div id="sugerencias-sist"
                                     class="position-absolute bg-primary w-100 rounded z-overmodal mt-1 branded-shadow d-none">
-                                    <ul id="sugerencias-list-sist" class="list-group sugerencias placeholder-glow">
-                                        <li class="list-group-item"><span class="placeholder w-75"></span></li>
-                                        <li class="list-group-item"><span class="placeholder w-75"></span></li>
-                                        <li class="list-group-item"><span class="placeholder w-75"></span></li>
-                                    </ul>
+                                    <span id="sugerencias-list-sist" class="list-group sugerencias placeholder-glow">
+                                        <button class="list-group-item"><span class="placeholder w-75"></span></button>
+                                        <button class="list-group-item"><span class="placeholder w-75"></span></button>
+                                        <button class="list-group-item"><span class="placeholder w-75"></span></button>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -206,7 +206,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                <button id="cancel-button" type="button" class="btn btn-secondary" data-bs-dismiss="modal"
                     aria-label="Close">Cancelar</button>
                 <button type="submit" class="btn btn-primary" form="add-form">Aplicar</button>
             </div>
