@@ -105,7 +105,7 @@
                         </div>
 
                         <div class="col-12">
-                            <label for="address2" class="form-label">Dirección 2 2 <span class="text-body-secondary">(Optional)</span></label>
+                            <label for="address2" class="form-label">Dirección 2<span class="text-body-secondary">(Opcional)</span></label>
                             <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
                         </div>
 
