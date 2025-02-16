@@ -16,6 +16,7 @@
 </div>
 <button class="position-fixed bottom-0 end-0 me-4 mb-4 btn btn-primary fw-bold" id="filter-button">
     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+        <title>Icono de Filtro</title>
         <path
             d="M440-160q-17 0-28.5-11.5T400-200v-240L168-736q-15-20-4.5-42t36.5-22h560q26 0 36.5 22t-4.5 42L560-440v240q0 17-11.5 28.5T520-160h-80Zm40-308 198-252H282l198 252Zm0 0Z" />
     </svg>
@@ -124,6 +125,7 @@
                                     <?php print $_GET['dis' . $_GET['dis']] ?>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                         class="bi bi-x bg-transparent" viewBox="0 0 16 16">
+                                        <title>Icono de cerrar</title>
                                         <use href="#remove"></use>
                                     </svg>
                                 </button>
@@ -160,6 +162,7 @@
                                     <?php print $_GET['dev' . $_GET['dev']] ?>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                         class="bi bi-x bg-transparent" viewBox="0 0 16 16">
+                                        <title>Icono de Cerrarr</title>
                                         <use href="#remove"></use>
                                     </svg>
                                 </button>
