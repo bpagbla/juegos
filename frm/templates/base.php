@@ -216,7 +216,7 @@
     </header>
 
 
-    <div class="container-fluid">
+    <article class="container-fluid">
         <div class="row">
             <div class='col-auto ps-0 d-none d-md-block'>
                 <div class="d-flex flex-column flex-shrink-0 p-3 text-white sidebar sticky-top">
@@ -332,7 +332,7 @@
                 <?php include "frm/" . $page . ".php" ?>
             </div>
         </div>
-    </div>
+    </article>
 
 
 
