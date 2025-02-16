@@ -1,7 +1,7 @@
 <div class="col-auto py-3">
     <div class="card bg-body-tertiary" style="width: 18rem;">
         <!--Include the image of the game-->
-        <img src="../<?php print $game[2] ?>" class="card-img-top" alt="...">
+        <img src="../<?php print $game[2] ?>" class="card-img-top" alt="Portada de <?php print $game[1] ?>">
         <div class="card-body"> <!--Include the title of the game in the card-->
             <h5 class="card-title text-white"><?php print $game[1] ?></h5>
 

@@ -5,6 +5,7 @@
 <li class="dropdown nav-item">
     <button class="nav-link dropdown-toggle text-white admin-button <?php echo ($isadmin) ? 'show' : '' ?>" role="button" data-bs-toggle="dropdown" aria-expanded="<?php echo ($isadmin) ? "true" : "false" ?>">
         <svg class="bi me-2" width="16" height="16">
+            <title>Icono de Herramientas</title>
             <use xlink:href="#tools" />
         </svg>
         Administrar
