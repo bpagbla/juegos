@@ -6,7 +6,7 @@
             <span class="visually-hidden">unread messages</span>
         </span>
         <!--Include the image of the game-->
-        <img src="../<?php print $prestado[2] ?>" class="card-img-top" alt="...">
+        <img src="../<?php print $prestado[2] ?>" class="card-img-top" alt="Portada de <?php print $prestado[1] ?>" >
         <div class="card-body"> <!--Include the title of the game in the card-->
             <h5 class="card-title text-white"><?php print $prestado[1] ?></h5>
             <div class="d-flex justify-content-between">
