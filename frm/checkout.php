@@ -180,8 +180,8 @@
 
                     <button class="w-100 btn btn-primary btn-lg mb-4" type="submit" name="formPago" <?php if (sizeof($items) < 1) print 'disabled'; ?>>Pagar</button>
                 </form>
-                <form type="get" id="adm-payment"></form>
-                <form type="get" id="return-form"></form>
+                <form type="get" id="adm-payment" onsubmit="save()"></form>
+                <form type="get" id="return-form" onsubmit="save()"></form>
             </div>
         </div>
     </main>
