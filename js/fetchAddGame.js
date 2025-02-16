@@ -24,17 +24,22 @@ const sugerenciasTitulo = document.getElementById('sugerencias-titulo')
 const listTitulo = document.getElementById('sugerencias-list-titulo')
 let pendingTitulo = true;
 
+function closeTitle(e) {
+    if (e.target !== titulo) {
+        sugerenciasTitulo.classList.add('d-none')
+        modal.removeEventListener('click', closeTitle)
+    }
+}
+
 titulo.addEventListener('focus', function (e) {
+    closeDev(e);
+    closeGen(e);
+    closeDis(e);
+    closeSist(e);
     sugerenciasTitulo.classList.remove('d-none')
     if (pendingTitulo) {
         loadNamesTitulo(e)
         pendingTitulo = false;
-    }
-    function closeTitle(e) {
-        if (e.target !== titulo) {
-            sugerenciasTitulo.classList.add('d-none')
-            modal.removeEventListener('click', closeTitle)
-        }
     }
     modal.addEventListener('click', closeTitle)
 })
@@ -53,7 +58,8 @@ async function loadNamesTitulo(e) {
         if (length > 0) {
             listTitulo.innerHTML = ''
             for (let i = 0; i < length; i++) {
-                const el = document.createElement('li')
+                const el = document.createElement('button')
+                el.setAttribute("type", "button");
                 el.classList.add('list-group-item')
                 el.innerText = json.games[i].title
                 el.value = json.games[i].game_id
@@ -169,17 +175,22 @@ const sugerenciasDis = document.getElementById('sugerencias-dis')
 const listDis = document.getElementById('sugerencias-list-dis')
 let pendingDis = true;
 
+function closeDis(e) {
+    if (e.target !== dis) {
+        sugerenciasDis.classList.add('d-none')
+        modal.removeEventListener('click', closeDis)
+    }
+}
+
 dis.addEventListener('focus', function (e) {
+    closeDev(e);
+    closeGen(e);
+    closeTitle(e);
+    closeSist(e);
     sugerenciasDis.classList.remove('d-none')
     if (pendingDis) {
         loadNamesDis(e)
         pendingDis = false;
-    }
-    function closeDis(e) {
-        if (e.target !== dis) {
-            sugerenciasDis.classList.add('d-none')
-            modal.removeEventListener('click', closeDis)
-        }
     }
     modal.addEventListener('click', closeDis)
 })
@@ -199,7 +210,8 @@ async function loadNamesDis(e) {
         if (length > 0) {
             listDis.innerHTML = ''
             for (let i = 0; i < length; i++) {
-                const el = document.createElement('li')
+                const el = document.createElement('button')
+                el.setAttribute("type", "button");
                 el.classList.add('list-group-item')
                 el.innerText = json.companies[i].name
                 listDis.appendChild(el)
@@ -228,17 +240,22 @@ const sugerenciasDev = document.getElementById('sugerencias-dev')
 const listDev = document.getElementById('sugerencias-list-dev')
 let pendingDev = true;
 
+function closeDev(e) {
+    if (e.target !== dev) {
+        sugerenciasDev.classList.add('d-none')
+        modal.removeEventListener('click', closeDev)
+    }
+}
+
 dev.addEventListener('focus', function (e) {
+    closeDis(e);
+    closeGen(e);
+    closeTitle(e);
+    closeSist(e);
     sugerenciasDev.classList.remove('d-none')
     if (pendingDev) {
         loadNamesDev(e)
         pendingDev = false;
-    }
-    function closeDev(e) {
-        if (e.target !== dev) {
-            sugerenciasDev.classList.add('d-none')
-            modal.removeEventListener('click', closeDev)
-        }
     }
     modal.addEventListener('click', closeDev)
 })
@@ -258,7 +275,8 @@ async function loadNamesDev(e) {
         if (length > 0) {
             listDev.innerHTML = ''
             for (let i = 0; i < length; i++) {
-                const el = document.createElement('li')
+                const el = document.createElement('button')
+                el.setAttribute("type", "button");
                 el.classList.add('list-group-item')
                 el.innerText = json.companies[i].name
                 listDev.appendChild(el)
@@ -287,17 +305,22 @@ const sugerenciasSist = document.getElementById('sugerencias-sist')
 const listSist = document.getElementById('sugerencias-list-sist')
 let pendingSist = true;
 
+function closeSist(e) {
+    if (e.target !== sist) {
+        sugerenciasSist.classList.add('d-none')
+        modal.removeEventListener('click', closeSist)
+    }
+}
+
 sist.addEventListener('focus', function (e) {
+    closeDis(e);
+    closeGen(e);
+    closeTitle(e);
+    closeDev(e);
     sugerenciasSist.classList.remove('d-none')
     if (pendingSist) {
         loadNamesSist(e)
         pendingSist = false;
-    }
-    function closeSist(e) {
-        if (e.target !== sist) {
-            sugerenciasSist.classList.add('d-none')
-            modal.removeEventListener('click', closeSist)
-        }
     }
     modal.addEventListener('click', closeSist)
 })
@@ -317,7 +340,8 @@ async function loadNamesSist(e) {
         if (length > 0) {
             listSist.innerHTML = ''
             for (let i = 0; i < length; i++) {
-                const el = document.createElement('li')
+                const el = document.createElement('button')
+                el.setAttribute("type", "button");
                 el.classList.add('list-group-item')
                 el.innerText = json.platforms[i].name
                 listSist.appendChild(el)
@@ -344,17 +368,22 @@ const sugerenciasGen = document.getElementById('sugerencias-gen')
 const listGen = document.getElementById('sugerencias-list-gen')
 let pendingGen = true;
 
+function closeGen(e) {
+    if (e.target !== gen) {
+        sugerenciasGen.classList.add('d-none')
+        modal.removeEventListener('click', closeGen)
+    }
+}
+
 gen.addEventListener('focus', function (e) {
+    closeDis(e);
+    closeSist(e);
+    closeTitle(e);
+    closeDev(e);
     sugerenciasGen.classList.remove('d-none')
     if (pendingGen) {
         loadNamesGen(e)
         pendingGen = false;
-    }
-    function closeGen(e) {
-        if (e.target !== gen) {
-            sugerenciasGen.classList.add('d-none')
-            modal.removeEventListener('click', closeGen)
-        }
     }
     modal.addEventListener('click', closeGen)
 })
@@ -374,7 +403,8 @@ async function loadNamesGen(e) {
         if (length > 0) {
             listGen.innerHTML = ''
             for (let i = 0; i < length; i++) {
-                const el = document.createElement('li')
+                const el = document.createElement('button')
+                el.setAttribute("type", "button");
                 el.classList.add('list-group-item')
                 el.innerText = json.genres[i].name
                 listGen.appendChild(el)
@@ -450,3 +480,6 @@ function checkFilled() {
 
     return valid;
 }
+
+document.getElementById('descripcion').addEventListener('focus', closeTitle);
+document.getElementById('year').addEventListener('focus', closeGen);
