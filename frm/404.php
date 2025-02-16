@@ -45,6 +45,7 @@
             <form action="#" method="get" class="text-center">
                 <svg class="iconoLogo logoTheme" viewBox="0 0 79 80" height="57" data-bs-theme-value-svg="dark"
                      xmlns="http://www.w3.org/2000/svg">
+                    <title>Logo de la compañía</title>
                     <path
                         d="M16.7071 24.2629V16.2629H40.7071V24.2629H16.7071ZM16.7071 56.2629V48.2629H8.7071V24.2629H16.7071V48.2629H32.7071V40.2629H24.7071V32.2629H40.7071V56.2629H16.7071Z"
                         fill="white"/>
