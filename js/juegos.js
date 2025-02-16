@@ -68,6 +68,9 @@ function closeGen(e) {
 }
 
 gen.addEventListener('focus', function (e) {
+    closeDev(e);
+    closeDis(e);
+    closeSist(e);
     sugerenciasGen.classList.remove('d-none')
     loadNamesGen(e)
     filterModalElement.addEventListener('click', closeGen)
@@ -82,7 +85,8 @@ async function loadNamesGen(e) {
         if (length > 0) {
             listGen.innerHTML = ''
             for (let i = 0; i < length; i++) {
-                const el = document.createElement('li')
+                const el = document.createElement('button')
+                el.setAttribute("type", "button");
                 el.classList.add('list-group-item')
                 el.innerText = json.genres[i].name
                 listGen.appendChild(el)
@@ -128,17 +132,21 @@ const sugerenciasDev = document.getElementById('sugerencias-dev')
 const listDev = document.getElementById('sugerencias-list-dev')
 let pendingDev = true;
 
+function closeDev(e) {
+    if (e.target !== dev) {
+        sugerenciasDev.classList.add('d-none')
+        filterModalElement.removeEventListener('click', closeDev)
+    }
+}
+
 dev.addEventListener('focus', function (e) {
+    closeGen(e);
+    closeDis(e);
+    closeSist(e);
     sugerenciasDev.classList.remove('d-none')
     if (pendingDev) {
         loadNamesDev(e)
         pendingDev = false;
-    }
-    function closeDev(e) {
-        if (e.target !== dev) {
-            sugerenciasDev.classList.add('d-none')
-            filterModalElement.removeEventListener('click', closeDev)
-        }
     }
     filterModalElement.addEventListener('click', closeDev)
 })
@@ -158,7 +166,8 @@ async function loadNamesDev(e) {
         if (length > 0) {
             listDev.innerHTML = ''
             for (let i = 0; i < length; i++) {
-                const el = document.createElement('li')
+                const el = document.createElement('button')
+                el.setAttribute("type", "button");
                 el.classList.add('list-group-item')
                 el.innerText = json.companies[i].name
                 listDev.appendChild(el)
@@ -189,15 +198,19 @@ const dis = document.getElementById('dis')
 const sugerenciasDis = document.getElementById('sugerencias-dis')
 const listDis = document.getElementById('sugerencias-list-dis')
 
+function closeDis(e) {
+    if (e.target !== dis) {
+        sugerenciasDis.classList.add('d-none')
+        filterModalElement.removeEventListener('click', closeDis)
+    }
+}
+
 dis.addEventListener('focus', function (e) {
+    closeGen(e);
+    closeDev(e);
+    closeSist(e);
     sugerenciasDis.classList.remove('d-none')
     loadNamesDis(e)
-    function closeDis(e) {
-        if (e.target !== dis) {
-            sugerenciasDis.classList.add('d-none')
-            filterModalElement.removeEventListener('click', closeDis)
-        }
-    }
     filterModalElement.addEventListener('click', closeDis)
 })
 dis.addEventListener('input', startQueueDis)
@@ -216,7 +229,8 @@ async function loadNamesDis(e) {
         if (length > 0) {
             listDis.innerHTML = ''
             for (let i = 0; i < length; i++) {
-                const el = document.createElement('li')
+                const el = document.createElement('button')
+                el.setAttribute("type", "button");
                 el.classList.add('list-group-item')
                 el.innerText = json.companies[i].name
                 listDis.appendChild(el)
@@ -247,15 +261,19 @@ const sist = document.getElementById('sist')
 const sugerenciasSist = document.getElementById('sugerencias-sist')
 const listSist = document.getElementById('sugerencias-list-sist')
 
+function closeSist(e) {
+    if (e.target !== sist) {
+        sugerenciasSist.classList.add('d-none')
+        filterModalElement.removeEventListener('click', closeSist)
+    }
+}
+
 sist.addEventListener('focus', function (e) {
+    closeGen(e);
+    closeDev(e);
+    closeDis(e);
     sugerenciasSist.classList.remove('d-none')
     loadNamesSist(e)
-    function closeSist(e) {
-        if (e.target !== sist) {
-            sugerenciasSist.classList.add('d-none')
-            filterModalElement.removeEventListener('click', closeSist)
-        }
-    }
     filterModalElement.addEventListener('click', closeSist)
 })
 sist.addEventListener('input', startQueueSist)
@@ -274,7 +292,8 @@ async function loadNamesSist(e) {
         if (length > 0) {
             listSist.innerHTML = ''
             for (let i = 0; i < length; i++) {
-                const el = document.createElement('li')
+                const el = document.createElement('button')
+                el.setAttribute("type", "button");
                 el.classList.add('list-group-item')
                 el.innerText = json.platforms[i].name
                 listSist.appendChild(el)
@@ -349,3 +368,12 @@ function getFilters() {
 
     return options;
 }
+
+document.getElementById('cancel-button').addEventListener(
+    'focus', function(e) {
+        closeGen(e);
+        closeDev(e);
+        closeDis(e);
+        closeSist(e);
+    }
+)

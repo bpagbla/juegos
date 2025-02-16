@@ -204,7 +204,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                <button id="cancel-button" type="button" class="btn btn-secondary" data-bs-dismiss="modal"
                     aria-label="Close">Cancelar</button>
                 <button type="submit" class="btn btn-primary" form="add-form">Aplicar</button>
             </div>
