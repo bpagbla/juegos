@@ -329,6 +329,10 @@ class Controlador
         }
     }
 
+    /**
+     * Función para comprobar si hay sesión creada y para cerrarla
+     * @return void
+     */
     public function validateSession()
     {
         //si hay una sesion creada y se hace logout se destruye la sesión y se envia al landing
@@ -345,6 +349,7 @@ class Controlador
     }
 
     /**
+     * Función para validar sesión de usuario administrador y para cerrar sesión
      * @return void
      */
     public function validateAdminSession()
@@ -367,6 +372,10 @@ class Controlador
     }
 
     //ADMIN
+    /**
+     * función para iniciar la página de administrar usuarios. Requiere que la sesión activa sea de perfil administrador
+     * @return void
+     */
     public function iniciaAdminUsuarios()
     {
         //Valida la sessión. Si erronea o logout envia a login.
@@ -536,6 +545,13 @@ class Controlador
 
     }
 
+    /**
+     * función para guardar img en la carpeta img/game-thumbnail/
+     * @param string $file
+     * @param int $id
+     * 
+     * @return int|string
+     */
     public function thumbnailFilesUpload($file, $id)
     {
         $mime = $_FILES[$file]["type"];
@@ -562,6 +578,12 @@ class Controlador
         curl_close($curl); //cierra curl
         fclose($archivo); // cierra gestor de escritura
     }
+    /**
+     * función para sacar el tipo mime de un archivo
+     * @param string $url
+     * 
+     * @return string
+     */
     function get_mime_type($url)
     {
         $ch = curl_init($url);
@@ -588,6 +610,11 @@ class Controlador
     }
 
 
+    /**
+     * @param mixed $json_data
+     * 
+     * @return void
+     */
     public function importarGameJson($json_data)
     {
         foreach ($json_data as $juego) {
@@ -1259,6 +1286,10 @@ class Controlador
 
     }
 
+    /**
+     * Función para mostrar la página de juegos
+     * @return void
+     */
     public function iniciaJuegos()
     {
 

@@ -63,17 +63,17 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Carrito\u003A\u003AsetCarrito\u0028\u0029",
             "name": "setCarrito",
-            "summary": "",
+            "summary": "Funci\u00F3n\u0020para\u0020establecer\u0020el\u0020carrito\u0020con\u0020los\u0020ID\u0020de\u0020los\u0020juegos\u0020que\u0020se\u0020pasen\u0020en\u0020un\u0020array\u0020como\u0020parametro",
             "url": "classes/Carrito.html#method_setCarrito"
         },                {
             "fqsen": "\\Carrito\u003A\u003AmeterJuegoCarrito\u0028\u0029",
             "name": "meterJuegoCarrito",
-            "summary": "",
+            "summary": "Funci\u00F3n\u0020para\u0020a\u00F1adir\u0020un\u0020juego\u0020al\u0020carrito.\u0020Se\u0020almacena\u0020el\u0020id,\u0020el\u0020nombre\u0020y\u0020el\u0020precio",
             "url": "classes/Carrito.html#method_meterJuegoCarrito"
         },                {
             "fqsen": "\\Carrito\u003A\u003AsacarJuegoCarrito\u0028\u0029",
             "name": "sacarJuegoCarrito",
-            "summary": "",
+            "summary": "Funci\u00F3n\u0020para\u0020eliminar\u0020un\u0020juego\u0020del\u0020carrito",
             "url": "classes/Carrito.html#method_sacarJuegoCarrito"
         },                {
             "fqsen": "\\Carrito\u003A\u003AgetCarrito\u0028\u0029",
@@ -223,12 +223,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Controlador\u003A\u003AverificaUsuario\u0028\u0029",
             "name": "verificaUsuario",
-            "summary": "",
+            "summary": "Funcion\u0020para\u0020verificar\u0020usuario",
             "url": "classes/Controlador.html#method_verificaUsuario"
         },                {
             "fqsen": "\\Controlador\u003A\u003AsendNotification\u0028\u0029",
             "name": "sendNotification",
-            "summary": "",
+            "summary": "Funci\u00F3n\u0020para\u0020mandar\u0020notificaciones.\u0020Guarda\u0020el\u0020titulo\u0020y\u0020el\u0020mensaje\u0020en\u0020la\u0020variable\u0020session\u005B\u0022notificaciones\u0022\u005D",
             "url": "classes/Controlador.html#method_sendNotification"
         },                {
             "fqsen": "\\model",
@@ -246,6 +246,26 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/model.html#method_getAllGames"
         },                {
+            "fqsen": "\\model\u003A\u003AgetAllGamesID\u0028\u0029",
+            "name": "getAllGamesID",
+            "summary": "",
+            "url": "classes/model.html#method_getAllGamesID"
+        },                {
+            "fqsen": "\\model\u003A\u003AgetGamesID\u0028\u0029",
+            "name": "getGamesID",
+            "summary": "",
+            "url": "classes/model.html#method_getGamesID"
+        },                {
+            "fqsen": "\\model\u003A\u003AgetFilterSist\u0028\u0029",
+            "name": "getFilterSist",
+            "summary": "",
+            "url": "classes/model.html#method_getFilterSist"
+        },                {
+            "fqsen": "\\model\u003A\u003AgetFilterGeneros\u0028\u0029",
+            "name": "getFilterGeneros",
+            "summary": "",
+            "url": "classes/model.html#method_getFilterGeneros"
+        },                {
             "fqsen": "\\model\u003A\u003AgetGeneros\u0028\u0029",
             "name": "getGeneros",
             "summary": "",
@@ -260,6 +280,16 @@ Search.appendIndex(
             "name": "getSistJuego",
             "summary": "",
             "url": "classes/model.html#method_getSistJuego"
+        },                {
+            "fqsen": "\\model\u003A\u003AgetFilterDis\u0028\u0029",
+            "name": "getFilterDis",
+            "summary": "",
+            "url": "classes/model.html#method_getFilterDis"
+        },                {
+            "fqsen": "\\model\u003A\u003AgetFilterDev\u0028\u0029",
+            "name": "getFilterDev",
+            "summary": "",
+            "url": "classes/model.html#method_getFilterDev"
         },                {
             "fqsen": "\\model\u003A\u003AgetComp\u0028\u0029",
             "name": "getComp",
@@ -278,12 +308,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\model\u003A\u003AgetUserData\u0028\u0029",
             "name": "getUserData",
-            "summary": "",
+            "summary": "Funci\u00F3n\u0020para\u0020extraer\u0020los\u0020datos\u0020del\u0020usuario\u0020de\u0020la\u0020base\u0020de\u0020datos",
             "url": "classes/model.html#method_getUserData"
         },                {
             "fqsen": "\\model\u003A\u003AgetID\u0028\u0029",
             "name": "getID",
-            "summary": "",
+            "summary": "Funci\u00F3n\u0020para\u0020sacar\u0020el\u0020id\u0020del\u0020usuario\u0020seg\u00FAn\u0020el\u0020email\u0020o\u0020el\u0020nick\u0020de\u0020la\u0020base\u0020de\u0020datos",
             "url": "classes/model.html#method_getID"
         },                {
             "fqsen": "\\model\u003A\u003AconsultaPasswd\u0028\u0029",
@@ -298,7 +328,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\model\u003A\u003AanadirUsuario\u0028\u0029",
             "name": "anadirUsuario",
-            "summary": "",
+            "summary": "Funci\u00F3n\u0020para\u0020convertir\u0020a\u0020hash\u0020la\u0020contrase\u00F1a\u0020y\u0020a\u00F1adir\u0020un\u0020usuario\u0020a\u0020la\u0020base\u0020de\u0020datos",
             "url": "classes/model.html#method_anadirUsuario"
         },                {
             "fqsen": "\\model\u003A\u003AaddGame\u0028\u0029",

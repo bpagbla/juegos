@@ -669,6 +669,10 @@ class model
         return $array; //devolver el array con todos los sistemas
     }
 
+   /**
+    * Función para sacar todos los usuarios de la base de datos
+    * @return array
+    */
     static function getAllUsers()
     {
         include_once "BD/baseDeDatos.php";
@@ -1148,6 +1152,12 @@ class model
 
     }
 
+    /**
+     * Función para borrar un juego del carrito en la base de datos
+     * @param int $id
+     * 
+     * @return bool
+     */
     public static function borrarJuegoCarrito($id)
     {
         include_once "BD/baseDeDatos.php";
