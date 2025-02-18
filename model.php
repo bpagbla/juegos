@@ -1259,6 +1259,11 @@ class model
         return $id; //devolver id
     }
 
+    /**
+     * @param string $nombre
+     * 
+     * @return int|string
+     */
     public static function getSistId($nombre)
     {
         include_once "BD/baseDeDatos.php";
@@ -1278,6 +1283,14 @@ class model
         return $id; //devolver id
     }
 
+    /**
+     * función para eliminar una tarjeta de la base de datos
+     * @param int $id
+     * @param int $num
+     * @param DateTime $exp
+     * 
+     * @return void
+     */
     public static function removeTarjeta($id, $num, $exp)
     {
 
@@ -1403,6 +1416,13 @@ class model
         return $array;
     }
 
+    /**
+     * Función para comprobar si un usuario posee un juego o no
+     * @param int $idUser
+     * @param int $idJuego
+     * 
+     * @return bool
+     */
     public static function poseeJuego($idUser, $idJuego)
     {
         include_once "BD/baseDeDatos.php";
@@ -1450,6 +1470,15 @@ class model
         return $consulta;
     }
 
+    /**
+     * función para añadir un préstamo a la base de datos
+     * @param int $idUser1
+     * @param int $idUser2
+     * @param int $idJuego
+     * @param DateTime $fecha
+     * 
+     * @return bool
+     */
     public static function prestarJuegoUsuario($idUser1, $idUser2, $idJuego, $fecha)
     {
         include_once "BD/baseDeDatos.php";

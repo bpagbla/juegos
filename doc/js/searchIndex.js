@@ -483,7 +483,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\model\u003A\u003AremoveTarjeta\u0028\u0029",
             "name": "removeTarjeta",
-            "summary": "",
+            "summary": "funci\u00F3n\u0020para\u0020eliminar\u0020una\u0020tarjeta\u0020de\u0020la\u0020base\u0020de\u0020datos",
             "url": "classes/model.html#method_removeTarjeta"
         },                {
             "fqsen": "\\model\u003A\u003AaddTarjeta\u0028\u0029",
@@ -538,7 +538,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\model\u003A\u003AposeeJuego\u0028\u0029",
             "name": "poseeJuego",
-            "summary": "",
+            "summary": "Funci\u00F3n\u0020para\u0020comprobar\u0020si\u0020un\u0020usuario\u0020posee\u0020un\u0020juego\u0020o\u0020no",
             "url": "classes/model.html#method_poseeJuego"
         },                {
             "fqsen": "\\model\u003A\u003AgetRole\u0028\u0029",
@@ -558,7 +558,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\model\u003A\u003AprestarJuegoUsuario\u0028\u0029",
             "name": "prestarJuegoUsuario",
-            "summary": "",
+            "summary": "funci\u00F3n\u0020para\u0020a\u00F1adir\u0020un\u0020pr\u00E9stamo\u0020a\u0020la\u0020base\u0020de\u0020datos",
             "url": "classes/model.html#method_prestarJuegoUsuario"
         },                {
             "fqsen": "\\model\u003A\u003AgetJuegosPrestados\u0028\u0029",
