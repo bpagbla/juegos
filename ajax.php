@@ -46,6 +46,10 @@ foreach ($promociones as $key => $valores) {
 }
 
 
+/**
+ * función para recalcular el precio total del carrito
+ * @return void
+ */
 function recalcPrecios(){
     $_SESSION["totalPrecio"]=0;
     $carrito = new Carrito();

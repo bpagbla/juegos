@@ -1,4 +1,9 @@
 <?php
+/**
+ * @param int $number
+ * 
+ * @return int|string
+ */
 function resolve($number) {
     $number = str_split($number);
     $total = 0;

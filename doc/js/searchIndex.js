@@ -3,7 +3,7 @@ Search.appendIndex(
                 {
             "fqsen": "\\recalcPrecios\u0028\u0029",
             "name": "recalcPrecios",
-            "summary": "",
+            "summary": "funci\u00F3n\u0020para\u0020recalcular\u0020el\u0020precio\u0020total\u0020del\u0020carrito",
             "url": "namespaces/default.html#function_recalcPrecios"
         },                {
             "fqsen": "\\BaseDeDatos",
