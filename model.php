@@ -684,6 +684,13 @@ class model
 
     }
 
+   /**
+    * Función para extraer los datos del usuario de la base de datos
+    * 
+    * @param mixed $id
+    * 
+    * @return array
+    */
     static function getUserData($id)
     {
         include_once "BD/baseDeDatos.php";
@@ -699,6 +706,13 @@ class model
 
     }
 
+   /**
+    * Función para sacar el id del usuario según el email o el nick de la base de datos
+    * 
+    * @param string $loginID
+    * 
+    * @return int
+    */
     static function getID($loginID)
     {
         //Include the ddbb class
@@ -750,6 +764,18 @@ class model
         return $ddbb->consulta("SELECT nick,email,id,role,carrito FROM `usuario` WHERE ID=?", array($id)); //Sacan datos de usuario para guardar en la session
     }
 
+   /**
+    * Función para convertir a hash la contraseña y añadir un usuario a la base de datos
+    * 
+    * @param string $email
+    * @param string $nick
+    * @param string $nombre
+    * @param string $apel
+    * @param string $pass
+    * @param string $role
+    * 
+    * @return void
+    */
     static function anadirUsuario($email, $nick, $nombre, $apel, $pass, $role = 'user')
     {
 

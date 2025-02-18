@@ -344,6 +344,9 @@ class Controlador
         }
     }
 
+    /**
+     * @return void
+     */
     public function validateAdminSession()
     {
         //si hay una sesion creada y se hace logout se destruye la sesión y se envia al landing
@@ -1693,6 +1696,8 @@ class Controlador
 
     //funcion para verificar usuario
     /**
+     * Funcion para verificar usuario
+     * 
      * @param int $id
      * 
      * @return bool
@@ -1728,6 +1733,9 @@ class Controlador
 
     //Funcion para mandar notificaciones
     /**
+     * 
+     * Función para mandar notificaciones. Guarda el titulo y el mensaje en la variable session["notificaciones"]
+     * 
      * @param string $title
      * @param string $body
      * @param int $time
