@@ -177,13 +177,14 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Controlador.html#method_get_mime_type">get_mime_type()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: string    </span>
 </dt>
+<dd>función para sacar el tipo mime de un archivo</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Controlador.html#method_importarGameJson">importarGameJson()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: void    </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
@@ -231,8 +232,9 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Controlador.html#method_iniciaAdminUsuarios">iniciaAdminUsuarios()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: void    </span>
 </dt>
+<dd>función para iniciar la página de administrar usuarios. Requiere que la sesión activa sea de perfil administrador</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Controlador.html#method_iniciaAjustes">iniciaAjustes()</a>
@@ -249,8 +251,9 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Controlador.html#method_iniciaJuegos">iniciaJuegos()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: void    </span>
 </dt>
+<dd>Función para mostrar la página de juegos</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Controlador.html#method_iniciaJugar">iniciaJugar()</a>
@@ -292,8 +295,9 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Controlador.html#method_thumbnailFilesUpload">thumbnailFilesUpload()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: int|string    </span>
 </dt>
+<dd>función para guardar img en la carpeta img/game-thumbnail/</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Controlador.html#method_vaciarUploads">vaciarUploads()</a>
@@ -306,12 +310,14 @@
     <span>
                                 &nbsp;: void    </span>
 </dt>
+<dd>Función para validar sesión de usuario administrador y para cerrar sesión</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Controlador.html#method_validateSession">validateSession()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: void    </span>
 </dt>
+<dd>Función para comprobar si hay sesión creada y para cerrarla</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/Controlador.html#method_verificaUsuario">verificaUsuario()</a>
@@ -348,7 +354,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="index.php"><a href="files/index.html">index.php</a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1686</span>
+    <span class="phpdocumentor-element-found-in__line">1717</span>
 
     </aside>
 
@@ -386,7 +392,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="index.php"><a href="files/index.html">index.php</a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">554</span>
+    <span class="phpdocumentor-element-found-in__line">570</span>
 
     </aside>
 
@@ -471,7 +477,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="index.php"><a href="files/index.html">index.php</a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">584</span>
+    <span class="phpdocumentor-element-found-in__line">606</span>
 
     </aside>
 
@@ -505,14 +511,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="index.php"><a href="files/index.html">index.php</a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">565</span>
+    <span class="phpdocumentor-element-found-in__line">587</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">función para sacar el tipo mime de un archivo</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">get_mime_type</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$url</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">get_mime_type</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$url</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -522,7 +529,7 @@
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$url</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -533,7 +540,11 @@
 
     
 
-    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -549,14 +560,14 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="index.php"><a href="files/index.html">index.php</a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">591</span>
+    <span class="phpdocumentor-element-found-in__line">618</span>
 
     </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">importarGameJson</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$json_data</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">importarGameJson</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$json_data</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -593,7 +604,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="index.php"><a href="files/index.html">index.php</a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">662</span>
+    <span class="phpdocumentor-element-found-in__line">689</span>
 
     </aside>
 
@@ -671,7 +682,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="index.php"><a href="files/index.html">index.php</a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1677</span>
+    <span class="phpdocumentor-element-found-in__line">1708</span>
 
     </aside>
 
@@ -705,7 +716,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="index.php"><a href="files/index.html">index.php</a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1138</span>
+    <span class="phpdocumentor-element-found-in__line">1165</span>
 
     </aside>
 
@@ -739,7 +750,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="index.php"><a href="files/index.html">index.php</a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1059</span>
+    <span class="phpdocumentor-element-found-in__line">1086</span>
 
     </aside>
 
@@ -773,7 +784,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="index.php"><a href="files/index.html">index.php</a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">758</span>
+    <span class="phpdocumentor-element-found-in__line">785</span>
 
     </aside>
 
@@ -807,7 +818,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="index.php"><a href="files/index.html">index.php</a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1099</span>
+    <span class="phpdocumentor-element-found-in__line">1126</span>
 
     </aside>
 
@@ -841,14 +852,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="index.php"><a href="files/index.html">index.php</a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">370</span>
+    <span class="phpdocumentor-element-found-in__line">379</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">función para iniciar la página de administrar usuarios. Requiere que la sesión activa sea de perfil administrador</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">iniciaAdminUsuarios</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">iniciaAdminUsuarios</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -875,7 +887,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="index.php"><a href="files/index.html">index.php</a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1423</span>
+    <span class="phpdocumentor-element-found-in__line">1454</span>
 
     </aside>
 
@@ -909,7 +921,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="index.php"><a href="files/index.html">index.php</a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1184</span>
+    <span class="phpdocumentor-element-found-in__line">1211</span>
 
     </aside>
 
@@ -943,14 +955,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="index.php"><a href="files/index.html">index.php</a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1262</span>
+    <span class="phpdocumentor-element-found-in__line">1293</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Función para mostrar la página de juegos</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">iniciaJuegos</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">iniciaJuegos</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -977,7 +990,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="index.php"><a href="files/index.html">index.php</a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1241</span>
+    <span class="phpdocumentor-element-found-in__line">1268</span>
 
     </aside>
 
@@ -1011,7 +1024,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="index.php"><a href="files/index.html">index.php</a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1402</span>
+    <span class="phpdocumentor-element-found-in__line">1433</span>
 
     </aside>
 
@@ -1045,7 +1058,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="index.php"><a href="files/index.html">index.php</a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1526</span>
+    <span class="phpdocumentor-element-found-in__line">1557</span>
 
     </aside>
 
@@ -1079,7 +1092,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="index.php"><a href="files/index.html">index.php</a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1633</span>
+    <span class="phpdocumentor-element-found-in__line">1664</span>
 
     </aside>
 
@@ -1113,7 +1126,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="index.php"><a href="files/index.html">index.php</a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1222</span>
+    <span class="phpdocumentor-element-found-in__line">1249</span>
 
     </aside>
 
@@ -1147,7 +1160,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="index.php"><a href="files/index.html">index.php</a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1745</span>
+    <span class="phpdocumentor-element-found-in__line">1776</span>
 
     </aside>
 
@@ -1206,14 +1219,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="index.php"><a href="files/index.html">index.php</a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">539</span>
+    <span class="phpdocumentor-element-found-in__line">555</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">función para guardar img en la carpeta img/game-thumbnail/</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">thumbnailFilesUpload</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$file</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">thumbnailFilesUpload</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$file</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int|string</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1223,14 +1237,14 @@
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$file</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$id</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -1241,7 +1255,11 @@
 
     
 
-    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int|string</span>
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -1257,7 +1275,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="index.php"><a href="files/index.html">index.php</a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">748</span>
+    <span class="phpdocumentor-element-found-in__line">775</span>
 
     </aside>
 
@@ -1291,11 +1309,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="index.php"><a href="files/index.html">index.php</a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">350</span>
+    <span class="phpdocumentor-element-found-in__line">355</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Función para validar sesión de usuario administrador y para cerrar sesión</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">validateAdminSession</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
@@ -1325,14 +1344,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="index.php"><a href="files/index.html">index.php</a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">332</span>
+    <span class="phpdocumentor-element-found-in__line">336</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Función para comprobar si hay sesión creada y para cerrarla</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">validateSession</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">validateSession</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1359,7 +1379,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="index.php"><a href="files/index.html">index.php</a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1705</span>
+    <span class="phpdocumentor-element-found-in__line">1736</span>
 
     </aside>
 

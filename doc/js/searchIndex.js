@@ -18,7 +18,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\BaseDeDatos\u003A\u003Aconsulta\u0028\u0029",
             "name": "consulta",
-            "summary": "",
+            "summary": "funcion\u0020para\u0020hacer\u0020consultas\u0020con\u0020un\u0020query\u0020sql",
             "url": "classes/BaseDeDatos.html#method_consulta"
         },                {
             "fqsen": "\\BaseDeDatos\u003A\u003Ainsert\u0028\u0029",
@@ -28,12 +28,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\BaseDeDatos\u003A\u003Aupdate\u0028\u0029",
             "name": "update",
-            "summary": "",
+            "summary": "funci\u00F3n\u0020para\u0020actualizar\u0020datos\u0020en\u0020la\u0020base\u0020de\u0020datos",
             "url": "classes/BaseDeDatos.html#method_update"
         },                {
             "fqsen": "\\BaseDeDatos\u003A\u003Adelete\u0028\u0029",
             "name": "delete",
-            "summary": "",
+            "summary": "funci\u00F3n\u0020para\u0020borrar\u0020datos\u0020de\u0020la\u0020base\u0020de\u0020datos",
             "url": "classes/BaseDeDatos.html#method_delete"
         },                {
             "fqsen": "\\BaseDeDatos\u003A\u003Acerrar\u0028\u0029",
@@ -103,22 +103,22 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Controlador\u003A\u003AvalidateSession\u0028\u0029",
             "name": "validateSession",
-            "summary": "",
+            "summary": "Funci\u00F3n\u0020para\u0020comprobar\u0020si\u0020hay\u0020sesi\u00F3n\u0020creada\u0020y\u0020para\u0020cerrarla",
             "url": "classes/Controlador.html#method_validateSession"
         },                {
             "fqsen": "\\Controlador\u003A\u003AvalidateAdminSession\u0028\u0029",
             "name": "validateAdminSession",
-            "summary": "",
+            "summary": "Funci\u00F3n\u0020para\u0020validar\u0020sesi\u00F3n\u0020de\u0020usuario\u0020administrador\u0020y\u0020para\u0020cerrar\u0020sesi\u00F3n",
             "url": "classes/Controlador.html#method_validateAdminSession"
         },                {
             "fqsen": "\\Controlador\u003A\u003AiniciaAdminUsuarios\u0028\u0029",
             "name": "iniciaAdminUsuarios",
-            "summary": "",
+            "summary": "funci\u00F3n\u0020para\u0020iniciar\u0020la\u0020p\u00E1gina\u0020de\u0020administrar\u0020usuarios.\u0020Requiere\u0020que\u0020la\u0020sesi\u00F3n\u0020activa\u0020sea\u0020de\u0020perfil\u0020administrador",
             "url": "classes/Controlador.html#method_iniciaAdminUsuarios"
         },                {
             "fqsen": "\\Controlador\u003A\u003AthumbnailFilesUpload\u0028\u0029",
             "name": "thumbnailFilesUpload",
-            "summary": "",
+            "summary": "funci\u00F3n\u0020para\u0020guardar\u0020img\u0020en\u0020la\u0020carpeta\u0020img\/game\u002Dthumbnail\/",
             "url": "classes/Controlador.html#method_thumbnailFilesUpload"
         },                {
             "fqsen": "\\Controlador\u003A\u003Adownload_image1\u0028\u0029",
@@ -128,7 +128,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Controlador\u003A\u003Aget_mime_type\u0028\u0029",
             "name": "get_mime_type",
-            "summary": "",
+            "summary": "funci\u00F3n\u0020para\u0020sacar\u0020el\u0020tipo\u0020mime\u0020de\u0020un\u0020archivo",
             "url": "classes/Controlador.html#method_get_mime_type"
         },                {
             "fqsen": "\\Controlador\u003A\u003AgenIdNeg\u0028\u0029",
@@ -188,7 +188,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Controlador\u003A\u003AiniciaJuegos\u0028\u0029",
             "name": "iniciaJuegos",
-            "summary": "",
+            "summary": "Funci\u00F3n\u0020para\u0020mostrar\u0020la\u0020p\u00E1gina\u0020de\u0020juegos",
             "url": "classes/Controlador.html#method_iniciaJuegos"
         },                {
             "fqsen": "\\Controlador\u003A\u003AiniciaLogin\u0028\u0029",
@@ -303,7 +303,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\model\u003A\u003AgetAllUsers\u0028\u0029",
             "name": "getAllUsers",
-            "summary": "",
+            "summary": "Funci\u00F3n\u0020para\u0020sacar\u0020todos\u0020los\u0020usuarios\u0020de\u0020la\u0020base\u0020de\u0020datos",
             "url": "classes/model.html#method_getAllUsers"
         },                {
             "fqsen": "\\model\u003A\u003AgetUserData\u0028\u0029",
@@ -448,7 +448,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\model\u003A\u003AborrarJuegoCarrito\u0028\u0029",
             "name": "borrarJuegoCarrito",
-            "summary": "",
+            "summary": "Funci\u00F3n\u0020para\u0020borrar\u0020un\u0020juego\u0020del\u0020carrito\u0020en\u0020la\u0020base\u0020de\u0020datos",
             "url": "classes/model.html#method_borrarJuegoCarrito"
         },                {
             "fqsen": "\\model\u003A\u003AgetGame\u0028\u0029",

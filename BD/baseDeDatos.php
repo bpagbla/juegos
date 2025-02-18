@@ -18,6 +18,7 @@ class BaseDeDatos
 
     //funcion para hacer consultas con un query sql
     /**
+     * funcion para hacer consultas con un query sql
      * @param string $sql
      * @param array $array
      * @return array|null
@@ -47,10 +48,24 @@ class BaseDeDatos
         return $stmt->execute($array);
     }
 
+    /**
+     * función para actualizar datos en la base de datos
+     * @param string $sql
+     * @param array $array
+     * 
+     * @return bool
+     */
     public function update($sql,$array) {
         return $this->insert($sql,$array);
     }
 
+    /**
+     * función para borrar datos de la base de datos
+     * @param string $sql
+     * @param array $array
+     * 
+     * @return bool
+     */
     public function delete($sql,$array) {
         return $this->insert($sql,$array);
     }
