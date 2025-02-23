@@ -1258,11 +1258,8 @@ class Controlador
                     $precio = $precio * (1 - $valores[2] / 100);
                 }
             }
-            if (!isset($_SESSION["totalPrecio"])) {
-                $_SESSION["totalPrecio"] = $precio;
-            } else {
+            //se suma al total
                 $_SESSION["totalPrecio"] += $precio;
-            }
         }
     }
     public function iniciaJugar()

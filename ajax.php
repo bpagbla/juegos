@@ -51,22 +51,22 @@ foreach ($promociones as $key => $valores) {
  * @return void
  */
 function recalcPrecios(){
-    $_SESSION["totalPrecio"]=0;
+    $_SESSION["totalPrecio"]=0; //Se pone a 0 el precio total
     $carrito = new Carrito();
     $carrito = unserialize($_SESSION['carrito']);
 
-    $juegos = $carrito->getCarrito() ;
+    $juegos = $carrito->getCarrito() ; //se sacan los juegos del carrito
 
 
     foreach ($juegos as $key => $value) {
-        $precio = $value[1] / 100;
+        $precio = $value[1] / 100; //precio original del juego
 
-        if (!empty($_SESSION["promoAct"])) {
+        if (!empty($_SESSION["promoAct"])) { //preico en caso de que exista una promocion activa
             foreach ($_SESSION["promoAct"] as $promo => $valores) {
                 $precio = $precio * (1 - $valores[2] / 100);
             }
         }
-        $_SESSION["totalPrecio"] += $precio;
+        $_SESSION["totalPrecio"] += $precio; //Se suma el precio
     }
     echo true;
 }
