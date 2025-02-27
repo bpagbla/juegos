@@ -182,7 +182,43 @@
             </form>
         </div>
     </main>
+    <div id="div-cookies" class="card z-1 position-absolute bottom-0 left-0 ms-2 mb-2" style="width: 24rem;">
+        <div class="card-body">
+            <h5 class="card-title">Esta pagina usa cookies</h5>
+            <p class="card-text">Las cookies de este sitio web se usa para ofrecer funciones de redes sociales y analizar el tráfico. Lee mas en <a id="cookie-link" class="card-link">nuestra politica de cookies</a>.</p>
+            <a href="#" class="card-link cookie-button">Aceptar Todos</a>
+            <a href="#" class="card-link cookie-button">Denegar Todos</a>
+        </div>
+    </div>
+    <div id="modal" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Politica de cookies</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h5>Tipos de cookies que utilizamos</h5>
+                    <p>Cookies necesarias: Estas cookies son esenciales para que el sitio web funcione correctamente y le permitan navegar por él. Sin estas cookies, los servicios solicitados, como la autenticación o el acceso a áreas seguras del sitio, no podrían ser proporcionados.</p>
+                    <p>Cookies de rendimiento: Estas cookies recopilan información sobre cómo los usuarios interactúan con nuestro sitio web, como las páginas visitadas con mayor frecuencia. No recogen información personal y solo se usan para mejorar el funcionamiento del sitio.</p>
+                    <p>Cookies funcionales: Estas cookies permiten que el sitio web recuerde las elecciones que usted realiza (como el idioma o la región) para ofrecerle una experiencia más personalizada. Pueden también ser utilizadas para recordar sus preferencias y configuraciones en visitas posteriores.</p>
+                    <p>Cookies de publicidad o de terceros: Utilizamos cookies de terceros para mostrarle anuncios más relevantes para usted, basados en sus intereses. Estas cookies también se utilizan para limitar la cantidad de veces que ve un anuncio y medir la efectividad de las campañas publicitarias.</p>
+                    <p>Cookies de análisis: Estas cookies nos permiten analizar el tráfico del sitio web, identificar tendencias y comprender cómo los usuarios interactúan con nuestro contenido. Las herramientas de análisis, como Google Analytics, son ejemplos de estas cookies.</p>
+                    <h5>¿Cómo puede gestionar las cookies?</h5>
+                    <p>Al acceder a nuestro sitio web, le preguntaremos si acepta el uso de cookies. Si no desea aceptar las cookies, puede configurar su navegador para bloquearlas o eliminar las cookies ya almacenadas. Tenga en cuenta que bloquear o eliminar las cookies puede afectar la funcionalidad de nuestro sitio web.</p>
+                    <h5>Cambios en la Política de Cookies</h5>
+                    <p>Nos reservamos el derecho de actualizar esta Política de Cookies en cualquier momento. Le notificaremos sobre cualquier cambio publicando la nueva versión en esta página. Le recomendamos que revise esta política periódicamente para estar informado sobre cómo usamos las cookies.</p>
+                    <h5>Contacto</h5>
+                    <p>Si tiene alguna pregunta sobre nuestra Política de Cookies, puede ponerse en contacto con nosotros a través de abuso@gamesru.us</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/cookies.js"></script>
     <?php
     //If attempted to login, show the toast for login error.
     if ($loginAttempt) {
